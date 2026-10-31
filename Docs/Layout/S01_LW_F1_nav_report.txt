@@ -1,0 +1,69 @@
+== Persistence ==
+navigation being built right after load: False
+immediate path Intake->Hub (no ticks waited): VALID (2 pts, 4200 cm)
+RecastNavMesh actors in level: 1
+NavMeshBoundsVolume origin=(3800,800,450) extent=(5100,3100,600)
+
+== Marker reachability from intake spawn (NavDest:Yes) ==
+  CafeteriaSeat  24/24 reachable
+  CellAssignment 12/12 reachable
+  Conversation   5/5 reachable
+  Duty           5/5 reachable
+  Inspection     14/14 reachable
+  Intake         1/1 reachable
+  Lockdown       13/13 reachable
+  Patrol         17/17 reachable
+  Recreation     6/6 reachable
+  failures: 0
+
+== Legs relevant to NPC routes ==
+  DutyStart_Guard_Residential -> Patrol_C_01_Walkway   OK   900 cm,  2 pts, peak z 340
+  Patrol_C_01_Walkway -> Patrol_A_02_HallWest          OK  4220 cm,  4 pts, peak z 340
+  Patrol_A_02_HallWest -> Patrol_A_04_HallEast         OK  2200 cm,  2 pts, peak z 10
+  Patrol_A_04_HallEast -> DutyStart_Guard_Residential  OK  1590 cm,  3 pts, peak z 340
+  Patrol_A_01_Post -> Patrol_A_03_HallMid              OK  2287 cm,  4 pts, peak z 340
+  DutyStart_Guard_Roving -> Patrol_A_07_EastCorr       OK  1530 cm,  2 pts, peak z 10
+  Patrol_A_07_EastCorr -> Patrol_A_08_Cafeteria        OK  1450 cm,  2 pts, peak z 10
+  Patrol_A_08_Cafeteria -> Patrol_A_09_EastLinkNS      OK  1401 cm,  2 pts, peak z 10
+  Patrol_A_09_EastLinkNS -> Patrol_A_10_EastLinkEW     OK  1066 cm,  3 pts, peak z 10
+  Patrol_A_10_EastLinkEW -> Patrol_A_11_Recreation     OK  1800 cm,  2 pts, peak z 10
+  Patrol_A_11_Recreation -> Patrol_A_12_NorthLink      OK  1069 cm,  2 pts, peak z 10
+  Patrol_A_12_NorthLink -> Patrol_A_06_Hub             OK   600 cm,  2 pts, peak z 10
+  Patrol_A_05_GateG1 -> Patrol_A_02_HallWest           OK  2600 cm,  2 pts, peak z 10
+  Patrol_B_02_Vestibule -> Patrol_B_03_StairLobby      OK   450 cm,  2 pts, peak z 10
+  Patrol_B_03_StairLobby -> Patrol_B_04_UpperLanding   OK  1942 cm,  8 pts, peak z 510
+  Patrol_B_04_UpperLanding -> Patrol_B_01_Hub          OK  2939 cm, 10 pts, peak z 510
+  Work_Servery_S -> Work_Kitchen_Gap                   OK   396 cm,  3 pts, peak z 10
+  Work_Kitchen_Gap -> Work_Servery_N                   OK   397 cm,  3 pts, peak z 10
+  Work_Servery_N -> Intake_Desk_Position               OK  7904 cm,  6 pts, peak z 10
+  CellAssign_Cell_N2 -> Rec_Table_A                    OK  5408 cm, 10 pts, peak z 10
+  CellAssign_Cell_S2 -> Conv_Cafe_B                    OK  6903 cm,  8 pts, peak z 10
+  CellAssign_Cell_N5 -> Rec_Weights                    OK  4844 cm, 12 pts, peak z 10
+  CellAssign_Cell_S4 -> Work_Servery_S                 OK  6138 cm,  7 pts, peak z 10
+  Seat_Table_1_1 -> Rec_Yard_Walk                      OK  3852 cm, 10 pts, peak z 10
+  all NPC legs OK: True
+
+== Secured / unreachable spaces ==
+  kitchen interior (7800,600)                  on navmesh; path NONE (OK)
+  beyond Floor 2 exit (4600,-900,512)          not on navmesh (OK)
+  outside intake arrival door (-1000,400)      not on navmesh (OK)
+
+== Navmesh coverage by room (100 cm grid, 70 cm inset, floor height) ==
+  Intake_Bay            32/ 35 (91%)
+  Cell_Block_Hall      189/189 (100%)
+  Hall_Stair_Alcove     19/ 28 (68%)
+  Guard_Post            21/ 28 (75%)
+  Gate_G1                9/  9 (100%)
+  Central_Hub          121/121 (100%)
+  East_Corridor         33/ 33 (100%)
+  Cafeteria            253/289 (88%)
+  Kitchen_Shell         99/ 99 (100%)
+  North_Link            15/ 15 (100%)
+  Recreation           309/323 (96%)
+  Washrooms            135/135 (100%)
+  East_Link_1           32/ 32 (100%)
+  East_Link_2           14/ 14 (100%)
+  Stair_Vestibule       12/ 12 (100%)
+  Stair_Core            96/110 (87%)
+  cells below 85% coverage: Cell_N1 9/12, Cell_N2 10/12, Cell_N3 10/12, Cell_N4 10/12, Cell_N5 10/12, Cell_N6 10/12, Cell_N7 10/12, Cell_S1 9/12, Cell_S2 9/12, Cell_S3 9/12, Cell_S4 9/12, Cell_S5 9/12
+  other rooms below 85%: Hall_Stair_Alcove 19/28, Guard_Post 21/28

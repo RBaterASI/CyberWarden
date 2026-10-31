@@ -53,6 +53,23 @@
     "Stair_Core":        { "area": "Staircase",  "sign": "RESTRICTED STAIRCASE" }
   },
 
+  "marker_types": {
+    "_comment": "nav = may be used as an NPC navigation destination (tag NavDest:Yes/No). Metadata-only types stay in the level.",
+    "CellAssignment": { "nav": true },
+    "Lockdown":       { "nav": true },
+    "Inspection":     { "nav": true },
+    "CafeteriaSeat":  { "nav": true },
+    "Conversation":   { "nav": true },
+    "Recreation":     { "nav": true },
+    "Patrol":         { "nav": true },
+    "Intake":         { "nav": true },
+    "Duty":           { "nav": true },
+    "FutureAccess":   { "nav": false },
+    "Sightline":      { "nav": false },
+    "Floor2Keepout":  { "nav": false },
+    "ZoneThreshold":  { "nav": false }
+  },
+
   "cell_rows": [
     { "prefix": "N", "side": "north", "count": 7, "x0": 0, "width": 400, "depth": 500, "hall_edge": 800, "door_width": 160, "door_height": 260, "ceil": 300, "ceiling": true },
     { "prefix": "S", "side": "south", "count": 5, "x0": 0, "width": 400, "depth": 500, "hall_edge": 0, "door_width": 160, "door_height": 260, "ceil": 300, "ceiling": false }
@@ -183,7 +200,12 @@
     { "id": "Patrol_B_02_Vestibule", "type": "Patrol", "x": 3800, "y": -450, "z": 0 },
     { "id": "Patrol_B_03_StairLobby","type": "Patrol", "x": 3800, "y": -900, "z": 0 },
     { "id": "Patrol_B_04_UpperLanding","type": "Patrol", "x": 4050, "y": -900, "z": 500 },
-    { "id": "Patrol_C_01_Walkway",   "type": "Patrol", "x": 600,  "y": -250, "z": 330 }
+    { "id": "Patrol_C_01_Walkway",   "type": "Patrol", "x": 600,  "y": -250, "z": 330 },
+    { "id": "Work_Servery_S",        "type": "Duty", "x": 7150, "y": 250, "z": 0 },
+    { "id": "Work_Servery_N",        "type": "Duty", "x": 7150, "y": 950, "z": 0 },
+    { "id": "Work_Kitchen_Gap",      "type": "Duty", "x": 7280, "y": 600, "z": 0 },
+    { "id": "DutyStart_Guard_Residential", "type": "Duty", "x": 1500, "y": -250, "z": 330 },
+    { "id": "DutyStart_Guard_Roving",      "type": "Duty", "x": 3500, "y": 700,  "z": 0 }
   ],
 
   "routes": [

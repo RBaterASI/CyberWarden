@@ -361,12 +361,15 @@ MARKERS.extend(SEATS)
 # Markers (TargetPoints) + labels
 # ----------------------------------------------------------------------------
 MARKER_COUNT = {}
+NAV_DEST = {}
 for m in MARKERS:
     loc = unreal.Vector(m["x"], m["y"], m["z"] + 12)
     a = actor_sub.spawn_actor_from_class(unreal.TargetPoint, loc)
     a.set_actor_label("MK_%s_%s" % (m["type"], m["id"]))
     a.set_folder_path("%s/Markers/%s" % (ROOT, m["type"]))
-    _tag(a, [TAG, "Marker:" + m["type"], "MarkerId:" + m["id"]])
+    _nav = DATA["marker_types"].get(m["type"], {}).get("nav", False)
+    _tag(a, [TAG, "Marker:" + m["type"], "MarkerId:" + m["id"], "NavDest:Yes" if _nav else "NavDest:No"])
+    NAV_DEST[_nav] = NAV_DEST.get(_nav, 0) + 1
     a.set_actor_hidden_in_game(True)  # keep actor + metadata, never render in PIE
     _count("TargetPoint")
     MARKER_COUNT[m["type"]] = MARKER_COUNT.get(m["type"], 0) + 1
@@ -515,8 +518,8 @@ _tag(pstart, [TAG, "Spawn:Intake"])
 _count("PlayerStart")
 
 try:
-    nav = actor_sub.spawn_actor_from_class(unreal.NavMeshBoundsVolume, unreal.Vector(3300, 800, 400))
-    nav.set_actor_scale3d(unreal.Vector(130.0, 100.0, 12.0))  # default brush 200 cm -> ~26 x 20 x 2.4 m*100
+    nav = actor_sub.spawn_actor_from_class(unreal.NavMeshBoundsVolume, unreal.Vector(3800, 800, 450))
+    nav.set_actor_scale3d(unreal.Vector(51.0, 31.0, 6.0))  # default brush 200 cm -> extents 5100 x 3100 x 600
     nav.set_actor_label("NavMeshBounds_F1")
     nav.set_folder_path(ROOT + "/Gameplay")
     _tag(nav, [TAG])
@@ -915,6 +918,7 @@ for k in sorted(ACTOR_COUNT):
     rep("  %-22s %d" % (k, ACTOR_COUNT[k]))
 rep("  TOTAL                  %d  (walls: %d)" % (total, wall_count))
 rep("Signs placed: %d" % SIGN_COUNT)
+rep("Navigation destination markers: %d yes / %d no" % (NAV_DEST.get(True, 0), NAV_DEST.get(False, 0)))
 rep("Markers by type: " + ", ".join("%s=%d" % kv for kv in sorted(MARKER_COUNT.items())))
 rep("Cells: %d (%s)" % (len(CELLS), ", ".join(CELLS)))
 rep("GameMode: " + gm_report)

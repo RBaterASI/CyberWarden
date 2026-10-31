@@ -45,7 +45,7 @@ Unprotected walkable edges with drop > 60 cm: 0 cells
 Hall floor visible (head height) from Guard Post window: 75%; from walkway: 75%; either: 75%
 Cell door fronts visible from guard positions: 7/12 (N1, N2, N3, N4, N5, N6, N7)
 Gate G1 approach (2900,400) visible from Post: True; Intake entrance (60,400) visible from Post or walkway: True
-WARNING: Guard positions see only 75% of the hall floor
+Guard positions see only 75% of the hall floor
 == Floor 2 compatibility ==
   Cell_Block_Hall    ceiling 880 (roof slab 880-910); nominal clear above Floor 2 level: 380 cm; usable after 20 cm services: 360 cm
   Hall_Stair_Alcove  ceiling 880 (roof slab 880-910); nominal clear above Floor 2 level: 380 cm; usable after 20 cm services: 360 cm
@@ -70,12 +70,14 @@ Level saved: True
   PlayerStart            1
   PointLight             59
   StaticMeshActor        412
-  TargetPoint            103
+  TargetPoint            108
   TextRenderActor        50
-  TOTAL                  626  (walls: 129)
+  TOTAL                  631  (walls: 129)
 Signs placed: 50
-Markers by type: CafeteriaSeat=24, CellAssignment=12, Conversation=5, Floor2Keepout=4, FutureAccess=4, Inspection=14, Intake=1, Lockdown=13, Patrol=17, Recreation=6, Sightline=2, ZoneThreshold=1
+Navigation destination markers: 97 yes / 11 no
+Markers by type: CafeteriaSeat=24, CellAssignment=12, Conversation=5, Duty=5, Floor2Keepout=4, FutureAccess=4, Inspection=14, Intake=1, Lockdown=13, Patrol=17, Recreation=6, Sightline=2, ZoneThreshold=1
 Cells: 12 (Cell_N1, Cell_N2, Cell_N3, Cell_N4, Cell_N5, Cell_N6, Cell_N7, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5)
 GameMode: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
 Assets created: level + 15 material assets (/Game/CyberWarden/Materials)
 Errors: 0  Warnings: 1
+DONE errors=0 warnings=1
