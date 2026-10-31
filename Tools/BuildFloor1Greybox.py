@@ -324,6 +324,14 @@ for s in DATA["stairs"]:
                   "Stairs", "stair", zone_tags(s) + ["Stair:" + s["id"]],
                   material=MIC_LIT.get("Staircase" if s["id"].startswith("Stair_F1") else "CellBlock"))
         steps.append(top)
+        if s.get("rails"):
+            if s["axis"] == "-x":
+                rail_boxes = [(box[0], s["lo"] - 10, box[2], s["lo"]), (box[0], s["hi"], box[2], s["hi"] + 10)]
+            else:
+                rail_boxes = [(s["lo"] - 10, box[1], s["lo"], box[3]), (s["hi"], box[1], s["hi"] + 10, box[3])]
+            for ri, rb in enumerate(rail_boxes):
+                spawn_box("%s_Rail%02d_%d" % (s["id"], k, ri), rb[0], rb[1], top, rb[2], rb[3], top + 100, "Rails", "structure",
+                          zone_tags(s) + ["Rail", "Stair:" + s["id"]])
     STAIR_STEPS[s["id"]] = (rise, steps)
     log("Stair %s: %d steps, riser %.2f cm, run %d cm" % (s["id"], s["steps"], rise, run))
     if rise > 20:
@@ -669,6 +677,139 @@ try:
         err("Cube has no simple collision")
 except Exception as ex:
     warn("Could not query cube collision: %s" % ex)
+
+# ----------------------------------------------------------------------------
+# Walkable-surface analysis: unprotected edges, fall pockets, guard sightlines
+# ----------------------------------------------------------------------------
+rep("== Walkable edge / sightline analysis ==")
+BUCKET = 100.0
+GRID = {}
+for g in GEO:
+    for ix in range(int((g["x0"] - 40) // BUCKET), int((g["x1"] + 40) // BUCKET) + 1):
+        for iy in range(int((g["y0"] - 40) // BUCKET), int((g["y1"] + 40) // BUCKET) + 1):
+            GRID.setdefault((ix, iy), []).append(g)
+
+
+def _near(px, py):
+    return GRID.get((int(px // BUCKET), int(py // BUCKET)), ())
+
+
+def floor_fast(px, py, ref):
+    best = None
+    for g in _near(px, py):
+        if g["z1"] > ref + STEP + 0.01:
+            continue
+        dx = max(g["x0"] - px, 0, px - g["x1"])
+        dy = max(g["y0"] - py, 0, py - g["y1"])
+        if dx * dx + dy * dy < CAP_R ** 2 and (best is None or g["z1"] > best):
+            best = g["z1"]
+    return best
+
+
+def blocked_fast(px, py, fl):
+    zt = fl + 2 * CAP_HH
+    for g in _near(px, py):
+        if g["z1"] <= fl + 0.5 or g["z0"] >= zt - 0.5:
+            continue
+        dx = max(g["x0"] - px, 0, px - g["x1"])
+        dy = max(g["y0"] - py, 0, py - g["y1"])
+        if dx * dx + dy * dy < (CAP_R - 0.5) ** 2:
+            return True
+    return False
+
+
+def flood(allow_falls):
+    CELLSZ = 20.0
+    sx, sy = ps["x"], ps["y"]
+    z0 = floor_fast(sx, sy, 0.0) or 0.0
+    seen = {(int(sx // CELLSZ), int(sy // CELLSZ), int(round(z0))): (sx, sy, z0)}
+    queue = [(sx, sy, z0)]
+    exposures = []
+    while queue:
+        x, y, z = queue.pop()
+        for dx, dy in ((CELLSZ, 0), (-CELLSZ, 0), (0, CELLSZ), (0, -CELLSZ)):
+            nx, ny = x + dx, y + dy
+            f = floor_fast(nx, ny, z)
+            if f is None:
+                continue
+            if f < z - STEP:
+                if not blocked_fast(nx, ny, z):
+                    if z - f > 60:
+                        exposures.append((nx, ny, z, z - f))
+                    if allow_falls and not blocked_fast(nx, ny, f):
+                        key = (int(nx // CELLSZ), int(ny // CELLSZ), int(round(f)))
+                        if key not in seen:
+                            seen[key] = (nx, ny, f)
+                            queue.append((nx, ny, f))
+                continue
+            if blocked_fast(nx, ny, f):
+                continue
+            key = (int(nx // CELLSZ), int(ny // CELLSZ), int(round(f)))
+            if key not in seen:
+                seen[key] = (nx, ny, f)
+                queue.append((nx, ny, f))
+    return seen, exposures
+
+
+walk_set, exposures = flood(False)
+fall_set, _ = flood(True)
+rep("Reachable walking cells (20 cm grid): %d (~%.0f m2)" % (len(walk_set), len(walk_set) * 0.04))
+trap = [v for k, v in fall_set.items() if k not in walk_set]
+rep("Cells reachable only by falling (potential pockets): %d" % len(trap))
+if trap:
+    xs = [t[0] for t in trap]
+    ys = [t[1] for t in trap]
+    warn("Fall-only pocket region approx x %d..%d, y %d..%d" % (min(xs), max(xs), min(ys), max(ys)))
+rep("Unprotected walkable edges with drop > 60 cm: %d cells" % len(exposures))
+groups = {}
+for x, y, z, d in exposures:
+    groups.setdefault((int(x // 200), int(y // 200), int(z // 50)), []).append((x, y, z, d))
+for key, items in sorted(groups.items())[:15]:
+    rep("    exposed edge near (%d,%d) walking height z=%d, drop up to %d cm (%d cells)" % (
+        sum(i[0] for i in items) / len(items), sum(i[1] for i in items) / len(items), items[0][2], max(i[3] for i in items), len(items)))
+if exposures:
+    warn("%d unprotected edge cells remain (see report)" % len(exposures))
+
+
+def seg_hits_box(p, q, g):
+    t0, t1 = 0.0, 1.0
+    for a, b, lo, hi in ((p[0], q[0], g["x0"], g["x1"]), (p[1], q[1], g["y0"], g["y1"]), (p[2], q[2], g["z0"], g["z1"])):
+        d = b - a
+        if abs(d) < 1e-9:
+            if a < lo or a > hi:
+                return False
+        else:
+            ta, tb = (lo - a) / d, (hi - a) / d
+            if ta > tb:
+                ta, tb = tb, ta
+            t0, t1 = max(t0, ta), min(t1, tb)
+            if t0 > t1:
+                return False
+    return t1 > 0.002 and t0 < 0.998
+
+
+def visible(eye, tgt):
+    for g in GEO:
+        if seg_hits_box(eye, tgt, g):
+            return False
+    return True
+
+
+hall_pts = [(x, y) for x in range(50, 2800, 100) for y in range(50, 800, 100)]
+post_eyes = [(x, -20.0, 490.0) for x in (1350, 1600, 1850)]
+walk_eyes = [(x, -20.0, 490.0) for x in (100, 400, 700, 1000)]
+vis_post = {p for p in hall_pts if any(visible(e, (p[0], p[1], 150.0)) for e in post_eyes)}
+vis_walk = {p for p in hall_pts if any(visible(e, (p[0], p[1], 150.0)) for e in walk_eyes)}
+union = vis_post | vis_walk
+rep("Hall floor visible (head height) from Guard Post window: %d%%; from walkway: %d%%; either: %d%%" % (
+    100 * len(vis_post) // len(hall_pts), 100 * len(vis_walk) // len(hall_pts), 100 * len(union) // len(hall_pts)))
+door_fronts = [("N%d" % (i + 1), 400 * i + 200, 700) for i in range(7)] + [("S%d" % (i + 1), 400 * i + 200, 100) for i in range(5)]
+seen_doors = [n for n, x, y in door_fronts if any(visible(e, (x, y, 150.0)) for e in post_eyes + walk_eyes)]
+rep("Cell door fronts visible from guard positions: %d/12 (%s)" % (len(seen_doors), ", ".join(seen_doors)))
+rep("Gate G1 approach (2900,400) visible from Post: %s; Intake entrance (60,400) visible from Post or walkway: %s" % (
+    any(visible(e, (2900.0, 400.0, 150.0)) for e in post_eyes), any(visible(e, (60.0, 400.0, 150.0)) for e in post_eyes + walk_eyes)))
+if len(union) < 0.8 * len(hall_pts):
+    warn("Guard positions see only %d%% of the hall floor" % (100 * len(union) // len(hall_pts)))
 
 # ----------------------------------------------------------------------------
 # Save + report

@@ -94,9 +94,9 @@
   ],
 
   "stairs": [
-    { "id": "Stair_GuardAlcove", "name": "Guard walkway stair", "zone": "C", "axis": "-x", "start": 2504, "lo": -250, "hi": -50, "z_start": 0, "steps": 18, "total_rise": 330, "run": 28 },
-    { "id": "Stair_F1_Flight1",  "name": "Staircase flight 1", "zone": "C", "axis": "-y", "start": -1000, "lo": 3300, "hi": 3500, "z_start": 0,   "steps": 14, "total_rise": 250, "run": 28 },
-    { "id": "Stair_F1_Flight2",  "name": "Staircase flight 2", "zone": "C", "axis": "+y", "start": -1392, "lo": 3700, "hi": 3900, "z_start": 250, "steps": 14, "total_rise": 250, "run": 28 }
+    { "id": "Stair_GuardAlcove", "name": "Guard walkway stair", "zone": "C", "axis": "-x", "start": 2504, "lo": -250, "hi": -50, "z_start": 0, "steps": 18, "total_rise": 330, "run": 28, "rails": true },
+    { "id": "Stair_F1_Flight1",  "name": "Staircase flight 1", "zone": "C", "axis": "-y", "start": -1000, "lo": 3300, "hi": 3500, "z_start": 0,   "steps": 14, "total_rise": 250, "run": 28, "rails": true },
+    { "id": "Stair_F1_Flight2",  "name": "Staircase flight 2", "zone": "C", "axis": "+y", "start": -1392, "lo": 3700, "hi": 3900, "z_start": 250, "steps": 14, "total_rise": 250, "run": 28, "rails": true }
   ],
 
   "boxes": [
@@ -104,6 +104,10 @@
     { "id": "Stair_UpperLanding", "name": "Stair upper landing (Floor 2 level z=500)", "zone": "C", "x0": 3700, "y0": -1000, "x1": 4400, "y1": -800, "z0": 470, "z1": 500 },
     { "id": "Rail_Upper_North",   "name": "Upper landing rail N", "zone": "C", "x0": 3700, "y0": -800, "x1": 4400, "y1": -775, "z0": 500, "z1": 610 },
     { "id": "Rail_Upper_West",    "name": "Upper landing rail W", "zone": "C", "x0": 3700, "y0": -1000, "x1": 3725, "y1": -800, "z0": 500, "z1": 610 },
+    { "id": "Rail_Upper_South",   "name": "Upper landing rail S", "zone": "C", "x0": 3910, "y0": -1000, "x1": 4400, "y1": -985, "z0": 500, "z1": 610 },
+    { "id": "Rail_Mid_North",     "name": "Mid landing rail N (stair well)", "zone": "C", "x0": 3500, "y0": -1407, "x1": 3700, "y1": -1392, "z0": 250, "z1": 360 },
+    { "id": "Rail_Mid_East",      "name": "Mid landing rail E", "zone": "C", "x0": 3885, "y0": -1800, "x1": 3900, "y1": -1392, "z0": 250, "z1": 360 },
+    { "id": "Rail_Mid_West",      "name": "Mid landing rail W", "zone": "C", "x0": 3300, "y0": -1800, "x1": 3315, "y1": -1392, "z0": 250, "z1": 360 },
     { "id": "Prop_Intake_Desk",   "name": "Intake desk", "x0": -620, "y0": 560, "x1": -420, "y1": 640, "z0": 0, "z1": 100 },
     { "id": "Prop_Post_Console",  "name": "Guard console", "x0": 1300, "y0": -480, "x1": 1900, "y1": -400, "z0": 330, "z1": 430 },
     { "id": "Prop_Hub_Emblem",    "name": "Hub floor emblem (landmark)", "x0": 3650, "y0": 250, "x1": 3950, "y1": 550, "z0": 0, "z1": 2, "collision": false },
@@ -146,6 +150,10 @@
     { "id": "Wash_Access_Future_B", "type": "FutureAccess", "x": 1440, "y": 2500, "z": 0 },
     { "id": "Kitchen_Door_Secured", "type": "FutureAccess", "x": 7380, "y": 600, "z": 0 },
     { "id": "Floor2_Exit_Secured",  "type": "FutureAccess", "x": 4370, "y": -900, "z": 500 },
+    { "id": "Floor2_Void_SW", "type": "Floor2Keepout", "x": 0,    "y": -500, "z": 500 },
+    { "id": "Floor2_Void_SE", "type": "Floor2Keepout", "x": 2800, "y": -500, "z": 500 },
+    { "id": "Floor2_Void_NE", "type": "Floor2Keepout", "x": 2800, "y": 800,  "z": 500 },
+    { "id": "Floor2_Void_NW", "type": "Floor2Keepout", "x": 0,    "y": 800,  "z": 500 },
     { "id": "Zone_C_Threshold",     "type": "ZoneThreshold", "x": 3800, "y": -250, "z": 0 },
     { "id": "Sightline_Post_Hall",  "type": "Sightline", "x": 1600, "y": -30, "z": 430 },
     { "id": "Sightline_Post_Alcove","type": "Sightline", "x": 1990, "y": -300, "z": 430 },
