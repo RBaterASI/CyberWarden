@@ -46,6 +46,20 @@ Hall floor visible (head height) from Guard Post window: 75%; from walkway: 75%;
 Cell door fronts visible from guard positions: 7/12 (N1, N2, N3, N4, N5, N6, N7)
 Gate G1 approach (2900,400) visible from Post: True; Intake entrance (60,400) visible from Post or walkway: True
 WARNING: Guard positions see only 75% of the hall floor
+== Floor 2 compatibility ==
+  Cell_Block_Hall    ceiling 880 (roof slab 880-910); nominal clear above Floor 2 level: 380 cm; usable after 20 cm services: 360 cm
+  Hall_Stair_Alcove  ceiling 880 (roof slab 880-910); nominal clear above Floor 2 level: 380 cm; usable after 20 cm services: 360 cm
+  Guard Post roof top z=640: 140 cm above Floor 2 level, 240 cm below atrium roof underside (z=880)
+  Walkway deck z=330: nominal clear to atrium roof 550 cm
+  Rooms fully inside the void footprint: Cell_Block_Hall, Hall_Stair_Alcove, Guard_Walkway, Guard_Post, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5
+    of which stay below the Floor 2 slab (z<=470): Guard_Walkway, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5
+    intrude into the Floor 2 level: Cell_Block_Hall, Hall_Stair_Alcove, Guard_Post
+WARNING: Room Central_Hub ceiling slab top z=510 is 10 cm above the Floor 2 walking level (500): slab misalignment with Floor 2
+WARNING: Room Cafeteria ceiling slab top z=510 is 10 cm above the Floor 2 walking level (500): slab misalignment with Floor 2
+WARNING: Room Recreation ceiling slab top z=510 is 10 cm above the Floor 2 walking level (500): slab misalignment with Floor 2
+  Floor 1 ceiling slabs poking above the Floor 2 level: Central_Hub(+10), Cafeteria(+10), Recreation(+10)
+  Props/structures inside the void reaching the Floor 2 slab zone: none
+  Stair shaft ceiling 880 -> 380 cm above Floor 2 level (nominal), usable 360
 Level saved: True
 == Actor counts (generated) ==
   NavMeshBoundsVolume    1
@@ -60,4 +74,4 @@ Markers by type: CafeteriaSeat=24, CellAssignment=12, Conversation=5, Floor2Keep
 Cells: 12 (Cell_N1, Cell_N2, Cell_N3, Cell_N4, Cell_N5, Cell_N6, Cell_N7, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5)
 GameMode: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
 Assets created: level + 15 material assets (/Game/CyberWarden/Materials)
-Errors: 0  Warnings: 1
+Errors: 0  Warnings: 4

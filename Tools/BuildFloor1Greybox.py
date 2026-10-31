@@ -812,6 +812,57 @@ if len(union) < 0.8 * len(hall_pts):
     warn("Guard positions see only %d%% of the hall floor" % (100 * len(union) // len(hall_pts)))
 
 # ----------------------------------------------------------------------------
+# Floor 2 compatibility checks (atrium 880)
+# ----------------------------------------------------------------------------
+rep("== Floor 2 compatibility ==")
+F2 = DATA["future_floor2"]
+F2L, F2S, SVC = float(F2["floor2_level"]), float(F2["slab_thickness"]), float(F2["service_allowance"])
+V = F2["atrium_void"]
+for rid in ("Cell_Block_Hall", "Hall_Stair_Alcove"):
+    r = ROOM_BY_ID[rid]
+    top = r["z"] + r["ceil"]
+    rep("  %-18s ceiling %.0f (roof slab %.0f-%.0f); nominal clear above Floor 2 level: %.0f cm; usable after %.0f cm services: %.0f cm" % (
+        rid, top, top, top + SLAB, top - F2L, SVC, top - F2L - SVC))
+    if top - F2L < 380:
+        warn("%s leaves only %.0f cm above Floor 2 level" % (rid, top - F2L))
+post = ROOM_BY_ID["Guard_Post"]
+post_top = post["z"] + post["ceil"] + SLAB
+rep("  Guard Post roof top z=%.0f: %.0f cm above Floor 2 level, %.0f cm below atrium roof underside (z=%.0f)" % (
+    post_top, post_top - F2L, ROOM_BY_ID["Cell_Block_Hall"]["ceil"] - post_top, ROOM_BY_ID["Cell_Block_Hall"]["ceil"]))
+rep("  Walkway deck z=330: nominal clear to atrium roof %.0f cm" % (ROOM_BY_ID["Cell_Block_Hall"]["ceil"] - 330))
+# rooms vs void rectangle
+inside, partial = [], []
+for r in ROOMS:
+    ox = min(r["x1"], V["x1"]) - max(r["x0"], V["x0"])
+    oy = min(r["y1"], V["y1"]) - max(r["y0"], V["y0"])
+    if ox > 0.5 and oy > 0.5:
+        full = r["x0"] >= V["x0"] and r["x1"] <= V["x1"] and r["y0"] >= V["y0"] and r["y1"] <= V["y1"]
+        (inside if full else partial).append(r["id"])
+    # (cells N/S share edges only or lie within the void footprint at heights below Floor 2)
+rep("  Rooms fully inside the void footprint: %s" % ", ".join(inside))
+low = [i for i in inside if ROOM_BY_ID[i]["z"] + ROOM_BY_ID[i]["ceil"] + SLAB <= F2L - F2S + 0.5]
+rep("    of which stay below the Floor 2 slab (z<=%.0f): %s" % (F2L - F2S, ", ".join(low)))
+rep("    intrude into the Floor 2 level: %s" % ", ".join(i for i in inside if i not in low))
+if partial:
+    err("Rooms straddle the Floor 2 void boundary: %s" % ", ".join(partial))
+# rooms outside the void whose ceiling slab collides with the Floor 2 slab / walking level
+clash = []
+for r in ROOMS:
+    if r["id"] in inside or r["ceil"] >= 800:
+        continue
+    slab_top = r["z"] + r["ceil"] + SLAB
+    if slab_top > F2L + 0.5:
+        clash.append((r["id"], slab_top))
+for rid, st in clash:
+    warn("Room %s ceiling slab top z=%.0f is %.0f cm above the Floor 2 walking level (%.0f): slab misalignment with Floor 2" % (rid, st, st - F2L, F2L))
+rep("  Floor 1 ceiling slabs poking above the Floor 2 level: %s" % (", ".join("%s(+%.0f)" % (a, b - F2L) for a, b in clash) or "none"))
+tall = [(g["id"], g["z1"]) for g in GEO if g["kind"] in ("prop", "structure") and g["z1"] > F2L - F2S
+        and V["x0"] <= g["x0"] and g["x1"] <= V["x1"] and V["y0"] <= g["y0"] and g["y1"] <= V["y1"]]
+rep("  Props/structures inside the void reaching the Floor 2 slab zone: %s" % (", ".join("%s(z%.0f)" % t for t in tall) or "none"))
+rep("  Stair shaft ceiling %.0f -> %.0f cm above Floor 2 level (nominal), usable %.0f" % (
+    ROOM_BY_ID["Stair_Core"]["ceil"], ROOM_BY_ID["Stair_Core"]["ceil"] - F2L, ROOM_BY_ID["Stair_Core"]["ceil"] - F2L - SVC))
+
+# ----------------------------------------------------------------------------
 # Save + report
 # ----------------------------------------------------------------------------
 saved = level_sub.save_current_level()

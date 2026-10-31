@@ -15,6 +15,15 @@
     "max_step_height": 45
   },
 
+  "future_floor2": {
+    "_comment": "Assumed construction allowances (not GDD values): adjust when Floor 2 is designed.",
+    "floor2_level": 500,
+    "slab_thickness": 30,
+    "service_allowance": 20,
+    "floor3_level": 1000,
+    "atrium_void": { "x0": 0, "y0": -500, "x1": 2800, "y1": 800 }
+  },
+
   "areas": {
     "Intake":     { "label": "Intake",               "color": [235, 120, 30] },
     "CellBlock":  { "label": "Cell Block",           "color": [50, 115, 215] },
@@ -51,8 +60,8 @@
 
   "rooms": [
     { "id": "Intake_Bay",       "name": "Intake Bay",                "zone": "A", "x0": -800, "y0": 100,  "x1": 0,    "y1": 700,  "z": 0,   "ceil": 380 },
-    { "id": "Cell_Block_Hall",  "name": "Cell Block Hall (double-height atrium)", "zone": "A", "x0": 0, "y0": 0, "x1": 2800, "y1": 800, "z": 0, "ceil": 800 },
-    { "id": "Hall_Stair_Alcove","name": "Guard Stair Alcove",        "zone": "C", "x0": 2000, "y0": -500, "x1": 2800, "y1": 0,    "z": 0,   "ceil": 800 },
+    { "id": "Cell_Block_Hall",  "name": "Cell Block Hall (double-height atrium)", "zone": "A", "x0": 0, "y0": 0, "x1": 2800, "y1": 800, "z": 0, "ceil": 880 },
+    { "id": "Hall_Stair_Alcove","name": "Guard Stair Alcove",        "zone": "C", "x0": 2000, "y0": -500, "x1": 2800, "y1": 0,    "z": 0,   "ceil": 880 },
     { "id": "Guard_Walkway",    "name": "Guard Observation Walkway (mezzanine)", "zone": "C", "x0": 0, "y0": -500, "x1": 1200, "y1": 0, "z": 330, "ceil": 110, "ceiling": false },
     { "id": "Guard_Post",       "name": "Guard Observation Post",    "zone": "C", "x0": 1200, "y0": -500, "x1": 2000, "y1": 0,    "z": 330, "ceil": 280 },
     { "id": "Gate_G1",          "name": "Gate G1",                   "zone": "A", "x0": 2800, "y0": 200,  "x1": 3200, "y1": 600,  "z": 0,   "ceil": 380 },
@@ -72,8 +81,8 @@
   "openings": [
     { "id": "Intake_Arrival_Door",  "name": "Arrival transfer door (sealed)", "axis": "v", "coord": -800, "center": 400, "width": 300, "z0": 0, "height": 270, "kind": "secured" },
     { "id": "Door_Intake_Hall",     "name": "Western residential entrance",   "axis": "v", "coord": 0,    "center": 400, "width": 300, "z0": 0, "height": 270 },
-    { "id": "Arch_Hall_Alcove",     "name": "Hall to stair alcove",           "axis": "h", "coord": 0,    "center": 2400, "width": 800, "z0": 0, "height": 800 },
-    { "id": "Open_Walkway_Rail",    "name": "Walkway open to hall (rail height 110)", "axis": "h", "coord": 0, "center": 600, "width": 1200, "z0": 440, "height": 360 },
+    { "id": "Arch_Hall_Alcove",     "name": "Hall to stair alcove",           "axis": "h", "coord": 0,    "center": 2400, "width": 800, "z0": 0, "height": 880 },
+    { "id": "Open_Walkway_Rail",    "name": "Walkway open to hall (rail height 110)", "axis": "h", "coord": 0, "center": 600, "width": 1200, "z0": 440, "height": 440 },
     { "id": "Win_Post_Hall",        "name": "Guard Post window onto hall",    "axis": "h", "coord": 0,    "center": 1600, "width": 600, "z0": 430, "height": 120 },
     { "id": "Door_Walkway_Post",    "name": "Walkway to Guard Post",          "axis": "v", "coord": 1200, "center": -250, "width": 200, "z0": 330, "height": 260 },
     { "id": "Door_Post_Stair",      "name": "Guard Post to stair top",        "axis": "v", "coord": 2000, "center": -150, "width": 200, "z0": 330, "height": 260 },
