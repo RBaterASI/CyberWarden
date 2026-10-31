@@ -474,6 +474,7 @@ for px, py, pz, expect in ((-400, 400, 0, "Intake_Bay"), (1400, 400, 0, "Cell_Bl
 # ----------------------------------------------------------------------------
 ZONE_COLOR = {"A": (255, 236, 205), "B": (255, 200, 120), "C": (170, 200, 255)}
 light_n = 0
+LIGHT_RECORDS = []
 for r in ROOMS:
     w, d = r["x1"] - r["x0"], r["y1"] - r["y0"]
     nx, ny = max(1, int(round(w / 700.0))), max(1, int(round(d / 700.0)))
@@ -499,6 +500,7 @@ for r in ROOMS:
             a.set_folder_path(ROOT + "/Lights")
             _tag(a, [TAG, "Light"])
             _count("PointLight")
+            LIGHT_RECORDS.append((r["id"], zt))
             light_n += 1
 
 # ----------------------------------------------------------------------------
@@ -861,6 +863,46 @@ tall = [(g["id"], g["z1"]) for g in GEO if g["kind"] in ("prop", "structure") an
 rep("  Props/structures inside the void reaching the Floor 2 slab zone: %s" % (", ".join("%s(z%.0f)" % t for t in tall) or "none"))
 rep("  Stair shaft ceiling %.0f -> %.0f cm above Floor 2 level (nominal), usable %.0f" % (
     ROOM_BY_ID["Stair_Core"]["ceil"], ROOM_BY_ID["Stair_Core"]["ceil"] - F2L, ROOM_BY_ID["Stair_Core"]["ceil"] - F2L - SVC))
+
+# ----------------------------------------------------------------------------
+# Ceiling / Floor 2 slab alignment checks
+# ----------------------------------------------------------------------------
+rep("== Ceiling slab alignment ==")
+aligned = []
+for r in ROOMS:
+    if r["ceil"] >= 800 or not r.get("ceiling", True) or r["z"] != 0:
+        continue
+    st = r["z"] + r["ceil"] + SLAB
+    if abs(st - F2L) < 0.01 and abs((r["z"] + r["ceil"]) - (F2L - F2S)) < 0.01:
+        aligned.append(r["id"])
+rep("Rooms whose ceiling slab is exactly the Floor 2 slab (z %.0f-%.0f): %s" % (F2L - F2S, F2L, ", ".join(aligned) or "none"))
+for rid in ("Central_Hub", "Cafeteria", "Recreation"):
+    r = ROOM_BY_ID[rid]
+    rep("  %-12s ceiling %.0f + slab %.0f = %.0f (Floor 2 level %.0f) -> %s" % (
+        rid, r["ceil"], SLAB, r["ceil"] + SLAB, F2L, "ALIGNED" if abs(r["ceil"] + SLAB - F2L) < 0.01 else "MISALIGNED"))
+    if abs(r["ceil"] + SLAB - F2L) > 0.01:
+        err("%s ceiling slab not aligned with Floor 2 level" % rid)
+    cap = r["z"] + r["ceil"]
+    for g in GEO:
+        if g["kind"] in ("wall", "floor", "ceiling"):
+            continue
+        ox = min(g["x1"], r["x1"]) - max(g["x0"], r["x0"])
+        oy = min(g["y1"], r["y1"]) - max(g["y0"], r["y0"])
+        if ox > 1 and oy > 1 and g["z0"] < cap and g["z1"] > cap + 0.5 and g["z0"] >= r["z"]:
+            err("%s (%s) pierces %s ceiling: top z=%.0f > %.0f" % (g["id"], g["kind"], rid, g["z1"], cap))
+    for lid, lz in LIGHT_RECORDS:
+        if lid == rid and lz > cap - 10:
+            err("Light in %s at z=%.0f too close to ceiling %.0f" % (rid, lz, cap))
+    # openings must still fit below the ceiling
+    for o in OPENINGS:
+        if o["z0"] + o["height"] > cap:
+            ra = cw_layout.locate(ROOMS, (o["center"] if o["axis"] == "h" else o["coord"]), (o["coord"] if o["axis"] == "h" else o["center"]), 1.0)
+            if ra and ra["id"] == rid:
+                err("Opening %s taller than %s ceiling" % (o["id"], rid))
+lights_there = [z for lid, z in LIGHT_RECORDS if lid in ("Central_Hub", "Cafeteria", "Recreation")]
+rep("Lights in the three rooms: %d, height z=%.0f (ceiling underside 470)" % (len(lights_there), max(lights_there)))
+tall_signs = 0
+rep("Slab-clash warnings remaining: %d" % len(clash))
 
 # ----------------------------------------------------------------------------
 # Save + report

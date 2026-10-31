@@ -54,12 +54,16 @@ WARNING: Guard positions see only 75% of the hall floor
   Rooms fully inside the void footprint: Cell_Block_Hall, Hall_Stair_Alcove, Guard_Walkway, Guard_Post, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5
     of which stay below the Floor 2 slab (z<=470): Guard_Walkway, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5
     intrude into the Floor 2 level: Cell_Block_Hall, Hall_Stair_Alcove, Guard_Post
-WARNING: Room Central_Hub ceiling slab top z=510 is 10 cm above the Floor 2 walking level (500): slab misalignment with Floor 2
-WARNING: Room Cafeteria ceiling slab top z=510 is 10 cm above the Floor 2 walking level (500): slab misalignment with Floor 2
-WARNING: Room Recreation ceiling slab top z=510 is 10 cm above the Floor 2 walking level (500): slab misalignment with Floor 2
-  Floor 1 ceiling slabs poking above the Floor 2 level: Central_Hub(+10), Cafeteria(+10), Recreation(+10)
+  Floor 1 ceiling slabs poking above the Floor 2 level: none
   Props/structures inside the void reaching the Floor 2 slab zone: none
   Stair shaft ceiling 880 -> 380 cm above Floor 2 level (nominal), usable 360
+== Ceiling slab alignment ==
+Rooms whose ceiling slab is exactly the Floor 2 slab (z 470-500): Central_Hub, Cafeteria, Recreation
+  Central_Hub  ceiling 470 + slab 30 = 500 (Floor 2 level 500) -> ALIGNED
+  Cafeteria    ceiling 470 + slab 30 = 500 (Floor 2 level 500) -> ALIGNED
+  Recreation   ceiling 470 + slab 30 = 500 (Floor 2 level 500) -> ALIGNED
+Lights in the three rooms: 22, height z=420 (ceiling underside 470)
+Slab-clash warnings remaining: 0
 Level saved: True
 == Actor counts (generated) ==
   NavMeshBoundsVolume    1
@@ -74,4 +78,4 @@ Markers by type: CafeteriaSeat=24, CellAssignment=12, Conversation=5, Floor2Keep
 Cells: 12 (Cell_N1, Cell_N2, Cell_N3, Cell_N4, Cell_N5, Cell_N6, Cell_N7, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5)
 GameMode: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
 Assets created: level + 15 material assets (/Game/CyberWarden/Materials)
-Errors: 0  Warnings: 4
+Errors: 0  Warnings: 1

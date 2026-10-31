@@ -45,9 +45,10 @@ markers (`Floor2_Void_SW/SE/NE/NW`, z = 500) mark the corners in the level.
 - Floor 3 (z 1000, slab 970-1000) is not represented. The atrium/shaft roof slab (880-910) leaves 60 cm below the
   Floor 3 slab.
 
-## 4. Open issue found by the check (needs a decision)
+## 4. Ceiling slab alignment (resolved)
 
-Three Floor 1 rooms have a 480 cm ceiling plus a 30 cm slab, so the slab top is z 510, **10 cm above** the Floor 2
-walking level (500) and out of line with the Floor 2 slab (470-500): **Central Hub, Cafeteria, Recreation**.
-Suggested fix (not applied, it changes approved room heights): set their ceiling to 470 so slab and Floor 2 floor
-coincide (usable clearance then 470 - 20 = 450 on Floor 1).
+Central Hub, Cafeteria and Recreation now have a 470 cm ceiling plus a 30 cm slab, so the slab occupies z 470-500 and
+its top coincides with the Floor 2 walking level (500) and the Floor 2 slab. Clear height on Floor 1 in those rooms is
+470 nominal (450 usable after the 20 cm service allowance). The build check verifies the alignment and that no prop,
+column, sign, opening or light reaches the lowered ceilings (lights are at z 420, signs below z 340). Corridors
+(ceiling 380, slab 380-410) leave a 60 cm service plenum below the Floor 2 slab.
