@@ -8,8 +8,9 @@ engine default (Static); no project config was changed. Results: `S01_LW_F1_nav_
 2. `Tools/BakeNavigation.py` - builds Static navigation and saves the level. Headless note: a freshly loaded editor
    world holds an async-load navigation lock for ~80 ticks, so the script re-issues `RebuildNavigation` until a build
    starts. (`-run=ResavePackages -BuildNavigationData` does not work: the build is locked.)
-3. `Tools/VerifyNavigation.py` - fresh process; persistence, marker reachability, NPC legs, secured spaces, coverage.
-4. `Tools/VerifyNavigationPIE.py` - headless Play In Editor; navigation works in the PIE world.
+3. `Tools/PlaceNpcs.py` - (re)places the NPCs from `S01_LW_F1_npcs.json` (needs the markers; does not touch navigation).
+4. `Tools/VerifyNavigation.py` - fresh process; persistence, marker reachability, NPC legs, secured spaces, coverage.
+5. `Tools/VerifyNavigationPIE.py` - headless Play In Editor; navigation works in the PIE world.
 Run each with `UnrealEditor-Cmd.exe CyberWarden.uproject -ExecutePythonScript="<abs path>" -unattended -nop4 -nosplash -NullRHI`.
 
 ## Settings

@@ -37,3 +37,7 @@ ehthumbs.db
 # Plugins: ignore only generated output, keep source/content
 Plugins/**/Binaries/
 Plugins/**/Intermediate/
+
+# Python caches
+__pycache__/
+*.pyc

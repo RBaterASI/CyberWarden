@@ -46,6 +46,13 @@ def _tick(delta):
             level = "FLOOR 1" if feet < 480 else "FLOOR 1 (Floor 2 level landing - secured)"
             text = "SECTOR 01 | LEFT WING | %s | %s | %s | Zone %s" % (level, area.upper(), room.get("name", room["id"]), room.get("zone", "?"))
         unreal.SystemLibrary.print_string(world, text, True, False, unreal.LinearColor(1.0, 0.92, 0.35, 1.0), 0.4, "CW_LOCATION")
+        try:
+            import cw_npc_debug
+            cw_npc_debug.update(world, delta)
+        except Exception as nex:
+            _state["npc_errors"] = _state.get("npc_errors", 0) + 1
+            if _state["npc_errors"] <= 3:
+                unreal.log_warning("[CW NPC debug] %s" % nex)
     except Exception as ex:  # never let a dev tool spam or break the editor
         _state["errors"] += 1
         if _state["errors"] <= 3:

@@ -1,0 +1,19 @@
+{
+  "_comment": "NPC population for Sector 01 / Left Wing / Floor 1. Phase 2 (M2.1B) proves ONE NPC; the other five archetypes are added after it works. Routes reference marker ids from S01_LW_F1.json (NavDest:Yes markers only). Consumed by Tools/PlaceNpcs.py.",
+  "npc_blueprint": "/Game/CyberWarden/NPC/BP_PrisonNPC",
+  "npcs": [
+    {
+      "id": "EXP01",
+      "archetype": "Experienced inmate",
+      "enabled": true,
+      "cell": "Cell_N2",
+      "spawn_marker": "Lockdown_Cell_N2",
+      "spawn_yaw": -90,
+      "start_delay_seconds": 6.0,
+      "idle_min": 4.0,
+      "idle_max": 8.0,
+      "walk_speed": 180.0,
+      "route": ["Conv_Hall_A", "Rec_Bench", "Lockdown_Cell_N2"]
+    }
+  ]
+}
