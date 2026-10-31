@@ -1,0 +1,53 @@
+Level exists - loading and clearing previously generated actors
+Stair Stair_GuardAlcove: 18 steps, riser 18.33 cm, run 28 cm
+Stair Stair_F1_Flight1: 14 steps, riser 17.86 cm, run 28 cm
+Stair Stair_F1_Flight2: 14 steps, riser 17.86 cm, run 28 cm
+World Settings override: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
+== Validation ==
+Room volume overlaps: 0
+Smallest walkable opening width: 160 cm (capsule diameter 68 cm)
+Corridor clear widths (centre-to-centre): East_Corridor=400, North_Link=400, East_Link_1=300, East_Link_2=300, Stair_Vestibule=400
+Prop/structure intersections: 0
+  route R1_Intake_to_Hub                   PASS (end floor z=0)
+  route R2_Hub_to_Cafeteria                PASS (end floor z=0)
+  route R3_Cafeteria_to_Rec_and_Hub_loop   PASS (end floor z=0)
+  route R4_Rec_to_Washrooms                PASS (end floor z=0)
+  route R5_Hub_to_lower_staircase          PASS (end floor z=36)
+  route R5b_Flight1                        PASS (end floor z=250)
+  route R5c_Landing_to_Flight2             PASS (end floor z=286)
+  route R5d_Flight2_to_Upper               PASS (end floor z=500)
+  route R6_Hall_to_Post                    PASS (end floor z=330)
+  route R6b_Post_to_Walkway                PASS (end floor z=330)
+  route Cell_N1                            PASS (end floor z=0)
+  route Cell_N2                            PASS (end floor z=0)
+  route Cell_N3                            PASS (end floor z=0)
+  route Cell_N4                            PASS (end floor z=0)
+  route Cell_N5                            PASS (end floor z=0)
+  route Cell_N6                            PASS (end floor z=0)
+  route Cell_N7                            PASS (end floor z=0)
+  route Cell_S1                            PASS (end floor z=0)
+  route Cell_S2                            PASS (end floor z=0)
+  route Cell_S3                            PASS (end floor z=0)
+  route Cell_S4                            PASS (end floor z=0)
+  route Cell_S5                            PASS (end floor z=0)
+  secured B1_Floor2_Exit_secured           PASS (blocked) (blocked by SECURED_Door_Floor2_Exit at (4364,-900) z=500)
+  secured B2_Kitchen_door_secured          PASS (blocked) (blocked by SECURED_Door_Kitchen at (7364,600) z=0)
+  secured B3_Intake_arrival_door_sealed    PASS (blocked) (blocked by SECURED_Intake_Arrival_Door at (-764,400) z=0)
+Intake spawn: floor z=0, blocked=None -> VALID
+PlayerStart placed at z=100 (engine drops it to floor on spawn); capsule fits with 200 cm headroom
+Staircase top step z=500.0 (floor-to-floor 500) -> MATCH
+Engine cube mesh simple collision shapes: 1
+Level saved: True
+== Actor counts (generated) ==
+  NavMeshBoundsVolume    1
+  PlayerStart            1
+  PointLight             59
+  StaticMeshActor        266
+  TargetPoint            99
+  TextRenderActor        29
+  TOTAL                  455  (walls: 129)
+Markers by type: CafeteriaSeat=24, CellAssignment=12, Conversation=5, FutureAccess=4, Inspection=14, Intake=1, Lockdown=13, Patrol=17, Recreation=6, Sightline=2, ZoneThreshold=1
+Cells: 12 (Cell_N1, Cell_N2, Cell_N3, Cell_N4, Cell_N5, Cell_N6, Cell_N7, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5)
+GameMode: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
+Assets created: 1 (/Game/CyberWarden/Maps/Sector01/L_S01_LW_F1_Greybox)
+Errors: 0  Warnings: 0
