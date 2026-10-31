@@ -3,7 +3,10 @@ Binaries/
 Intermediate/
 Saved/
 DerivedDataCache/
-Build/
+# Build/ holds project-owned platform files (icons, entitlements); ignore only generated output
+Build/**/Intermediate/
+Build/**/Binaries/
+Build/**/Staging/
 *.VC.db
 *.opensdf
 *.opendb
