@@ -60,42 +60,14 @@ level_sub = unreal.get_editor_subsystem(unreal.LevelEditorSubsystem)
 # ----------------------------------------------------------------------------
 # Expand data (cell rows -> rooms/openings/boxes/markers)
 # ----------------------------------------------------------------------------
-ROOMS = [dict(r) for r in DATA["rooms"]]
-OPENINGS = [dict(o) for o in DATA["openings"]]
-BOXES = [dict(b) for b in DATA["boxes"]]
-MARKERS = [dict(m) for m in DATA["markers"]]
-CELLS = []
+import sys
+sys.path.insert(0, os.path.join(PROJECT, "Content", "Python"))
+import cw_layout  # noqa: E402
 
-for row in DATA["cell_rows"]:
-    for i in range(row["count"]):
-        x0 = row["x0"] + i * row["width"]
-        x1 = x0 + row["width"]
-        if row["side"] == "north":
-            y0, y1 = row["hall_edge"], row["hall_edge"] + row["depth"]
-            door_y = y0
-            inside = y0 + 200
-            ins_front = y0 - 100
-            bunk_y = (y1 - 110, y1 - 20)
-        else:
-            y0, y1 = row["hall_edge"] - row["depth"], row["hall_edge"]
-            door_y = y1
-            inside = y1 - 200
-            ins_front = y1 + 100
-            bunk_y = (y0 + 20, y0 + 110)
-        cid = "Cell_%s%d" % (row["prefix"], i + 1)
-        cx = (x0 + x1) / 2.0
-        CELLS.append(cid)
-        ROOMS.append({"id": cid, "name": "Cell %s%d" % (row["prefix"], i + 1), "zone": "A", "x0": x0, "y0": y0,
-                      "x1": x1, "y1": y1, "z": 0, "ceil": row["ceil"], "ceiling": row["ceiling"], "cell": True})
-        OPENINGS.append({"id": "Door_" + cid, "name": "Cell door " + cid, "axis": "h", "coord": door_y, "center": cx,
-                         "width": row["door_width"], "z0": 0, "height": row["door_height"]})
-        BOXES.append({"id": "Bunk_" + cid, "name": "Bunk " + cid, "x0": x0 + 30, "x1": x0 + 250, "y0": bunk_y[0],
-                      "y1": bunk_y[1], "z0": 0, "z1": 100})
-        MARKERS.append({"id": "CellAssign_" + cid, "type": "CellAssignment", "x": x0 + 150, "y": (bunk_y[0] + bunk_y[1]) / 2 + (-90 if row["side"] == "north" else 90), "z": 0})
-        MARKERS.append({"id": "Lockdown_" + cid, "type": "Lockdown", "x": cx, "y": inside, "z": 0})
-        MARKERS.append({"id": "Inspection_" + cid, "type": "Inspection", "x": cx, "y": ins_front, "z": 0})
-
+_x = cw_layout.expand(DATA)
+ROOMS, OPENINGS, BOXES, MARKERS, CELLS = _x["rooms"], _x["openings"], _x["boxes"], _x["markers"], _x["cells"]
 ROOM_BY_ID = {r["id"]: r for r in ROOMS}
+AREAS = DATA["areas"]
 
 # ----------------------------------------------------------------------------
 # Level creation
@@ -118,6 +90,69 @@ MAT = unreal.load_asset(MAT_PATH)
 if CUBE is None:
     err("Cube mesh missing")
 
+# ----------------------------------------------------------------------------
+# Temporary area-colour materials (new assets under /Game/CyberWarden/Materials)
+# ----------------------------------------------------------------------------
+MAT_DIR = "/Game/CyberWarden/Materials"
+ASSETS_CREATED = [LEVEL]
+MIC_LIT, MIC_SIGN = {}, {}
+
+
+def _ensure_parent(name, unlit):
+    path = "%s/%s" % (MAT_DIR, name)
+    if unreal.EditorAssetLibrary.does_asset_exist(path):
+        return unreal.load_asset(path)
+    tools = unreal.AssetToolsHelpers.get_asset_tools()
+    mat = tools.create_asset(name, MAT_DIR, unreal.Material, unreal.MaterialFactoryNew())
+    lib = unreal.MaterialEditingLibrary
+    param = lib.create_material_expression(mat, unreal.MaterialExpressionVectorParameter, -400, 0)
+    param.set_editor_property("parameter_name", "Color")
+    param.set_editor_property("default_value", unreal.LinearColor(0.5, 0.5, 0.5, 1.0))
+    if unlit:
+        mat.set_editor_property("shading_model", unreal.MaterialShadingModel.MSM_UNLIT)
+        lib.connect_material_property(param, "", unreal.MaterialProperty.MP_EMISSIVE_COLOR)
+    else:
+        lib.connect_material_property(param, "", unreal.MaterialProperty.MP_BASE_COLOR)
+        rough = lib.create_material_expression(mat, unreal.MaterialExpressionConstant, -400, 200)
+        rough.set_editor_property("r", 0.9)
+        lib.connect_material_property(rough, "", unreal.MaterialProperty.MP_ROUGHNESS)
+    lib.recompile_material(mat)
+    unreal.EditorAssetLibrary.save_loaded_asset(mat)
+    ASSETS_CREATED.append(path)
+    return mat
+
+
+def _ensure_mic(name, parent, rgb, scale):
+    path = "%s/%s" % (MAT_DIR, name)
+    if unreal.EditorAssetLibrary.does_asset_exist(path):
+        mic = unreal.load_asset(path)
+    else:
+        tools = unreal.AssetToolsHelpers.get_asset_tools()
+        mic = tools.create_asset(name, MAT_DIR, unreal.MaterialInstanceConstant, unreal.MaterialInstanceConstantFactoryNew())
+        ASSETS_CREATED.append(path)
+    mic.set_editor_property("parent", parent)
+    lin = unreal.LinearColor((rgb[0] / 255.0) ** 2.2 * scale, (rgb[1] / 255.0) ** 2.2 * scale, (rgb[2] / 255.0) ** 2.2 * scale, 1.0)
+    unreal.MaterialEditingLibrary.set_material_instance_vector_parameter_value(mic, "Color", lin)
+    unreal.EditorAssetLibrary.save_loaded_asset(mic)
+    return mic
+
+
+try:
+    _p_lit = _ensure_parent("M_GB_Lit", False)
+    _p_sign = _ensure_parent("M_GB_Unlit", True)
+    for _k, _a in AREAS.items():
+        MIC_LIT[_k] = _ensure_mic("MI_GB_Floor_" + _k, _p_lit, _a["color"], 0.55)
+        MIC_SIGN[_k] = _ensure_mic("MI_GB_Sign_" + _k, _p_sign, _a["color"], 1.0)
+    MIC_SIGN["_dark"] = _ensure_mic("MI_GB_Sign_Dark", _p_sign, [20, 20, 24], 1.0)
+    log("Area materials ready: %d instances" % (len(MIC_LIT) + len(MIC_SIGN)))
+except Exception as ex:
+    err("Material setup failed: %s" % ex)
+
+
+def area_of(room_id):
+    r = ROOM_BY_ID.get(room_id)
+    return r.get("area") if r else None
+
 GEO = []  # analytic collision boxes: dict(x0,y0,z0,x1,y1,z1,kind,id)
 ACTOR_COUNT = {}
 
@@ -130,7 +165,7 @@ def _tag(actor, tags):
     actor.set_editor_property("tags", [unreal.Name(t) for t in tags])
 
 
-def spawn_box(name, x0, y0, z0, x1, y1, z1, folder, kind, tags=(), collision=True, yaw=0.0):
+def spawn_box(name, x0, y0, z0, x1, y1, z1, folder, kind, tags=(), collision=True, yaw=0.0, material=None):
     dx, dy, dz = x1 - x0, y1 - y0, z1 - z0
     if dx < 0.5 or dy < 0.5 or dz < 0.5:
         return None
@@ -140,8 +175,9 @@ def spawn_box(name, x0, y0, z0, x1, y1, z1, folder, kind, tags=(), collision=Tru
     a.set_folder_path(ROOT + "/" + folder)
     comp = a.static_mesh_component
     comp.set_static_mesh(CUBE)
-    if MAT is not None:
-        comp.set_material(0, MAT)
+    mat = material if material is not None else MAT
+    if mat is not None:
+        comp.set_material(0, mat)
     a.set_actor_scale3d(unreal.Vector(dx / 100.0, dy / 100.0, dz / 100.0))
     if not collision:
         a.set_actor_enable_collision(False)
@@ -167,7 +203,8 @@ def zone_tags(item):
 # ----------------------------------------------------------------------------
 for r in ROOMS:
     zt = zone_tags(r) + ["Room:" + r["id"]]
-    spawn_box("Floor_" + r["id"], r["x0"], r["y0"], r["z"] - SLAB, r["x1"], r["y1"], r["z"], "Floors", "floor", zt)
+    spawn_box("Floor_" + r["id"], r["x0"], r["y0"], r["z"] - SLAB, r["x1"], r["y1"], r["z"], "Floors", "floor", zt,
+              material=MIC_LIT.get(r.get("area")))
     if P.get("build_ceilings", True) and r.get("ceiling", True):
         top = r["z"] + r["ceil"]
         spawn_box("Ceiling_" + r["id"], r["x0"], r["y0"], top, r["x1"], r["y1"], top + SLAB, "Ceilings", "ceiling", zt)
@@ -284,7 +321,8 @@ for s in DATA["stairs"]:
             box = (s["lo"], ya, s["hi"], yb)
         # solid from below the flight so there is no gap under a step
         spawn_box("%s_Step%02d" % (s["id"], k), box[0], box[1], 0 if s["z_start"] == 0 else s["z_start"], box[2], box[3], top,
-                  "Stairs", "stair", zone_tags(s) + ["Stair:" + s["id"]])
+                  "Stairs", "stair", zone_tags(s) + ["Stair:" + s["id"]],
+                  material=MIC_LIT.get("Staircase" if s["id"].startswith("Stair_F1") else "CellBlock"))
         steps.append(top)
     STAIR_STEPS[s["id"]] = (rise, steps)
     log("Stair %s: %d steps, riser %.2f cm, run %d cm" % (s["id"], s["steps"], rise, run))
@@ -321,25 +359,107 @@ for m in MARKERS:
     a.set_actor_label("MK_%s_%s" % (m["type"], m["id"]))
     a.set_folder_path("%s/Markers/%s" % (ROOT, m["type"]))
     _tag(a, [TAG, "Marker:" + m["type"], "MarkerId:" + m["id"]])
+    a.set_actor_hidden_in_game(True)  # keep actor + metadata, never render in PIE
     _count("TargetPoint")
     MARKER_COUNT[m["type"]] = MARKER_COUNT.get(m["type"], 0) + 1
 
-for r in ROOMS:
-    try:
-        cx, cy = (r["x0"] + r["x1"]) / 2.0, (r["y0"] + r["y1"]) / 2.0
-        a = actor_sub.spawn_actor_from_class(unreal.TextRenderActor, unreal.Vector(cx, cy, r["z"] + 6),
-                                             unreal.Rotator(90, 0, 0))
-        tr = a.text_render
-        tr.set_editor_property("text", r["name"] if not r.get("cell") else r["id"].replace("Cell_", ""))
-        tr.set_editor_property("world_size", 40 if r.get("cell") else 70)
-        tr.set_editor_property("horizontal_alignment", unreal.HorizTextAligment.EHTA_CENTER)
-        a.set_actor_label("Label_" + r["id"])
-        a.set_folder_path(ROOT + "/Labels")
-        _tag(a, [TAG, "Label"])
-        _count("TextRenderActor")
-    except Exception as ex:  # labels are cosmetic
-        warn("Label failed for %s: %s" % (r["id"], ex))
-        break
+# ----------------------------------------------------------------------------
+# Wayfinding signs (replace the old oversized floor labels)
+# ----------------------------------------------------------------------------
+FACE = {"E": (1, 0, 0.0), "N": (0, 1, 90.0), "W": (-1, 0, 180.0), "S": (0, -1, -90.0)}
+SIGN_OVERRIDE = {"Intake_Arrival_Door": ("ARRIVAL DOOR (SEALED)", "Intake"),
+                 "Door_Floor2_Exit": ("FLOOR 2 (SECURED)", "Staircase")}
+SIGN_COUNT = 0
+
+
+def make_sign(text, fx, fy, zc, facing, area, size=20.0, height=30.0, name="Sign"):
+    """Wall-mounted sign. (fx, fy) is the point on the wall face; text faces `facing` (E/N/W/S)."""
+    global SIGN_COUNT
+    dx, dy, yaw = FACE[facing]
+    width = max(80.0, len(text) * size * 0.62 + 24.0)
+    if dx != 0:   # wall runs along Y
+        x0, x1 = (fx, fx + 4) if dx > 0 else (fx - 4, fx)
+        y0, y1 = fy - width / 2, fy + width / 2
+    else:         # wall runs along X
+        y0, y1 = (fy, fy + 4) if dy > 0 else (fy - 4, fy)
+        x0, x1 = fx - width / 2, fx + width / 2
+    spawn_box("Plate_" + name, x0, y0, zc - height / 2, x1, y1, zc + height / 2, "Signs", "sign", ["Sign"],
+              collision=False, material=MIC_SIGN.get(area))
+    col = AREAS[area]["color"]
+    dark = (0.299 * col[0] + 0.587 * col[1] + 0.114 * col[2]) > 150
+    a = actor_sub.spawn_actor_from_class(unreal.TextRenderActor, unreal.Vector(fx + dx * 5.0, fy + dy * 5.0, zc),
+                                         unreal.Rotator(0, 0, yaw))
+    tr = a.text_render
+    tr.set_editor_property("text", text)
+    tr.set_editor_property("world_size", size)
+    tr.set_editor_property("horizontal_alignment", unreal.HorizTextAligment.EHTA_CENTER)
+    tr.set_editor_property("vertical_alignment", unreal.VerticalTextAligment.EVRTA_TEXT_CENTER)
+    tr.set_editor_property("text_render_color", unreal.Color(15, 15, 15, 255) if dark else unreal.Color(255, 255, 255, 255))
+    a.set_actor_label("Sign_" + name)
+    a.set_folder_path(ROOT + "/Signs")
+    _tag(a, [TAG, "Sign", "Area:" + area])
+    a.set_actor_enable_collision(False)
+    _count("TextRenderActor")
+    SIGN_COUNT += 1
+
+
+SIDE = T / 2.0 + 20.0
+for o in OPENINGS:
+    if o["id"].startswith(("Win_", "Open_", "Arch_Hall_Alcove")):
+        continue
+    ax, c, m = o["axis"], o["coord"], o["center"]
+    zz = o["z0"] + 1
+    if ax == "h":
+        sides = [((m, c - SIDE), (m, c + SIDE), "S", (m, c - T / 2)), ((m, c + SIDE), (m, c - SIDE), "N", (m, c + T / 2))]
+    else:
+        sides = [((c - SIDE, m), (c + SIDE, m), "W", (c - T / 2, m)), ((c + SIDE, m), (c - SIDE, m), "E", (c + T / 2, m))]
+    for here_pt, there_pt, facing, face_pt in sides:
+        here = cw_layout.locate(ROOMS, here_pt[0], here_pt[1], zz)
+        there = cw_layout.locate(ROOMS, there_pt[0], there_pt[1], zz)
+        if here is None or here.get("cell"):
+            continue
+        if o["id"] in SIGN_OVERRIDE and there is None:
+            text, area = SIGN_OVERRIDE[o["id"]]
+            size, hgt = 18.0, 30.0
+        elif o.get("cell_door"):
+            text = o["cell_door"] + ("  NEW ARRIVAL" if o["cell_door"] == "N1" else "")
+            area, size, hgt = "CellBlock", 14.0, 22.0
+        elif there is not None:
+            text, area, size, hgt = there["sign"], there["area"], 20.0, 30.0
+            if text == here.get("sign"):
+                continue
+            if o.get("kind") == "secured" and here.get("id") == "Kitchen_Shell":
+                continue
+        else:
+            continue
+        zc = o["z0"] + o["height"] + hgt / 2 + 8
+        if here["z"] + here["ceil"] - (zc + hgt / 2) < 12:
+            continue  # no wall above the opening on this side
+        make_sign(text, face_pt[0], face_pt[1], zc, facing, area, size, hgt, "%s_%s" % (o["id"], facing))
+
+# Directional boards on the Central Hub walls (one per approach direction, arrows relative to travel)
+HUB = ROOM_BY_ID["Central_Hub"]
+BOARDS = [
+    # (wall face point, facing, lines: (arrow text, destination area, label)) -- viewer's left/ahead/right
+    ((HUB["x1"], 820), "W", [("<", "Recreation", "RECREATION"), ("^", "Cafeteria", "CAFETERIA"), (">", "Staircase", "RESTRICTED STAIRCASE")]),
+    ((HUB["x0"], 820), "E", [("<", "Staircase", "RESTRICTED STAIRCASE"), ("^", "CellBlock", "CELL BLOCK"), (">", "Recreation", "RECREATION")]),
+    ((3400, HUB["y0"]), "N", [("<", "Cafeteria", "CAFETERIA"), ("^", "Staircase", "RESTRICTED STAIRCASE"), (">", "CellBlock", "CELL BLOCK")]),
+    ((3400, HUB["y1"]), "S", [("<", "CellBlock", "CELL BLOCK"), ("^", "Recreation", "RECREATION"), (">", "Cafeteria", "CAFETERIA")]),
+]
+for (bx, by), facing, lines in BOARDS:
+    off = T / 2.0
+    face = {"W": (bx - off, by), "E": (bx + off, by), "N": (bx, by + off), "S": (bx, by - off)}[facing]
+    for i, (arrow, area, label) in enumerate(lines):
+        make_sign("%s  %s" % (arrow, label), face[0], face[1], 255 - i * 36, facing, area, 16.0, 28.0,
+                  "Hub_Dir_%s_%d" % (facing, i))
+
+# Self-test of the area lookup used by the PIE location indicator
+for px, py, pz, expect in ((-400, 400, 0, "Intake_Bay"), (1400, 400, 0, "Cell_Block_Hall"), (200, 1000, 0, "Cell_N1"),
+                           (1600, -250, 330, "Guard_Post"), (3800, 400, 0, "Central_Hub"), (6500, 400, 0, "Cafeteria"),
+                           (4000, 2400, 0, "Recreation"), (3800, -1500, 280, "Stair_Core"), (4000, -900, 500, "Stair_Core")):
+    got = cw_layout.locate(ROOMS, px, py, pz)
+    if got is None or got["id"] != expect:
+        err("Location lookup mismatch at (%d,%d,%d): expected %s got %s" % (px, py, pz, expect, got and got["id"]))
 
 # ----------------------------------------------------------------------------
 # Lights
@@ -353,6 +473,9 @@ for r in ROOMS:
         nx = ny = 1
     zt = r["z"] + min(r["ceil"], 480) - 50
     col = ZONE_COLOR.get(r.get("zone", "A"), ZONE_COLOR["A"])
+    if r.get("area") in AREAS:
+        ac = AREAS[r["area"]]["color"]
+        col = tuple(int((c + 255) / 2) for c in ac)
     for ix in range(nx):
         for iy in range(ny):
             lx = r["x0"] + w * (ix + 0.5) / nx
@@ -557,10 +680,11 @@ rep("== Actor counts (generated) ==")
 for k in sorted(ACTOR_COUNT):
     rep("  %-22s %d" % (k, ACTOR_COUNT[k]))
 rep("  TOTAL                  %d  (walls: %d)" % (total, wall_count))
+rep("Signs placed: %d" % SIGN_COUNT)
 rep("Markers by type: " + ", ".join("%s=%d" % kv for kv in sorted(MARKER_COUNT.items())))
 rep("Cells: %d (%s)" % (len(CELLS), ", ".join(CELLS)))
 rep("GameMode: " + gm_report)
-rep("Assets created: 1 (%s)" % LEVEL)
+rep("Assets created: level + %d material assets (%s)" % (len(MIC_LIT) + len(MIC_SIGN) + 2, MAT_DIR))
 rep("Errors: %d  Warnings: %d" % (len(ERRORS), len(WARNINGS)))
 
 with open(REPORT, "w", encoding="utf-8") as fh:

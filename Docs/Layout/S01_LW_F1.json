@@ -15,6 +15,35 @@
     "max_step_height": 45
   },
 
+  "areas": {
+    "Intake":     { "label": "Intake",               "color": [235, 120, 30] },
+    "CellBlock":  { "label": "Cell Block",           "color": [50, 115, 215] },
+    "Hub":        { "label": "Central Hub",          "color": [215, 185, 35] },
+    "Cafeteria":  { "label": "Cafeteria",            "color": [45, 175, 85] },
+    "Recreation": { "label": "Recreation",           "color": [160, 85, 200] },
+    "Staircase":  { "label": "Restricted Staircase", "color": [205, 45, 45] }
+  },
+
+  "room_info": {
+    "Intake_Bay":        { "area": "Intake",     "sign": "INTAKE" },
+    "Cell_Block_Hall":   { "area": "CellBlock",  "sign": "CELL BLOCK" },
+    "Hall_Stair_Alcove": { "area": "CellBlock",  "sign": "GUARD STAIR" },
+    "Guard_Walkway":     { "area": "CellBlock",  "sign": "GUARD WALKWAY" },
+    "Guard_Post":        { "area": "CellBlock",  "sign": "GUARD POST" },
+    "Gate_G1":           { "area": "Hub",        "sign": "GATE G1" },
+    "Central_Hub":       { "area": "Hub",        "sign": "CENTRAL HUB" },
+    "East_Corridor":     { "area": "Cafeteria",  "sign": "EAST CORRIDOR" },
+    "Cafeteria":         { "area": "Cafeteria",  "sign": "CAFETERIA" },
+    "Kitchen_Shell":     { "area": "Cafeteria",  "sign": "KITCHEN (SECURED)" },
+    "North_Link":        { "area": "Recreation", "sign": "NORTH LINK" },
+    "Recreation":        { "area": "Recreation", "sign": "RECREATION" },
+    "Washrooms":         { "area": "Recreation", "sign": "WASHROOMS" },
+    "East_Link_1":       { "area": "Recreation", "sign": "EAST LINK" },
+    "East_Link_2":       { "area": "Recreation", "sign": "EAST LINK" },
+    "Stair_Vestibule":   { "area": "Staircase",  "sign": "RESTRICTED STAIRCASE" },
+    "Stair_Core":        { "area": "Staircase",  "sign": "RESTRICTED STAIRCASE" }
+  },
+
   "cell_rows": [
     { "prefix": "N", "side": "north", "count": 7, "x0": 0, "width": 400, "depth": 500, "hall_edge": 800, "door_width": 160, "door_height": 260, "ceil": 300, "ceiling": true },
     { "prefix": "S", "side": "south", "count": 5, "x0": 0, "width": 400, "depth": 500, "hall_edge": 0, "door_width": 160, "door_height": 260, "ceil": 300, "ceiling": false }

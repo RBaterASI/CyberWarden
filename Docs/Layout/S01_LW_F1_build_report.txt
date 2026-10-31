@@ -1,4 +1,5 @@
 Level exists - loading and clearing previously generated actors
+Area materials ready: 13 instances
 Stair Stair_GuardAlcove: 18 steps, riser 18.33 cm, run 28 cm
 Stair Stair_F1_Flight1: 14 steps, riser 17.86 cm, run 28 cm
 Stair Stair_F1_Flight2: 14 steps, riser 17.86 cm, run 28 cm
@@ -42,12 +43,13 @@ Level saved: True
   NavMeshBoundsVolume    1
   PlayerStart            1
   PointLight             59
-  StaticMeshActor        266
+  StaticMeshActor        316
   TargetPoint            99
-  TextRenderActor        29
-  TOTAL                  455  (walls: 129)
+  TextRenderActor        50
+  TOTAL                  526  (walls: 129)
+Signs placed: 50
 Markers by type: CafeteriaSeat=24, CellAssignment=12, Conversation=5, FutureAccess=4, Inspection=14, Intake=1, Lockdown=13, Patrol=17, Recreation=6, Sightline=2, ZoneThreshold=1
 Cells: 12 (Cell_N1, Cell_N2, Cell_N3, Cell_N4, Cell_N5, Cell_N6, Cell_N7, Cell_S1, Cell_S2, Cell_S3, Cell_S4, Cell_S5)
 GameMode: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
-Assets created: 1 (/Game/CyberWarden/Maps/Sector01/L_S01_LW_F1_Greybox)
+Assets created: level + 15 material assets (/Game/CyberWarden/Materials)
 Errors: 0  Warnings: 0
