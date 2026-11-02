@@ -39,7 +39,7 @@ Right-click the Event Graph > add **Event EnterState** (not the deprecated one).
 1. **Cast To BP_PrisonNPC**, Object = `ContextActor`.
 2. *Cast Failed* > **Print String** "STT_ChooseNextStop: context actor is not a BP_PrisonNPC". (End.)
 3. *Cast Success* > **Branch**. Condition = `Length(Route) > 0` (drag `Route` from *As BP Prison NPC*, use **Length**, then **> (integer)** with 0).
-4. *False* > **Print String** from **Append**("NPC ", NpcId, " has an empty Route"). (End. `TargetActor` stays empty, Move To will fail and the Recover state reports it.)
+4. *False* > **Print String** from **Append**("NPC ", NpcId, " has an empty Route"). (End. `TargetActor` keeps its previous value, so an empty Route is only printed, not reported as NavFail.)
 5. *True*, chain these in order:
    1. **Set Idx** = `NextStopIndex` **%** `Length(Route)` (integer modulo node).
    2. **Set TargetActor** = **Get (a copy)** of `Route` at index `Idx`.

@@ -77,8 +77,11 @@ def tick(dt):
                 S["npcs"][nid] = dict(a=a, route=route, pos=a.get_actor_location(), spawn=a.get_actor_location(), state=None, cur=-1,
                                       arrivals=0, loops=0, fails=0, teleports=0, maxstep=0.0, path=0.0, first_move=None, stuck=0,
                                       win_t=now, win_pos=a.get_actor_location(), moving_since=None, repeats=0, last_moving_stop=None,
-                                      idle_in_door=[], seq=[], bad_arrival=0)
+                                      idle_in_door=[], seq=[], bad_arrival=0, sd_repeat=0)
                 log("%s: %s route %s" % (nid, a.get_editor_property("ArchetypeName"), " -> ".join(r.get_actor_label() for r in route)))
+            if os.environ.get("NPC_TEST_FAIL_NPC") in S["npcs"]:
+                S["npcs"][os.environ["NPC_TEST_FAIL_NPC"]]["route"][-1].set_actor_location(unreal.Vector(-3000, -3000, 0), False, False)  # PIE copy only: last route marker off the navmesh forces navigation failures
+                log("moved last route marker off-navmesh for %s" % os.environ["NPC_TEST_FAIL_NPC"])
             S.update(t0=now, last_t=now, phase="run")
             unreal.SystemLibrary.execute_console_command(gw, "slomo %g" % SLOMO)
             return
@@ -118,6 +121,8 @@ def tick(dt):
                     for oid, (ox, oy) in OPEN:
                         if math.hypot(loc.x - ox, loc.y - oy) < 250:
                             n["idle_in_door"].append(oid)
+                if state == "StartDelay" and prev is not None:
+                    n["sd_repeat"] += 1
                 if state == "NavFail":
                     n["fails"] += 1
                 n["seq"].append((round(now - S["t0"], 1), state, cur))
@@ -162,12 +167,12 @@ def report(gw, now):
     ok = True
     log("=== RESULT after %.0f game seconds (slomo %g) ===" % (now - S["t0"], SLOMO))
     for nid, n in S["npcs"].items():
-        log("%s: first_move=%s arrivals=%d loops=%d navfail=%d stuck=%d repeats=%d teleports=%d bad_arrivals=%d maxstep=%.0f path=%.0f" % (
+        log("%s: first_move=%s arrivals=%d loops=%d navfail=%d stuck=%d repeats=%d teleports=%d bad_arrivals=%d startdelay_repeats=%d maxstep=%.0f path=%.0f" % (
             nid, "%.1fs" % n["first_move"] if n["first_move"] is not None else None, n["arrivals"], n["loops"], n["fails"], n["stuck"], n["repeats"],
-            n["teleports"], n["bad_arrival"], n["maxstep"], n["path"]))
+            n["teleports"], n["bad_arrival"], n["sd_repeat"], n["maxstep"], n["path"]))
         if n["idle_in_door"]:
             log("   idled within 250 cm of opening(s): %s" % sorted(set(n["idle_in_door"])))
-        ok = ok and n["loops"] >= 1 and n["fails"] == 0 and n["stuck"] == 0 and n["teleports"] == 0 and n["bad_arrival"] == 0 and not n["idle_in_door"]
+        ok = ok and n["sd_repeat"] == 0 and n["loops"] >= 1 and n["fails"] == 0 and n["stuck"] == 0 and n["teleports"] == 0 and n["bad_arrival"] == 0 and not n["idle_in_door"]
     for (a, b), r in sorted(S["pair"].items()):
         log("pair %s/%s: min %.0f cm at (%.0f,%.0f), overlap<68cm %.1fs, close<120cm %.1fs" % (a, b, r["min"], r["where"][0], r["where"][1], r["overlap"], r["close"]))
         ok = ok and r["overlap"] < 1.0
