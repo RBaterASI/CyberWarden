@@ -48,8 +48,31 @@ if bp is None:
     bp = unreal.AssetToolsHelpers.get_asset_tools().create_asset(NAME, DIR, unreal.Blueprint, fac)
     log("CREATED %s (parent PrisonScheduleManager, C++)" % PATH)
 
+# The data asset is the single in-engine copy of periods and per-NPC assignments (generated from the JSON).
+DA_NAME = "DA_S01_LW_F1_Schedule"
+DA_PATH = "%s/%s" % (DIR, DA_NAME)
+da = unreal.load_asset(DA_PATH) if eal.does_asset_exist(DA_PATH) else None
+if da is None:
+    da = unreal.AssetToolsHelpers.get_asset_tools().create_asset(DA_NAME, DIR, unreal.PrisonScheduleData, unreal.DataAssetFactory())
+    log("CREATED " + DA_PATH)
+da.set_editor_property("sector_id", data["sector"])
+da.set_editor_property("periods", [unreal.PrisonPeriodDef(id=p["id"], name=p["name"], start_hours=cs.parse_time(p["start"]) / 3600.0) for p in periods])
+npcs = []
+for nid, a in data["assignments"].items():
+    npcs.append(unreal.PrisonNpcSchedule(
+        npc_id=nid, stagger_fraction=float(a["stagger_fraction"]),
+        periods=[unreal.PrisonPeriodAssignment(period_id=pid, stop_marker_ids=list(e["stops"]), idle_min=float(e["idle"][0]), idle_max=float(e["idle"][1]))
+                 for pid, e in a["schedule"].items()]))
+da.set_editor_property("npcs", npcs)
+errs = list(da.validate_data())
+if errs:
+    unreal.log_error("[SCHEDCFG] schedule data asset is invalid: %s" % errs)
+eal.save_loaded_asset(da)
+log("data asset: %d periods, %d NPC schedules, %d validation errors" % (len(periods), len(npcs), len(errs)))
+
 bel.compile_blueprint(bp)
 cdo = unreal.get_default_object(bel.generated_class(bp))
+cdo.set_editor_property("schedule_data", da)
 cdo.set_editor_property("time_scale", float(data["clock"]["time_scale"]))
 cdo.set_editor_property("paused", False)
 cdo.set_editor_property("game_seconds_total", float(start))

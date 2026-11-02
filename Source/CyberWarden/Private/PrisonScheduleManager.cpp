@@ -2,6 +2,7 @@
 
 #include "PrisonScheduleManager.h"
 #include "PrisonClockMath.h"
+#include "PrisonScheduleData.h"
 #include "CyberWarden.h"
 #include "Components/SceneComponent.h"
 
@@ -23,6 +24,26 @@ APrisonScheduleManager::APrisonScheduleManager()
 
 bool APrisonScheduleManager::RebuildSlotTable()
 {
+	if (ScheduleData && ScheduleData->Periods.Num() > 0)
+	{
+		PeriodIds.Reset();
+		PeriodNames.Reset();
+		PeriodStartHours.Reset();
+		for (const FPrisonPeriodDef& P : ScheduleData->Periods)
+		{
+			PeriodIds.Add(P.Id);
+			PeriodNames.Add(P.Name);
+			PeriodStartHours.Add(P.StartHours);
+		}
+	}
+	else if (PeriodIds.Num() != PeriodNames.Num())
+	{
+		PeriodIds.Reset();
+		for (int32 i = 0; i < PeriodNames.Num(); ++i)
+		{
+			PeriodIds.Add(FName(*FString::Printf(TEXT("P%d"), i)));
+		}
+	}
 	SlotToPeriod = PrisonClockMath::BuildSlotTable(PeriodStartHours);
 	if (SlotToPeriod.Num() == 0)
 	{

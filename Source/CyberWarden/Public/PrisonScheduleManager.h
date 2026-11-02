@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "PrisonScheduleManager.generated.h"
 
+class UPrisonScheduleData;
+
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnPrisonPeriodChanged, int32, OldPeriodIndex, int32, NewPeriodIndex, const FString&, NewPeriodName);
 
 /**
@@ -41,6 +43,14 @@ public:
 	double StaggerMaxGameMinutes = 5.0;
 
 	// ---- Schedule configuration -------------------------------------------------------------------------------
+	/** Sector schedule data (periods + per-NPC assignments). When set, PeriodIds/PeriodNames/PeriodStartHours are taken from it. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Schedule")
+	TObjectPtr<UPrisonScheduleData> ScheduleData;
+
+	/** Derived from ScheduleData (or "P0", "P1" ... when there is none): the id of each period, parallel to PeriodNames. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Schedule")
+	TArray<FName> PeriodIds;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Schedule")
 	TArray<FString> PeriodNames;
 
