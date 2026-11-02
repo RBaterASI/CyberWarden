@@ -14,3 +14,30 @@ Manual PIE result (user): StateTree-driven navigation, route following, walk ani
 
 ## Limits
 Python cannot read StateTree internals (schema/states are protected), so state wiring is validated behaviourally, not by structure.
+
+## Population expansion: four prisoners (`Tools/NpcPopulationTest.py`)
+Data: `Docs/Layout/S01_LW_F1_npcs.json` (shared `BP_PrisonNPC`, `BP_NPCController`, `ST_NPCRoutine`, `ABP_PrisonNPC`; no per-NPC assets). Placed with `Tools/PlaceNpcs.py`; geometry and baked navigation untouched.
+
+| NPC | Start cell | Start delay | Idle | Speed | Route (idle stops are open floor) |
+|---|---|---|---|---|---|
+| EXP01 Experienced | N2 | 6 s | 4-8 s | 180 | Conv_Hall_A, Rec_Bench, own cell |
+| QUI01 Quiet | N5 | 14 s | 10-18 s | 150 | Rec_TV, Rec_Table_B, own cell |
+| TRB01 Troublemaker | S2 | 3 s | 2-5 s | 210 | Conv_Cafe_A, Conv_Rec_B, Rec_Weights, Conv_Hall_A |
+| WRK01 Worker | S4 | 9 s | 6-12 s | 190 | Work_Servery_S, Work_Servery_N (Work_Kitchen_Gap skipped: next to the secured kitchen door) |
+
+Headless PIE, 400 game seconds at slomo 4, all four simultaneously (result PASS):
+
+| NPC | Stop arrivals | Full route loops | Nav failures | Stuck | Repeat attempts | Teleports | Max step/tick |
+|---|---|---|---|---|---|---|---|
+| EXP01 | 17 | 5 | 0 | 0 | 0 | 0 | 22 cm |
+| QUI01 | 11 | 3 | 0 | 0 | 0 | 0 | 18 cm |
+| TRB01 | 18 | 4 | 0 | 0 | 0 | 0 | 25 cm |
+| WRK01 | 31 | 15 | 0 | 0 | 0 | 0 | 13 cm |
+
+- Proximity: no capsule overlap (<68 cm) at any time. Closest approaches: EXP01/QUI01 68 cm in the hall at (2733,499), EXP01/TRB01 68 cm in recreation at (3522,1792), QUI01/TRB01 81 cm at (3253,494). Time under 120 cm: 2.7 s, 1.7 s, 1.3 s. Avoidance (RVO) is working; NPCs touch but do not interpenetrate.
+- Doorway congestion: two NPCs within 200 cm of the same opening at once only at Gate G1 (about 3 s each side, EXP01/QUI01/TRB01) and Arch_North_Rec (0.3 s). No NPC idled within 250 cm of any opening, and no stuck windows.
+- Needs a human eye: whether two NPCs head-on in the 300 cm Gate G1 pass cleanly or visibly shuffle, the look of NPCs touching at ~68 cm, and the player squeezing past an NPC in the Gate G1 / hall corridor.
+
+## StartDelay label flicker (pending one manual edit)
+Cause: `STT_ReportState` runs for the `StartDelay` state on every loop, although the delay is 0 s after the first pass. The fix lives in the `STT_ReportState` event graph, which Python cannot edit.
+Edit: right after **Event EnterState** insert a **Branch** with Condition = `StateLabel == "StartDelay"` AND `MoveState != "Spawned"` (MoveState read from the cast NPC, so put the cast first). True: end (do nothing). False: the existing flow. `MoveState` is "Spawned" only before the first report, so the first start delay is unchanged and later cycles keep the previous label (Idle/NavFail) until Moving. Verify with `NpcPopulationTest.py`: transitions should no longer show `StartDelay` after the first one.

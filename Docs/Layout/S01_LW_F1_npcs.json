@@ -1,5 +1,5 @@
 {
-  "_comment": "NPC population for Sector 01 / Left Wing / Floor 1. Phase 2 (M2.1B) proves ONE NPC; the other five archetypes are added after it works. Routes reference marker ids from S01_LW_F1.json (NavDest:Yes markers only). Consumed by Tools/PlaceNpcs.py.",
+  "_comment": "NPC population for Sector 01 / Left Wing / Floor 1: four prisoners (M2.1B). Guards and the remaining archetypes come later. Routes reference marker ids from S01_LW_F1.json (NavDest:Yes markers only). Idle stops are open-floor markers, never doorways, gates or inspection/patrol points. Consumed by Tools/PlaceNpcs.py.",
   "npc_blueprint": "/Game/CyberWarden/NPC/BP_PrisonNPC",
   "npcs": [
     {
@@ -14,6 +14,45 @@
       "idle_max": 8.0,
       "walk_speed": 180.0,
       "route": ["Conv_Hall_A", "Rec_Bench", "Lockdown_Cell_N2"]
+    },
+    {
+      "id": "QUI01",
+      "archetype": "Quiet prisoner",
+      "enabled": true,
+      "cell": "Cell_N5",
+      "spawn_marker": "Lockdown_Cell_N5",
+      "spawn_yaw": -90,
+      "start_delay_seconds": 14.0,
+      "idle_min": 10.0,
+      "idle_max": 18.0,
+      "walk_speed": 150.0,
+      "route": ["Rec_TV", "Rec_Table_B", "Lockdown_Cell_N5"]
+    },
+    {
+      "id": "TRB01",
+      "archetype": "Troublemaker",
+      "enabled": true,
+      "cell": "Cell_S2",
+      "spawn_marker": "Lockdown_Cell_S2",
+      "spawn_yaw": 90,
+      "start_delay_seconds": 3.0,
+      "idle_min": 2.0,
+      "idle_max": 5.0,
+      "walk_speed": 210.0,
+      "route": ["Conv_Cafe_A", "Conv_Rec_B", "Rec_Weights", "Conv_Hall_A"]
+    },
+    {
+      "id": "WRK01",
+      "archetype": "Worker",
+      "enabled": true,
+      "cell": "Cell_S4",
+      "spawn_marker": "Lockdown_Cell_S4",
+      "spawn_yaw": 90,
+      "start_delay_seconds": 9.0,
+      "idle_min": 6.0,
+      "idle_max": 12.0,
+      "walk_speed": 190.0,
+      "route": ["Work_Servery_S", "Work_Servery_N"]
     }
   ]
 }
