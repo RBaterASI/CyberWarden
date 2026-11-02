@@ -3,7 +3,7 @@
 #include "Misc/AutomationTest.h"
 #include "PrisonClockMath.h"
 
-#if WITH_DEV_AUTOMATION_TESTS
+#if WITH_DEV_AUTOMATION_TESTS && !defined(CW_EXCLUDE_AUTOMATION_TESTS)
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPrisonClockMathTest, "CyberWarden.Prison.ClockMath",
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::ProductFilter)

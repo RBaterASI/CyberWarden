@@ -26,6 +26,9 @@ namespace PrisonScheduleSelect
 	 */
 	CYBERWARDEN_API FPrisonStopChoice Choose(const FPrisonPeriodAssignment* Assignment, FName PreviousMarkerId, FRandomStream& Stream);
 
+	/** Real seconds to wait before retrying a movement that keeps being re-planned: 0, 2, 4, 8, 16, capped at 30. */
+	CYBERWARDEN_API double RetryBackoffSeconds(int32 RetryStreak);
+
 	/** Departure stagger in game seconds for a fraction (0..1, clamped) of the manager's maximum in game minutes. */
 	CYBERWARDEN_API double StaggerGameSeconds(double Fraction, double MaxGameMinutes);
 }

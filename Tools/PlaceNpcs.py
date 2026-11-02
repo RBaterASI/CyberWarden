@@ -85,6 +85,20 @@ for n in cfg["npcs"]:
         n["id"], n["archetype"], loc.x, loc.y, loc.z, n["cell"], " -> ".join(n["route"])))
     placed += 1
 
+# M2.2: exactly one schedule manager per sector level (configured from the BP defaults = Docs/Layout/S01_LW_F1_schedule.json).
+SCHED_TAG = "S01F1ScheduleManager"
+for a in actor_sub.get_all_level_actors():
+    if unreal.Name(SCHED_TAG) in a.tags:
+        actor_sub.destroy_actor(a)
+sched_cls = unreal.EditorAssetLibrary.load_blueprint_class("/Game/CyberWarden/Schedule/BP_PrisonScheduleManager")
+if sched_cls is None:
+    err("schedule manager Blueprint missing (run Tools/ConfigureSchedule.py)")
+else:
+    mgr = actor_sub.spawn_actor_from_class(sched_cls, unreal.Vector(0, 0, 0))
+    mgr.set_actor_label("SCHED_S01_LW_F1")
+    mgr.set_folder_path("S01_LW_F1/Systems")
+    log("placed schedule manager %s (30x, starts 06:00)" % mgr.get_actor_label())
+
 if errors:
     log("FAILED with %d error(s); level NOT saved" % len(errors))
 else:

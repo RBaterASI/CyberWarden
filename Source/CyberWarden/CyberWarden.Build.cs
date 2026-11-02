@@ -10,6 +10,12 @@ public class CyberWarden : ModuleRules
 
 		// Proof of concept (prison clock) needs nothing beyond the basic engine modules.
 		// StateTree / AI modules are added when the NPC schedule nodes are migrated.
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine" });
+		// Crash A/B experiment: CW_NO_TESTS=1 compiles the native automation tests out (default: tests are built).
+		if (System.Environment.GetEnvironmentVariable("CW_NO_TESTS") == "1")
+		{
+			PublicDefinitions.Add("CW_EXCLUDE_AUTOMATION_TESTS=1");
+		}
+
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "AIModule", "GameplayTasks", "StateTreeModule", "GameplayStateTreeModule", "PropertyBindingUtils" });
 	}
 }

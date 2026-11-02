@@ -43,6 +43,11 @@ namespace PrisonScheduleSelect
 		return Out;
 	}
 
+	double RetryBackoffSeconds(int32 RetryStreak)
+	{
+		return RetryStreak <= 0 ? 0.0 : FMath::Min(30.0, 2.0 * FMath::Pow(2.0, static_cast<double>(FMath::Min(RetryStreak, 8) - 1)));
+	}
+
 	double StaggerGameSeconds(double Fraction, double MaxGameMinutes)
 	{
 		return FMath::Clamp(Fraction, 0.0, 1.0) * FMath::Max(0.0, MaxGameMinutes) * 60.0;

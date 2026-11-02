@@ -43,6 +43,12 @@ def finish(code):
     unreal.SystemLibrary.quit_editor()
 
 
+def sync(c):
+    """Forces the component to adopt the manager current period (acknowledge) and plans for it: test preparation only."""
+    c.acknowledge_replan()
+    return c.plan_for_current_period()
+
+
 def comp_of(npc):
     return npc.get_component_by_class(unreal.PrisonScheduleComponent)
 
@@ -97,6 +103,10 @@ def run(gw):
         check("%s: applied period 0, no request pending" % nid, c.get_editor_property("applied_period_index") == 0 and not c.get_editor_property("replan_requested"))
     serial0 = {nid: c.get_editor_property("replan_serial") for nid, c in comps.items()}
     m.advance_game_seconds(5.0)  # 07:00:03 -> Breakfast
+    yield ("secs", 0.3)
+    hq = comps["QUI01"].plan_for_current_period()  # QUI01 stagger (240 game s) is still running: a routine re-plan keeps the OLD assignment
+    check("re-plan during the stagger keeps the previous period assignment (%s)" % hq.marker_id, hq.valid and str(hq.marker_id) in data["assignments"]["QUI01"]["schedule"]["wake"]["stops"] and
+          comps["QUI01"].get_editor_property("applied_period_index") == 0 and not comps["QUI01"].get_editor_property("replan_requested"), hq.reason)
     t_observed = None
     fired = {}
     steps = 0
@@ -144,13 +154,37 @@ def run(gw):
     again = c.plan_for_current_period()
     check("EXP01 standing at its only stop: same stop, no movement request", again.valid and again.single_stop and not again.move_required and again.marker_id == first.marker_id, again.reason)
 
+    # ---- 3b. start delay and retry back-off (outputs consumed by the StateTree task) --------------------------------------
+    for nid in ("EXP01", "QUI01", "TRB01", "WRK01"):
+        check("%s: first plan carried the stagger as its start delay (%.1f s)" % (nid, plans[nid].start_delay_seconds),
+              abs(plans[nid].start_delay_seconds - comps[nid].get_stagger_real_seconds()) < 1e-6, str(plans[nid].start_delay_seconds))
+    m.set_time_of_day_hours(6.5)  # wake-up: QUI01 has the single stop CellAssign_Cell_N5
+    yield ("secs", 0.3)
+    q = npcs["QUI01"]
+    cq = comps["QUI01"]
+    pre = sync(cq)  # re-plan for the wake-up period
+    q.set_actor_location(pre.marker.get_actor_location(), False, False)  # stand at the stop: resets the back-off streak
+    sync(cq)
+    q.set_actor_location(unreal.Vector(2500, 400, 92), False, False)  # PIE copy only: far from the marker so a move is required
+    p1 = cq.plan_for_current_period()
+    p2 = cq.plan_for_current_period()
+    p3 = cq.plan_for_current_period()
+    check("QUI01 far from its stop: move required", p1.valid and p1.move_required, p1.reason)
+    check("quick re-plans of the same movement back off: %.0f, %.0f, %.0f s" % (p1.start_delay_seconds, p2.start_delay_seconds, p3.start_delay_seconds),
+          p1.start_delay_seconds == 0.0 and p2.start_delay_seconds == 2.0 and p3.start_delay_seconds == 4.0, "%s %s %s" % (p1.start_delay_seconds, p2.start_delay_seconds, p3.start_delay_seconds))
+    q.set_actor_location(p3.marker.get_actor_location(), False, False)
+    p4 = cq.plan_for_current_period()
+    check("arriving resets the back-off (no move required, delay 0)", (not p4.move_required) and p4.start_delay_seconds == 0.0, str(p4.start_delay_seconds))
+    for nid in ("EXP01", "QUI01", "TRB01", "WRK01"):
+        sync(comps[nid])
+
     # ---- 4. midnight and lockdown --------------------------------------------------------------------------------
     for nid, c in comps.items():
         c.plan_for_current_period()
     m.set_time_of_day_hours(20.0 + 59.0 / 60.0 + 58.0 / 3600.0)  # 20:59:58 Free time
     yield ("secs", 0.3)
     for nid, c in comps.items():
-        c.plan_for_current_period()
+        sync(c)
     s_before = {nid: c.get_editor_property("replan_serial") for nid, c in comps.items()}
     m.advance_game_seconds(5.0)  # 21:00:03 Lockdown
     for _ in range(60):
@@ -217,8 +251,11 @@ def tick(dt):
     S["n"] += 1
     try:
         if S["n"] == 200 and not S["pie"]:
-            cls = unreal.EditorAssetLibrary.load_blueprint_class("/Game/CyberWarden/Schedule/BP_PrisonScheduleManager")
-            unreal.get_editor_subsystem(unreal.EditorActorSubsystem).spawn_actor_from_class(cls, unreal.Vector(0, 0, 0))  # editor-world copy only, never saved
+            eas = unreal.get_editor_subsystem(unreal.EditorActorSubsystem)
+            if not [a for a in eas.get_all_level_actors() if unreal.Name("S01F1ScheduleManager") in a.tags]:  # use the placed manager when the level has one
+                cls = unreal.EditorAssetLibrary.load_blueprint_class("/Game/CyberWarden/Schedule/BP_PrisonScheduleManager")
+                eas.spawn_actor_from_class(cls, unreal.Vector(0, 0, 0))  # editor-world copy only, never saved
+                S["spawned_temp"] = True
             level_sub.editor_request_begin_play()
             S["pie"] = True
             return

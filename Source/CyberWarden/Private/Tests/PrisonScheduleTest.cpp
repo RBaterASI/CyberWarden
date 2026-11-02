@@ -4,7 +4,7 @@
 #include "PrisonScheduleData.h"
 #include "PrisonScheduleSelect.h"
 
-#if WITH_DEV_AUTOMATION_TESTS
+#if WITH_DEV_AUTOMATION_TESTS && !defined(CW_EXCLUDE_AUTOMATION_TESTS)
 
 namespace
 {
@@ -81,6 +81,11 @@ bool FPrisonScheduleSelectTest::RunTest(const FString& Parameters)
 	TestEqual(TEXT("stagger 0.8 x 5 min = 240 s"), PrisonScheduleSelect::StaggerGameSeconds(0.8, 5.0), 240.0);
 	TestEqual(TEXT("stagger 0 = 0 s"), PrisonScheduleSelect::StaggerGameSeconds(0.0, 5.0), 0.0);
 	TestEqual(TEXT("stagger 0.5 x 5 min = 150 s"), PrisonScheduleSelect::StaggerGameSeconds(0.5, 5.0), 150.0);
+	TestEqual(TEXT("backoff 0 = 0 s"), PrisonScheduleSelect::RetryBackoffSeconds(0), 0.0);
+	TestEqual(TEXT("backoff 1 = 2 s"), PrisonScheduleSelect::RetryBackoffSeconds(1), 2.0);
+	TestEqual(TEXT("backoff 2 = 4 s"), PrisonScheduleSelect::RetryBackoffSeconds(2), 4.0);
+	TestEqual(TEXT("backoff 4 = 16 s"), PrisonScheduleSelect::RetryBackoffSeconds(4), 16.0);
+	TestEqual(TEXT("backoff is capped at 30 s"), PrisonScheduleSelect::RetryBackoffSeconds(50), 30.0);
 	TestEqual(TEXT("fraction above 1 is clamped"), PrisonScheduleSelect::StaggerGameSeconds(3.0, 5.0), 300.0);
 	return true;
 }

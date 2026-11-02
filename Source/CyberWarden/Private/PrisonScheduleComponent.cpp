@@ -183,10 +183,17 @@ FPrisonDestination UPrisonScheduleComponent::PlanForCurrentPeriod()
 		Out.Reason = LastDiagnostic = TEXT("no schedule manager");
 		return Out;
 	}
-	AcknowledgeReplan();
+	// A routine re-plan (for example after an idle) that happens while the departure stagger of a schedule change is still running must
+	// keep the previous assignment: the NPC follows the new period only once its replan request has been raised.
+	const bool bHoldPreviousPeriod = AppliedPeriodIndex != INDEX_NONE && ScheduleManager->CurrentPeriodIndex != AppliedPeriodIndex && !bReplanRequested;
+	if (!bHoldPreviousPeriod)
+	{
+		AcknowledgeReplan();
+	}
 	++PlanCount;
 	ManagerPeriodIndex = ScheduleManager->CurrentPeriodIndex;
-	Out.PeriodIndex = AppliedPeriodIndex;
+	const int32 PlanPeriodIndex = bHoldPreviousPeriod ? AppliedPeriodIndex : ScheduleManager->CurrentPeriodIndex;
+	Out.PeriodIndex = PlanPeriodIndex;
 
 	const UPrisonScheduleData* Data = GetData();
 	if (!Data)
@@ -194,12 +201,12 @@ FPrisonDestination UPrisonScheduleComponent::PlanForCurrentPeriod()
 		Out.Reason = LastDiagnostic = TEXT("schedule manager has no schedule data");
 		return Out;
 	}
-	if (!ScheduleManager->PeriodIds.IsValidIndex(AppliedPeriodIndex))
+	if (!ScheduleManager->PeriodIds.IsValidIndex(PlanPeriodIndex))
 	{
 		Out.Reason = LastDiagnostic = TEXT("current period index has no id");
 		return Out;
 	}
-	const FName PeriodId = ScheduleManager->PeriodIds[AppliedPeriodIndex];
+	const FName PeriodId = ScheduleManager->PeriodIds[PlanPeriodIndex];
 	const FPrisonPeriodAssignment* Assignment = Data->FindAssignment(ResolvedNpcId, PeriodId);
 	FPrisonStopChoice Choice = PrisonScheduleSelect::Choose(Assignment, CurrentStopMarkerId, RandomStream);
 	if (!Choice.bValid)
@@ -219,6 +226,22 @@ FPrisonDestination UPrisonScheduleComponent::PlanForCurrentPeriod()
 	{
 		bMoveRequired = FVector::Dist2D(Owner->GetActorLocation(), Marker->GetActorLocation()) > ArrivalRadius;
 	}
+	// Back-off: planning the same required movement again within a few real seconds means the previous Move To failed.
+	const double NowReal = FPlatformTime::Seconds();
+	if (bLastPlanMoveRequired && bMoveRequired && Choice.MarkerId == LastPlanMarkerId && (NowReal - LastPlanRealSeconds) < 8.0)
+	{
+		++RetryStreak;
+	}
+	else
+	{
+		RetryStreak = 0;
+	}
+	RetryStreakCount = RetryStreak;
+	LastPlanRealSeconds = NowReal;
+	LastPlanMarkerId = Choice.MarkerId;
+	bLastPlanMoveRequired = bMoveRequired;
+	Out.StartDelaySeconds = (PlanCount == 1) ? GetStaggerRealSeconds() : PrisonScheduleSelect::RetryBackoffSeconds(RetryStreak);
+
 	CurrentStopMarkerId = Choice.MarkerId;
 	CurrentIdleSeconds = Choice.IdleSeconds;
 	Out.bValid = true;

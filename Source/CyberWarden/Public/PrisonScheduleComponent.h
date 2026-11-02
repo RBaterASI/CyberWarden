@@ -41,6 +41,11 @@ struct CYBERWARDEN_API FPrisonDestination
 	UPROPERTY(BlueprintReadOnly, Category = "Schedule")
 	int32 PeriodIndex = INDEX_NONE;
 
+	/** Real seconds to wait before moving: the departure stagger on the very first plan, a back-off after quick repeated
+	 *  retries of the same movement, otherwise 0 (the stagger was already waited for before a replan request was raised). */
+	UPROPERTY(BlueprintReadOnly, Category = "Schedule")
+	double StartDelaySeconds = 0.0;
+
 	/** Why the plan is invalid, or a short description of the choice. */
 	UPROPERTY(BlueprintReadOnly, Category = "Schedule")
 	FString Reason;
@@ -120,6 +125,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
 	int32 PlanCount = 0;
 
+	/** Consecutive quick re-plans of the same required movement (0 = healthy). */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
+	int32 RetryStreakCount = 0;
+
 	/** Game seconds (manager total) at which the pending change was first seen. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
 	double PeriodChangeObservedAt = 0.0;
@@ -171,6 +180,11 @@ private:
 
 	bool bContextResolved = false;
 	bool bWarnedNoManager = false;
+	/** Quick re-plans of the same movement (a Move To that keeps failing): drives the back-off. */
+	int32 RetryStreak = 0;
+	double LastPlanRealSeconds = -1000.0;
+	FName LastPlanMarkerId;
+	bool bLastPlanMoveRequired = false;
 	FRandomStream RandomStream;
 	TMap<FName, TWeakObjectPtr<AActor>> MarkerCache;
 };
