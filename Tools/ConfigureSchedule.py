@@ -1,11 +1,12 @@
-"""Create (if missing) and configure the M2.2 schedule manager Blueprint shell. Non-destructive for graphs.
+"""Create/configure BP_PrisonScheduleManager, a Blueprint child of the C++ class APrisonScheduleManager.
 
   UnrealEditor-Cmd.exe CyberWarden.uproject -ExecutePythonScript="<abs>/Tools/ConfigureSchedule.py" -unattended -nop4 -nosplash -NullRHI
 
-Creates /Game/CyberWarden/Schedule/BP_PrisonScheduleManager (Actor) with its variables if the asset does not exist.
-If it exists (its Tick graph may have been wired by hand) NOTHING is added or removed: only the default VALUES of the
-variables are rewritten from Docs/Layout/S01_LW_F1_schedule.json. The Tick graph itself is manual:
-see Docs/NPC/M2_2_Schedule_Design.md. Close the interactive editor first (asset save). No level is modified.
+Requires the CyberWarden C++ module to be built (Tools/BuildCpp.ps1). The clock and period logic live in C++; this asset
+only carries the DEFAULT VALUES from Docs/Layout/S01_LW_F1_schedule.json, so the JSON stays the source of truth.
+If /Game/CyberWarden/Schedule/BP_PrisonScheduleManager exists with a non-C++ parent (the M2.2 Stage 1 empty Blueprint
+shell), it is replaced. If it already derives from the C++ class, only the default values are rewritten.
+Close the interactive editor first (asset save). No level is modified.
 """
 import unreal
 
@@ -16,91 +17,52 @@ NAME = "BP_PrisonScheduleManager"
 PATH = "%s/%s" % (DIR, NAME)
 bel = unreal.BlueprintEditorLibrary
 eal = unreal.EditorAssetLibrary
-# NOTE: get_basic_type_by_name("float") yields an INTEGER-like variable (1.75 reads back as 1); "real" is the true float (double).
-T = {"float": bel.get_basic_type_by_name("real"), "int": bel.get_basic_type_by_name("int"),
-     "bool": bel.get_basic_type_by_name("bool"), "string": bel.get_basic_type_by_name("string")}
-for k in ("float", "int", "string"):
-    T[k + "_array"] = bel.get_array_type(T[k])
 
 
 def log(m):
     unreal.log("[SCHEDCFG] " + m)
 
 
-# (name, type, instance_editable, category)
-VARS = [
-    ("TimeScale", "float", True, "Clock"),
-    ("Paused", "bool", True, "Clock"),
-    ("GameSecondsTotal", "float", True, "Clock"),          # unwrapped accumulator; its default is the start time
-    ("StaggerMaxGameMinutes", "float", True, "Clock"),
-    ("PeriodNames", "string_array", True, "Schedule"),
-    ("PeriodStartHours", "float_array", True, "Schedule"),
-    ("SlotToPeriod", "int_array", True, "Schedule"),       # 48 half-hour slots -> period index (midnight wrap built in)
-    ("ClockSeconds", "float", False, "Runtime"),           # GameSecondsTotal wrapped to 0..86400
-    ("CurrentHour", "float", False, "Runtime"),
-    ("CurrentPeriodIndex", "int", False, "Runtime"),
-    ("CurrentPeriodName", "string", False, "Runtime"),
-    ("PeriodChangeCount", "int", False, "Runtime"),        # optional graph part B
-    ("LastPeriodIndex", "int", False, "Runtime"),          # optional graph part B
-]
+if not hasattr(unreal, "PrisonScheduleManager"):
+    unreal.log_error("[SCHEDCFG] C++ class PrisonScheduleManager not found: build the CyberWarden module first")
+    unreal.SystemLibrary.quit_editor()
+    raise SystemExit
 
 data = cs.load()
 periods = data["periods"]
 table = cs.build_slot_table(periods)
 start = cs.parse_time(data["clock"]["start_time"])
-start_idx = cs.period_at(table, start)
 
-created = False
-if not eal.does_asset_exist(PATH):
+bp = unreal.load_asset(PATH) if eal.does_asset_exist(PATH) else None
+if bp is not None:
+    parent = bel.get_blueprint_parent_class(bp)
+    if parent is None or parent.get_name() != "PrisonScheduleManager":
+        log("replacing the Stage 1 Blueprint shell (parent %s)" % (parent.get_name() if parent else None))
+        del bp
+        eal.delete_asset(PATH)
+        bp = None
+if bp is None:
     eal.make_directory(DIR)
     fac = unreal.BlueprintFactory()
-    fac.set_editor_property("parent_class", unreal.Actor)
+    fac.set_editor_property("parent_class", unreal.PrisonScheduleManager)
     bp = unreal.AssetToolsHelpers.get_asset_tools().create_asset(NAME, DIR, unreal.Blueprint, fac)
-    for name, tkey, editable, cat in VARS:
-        if not bel.add_member_variable(bp, name, T[tkey]):
-            log("  !! could not add variable " + name)
-            continue
-        if editable:
-            bel.set_blueprint_variable_instance_editable(bp, name, True)
-        bel.set_blueprint_variable_category(bp, name, cat)
-    bel.compile_blueprint(bp)
-    created = True
-    log("CREATED " + PATH)
-else:
-    bp = unreal.load_asset(PATH)
-    log("EXISTS: only default values are rewritten (graphs untouched)")
+    log("CREATED %s (parent PrisonScheduleManager, C++)" % PATH)
 
+bel.compile_blueprint(bp)
 cdo = unreal.get_default_object(bel.generated_class(bp))
-vals = {
-    "TimeScale": float(data["clock"]["time_scale"]),
-    "Paused": False,
-    "GameSecondsTotal": float(start),
-    "StaggerMaxGameMinutes": float(data["clock"]["stagger_max_game_minutes"]),
-    "PeriodNames": [p["name"] for p in periods],
-    "PeriodStartHours": [cs.parse_time(p["start"]) / 3600.0 for p in periods],
-    "SlotToPeriod": table,
-    "ClockSeconds": float(start % cs.DAY),
-    "CurrentHour": float(start % cs.DAY) / 3600.0,
-    "CurrentPeriodIndex": start_idx,
-    "CurrentPeriodName": periods[start_idx]["name"],
-    "PeriodChangeCount": 0,
-    "LastPeriodIndex": start_idx,
-}
-for k, v in vals.items():
-    cdo.set_editor_property(k, v)
-try:
-    cdo.set_editor_property("tags", [unreal.Name("S01F1ScheduleManager")])
-except Exception as ex:
-    log("  tags not set: %s" % ex)
-try:
-    tick = cdo.get_editor_property("primary_actor_tick")
-    tick.set_editor_property("start_with_tick_enabled", True)
-    cdo.set_editor_property("primary_actor_tick", tick)
-except Exception as ex:
-    log("  tick settings not set: %s" % ex)
+cdo.set_editor_property("time_scale", float(data["clock"]["time_scale"]))
+cdo.set_editor_property("paused", False)
+cdo.set_editor_property("game_seconds_total", float(start))
+cdo.set_editor_property("stagger_max_game_minutes", float(data["clock"]["stagger_max_game_minutes"]))
+cdo.set_editor_property("period_names", [p["name"] for p in periods])
+cdo.set_editor_property("period_start_hours", [cs.parse_time(p["start"]) / 3600.0 for p in periods])
+ok = cdo.rebuild_slot_table()
+got = list(cdo.get_editor_property("slot_to_period"))
+if not ok or got != table:
+    unreal.log_error("[SCHEDCFG] C++ slot table differs from the Python reference table: %s vs %s" % (got, table))
 bel.compile_blueprint(bp)
 eal.save_loaded_asset(bp)
-log("configured: start %s (period '%s'), scale %gx, stagger max %g game min, %d periods, 48-slot table written" % (
-    data["clock"]["start_time"], periods[start_idx]["name"], data["clock"]["time_scale"], data["clock"]["stagger_max_game_minutes"], len(periods)))
-log("done (created=%s)" % created)
+log("configured: start %s, scale %gx, stagger max %g game min, %d periods, slot table %s" % (
+    data["clock"]["start_time"], data["clock"]["time_scale"], data["clock"]["stagger_max_game_minutes"], len(periods),
+    "matches the reference" if got == table else "MISMATCH"))
 unreal.SystemLibrary.quit_editor()

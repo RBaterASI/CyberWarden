@@ -1,5 +1,7 @@
 # M2.2 - Prison Daily Routine System: design and Stage 1 foundation
 
+> **Update:** the clock now lives in C++ (`APrisonScheduleManager`, see `M2_2_Cpp_Foundation.md`). Section 5 (manual Tick graph) is obsolete; the rest of this design still applies.
+
 Status: **Stage 1 only** (data, validators, manager shell, clock tests, overlay). `STT_ChooseNextStop`, `ST_NPCRoutine`, `BP_PrisonNPC` and the placed NPCs are unchanged: the four prisoners still run their M2.1B routes. Stage 2 (assignment-driven routing) and Stage 3 (boundary response) are not started.
 
 ## 1. Approved architecture (minimal hybrid)

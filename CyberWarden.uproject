@@ -3,6 +3,16 @@
 	"EngineAssociation": "{E40E0510-4235-554A-24BE-3E9E0AAB212F}",
 	"Category": "",
 	"Description": "",
+	"Modules": [
+		{
+			"Name": "CyberWarden",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine"
+			]
+		}
+	],
 	"Plugins": [
 		{
 			"Name": "ModelingToolsEditorMode",
