@@ -12,9 +12,35 @@ def _log(msg):
     unreal.log("[NPC] " + msg)
 
 
+def _clock(world):
+    """M2.2: (activity name, clock text) from the schedule manager if the world has one, else (None, None)."""
+    mgrs = unreal.GameplayStatics.get_all_actors_with_tag(world, "S01F1ScheduleManager")
+    if not mgrs:
+        return None, None
+    m = mgrs[0]
+    try:
+        secs = float(m.get_editor_property("ClockSeconds"))
+        name = str(m.get_editor_property("CurrentPeriodName"))
+        scale = float(m.get_editor_property("TimeScale"))
+        paused = bool(m.get_editor_property("Paused"))
+        total = float(m.get_editor_property("GameSecondsTotal"))
+    except Exception:
+        return None, None
+    s = int(secs)
+    text = "PRISON TIME %02d:%02d  Day %d  |  ACTIVITY: %s  |  x%g%s" % (
+        s // 3600, (s % 3600) // 60, int(total // 86400) + 1, name.upper(), scale, "  PAUSED" if paused else "")
+    return name, text
+
+
 def update(world, dt):
     """Call roughly every 0.15 s of real time while a PIE world of the greybox is running."""
     now = unreal.GameplayStatics.get_time_seconds(world)
+    activity, clock_text = _clock(world)
+    if clock_text:
+        unreal.SystemLibrary.print_string(world, clock_text, True, False, unreal.LinearColor(0.55, 0.85, 1.0, 1.0), 0.4, "CW_CLOCK")
+        if _TRACK.get("_activity") != activity:
+            _log("t=%6.1f  schedule activity %s -> %s" % (now, _TRACK.get("_activity"), activity))
+            _TRACK["_activity"] = activity
     npcs = unreal.GameplayStatics.get_all_actors_with_tag(world, "S01F1NPC")
     for a in npcs:
         try:
@@ -43,11 +69,13 @@ def update(world, dt):
         target = ""
         if 0 <= cur < len(route) and route[cur]:
             target = route[cur].get_actor_label()
-        text = "%s | %s | -> %s | fails %d" % (nid, state, target, fails)
+        text = "%s\nActivity: %s\nDest: %s\nState: %s%s" % (nid, activity or "-", target or "-", state, (" (fails %d)" % fails) if fails else "")
         color = unreal.LinearColor(1.0, 0.35, 0.3, 1.0) if "Fail" in state else unreal.LinearColor(0.7, 1.0, 0.7, 1.0)
         unreal.SystemLibrary.draw_debug_string(world, unreal.Vector(loc.x, loc.y, loc.z + 130), text, None, color, 0.2)
 
 
 def summary():
     for nid, tr in _TRACK.items():
+        if nid.startswith("_"):
+            continue
         _log("summary %s: first_move=%s teleports=%d last_state=%s" % (nid, tr["first_move"], tr["teleports"], tr["state"]))

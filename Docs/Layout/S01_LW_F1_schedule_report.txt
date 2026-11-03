@@ -1,0 +1,99 @@
+== Schema ==
+  schema errors: 0
+
+== Period lookup (48 half-hour slots, 8 periods) ==
+  00:00  Lockdown               (period index 7)
+  06:00  Wake-up                (period index 0)
+  07:00  Breakfast              (period index 1)
+  08:00  Work and activities    (period index 2)
+  12:00  Lunch                  (period index 3)
+  13:00  Recreation             (period index 4)
+  18:00  Evening meal           (period index 5)
+  19:00  Free time              (period index 6)
+  21:00  Lockdown               (period index 7)
+  table = [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7]
+  PASS  table has 48 slots
+  PASS  06:00 -> Wake-up
+  PASS  05:59:59 -> Lockdown (overnight carry)
+  PASS  00:00 -> Lockdown (midnight wrap)
+  PASS  23:59:59 -> Lockdown
+  PASS  86400 s wraps to 00:00 -> Lockdown
+  PASS  21:00 -> Lockdown
+  PASS  20:59:59 -> Free time
+  PASS  boundary wake at 06:00
+  PASS  boundary breakfast at 07:00
+  PASS  boundary work at 08:00
+  PASS  boundary lunch at 12:00
+  PASS  boundary recreation at 13:00
+  PASS  boundary dinner at 18:00
+  PASS  boundary free at 19:00
+  PASS  boundary lockdown at 21:00
+
+== Clock model (mirror of the Blueprint Tick) ==
+  PASS  30x for 60 real s advances 30 game minutes
+  PASS  paused clock does not advance
+  PASS  scale change keeps accumulated time (no reset)
+  PASS  wraps past midnight, lockdown throughout
+  PASS  overnight lockdown ends at 06:00 (lockdown -> wake, one change)
+  PASS  a full day at 120x produces one change per period (8)
+
+== Timing at the default scale ==
+  scale 30x: 1 game hour = 120 real s; whole day = 48.0 real min
+  max stagger 5 game min = 10.0 real s
+  Wake-up                  1.0 game h =   120 real s at 30x,    30 s at dev 120x
+  Breakfast                1.0 game h =   120 real s at 30x,    30 s at dev 120x
+  Work and activities      4.0 game h =   480 real s at 30x,   120 s at dev 120x
+  Lunch                    1.0 game h =   120 real s at 30x,    30 s at dev 120x
+  Recreation               5.0 game h =   600 real s at 30x,   150 s at dev 120x
+  Evening meal             1.0 game h =   120 real s at 30x,    30 s at dev 120x
+  Free time                2.0 game h =   240 real s at 30x,    60 s at dev 120x
+  Lockdown                 9.0 game h =  1080 real s at 30x,   270 s at dev 120x
+  EXP01 stagger = 0.20 x 5 min = 1.0 game min = 2.0 real s
+  QUI01 stagger = 0.80 x 5 min = 4.0 game min = 8.0 real s
+  TRB01 stagger = 0.00 x 5 min = 0.0 game min = 0.0 real s
+  WRK01 stagger = 0.50 x 5 min = 2.5 game min = 5.0 real s
+
+== Assignment markers ==
+  PASS  assignments cover exactly the enabled NPCs
+  PASS  all assignment markers exist, NavDest:Yes, >= 250 cm from openings, lockdown = own cell
+  distinct markers used: 25
+
+== Proposed assignments (stops; idle seconds real time) ==
+  EXP01 (Experienced inmate, cell Cell_N2, stagger 0.20)
+    06:00 Wake-up                CellAssign_Cell_N2, Conv_Hall_A                                        idle 10-20 s
+    07:00 Breakfast              Seat_Table_2_1                                                         idle 40-70 s
+    08:00 Work and activities    Conv_Hall_A, Rec_Bench                                                 idle 15-30 s
+    12:00 Lunch                  Seat_Table_2_2                                                         idle 40-70 s
+    13:00 Recreation             Rec_Bench, Conv_Rec_A, Rec_Yard_Walk                                   idle 10-25 s
+    18:00 Evening meal           Seat_Table_2_1                                                         idle 40-70 s
+    19:00 Free time              Conv_Hall_A, Rec_Bench                                                 idle 8-16 s
+    21:00 Lockdown               Lockdown_Cell_N2                                                       idle 60-120 s
+  QUI01 (Quiet prisoner, cell Cell_N5, stagger 0.80)
+    06:00 Wake-up                CellAssign_Cell_N5                                                     idle 20-40 s
+    07:00 Breakfast              Seat_Table_1_5                                                         idle 50-80 s
+    08:00 Work and activities    Rec_Table_B, Rec_TV                                                    idle 30-60 s
+    12:00 Lunch                  Seat_Table_1_5                                                         idle 50-80 s
+    13:00 Recreation             Rec_TV, Rec_Table_B                                                    idle 30-50 s
+    18:00 Evening meal           Seat_Table_1_5                                                         idle 50-80 s
+    19:00 Free time              CellAssign_Cell_N5, Conv_Hall_A                                        idle 30-60 s
+    21:00 Lockdown               Lockdown_Cell_N5                                                       idle 60-120 s
+  TRB01 (Troublemaker, cell Cell_S2, stagger 0.00)
+    06:00 Wake-up                CellAssign_Cell_S2, Conv_Hall_A                                        idle 4-8 s
+    07:00 Breakfast              Seat_Table_4_2                                                         idle 25-45 s
+    08:00 Work and activities    Conv_Cafe_A, Conv_Rec_B, Rec_Weights                                   idle 5-12 s
+    12:00 Lunch                  Seat_Table_4_3                                                         idle 25-45 s
+    13:00 Recreation             Rec_Weights, Conv_Rec_B, Conv_Rec_A, Rec_Yard_Walk                     idle 4-10 s
+    18:00 Evening meal           Seat_Table_4_2                                                         idle 25-45 s
+    19:00 Free time              Conv_Hall_A, Conv_Rec_A                                                idle 4-10 s
+    21:00 Lockdown               Lockdown_Cell_S2                                                       idle 60-120 s
+  WRK01 (Worker, cell Cell_S4, stagger 0.50)
+    06:00 Wake-up                CellAssign_Cell_S4                                                     idle 10-20 s
+    07:00 Breakfast              Work_Servery_S, Work_Servery_N                                         idle 6-12 s
+    08:00 Work and activities    Work_Servery_S, Work_Servery_N                                         idle 6-12 s
+    12:00 Lunch                  Work_Servery_S, Work_Servery_N                                         idle 6-12 s
+    13:00 Recreation             Rec_Table_A, Rec_Bench                                                 idle 20-40 s
+    18:00 Evening meal           Work_Servery_S, Work_Servery_N                                         idle 6-12 s
+    19:00 Free time              Rec_Table_A                                                            idle 30-60 s
+    21:00 Lockdown               Lockdown_Cell_S4                                                       idle 60-120 s
+
+RESULT: PASS (24 checks, 0 problems)

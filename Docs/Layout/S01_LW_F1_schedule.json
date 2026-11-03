@@ -1,0 +1,80 @@
+{
+  "_comment": "M2.2 daily routine for Sector 01 / Left Wing / Floor 1 (one schedule manager per sector). Times are game time. Period boundaries must be on the 30 minute lookup grid. The LAST period wraps midnight and is active until the first period starts. 'assignments' are PROPOSED for review: per NPC and period an ordered list of destination marker ids (NavDest:Yes, never within 250 cm of an opening) and an idle range in REAL seconds (idle timers are not scaled by the clock). Consumed by Content/Python/cw_schedule.py, Tools/ConfigureSchedule.py, Tools/ValidateSchedule.py.",
+  "sector": "S01_LW_F1",
+  "clock": {
+    "start_time": "06:00",
+    "time_scale": 30.0,
+    "dev_time_scale": 120.0,
+    "stagger_max_game_minutes": 5.0,
+    "day_seconds": 86400,
+    "lookup_slot_minutes": 30
+  },
+  "periods": [
+    { "id": "wake",       "name": "Wake-up",              "start": "06:00" },
+    { "id": "breakfast",  "name": "Breakfast",            "start": "07:00" },
+    { "id": "work",       "name": "Work and activities",  "start": "08:00" },
+    { "id": "lunch",      "name": "Lunch",                "start": "12:00" },
+    { "id": "recreation", "name": "Recreation",           "start": "13:00" },
+    { "id": "dinner",     "name": "Evening meal",         "start": "18:00" },
+    { "id": "free",       "name": "Free time",            "start": "19:00" },
+    { "id": "lockdown",   "name": "Lockdown",             "start": "21:00" }
+  ],
+  "assignments": {
+    "EXP01": {
+      "_note": "Experienced inmate (cell N2): sociable, uses the hall and recreation conversation spots; regular mealtime seat.",
+      "stagger_fraction": 0.2,
+      "schedule": {
+        "wake":       { "stops": ["CellAssign_Cell_N2", "Conv_Hall_A"],                  "idle": [10, 20] },
+        "breakfast":  { "stops": ["Seat_Table_2_1"],                                     "idle": [40, 70] },
+        "work":       { "stops": ["Conv_Hall_A", "Rec_Bench"],                           "idle": [15, 30] },
+        "lunch":      { "stops": ["Seat_Table_2_2"],                                     "idle": [40, 70] },
+        "recreation": { "stops": ["Rec_Bench", "Conv_Rec_A", "Rec_Yard_Walk"],           "idle": [10, 25] },
+        "dinner":     { "stops": ["Seat_Table_2_1"],                                     "idle": [40, 70] },
+        "free":       { "stops": ["Conv_Hall_A", "Rec_Bench"],                           "idle": [8, 16] },
+        "lockdown":   { "stops": ["Lockdown_Cell_N2"],                                   "idle": [60, 120] }
+      }
+    },
+    "QUI01": {
+      "_note": "Quiet prisoner (cell N5): solitary, long idles, stays near the cell in free time.",
+      "stagger_fraction": 0.8,
+      "schedule": {
+        "wake":       { "stops": ["CellAssign_Cell_N5"],                                 "idle": [20, 40] },
+        "breakfast":  { "stops": ["Seat_Table_1_5"],                                     "idle": [50, 80] },
+        "work":       { "stops": ["Rec_Table_B", "Rec_TV"],                              "idle": [30, 60] },
+        "lunch":      { "stops": ["Seat_Table_1_5"],                                     "idle": [50, 80] },
+        "recreation": { "stops": ["Rec_TV", "Rec_Table_B"],                              "idle": [30, 50] },
+        "dinner":     { "stops": ["Seat_Table_1_5"],                                     "idle": [50, 80] },
+        "free":       { "stops": ["CellAssign_Cell_N5", "Conv_Hall_A"],                  "idle": [30, 60] },
+        "lockdown":   { "stops": ["Lockdown_Cell_N5"],                                   "idle": [60, 120] }
+      }
+    },
+    "TRB01": {
+      "_note": "Troublemaker (cell S2): restless, short idles, wide-ranging routes.",
+      "stagger_fraction": 0.0,
+      "schedule": {
+        "wake":       { "stops": ["CellAssign_Cell_S2", "Conv_Hall_A"],                  "idle": [4, 8] },
+        "breakfast":  { "stops": ["Seat_Table_4_2"],                                     "idle": [25, 45] },
+        "work":       { "stops": ["Conv_Cafe_A", "Conv_Rec_B", "Rec_Weights"],           "idle": [5, 12] },
+        "lunch":      { "stops": ["Seat_Table_4_3"],                                     "idle": [25, 45] },
+        "recreation": { "stops": ["Rec_Weights", "Conv_Rec_B", "Conv_Rec_A", "Rec_Yard_Walk"], "idle": [4, 10] },
+        "dinner":     { "stops": ["Seat_Table_4_2"],                                     "idle": [25, 45] },
+        "free":       { "stops": ["Conv_Hall_A", "Conv_Rec_A"],                          "idle": [4, 10] },
+        "lockdown":   { "stops": ["Lockdown_Cell_S2"],                                   "idle": [60, 120] }
+      }
+    },
+    "WRK01": {
+      "_note": "Worker (cell S4): serves the meals and works the servery counters; recreation near the tables.",
+      "stagger_fraction": 0.5,
+      "schedule": {
+        "wake":       { "stops": ["CellAssign_Cell_S4"],                                 "idle": [10, 20] },
+        "breakfast":  { "stops": ["Work_Servery_S", "Work_Servery_N"],                   "idle": [6, 12] },
+        "work":       { "stops": ["Work_Servery_S", "Work_Servery_N"],                   "idle": [6, 12] },
+        "lunch":      { "stops": ["Work_Servery_S", "Work_Servery_N"],                   "idle": [6, 12] },
+        "recreation": { "stops": ["Rec_Table_A", "Rec_Bench"],                           "idle": [20, 40] },
+        "dinner":     { "stops": ["Work_Servery_S", "Work_Servery_N"],                   "idle": [6, 12] },
+        "free":       { "stops": ["Rec_Table_A"],                                        "idle": [30, 60] },
+        "lockdown":   { "stops": ["Lockdown_Cell_S4"],                                   "idle": [60, 120] }
+      }
+    }
+  }
+}
