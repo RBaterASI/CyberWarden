@@ -258,8 +258,9 @@ def run(gw):
         if s == "PERFORMING" or S["last_t"] is None:
             break
     yield ("secs", 0.6)
-    check("full cycle: Aligning/Entering/Performing in order %s, enter took %.2f s (MM_Land 0.87 s)" % (seen, S.get("enter_dur", -1)),
-          "ENTERING" in seen and seen[-1] == "PERFORMING" and 0.7 <= S.get("enter_dur", 0) <= 1.1, str(seen))
+    # Stage C1: the loop now starts one cross-fade (here 0.2 s) before the enter animation ends, so Entering lasts MM_Land 0.87 s - 0.2 s.
+    check("full cycle: Aligning/Entering/Performing in order %s, enter phase took %.2f s (MM_Land 0.87 s minus the 0.2 s cross-fade to the loop)" % (seen, S.get("enter_dur", -1)),
+          "ENTERING" in seen and seen[-1] == "PERFORMING" and 0.5 <= S.get("enter_dur", 0) <= 0.85, str(seen))
     check("loop montage playing after the enter animation (slot weight %.2f)" % g("slot_node_weight"), g("montage_playing") and g("slot_node_weight") >= 0.95)
     secs = S["comp"].release_activity()
     check("release time includes the exit animation: %.2f s (grace 0.5 + 0.87)" % secs, 1.3 <= secs <= 1.45, str(secs))

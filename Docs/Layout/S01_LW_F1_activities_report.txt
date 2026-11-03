@@ -9,5 +9,10 @@
   WatchTV    enter_animation (none - falls back to the normal idle pose)
   WatchTV    loop_animation  /Game/Characters/Mannequins/Anims/Unarmed/MM_Idle (7.57 s, skeleton SK_Mannequin)
   WatchTV    exit_animation  (none - falls back to the normal idle pose)
+  WatchTV    timing: enter blend-in 0.30, enter->loop cross-fade 0.30, loop->exit cross-fade 0.30, exit blend-out 0.30, release grace component default, commit enter False
+  SeatedIdle enter_animation /Game/CyberWarden/Anims/Seated/SEAT_StandToSit (2.23 s, skeleton SK_Mannequin)
+  SeatedIdle loop_animation  /Game/CyberWarden/Anims/Seated/SEAT_SittingIdle (4.30 s, skeleton SK_Mannequin)
+  SeatedIdle exit_animation  /Game/CyberWarden/Anims/Seated/SEAT_SitToStand (2.27 s, skeleton SK_Mannequin)
+  SeatedIdle timing: enter blend-in 0.40, enter->loop cross-fade 0.25, loop->exit cross-fade 0.25, exit blend-out 0.40, release grace 1.50 s, commit enter True
 
 RESULT: PASS (0 problems)

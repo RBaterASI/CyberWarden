@@ -1,6 +1,7 @@
 // Copyright Cyber Warden. All Rights Reserved.
 
 #include "Misc/AutomationTest.h"
+#include "Animation/AnimSequence.h"
 #include "PrisonActivityData.h"
 #include "PrisonActivityMath.h"
 
@@ -48,6 +49,53 @@ bool FPrisonActivityMathTest::RunTest(const FString& Parameters)
 	return true;
 }
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPrisonActivityTimingTest, "CyberWarden.Prison.ActivityTiming",
+	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::ProductFilter)
+
+bool FPrisonActivityTimingTest::RunTest(const FString& Parameters)
+{
+	using namespace PrisonActivityMath;
+	TestEqual(TEXT("a set blend wins"), ResolveBlend(0.25f, 0.4f), 0.25f);
+	TestEqual(TEXT("zero is a real value, not 'inherit'"), ResolveBlend(0.f, 0.4f), 0.f);
+	TestEqual(TEXT("negative inherits"), ResolveBlend(-1.f, 0.4f), 0.4f);
+
+	TestEqual(TEXT("remaining time at rate 1"), RemainingPlaySeconds(2.233, 1.0, 1.0), 1.233);
+	TestEqual(TEXT("remaining time at double speed is halved"), RemainingPlaySeconds(2.0, 0.0, 2.0), 1.0);
+	TestEqual(TEXT("remaining time never negative"), RemainingPlaySeconds(2.0, 2.5, 1.0), 0.0);
+	TestEqual(TEXT("a zero play rate is clamped, not divided by"), RemainingPlaySeconds(1.0, 0.0, 0.0), 100.0);
+
+	TestFalse(TEXT("hand-off not due with 1 s left and a 0.25 s cross-fade"), HandoffDue(1.0, 0.25));
+	TestTrue(TEXT("hand-off due exactly one cross-fade before the end"), HandoffDue(0.25, 0.25));
+	TestTrue(TEXT("hand-off due when already late"), HandoffDue(0.1, 0.25));
+	TestTrue(TEXT("a zero cross-fade hands off at the end"), HandoffDue(0.0, 0.0));
+	TestFalse(TEXT("a zero cross-fade does not hand off early"), HandoffDue(0.05, 0.0));
+
+	TestFalse(TEXT("exit not complete before the planned end, even if the animation says so"), ExitComplete(1.0, 2.0, true, 1.0));
+	TestFalse(TEXT("exit not complete at the planned end while the animation still plays"), ExitComplete(2.0, 2.0, false, 1.0));
+	TestTrue(TEXT("exit complete at the planned end once the animation finished"), ExitComplete(2.0, 2.0, true, 1.0));
+	TestFalse(TEXT("still waiting inside the safety margin"), ExitComplete(2.9, 2.0, false, 1.0));
+	TestTrue(TEXT("a stuck animation frees the NPC after the safety margin"), ExitComplete(3.0, 2.0, false, 1.0));
+
+	FPrisonActivityDefinition Def;
+	Def.BlendInSeconds = 0.3f;
+	Def.BlendOutSeconds = 0.2f;
+	TestEqual(TEXT("default definition inherits blend in (enter)"), Def.GetEnterBlendIn(), 0.3f);
+	TestEqual(TEXT("default definition inherits blend in (loop)"), Def.GetLoopBlendIn(), 0.3f);
+	TestEqual(TEXT("default definition inherits blend in (exit)"), Def.GetExitBlendIn(), 0.3f);
+	TestEqual(TEXT("default definition inherits blend out (exit)"), Def.GetExitBlendOut(), 0.2f);
+	TestFalse(TEXT("enter is not committed by default"), Def.bCommitEnter);
+	TestTrue(TEXT("release grace is inherited by default"), Def.ReleaseGraceSeconds < 0.f);
+	Def.EnterBlendInSeconds = 0.4f;
+	Def.LoopBlendInSeconds = 0.25f;
+	Def.ExitBlendInSeconds = 0.35f;
+	Def.ExitBlendOutSeconds = 0.5f;
+	TestEqual(TEXT("explicit enter blend"), Def.GetEnterBlendIn(), 0.4f);
+	TestEqual(TEXT("explicit loop blend"), Def.GetLoopBlendIn(), 0.25f);
+	TestEqual(TEXT("explicit exit blend in"), Def.GetExitBlendIn(), 0.35f);
+	TestEqual(TEXT("explicit exit blend out"), Def.GetExitBlendOut(), 0.5f);
+	return true;
+}
+
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPrisonActivityDataTest, "CyberWarden.Prison.ActivityData",
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::ProductFilter)
 
@@ -92,6 +140,12 @@ bool FPrisonActivityDataTest::RunTest(const FString& Parameters)
 	Data->Activities[0].SlotName = NAME_None;
 	TestTrue(TEXT("missing slot is reported"), Data->ValidateData().Num() > 0);
 	Data->Activities[0].SlotName = TEXT("DefaultSlot");
+	Data->Activities[0].bCommitEnter = true;
+	TestTrue(TEXT("commit enter without an enter animation is reported"), Data->ValidateData().Num() > 0);
+	Data->Activities[0].EnterAnimation = TSoftObjectPtr<UAnimSequence>(FSoftObjectPath(TEXT("/Game/Test/Enter.Enter")));
+	TestEqual(TEXT("commit enter with an enter animation is valid"), Data->ValidateData().Num(), 0);
+	Data->Activities[0].bCommitEnter = false;
+	Data->Activities[0].EnterAnimation.Reset();
 	TestEqual(TEXT("restored data is valid again"), Data->ValidateData().Num(), 0);
 	return true;
 }

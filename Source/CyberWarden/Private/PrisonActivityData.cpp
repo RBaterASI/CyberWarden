@@ -1,6 +1,12 @@
 // Copyright Cyber Warden. All Rights Reserved.
 
 #include "PrisonActivityData.h"
+#include "PrisonActivityMath.h"
+
+float FPrisonActivityDefinition::GetEnterBlendIn() const { return PrisonActivityMath::ResolveBlend(EnterBlendInSeconds, BlendInSeconds); }
+float FPrisonActivityDefinition::GetLoopBlendIn() const { return PrisonActivityMath::ResolveBlend(LoopBlendInSeconds, BlendInSeconds); }
+float FPrisonActivityDefinition::GetExitBlendIn() const { return PrisonActivityMath::ResolveBlend(ExitBlendInSeconds, BlendInSeconds); }
+float FPrisonActivityDefinition::GetExitBlendOut() const { return PrisonActivityMath::ResolveBlend(ExitBlendOutSeconds, BlendOutSeconds); }
 
 const FPrisonActivityDefinition* UPrisonActivityData::FindActivity(FName ActivityId) const
 {
@@ -35,6 +41,10 @@ bool UPrisonActivityData::Validate(TArray<FString>& OutErrors) const
 		if (A.BlendInSeconds < 0.f || A.BlendOutSeconds < 0.f)
 		{
 			OutErrors.Add(FString::Printf(TEXT("activity %s: negative blend time"), *Name));
+		}
+		if (A.bCommitEnter && A.EnterAnimation.IsNull())
+		{
+			OutErrors.Add(FString::Printf(TEXT("activity %s: commit enter needs an enter animation"), *Name));
 		}
 		if (A.PlayRate <= 0.f)
 		{

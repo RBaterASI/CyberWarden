@@ -78,6 +78,7 @@ def plan(now):
         return
     delay = float(d.start_delay_seconds)
     D["radius"] = ac.get_move_acceptable_radius(d.marker_id, 60.0)
+    ac.expedite_release(d.marker_id, d.move_required)  # Stage C1: leaving for another stop skips the release grace window (as the plan task does)
     delay = max(delay, ac.get_seconds_until_free_for(d.marker_id, d.move_required))
     D["state"], D["until"] = "delay", now + delay
 

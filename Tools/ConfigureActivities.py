@@ -51,7 +51,10 @@ for a in data["activities"]:
     acts.append(unreal.PrisonActivityDefinition(
         id=a["id"], enter_animation=seq(a.get("enter_animation")), loop_animation=seq(a.get("loop_animation")), exit_animation=seq(a.get("exit_animation")),
         slot_name=a["slot"], blend_in_seconds=a["blend_in_seconds"], blend_out_seconds=a["blend_out_seconds"], play_rate=a["play_rate"],
-        randomize_loop_start=a["randomize_loop_start"], align_yaw_rate_deg_per_sec=a["align_yaw_rate_deg_per_sec"], yaw_tolerance_degrees=a["yaw_tolerance_degrees"]))
+        randomize_loop_start=a["randomize_loop_start"], align_yaw_rate_deg_per_sec=a["align_yaw_rate_deg_per_sec"], yaw_tolerance_degrees=a["yaw_tolerance_degrees"],
+        enter_blend_in_seconds=a.get("enter_blend_in_seconds", -1.0), loop_blend_in_seconds=a.get("loop_blend_in_seconds", -1.0),
+        exit_blend_in_seconds=a.get("exit_blend_in_seconds", -1.0), exit_blend_out_seconds=a.get("exit_blend_out_seconds", -1.0),
+        commit_enter=a.get("commit_enter", False), release_grace_seconds=a.get("release_grace_seconds", -1.0)))
 pts = []
 for p in data["interaction_points"]:
     mode, yaw, target = ca.resolve_facing(p, layout)

@@ -40,4 +40,28 @@ namespace PrisonActivityMath
 		const double Step = FMath::Clamp(Delta, -FMath::Abs(MaxDeltaDegrees), FMath::Abs(MaxDeltaDegrees));
 		return NormalizeYaw(CurrentDegrees + Step);
 	}
+
+	float ResolveBlend(float Specific, float Inherited)
+	{
+		return Specific >= 0.f ? Specific : Inherited;
+	}
+
+	double RemainingPlaySeconds(double LengthSeconds, double PositionSeconds, double PlayRate)
+	{
+		return FMath::Max(0.0, LengthSeconds - PositionSeconds) / FMath::Max(PlayRate, 0.01);
+	}
+
+	bool HandoffDue(double RemainingSeconds, double CrossfadeSeconds)
+	{
+		return RemainingSeconds <= FMath::Max(CrossfadeSeconds, 0.0) + KINDA_SMALL_NUMBER;
+	}
+
+	bool ExitComplete(double NowSeconds, double PlannedEndSeconds, bool bAnimationFinished, double SafetyMarginSeconds)
+	{
+		if (NowSeconds < PlannedEndSeconds)
+		{
+			return false;
+		}
+		return bAnimationFinished || NowSeconds >= PlannedEndSeconds + FMath::Max(SafetyMarginSeconds, 0.0);
+	}
 }

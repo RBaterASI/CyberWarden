@@ -18,4 +18,19 @@ namespace PrisonActivityMath
 
 	/** Moves Current towards Target by at most MaxDelta degrees along the shortest way, never overshooting. */
 	CYBERWARDEN_API double StepYaw(double CurrentDegrees, double TargetDegrees, double MaxDeltaDegrees);
+
+	/** A per-phase blend time: Specific, or Inherited when Specific is negative ("not set"). */
+	CYBERWARDEN_API float ResolveBlend(float Specific, float Inherited);
+
+	/** Real seconds a montage still has to play, from its play length, current position and play rate (never negative). */
+	CYBERWARDEN_API double RemainingPlaySeconds(double LengthSeconds, double PositionSeconds, double PlayRate);
+
+	/** The next montage must start now so that it cross-fades in while the current one fades out over CrossfadeSeconds. */
+	CYBERWARDEN_API bool HandoffDue(double RemainingSeconds, double CrossfadeSeconds);
+
+	/**
+	 * The exit may be declared finished (movement may be restored): the planned end has passed and the animation reports it is done, or
+	 * the planned end plus the safety margin has passed (so a montage that never reports completion cannot hold the NPC for ever).
+	 */
+	CYBERWARDEN_API bool ExitComplete(double NowSeconds, double PlannedEndSeconds, bool bAnimationFinished, double SafetyMarginSeconds);
 }

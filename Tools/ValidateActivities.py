@@ -71,6 +71,7 @@ for pt in data["interaction_points"]:
 rep("")
 rep("== Animations ==")
 ar = unreal.AssetRegistryHelpers.get_asset_registry()
+lengths = {}
 for a in data["activities"]:
     for key in ("enter_animation", "loop_animation", "exit_animation"):
         path = a.get(key)
@@ -86,6 +87,21 @@ for a in data["activities"]:
         rep("  %-10s %-15s %s (%.2f s, skeleton %s)%s" % (a["id"], key, path, asset.get_play_length(), skel.get_name() if skel else None, "" if ok else "  INCOMPATIBLE"))
         if not ok:
             errs.append("%s.%s: skeleton is not SK_Mannequin" % (a["id"], key))
+        lengths[(a["id"], key)] = asset.get_play_length() / a.get("play_rate", 1.0)
+    # Timing: a cross-fade must fit inside the clip it fades out of (here half of it, so the clip still shows its own pose in the middle).
+    bi, bo = a.get("blend_in_seconds", 0.0), a.get("blend_out_seconds", 0.0)
+    inherit = lambda k, d: a[k] if a.get(k, -1.0) >= 0 else d
+    if (a["id"], "enter_animation") in lengths:
+        cross = inherit("loop_blend_in_seconds", bi)
+        if cross > lengths[(a["id"], "enter_animation")] / 2.0:
+            errs.append("%s: loop cross-fade %.2f s is longer than half the enter animation (%.2f s)" % (a["id"], cross, lengths[(a["id"], "enter_animation")]))
+    if (a["id"], "exit_animation") in lengths:
+        cross = inherit("exit_blend_in_seconds", bi)
+        if cross + inherit("exit_blend_out_seconds", bo) > lengths[(a["id"], "exit_animation")]:
+            errs.append("%s: exit blend in + blend out (%.2f s) exceed the exit animation (%.2f s)" % (a["id"], cross + inherit("exit_blend_out_seconds", bo), lengths[(a["id"], "exit_animation")]))
+    rep("  %-10s timing: enter blend-in %.2f, enter->loop cross-fade %.2f, loop->exit cross-fade %.2f, exit blend-out %.2f, release grace %s, commit enter %s" % (
+        a["id"], inherit("enter_blend_in_seconds", bi), inherit("loop_blend_in_seconds", bi), inherit("exit_blend_in_seconds", bi), inherit("exit_blend_out_seconds", bo),
+        ("%.2f s" % a["release_grace_seconds"]) if a.get("release_grace_seconds", -1) >= 0 else "component default", a.get("commit_enter", False)))
 
 rep("")
 rep("RESULT: %s" % ("PASS (0 problems)" if not errs else "FAIL (%d problem(s))" % len(errs)))

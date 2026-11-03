@@ -50,6 +50,10 @@ EStateTreeRunStatus FPrisonPlanDestinationTask::EnterState(FStateTreeExecutionCo
 		if (UPrisonActivityComponent* Activity = Data.Actor->FindComponentByClass<UPrisonActivityComponent>())
 		{
 			Data.ArrivalTolerance = static_cast<float>(Activity->GetMoveAcceptableRadius(Plan.MarkerId, 60.0));
+			// The Perform Activity task has just released the activity (it leaves IdleAtStop before this task runs). When the NPC is really leaving
+			// (another stop, or the same one but it has to walk) the release grace window, which only exists so a single-stop re-plan can continue the
+			// activity, is skipped so a seated NPC stands up now.
+			Activity->ExpediteRelease(Plan.MarkerId, Plan.bMoveRequired);
 			// If the NPC is still leaving an activity, wait for its predicted exit before walking (the component keeps movement held until
 			// it is really free, so a wrong prediction can never make the NPC slide out of the pose). Continuing the same activity needs no wait.
 			const float Exit = static_cast<float>(Activity->GetSecondsUntilFreeFor(Plan.MarkerId, Plan.bMoveRequired));

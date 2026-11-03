@@ -6,6 +6,8 @@ import json
 import os
 
 FACING_MODES = ("none", "yaw", "point", "prop")
+# Optional per-phase timing (M2.3 Stage C1); a missing or negative value inherits blend_in / blend_out / the component's grace.
+TIMING_KEYS = ("enter_blend_in_seconds", "loop_blend_in_seconds", "exit_blend_in_seconds", "exit_blend_out_seconds", "release_grace_seconds")
 
 
 def project_dir():
@@ -62,6 +64,9 @@ def validate_schema(data, layout, errs):
         need(bool(a.get("slot")), "%s: no animation slot" % aid)
         need(a.get("blend_in_seconds", 0) >= 0 and a.get("blend_out_seconds", 0) >= 0, "%s: negative blend time" % aid)
         need(a.get("play_rate", 1) > 0, "%s: play rate must be > 0" % aid)
+        for k in TIMING_KEYS:
+            need(isinstance(a.get(k, -1), (int, float)), "%s: %s must be a number (negative = inherit)" % (aid, k))
+        need(not a.get("commit_enter", False) or bool(a.get("enter_animation")), "%s: commit_enter needs an enter animation" % aid)
         need(a.get("align_yaw_rate_deg_per_sec", 1) > 0 and a.get("yaw_tolerance_degrees", 1) > 0, "%s: align rate and yaw tolerance must be > 0" % aid)
     markers = set()
     for p in data.get("interaction_points", []):

@@ -36,6 +36,12 @@ enum class EPrisonActivityState : uint8
  * It never moves the NPC to the marker (no teleport, no snapping): the NPC must already be within the point's arrival
  * tolerance, otherwise the request fails with a reason. While busy the character's movement is held (MOVE_None) and is
  * restored when the activity ends, is interrupted or the component is destroyed.
+ *
+ * Animation sequencing (M2.3 Stage C1, for example sitting down at a table): the enter, loop and exit animations are dynamic montages in one slot.
+ * The loop starts one cross-fade before the enter animation ends (driven by the montage's real remaining time), so the standing pose never shows
+ * between them; the exit cross-fades out of the loop. A definition with bCommitEnter finishes sitting down even if it is released meanwhile. The exit
+ * ends, and movement is restored, when the animation reports it is finished (the planned duration is only the earliest time, with a safety margin
+ * after it). All per-phase blends, the release grace and the commit flag come from the activity definition; nothing is specific to an NPC or a point.
  */
 UCLASS(ClassGroup = (CyberWarden), meta = (BlueprintSpawnableComponent))
 class CYBERWARDEN_API UPrisonActivityComponent : public UActorComponent
@@ -56,6 +62,13 @@ public:
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity", meta = (ClampMin = "0.0"))
 	double ReleaseGraceSeconds = 0.5;
+
+	/**
+	 * Movement is restored when the exit animation reports it has finished. If it never does (a montage that is stuck or was cut), the NPC is
+	 * freed this long after the planned end of the exit, so the hold can never last for ever.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity", meta = (ClampMin = "0.0"))
+	double ExitSafetyMarginSeconds = 1.0;
 
 	// ---- Diagnostics (Blueprint / Python readable) ---------------------------------------------------------------
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
@@ -82,6 +95,18 @@ public:
 	/** The loop montage ended without being asked to (restarted, bounded). */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
 	int32 UnexpectedStopCount = 0;
+
+	/** Activities that ran their whole exit and freed the NPC (not counting interrupts and aborts). */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
+	int32 CompleteCount = 0;
+
+	/** Enter animations that cross-faded into their loop. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
+	int32 HandoffCount = 0;
+
+	/** Farthest the NPC has been from where the current (or last) activity started, in cm (3D): activities never move the capsule. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
+	double MaxDisplacementCm = 0.0;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
 	FString LastFailureReason;
@@ -136,6 +161,14 @@ public:
 	double ReleaseActivity();
 
 	/**
+	 * The NPC is about to leave for NextMarkerId (a different point, or the same one but it has to walk): skip what is left of the release grace
+	 * window so the exit starts now. Does nothing when the next plan simply continues this activity, or when nothing is pending release.
+	 * Called by the plan task after the Perform Activity task released the activity.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Activity")
+	void ExpediteRelease(FName NextMarkerId, bool bNextMoveRequired);
+
+	/**
 	 * Seconds until the NPC is free to move: 0 when idle, the remaining grace + exit time while a release is pending or the exit
 	 * is playing. A prediction for planning only: the movement hold (released by the component itself) is the authority.
 	 */
@@ -185,6 +218,11 @@ private:
 	void FinishActivity();
 	void StopMontage(float BlendOutSeconds);
 	double ExitSeconds() const;
+	double GraceSeconds() const;
+	/** Real seconds the enter animation still has to play, read from the montage itself (falls back to the planned end). */
+	double RemainingEnterSeconds() const;
+	/** True when there is no active montage, or the animation instance reports it is no longer playing. */
+	bool ActiveMontageFinished() const;
 	void HoldMovement();
 	void ReleaseMovement();
 	void SetState(EPrisonActivityState NewState);
@@ -197,6 +235,7 @@ private:
 	TObjectPtr<UAnimMontage> ActiveMontage;
 	double PhaseEndAt = 0.0;
 	double ReleaseAt = 0.0;
+	FVector ActivityStartLocation = FVector::ZeroVector;
 	int32 LoopRestarts = 0;
 	TEnumAsByte<EMovementMode> SavedMovementMode = MOVE_Walking;
 	uint8 SavedCustomMode = 0;

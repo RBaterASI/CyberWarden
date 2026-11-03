@@ -141,7 +141,29 @@ double UPrisonActivityComponent::ExitSeconds() const
 	{
 		return Exit->GetPlayLength() / FMath::Max(ActiveDef.PlayRate, 0.01f);
 	}
-	return ActiveDef.BlendOutSeconds;
+	return ActiveDef.GetExitBlendOut();
+}
+
+double UPrisonActivityComponent::GraceSeconds() const
+{
+	return ActiveDef.ReleaseGraceSeconds >= 0.f ? static_cast<double>(ActiveDef.ReleaseGraceSeconds) : ReleaseGraceSeconds;
+}
+
+double UPrisonActivityComponent::RemainingEnterSeconds() const
+{
+	const UAnimInstance* Anim = GetAnimInstance();
+	UAnimInstance* MutableAnim = const_cast<UAnimInstance*>(Anim);
+	if (MutableAnim && ActiveMontage && MutableAnim->Montage_IsPlaying(ActiveMontage))
+	{
+		return PrisonActivityMath::RemainingPlaySeconds(ActiveMontage->GetPlayLength(), MutableAnim->Montage_GetPosition(ActiveMontage), ActiveDef.PlayRate);
+	}
+	return FMath::Max(0.0, PhaseEndAt - Now());
+}
+
+bool UPrisonActivityComponent::ActiveMontageFinished() const
+{
+	UAnimInstance* Anim = GetAnimInstance();
+	return !Anim || !ActiveMontage || !Anim->Montage_IsPlaying(ActiveMontage);
 }
 
 bool UPrisonActivityComponent::TryStart(FName MarkerId)
@@ -201,6 +223,8 @@ bool UPrisonActivityComponent::TryStart(FName MarkerId)
 	}
 	++StartCount;
 	LastFailureReason.Empty();
+	ActivityStartLocation = Loc;
+	MaxDisplacementCm = 0.0;
 	HoldMovement();
 	SetState(EPrisonActivityState::Aligning);
 	return true;
@@ -231,10 +255,19 @@ bool UPrisonActivityComponent::RequestActivity(FName MarkerId)
 		}
 		else if (State == EPrisonActivityState::Entering)
 		{
-			++InterruptCount;
-			StopMontage(ActiveDef.BlendOutSeconds);
-			PhaseEndAt = Now() + ActiveDef.BlendOutSeconds;
-			SetState(EPrisonActivityState::Exiting);
+			if (ActiveDef.bCommitEnter)
+			{
+				// Leaving for another point: finish sitting down (no grace: this is not a continuation), then stand up.
+				bReleasePending = true;
+				ReleaseAt = Now();
+			}
+			else
+			{
+				++InterruptCount;
+				StopMontage(ActiveDef.BlendOutSeconds);
+				PhaseEndAt = Now() + ActiveDef.BlendOutSeconds;
+				SetState(EPrisonActivityState::Exiting);
+			}
 		}
 		else if (State == EPrisonActivityState::Performing)
 		{
@@ -257,6 +290,16 @@ double UPrisonActivityComponent::ReleaseActivity()
 		FinishActivity();
 		return 0.0;
 	case EPrisonActivityState::Entering:
+		if (ActiveDef.bCommitEnter)
+		{
+			// Sitting down is not cut half way: the enter animation finishes, then the (graced) release takes effect.
+			if (!bReleasePending)
+			{
+				bReleasePending = true;
+				ReleaseAt = Now() + GraceSeconds();
+			}
+			return GetSecondsUntilFree();
+		}
 		++InterruptCount;
 		StopMontage(ActiveDef.BlendOutSeconds);
 		PhaseEndAt = Now() + ActiveDef.BlendOutSeconds;
@@ -266,7 +309,7 @@ double UPrisonActivityComponent::ReleaseActivity()
 		if (!bReleasePending)
 		{
 			bReleasePending = true;
-			ReleaseAt = Now() + ReleaseGraceSeconds;
+			ReleaseAt = Now() + GraceSeconds();
 		}
 		return FMath::Max(0.0, ReleaseAt - Now()) + ExitSeconds();
 	case EPrisonActivityState::Exiting:
@@ -284,9 +327,13 @@ double UPrisonActivityComponent::GetSecondsUntilFree() const
 	case EPrisonActivityState::Aligning:
 		return 0.0; // aligning is cancelled immediately
 	case EPrisonActivityState::Entering:
+		if (ActiveDef.bCommitEnter)
+		{
+			return FMath::Max(RemainingEnterSeconds(), bReleasePending ? FMath::Max(0.0, ReleaseAt - T) : GraceSeconds()) + ExitSeconds();
+		}
 		return ActiveDef.BlendOutSeconds;
 	case EPrisonActivityState::Performing:
-		return (bReleasePending ? FMath::Max(0.0, ReleaseAt - T) : ReleaseGraceSeconds) + ExitSeconds();
+		return (bReleasePending ? FMath::Max(0.0, ReleaseAt - T) : GraceSeconds()) + ExitSeconds();
 	case EPrisonActivityState::Exiting:
 		return FMath::Max(0.0, PhaseEndAt - T);
 	}
@@ -300,6 +347,15 @@ double UPrisonActivityComponent::GetSecondsUntilFreeFor(FName NextMarkerId, bool
 		return 0.0; // the same activity continues
 	}
 	return GetSecondsUntilFree();
+}
+
+void UPrisonActivityComponent::ExpediteRelease(FName NextMarkerId, bool bNextMoveRequired)
+{
+	if (!bReleasePending || (NextMarkerId == ActiveMarkerId && !bNextMoveRequired))
+	{
+		return; // nothing to expedite, or the next plan simply continues this activity
+	}
+	ReleaseAt = FMath::Min(ReleaseAt, Now());
 }
 
 double UPrisonActivityComponent::GetMoveAcceptableRadius(FName MarkerId, double DefaultRadius)
@@ -355,8 +411,14 @@ void UPrisonActivityComponent::StartLoop()
 		RandomStream.Initialize(static_cast<int32>(GetTypeHash(GetOwner()->GetFName())));
 		bRandomInitialized = true;
 	}
+	if (State == EPrisonActivityState::Entering)
+	{
+		++HandoffCount; // the enter montage is still fading out: the new montage in the same slot replaces it with a cross-fade, never via the standing pose
+	}
 	const float StartAt = ActiveDef.bRandomizeLoopStart ? RandomStream.FRand() * Loop->GetPlayLength() : 0.f;
-	ActiveMontage = Anim->PlaySlotAnimationAsDynamicMontage(Loop, ActiveDef.SlotName, ActiveDef.BlendInSeconds, ActiveDef.BlendOutSeconds, ActiveDef.PlayRate, 100000, -1.f, StartAt);
+	// The loop blends out over the exit cross-fade when an exit animation follows, otherwise over the plain exit blend-out.
+	const float LoopBlendOut = ActiveDef.ExitAnimation.IsNull() ? ActiveDef.GetExitBlendOut() : ActiveDef.GetExitBlendIn();
+	ActiveMontage = Anim->PlaySlotAnimationAsDynamicMontage(Loop, ActiveDef.SlotName, ActiveDef.GetLoopBlendIn(), LoopBlendOut, ActiveDef.PlayRate, 100000, -1.f, StartAt);
 	SetState(EPrisonActivityState::Performing);
 }
 
@@ -367,13 +429,14 @@ void UPrisonActivityComponent::BeginExit()
 	UAnimSequence* Exit = ActiveDef.ExitAnimation.IsNull() ? nullptr : ActiveDef.ExitAnimation.LoadSynchronous();
 	if (Anim && Exit)
 	{
-		ActiveMontage = Anim->PlaySlotAnimationAsDynamicMontage(Exit, ActiveDef.SlotName, ActiveDef.BlendInSeconds, ActiveDef.BlendOutSeconds, ActiveDef.PlayRate, 1);
+		// Replaces the loop (or the enter animation, after a committed enter) in the slot with a cross-fade.
+		ActiveMontage = Anim->PlaySlotAnimationAsDynamicMontage(Exit, ActiveDef.SlotName, ActiveDef.GetExitBlendIn(), ActiveDef.GetExitBlendOut(), ActiveDef.PlayRate, 1);
 		PhaseEndAt = Now() + Exit->GetPlayLength() / FMath::Max(ActiveDef.PlayRate, 0.01f);
 	}
 	else
 	{
-		StopMontage(ActiveDef.BlendOutSeconds);
-		PhaseEndAt = Now() + (bUsingFallbackIdle ? 0.0 : ActiveDef.BlendOutSeconds);
+		StopMontage(ActiveDef.GetExitBlendOut());
+		PhaseEndAt = Now() + (bUsingFallbackIdle ? 0.0 : ActiveDef.GetExitBlendOut());
 	}
 	SetState(EPrisonActivityState::Exiting);
 }
@@ -404,6 +467,7 @@ void UPrisonActivityComponent::UpdateDiagnostics()
 	SlotNodeWeight = (Anim && State != EPrisonActivityState::Idle) ? Anim->GetSlotNodeGlobalWeight(ActiveDef.SlotName) : 0.0;
 	if (const AActor* Owner = GetOwner(); Owner && State != EPrisonActivityState::Idle)
 	{
+		MaxDisplacementCm = FMath::Max(MaxDisplacementCm, FVector::Dist(Owner->GetActorLocation(), ActivityStartLocation));
 		YawErrorDegrees = PrisonActivityMath::DeltaYaw(Owner->GetActorRotation().Yaw, TargetYawDegrees);
 		if (const AActor* Marker = ResolveMarker(ActiveMarkerId))
 		{
@@ -436,7 +500,8 @@ void UPrisonActivityComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 			UAnimSequence* Enter = ActiveDef.EnterAnimation.IsNull() ? nullptr : ActiveDef.EnterAnimation.LoadSynchronous();
 			if (Anim && Enter)
 			{
-				ActiveMontage = Anim->PlaySlotAnimationAsDynamicMontage(Enter, ActiveDef.SlotName, ActiveDef.BlendInSeconds, ActiveDef.BlendOutSeconds, ActiveDef.PlayRate, 1);
+				// The enter montage fades out over the cross-fade to the loop, which starts that long before it ends (see the Entering case).
+				ActiveMontage = Anim->PlaySlotAnimationAsDynamicMontage(Enter, ActiveDef.SlotName, ActiveDef.GetEnterBlendIn(), ActiveDef.GetLoopBlendIn(), ActiveDef.PlayRate, 1);
 				PhaseEndAt = T + Enter->GetPlayLength() / FMath::Max(ActiveDef.PlayRate, 0.01f);
 				SetState(EPrisonActivityState::Entering);
 			}
@@ -448,9 +513,18 @@ void UPrisonActivityComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 		break;
 	}
 	case EPrisonActivityState::Entering:
-		if (T >= PhaseEndAt)
+		// The hand-off is driven by the montage itself (its real remaining time), with the planned end and "no longer playing" as fallbacks:
+		// the loop starts one cross-fade before the enter animation ends, so the slot never falls back to the standing pose in between.
+		if (PrisonActivityMath::HandoffDue(RemainingEnterSeconds(), ActiveDef.GetLoopBlendIn()) || ActiveMontageFinished() || T >= PhaseEndAt)
 		{
-			StartLoop();
+			if (bReleasePending && T >= ReleaseAt)
+			{
+				BeginExit(); // committed enter: the NPC has sat down, now it stands up (enter cross-fades straight into the exit)
+			}
+			else
+			{
+				StartLoop();
+			}
 		}
 		break;
 	case EPrisonActivityState::Performing:
@@ -476,8 +550,10 @@ void UPrisonActivityComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 		}
 		break;
 	case EPrisonActivityState::Exiting:
-		if (T >= PhaseEndAt)
+		// Movement is restored only when the animation reports that the exit is over (or the safety margin after the planned end has passed).
+		if (PrisonActivityMath::ExitComplete(T, PhaseEndAt, ActiveMontageFinished(), ExitSafetyMarginSeconds))
 		{
+			++CompleteCount;
 			FinishActivity();
 		}
 		break;

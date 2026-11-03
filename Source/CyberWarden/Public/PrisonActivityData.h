@@ -68,6 +68,43 @@ struct CYBERWARDEN_API FPrisonActivityDefinition
 	/** The NPC may start the activity once its yaw is within this many degrees of the target. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity", meta = (ClampMin = "0.1"))
 	float YawToleranceDegrees = 3.f;
+
+	// ---- Per-phase timing (M2.3 Stage C1). Every blend below is "inherit" when negative, so definitions written for Stage A/B behave exactly as before. ----
+
+	/** Blend into the enter animation from the NPC's normal pose. Negative = BlendInSeconds. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity|Timing")
+	float EnterBlendInSeconds = -1.f;
+
+	/**
+	 * Cross-fade from the enter animation to the loop: the loop starts this long before the enter animation ends, so the NPC never shows its
+	 * standing pose in between. Also the blend into a loop that has no enter animation. Negative = BlendInSeconds.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity|Timing")
+	float LoopBlendInSeconds = -1.f;
+
+	/** Cross-fade from the loop to the exit animation (the loop blends out over the same time). Negative = BlendInSeconds. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity|Timing")
+	float ExitBlendInSeconds = -1.f;
+
+	/** Blend from the end of the exit animation (or from the loop when there is no exit animation) back to the normal pose. Negative = BlendOutSeconds. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity|Timing")
+	float ExitBlendOutSeconds = -1.f;
+
+	/**
+	 * Sitting down must not be cut half way: a release (or a request for another point) while the enter animation plays lets it finish and then stands up,
+	 * instead of blending out of the half-seated pose. Needs an enter animation.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity|Timing")
+	bool bCommitEnter = false;
+
+	/** How long a released activity keeps running so that a request for the same point continues it (single-stop destinations). Negative = the component's ReleaseGraceSeconds. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity|Timing")
+	float ReleaseGraceSeconds = -1.f;
+
+	float GetEnterBlendIn() const;
+	float GetLoopBlendIn() const;
+	float GetExitBlendIn() const;
+	float GetExitBlendOut() const;
 };
 
 /** A place where an activity happens, keyed by the destination marker id used in the schedule. Independent of any NPC. */

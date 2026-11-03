@@ -15,6 +15,26 @@
       "randomize_loop_start": true,
       "align_yaw_rate_deg_per_sec": 120.0,
       "yaw_tolerance_degrees": 3.0
+    },
+    {
+      "id": "SeatedIdle",
+      "_note": "M2.3 Stage C1: generic sit-and-wait (stand-to-sit, seated idle loop, sit-to-stand; Mixamo clips retargeted in C0). No interaction point uses it yet: the seat points, the stool and the Move To stop distance are Stage C2. The clip pelvis travels 43 cm backwards while sitting (see Docs/NPC/M2_3_Stage_C0.md, the 88 cm table gap).",
+      "enter_animation": "/Game/CyberWarden/Anims/Seated/SEAT_StandToSit",
+      "loop_animation": "/Game/CyberWarden/Anims/Seated/SEAT_SittingIdle",
+      "exit_animation": "/Game/CyberWarden/Anims/Seated/SEAT_SitToStand",
+      "slot": "DefaultSlot",
+      "blend_in_seconds": 0.4,
+      "blend_out_seconds": 0.3,
+      "enter_blend_in_seconds": 0.4,
+      "loop_blend_in_seconds": 0.25,
+      "exit_blend_in_seconds": 0.25,
+      "exit_blend_out_seconds": 0.4,
+      "play_rate": 1.0,
+      "randomize_loop_start": false,
+      "commit_enter": true,
+      "release_grace_seconds": 1.5,
+      "align_yaw_rate_deg_per_sec": 120.0,
+      "yaw_tolerance_degrees": 3.0
     }
   ],
   "interaction_points": [
