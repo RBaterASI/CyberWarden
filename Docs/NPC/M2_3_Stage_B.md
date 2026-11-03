@@ -70,3 +70,28 @@ Nothing else changes: no new state, no new transition. Then tell me it is done a
 - The 0.5 s grace window means a stand-up exit starts half a second after the idle ends; it is deliberate and configurable (`ReleaseGraceSeconds`).
 - The cafeteria aisle conflict and the Gate G1 stall remain open congestion items; neither is changed here.
 - The headless shutdown access violation remains unresolved and tracked (`M2_2_Shutdown_Crash.md`).
+
+## 6. Acceptance on the real StateTree and human visual acceptance (Stage B closed)
+The manual edit from section 4 was made: `Prison: Perform Activity` in IdleAtStop (Actor bound to Context Actor, Marker Id bound to Plan Destination > Marker Id) and Move To's Acceptable Radius bound to Plan Destination > Arrival Tolerance; the tree compiled and was saved (`ST_NPCRoutine.uasset`, 108,427 bytes). The tests below ran against exactly that asset. All Unreal runs were serial; assertions and process exit codes are recorded separately.
+
+| Test (real StateTree) | Assertions | Process exit code |
+|---|---|---|
+| `ActivityScheduleTest.py` `ACT_MODE=statetree`, run 1 | PASS 24 / 24 | 0 |
+| Same, run 2 (end of the regression suite) | PASS 24 / 24 | 0 |
+| Native automation tests `CyberWarden.Prison.*` | 5 / 5 Success | 0 |
+| `ValidateSchedule.py` / `VerifySchedule.py` / `VerifyNpcFoundation.py` | 24/24, 23/23, 33/33 | 0 each |
+| `VerifyStateTreeNodes.py` / `ValidateActivities.py` / `VerifyNavigation.py` | 10/10, 0 problems, 0 failures (all NPC legs OK) | 0 each |
+| `ScheduleComponentPieTest.py` / `ActivityComponentPieTest.py` | 87/87, 59/59 | 0 each |
+| `NpcAnimProbe.py` / `ScheduleRecoveryTest.py` | 20/20, 9/9 | 0 each |
+| `ScheduleRoutineEmulationTest.py` `EMU_MODE=statetree` (four prisoners, full day) | PASS 96 / 96 (0 navigation failures, stuck, teleports, repeated Move To) | 0 |
+
+What the real-tree QUI01 test showed: QUI01 followed its schedule to `Rec_TV` and started WatchTV once for the arrival (96 cm from the marker, within the 150 cm tolerance); faced the TV with 0.00 deg error; the idle animation played through `DefaultSlot` at slot weight 1.00 with movement held and no restart; an injected work-to-lunch change produced one replan after the stagger and the activity ended 0.87 s after the request (Exiting, then Idle) with 0 cm of sliding, movement was restored and QUI01 walked to its lunch seat; the later change back to recreation produced a second arrival and a second start (1 to 2); in a single-stop work period (changed in memory only) three idle cycles gave three continuations, still no new start and no state change; largest per-tick step 10.2 cm, no snapping (0.00 cm), no navigation failure, 8 plans in the run (no restart storm); the other prisoners had no navigation failures.
+
+**Human visual Play In Editor acceptance: approved.** The project owner ran the Stage B visual review in Play In Editor and reported that everything looked good (QUI01 watching the TV at `Rec_TV`, the schedule change ending the activity, and the other prisoners' existing behaviour).
+
+Limits: the pose is the placeholder ordinary idle (the visible result is the deliberate facing, lifecycle and clean interruption); real activity animations, seats and usable bunks are later, separately approved stages.
+
+## 7. Open items carried forward (tracked, not fixed)
+1. **Headless Unreal shutdown access violation: UNRESOLVED.** Completed runs sometimes die with `0xC0000005` after a clean engine shutdown (see `M2_2_Shutdown_Crash.md`). None of the runs recorded for Stage B ended with it, which says nothing about the cause. A completed run with a crashing process is never reported as an unqualified pass.
+2. **Gate G1 transient stall: low priority, monitor** (seen once in an M2.2 real-tree run; a prisoner paused over 5 s in the 300 cm passage while four converged, then resumed without a navigation failure).
+3. **Cafeteria east-aisle congestion: low priority, monitor** (seen once in a Stage B end-to-end run: WRK01 had one recovered navigation failure at (6987, 616) after TRB01 stopped at its lunch seat in the aisle between table 4 and the servery counter; unrelated to the activity code; candidate later fixes: another lunch seat for TRB01 or more clearance).
