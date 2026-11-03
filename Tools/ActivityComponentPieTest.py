@@ -174,7 +174,7 @@ def run(gw):
 
     # ---- 5. release + re-request inside the grace window ------------------------------------------------------------
     secs = S["comp"].release_activity()
-    check("release reports the time until free: %.2f s (grace 0.25 + blend out 0.3)" % secs, 0.5 <= secs <= 0.6, str(secs))
+    check("release reports the time until free: %.2f s (grace 0.5 + blend out 0.3)" % secs, 0.75 <= secs <= 0.85, str(secs))
     yield ("secs", 0.08)
     S["comp"].request_activity("Rec_TV")
     yield ("secs", 0.8)
@@ -262,7 +262,7 @@ def run(gw):
           "ENTERING" in seen and seen[-1] == "PERFORMING" and 0.7 <= S.get("enter_dur", 0) <= 1.1, str(seen))
     check("loop montage playing after the enter animation (slot weight %.2f)" % g("slot_node_weight"), g("montage_playing") and g("slot_node_weight") >= 0.95)
     secs = S["comp"].release_activity()
-    check("release time includes the exit animation: %.2f s (grace 0.25 + 0.87)" % secs, 1.0 <= secs <= 1.25, str(secs))
+    check("release time includes the exit animation: %.2f s (grace 0.5 + 0.87)" % secs, 1.3 <= secs <= 1.45, str(secs))
     yield ("until", lambda: stname() == "EXITING", 2.0)
     check("exit animation phase entered", not S["timed_out"])
     yield ("until", lambda: stname() == "IDLE", 3.0)
@@ -298,6 +298,57 @@ def run(gw):
     yield ("until", lambda: stname() == "PERFORMING", 5.0)
     S["comp"].abort_activity()
     check("abort stops everything now and restores movement", stname() == "IDLE" and mmode() == "MOVE_WALKING" and not g("montage_playing"), "%s %s" % (stname(), mmode()))
+
+    # ---- 12. planning helpers used by the StateTree plan task, and movement authority ------------------------------------------
+    yield ("secs", 0.3)
+    c = S["comp"]
+    check("Move To radius for Rec_TV is the default 60 (tolerance 150 - capsule 34 - margin 20 = 96, capped at 60)", abs(c.get_move_acceptable_radius("Rec_TV", 60.0) - 60.0) < 1e-6)
+    check("Move To radius for a stop without an interaction point is the default", abs(c.get_move_acceptable_radius("Rec_Bench", 60.0) - 60.0) < 1e-6)
+    tight = unreal.new_object(unreal.PrisonActivityData)
+    tight.set_editor_property("activities", [unreal.PrisonActivityDefinition(id="Seat", slot_name="DefaultSlot", blend_out_seconds=0.3)])
+    tight.set_editor_property("points", [unreal.PrisonInteractionPoint(marker_id="Rec_TV", activity_id="Seat", arrival_tolerance_cm=60.0, capacity=1),
+                                         unreal.PrisonInteractionPoint(marker_id="Rec_Table_B", activity_id="Seat", arrival_tolerance_cm=300.0, capacity=1)])
+    S["comp"].set_editor_property("activity_data_override", tight)
+    S["comp"] = npc.get_component_by_class(unreal.PrisonActivityComponent)
+    c = S["comp"]
+    check("a tight interaction point (tolerance 60 cm) asks Move To for 10 cm (60 - 34 - 20 < 10, floor)", abs(c.get_move_acceptable_radius("Rec_TV", 60.0) - 10.0) < 1e-6)
+    check("a loose interaction point (300 cm) keeps the default radius", abs(c.get_move_acceptable_radius("Rec_Table_B", 60.0) - 60.0) < 1e-6)
+    S["comp"].set_editor_property("activity_data_override", None)
+    S["comp"] = npc.get_component_by_class(unreal.PrisonActivityComponent)
+    c = S["comp"]
+    check("idle: nothing to wait for", c.get_seconds_until_free() == 0.0 and c.get_seconds_until_free_for("Rec_TV", True) == 0.0)
+    c.request_activity("Rec_TV")
+    yield ("until", lambda: stname() == "PERFORMING", 5.0)
+    f = c.get_seconds_until_free()
+    check("performing: would be free in grace + blend-out = %.2f s" % f, 0.75 <= f <= 0.85, str(f))
+    check("single-stop loop (same marker, no move needed): no wait", c.get_seconds_until_free_for("Rec_TV", False) == 0.0)
+    check("leaving (move required) waits for the exit: %.2f s" % c.get_seconds_until_free_for("Rec_TV", True), 0.75 <= c.get_seconds_until_free_for("Rec_TV", True) <= 0.85)
+    check("another stop waits for the exit", 0.75 <= c.get_seconds_until_free_for("Rec_Table_B", True) <= 0.85)
+    yield ("secs", 0.5)
+    c.release_activity()
+    yield ("secs", 0.1)
+    check("after a release the prediction counts down (%.2f s)" % c.get_seconds_until_free(), 0.55 <= c.get_seconds_until_free() <= 0.8)
+    check("a request for the same stop is still a continuation while the release is pending", c.get_seconds_until_free_for("Rec_TV", False) == 0.0)
+    c.request_activity("Rec_TV")  # cancel that release, then test the authority of the hold
+    yield ("secs", 0.3)
+    secs = c.release_activity()
+    here = npc.get_actor_location()
+    tgt3 = walk_to("Rec_Table_B")  # a Move To is issued while the component still holds movement
+    mark("authority")
+    yield ("secs", 0.35)
+    mid = npc.get_actor_location()
+    held_disp = d2(here.x, here.y, mid.x, mid.y)
+    check("a Move To issued while the activity is still releasing does not move the NPC (%.1f cm in 0.35 s, mode %s)" % (held_disp, mmode()), held_disp < 3.0 and mmode() == "MOVE_NONE", "%s %s" % (held_disp, mmode()))
+    log("move status while held: %s" % str(S["ctrl"].get_move_status()))
+    yield ("until", lambda: stname() == "IDLE", 3.0)
+    t_free = S["last_t"]
+    yield ("secs", 4.0)
+    after = npc.get_actor_location()
+    moved = d2(mid.x, mid.y, after.x, after.y)
+    check("when the component releases movement the pending Move To proceeds without failing (%.0f cm in 4 s)" % moved, moved > 200.0 and mmode() == "MOVE_WALKING", "%s %s" % (moved, mmode()))
+    yield ("until", lambda: arrived(tgt3), 60.0)
+    check("and the NPC reaches that destination", not S["timed_out"])
+    check("no teleport while leaving: max step %.1f cm" % window("authority")["max_step"], window("authority")["max_step"] < 20.0)  # walking at 150 cm/s with a 0.067 s tick is about 10 cm per step
 
     w_all = {"max_step": max(d2(p[1], p[2], q[1], q[2]) for p, q in zip(S["samples"], S["samples"][1:]) if p[4] != "IDLE" and q[4] != "IDLE")} if len(S["samples"]) > 2 else {"max_step": 0}
     check("no position jumps at any time while an activity was active (max step %.2f cm)" % w_all["max_step"], w_all["max_step"] < 1.0)

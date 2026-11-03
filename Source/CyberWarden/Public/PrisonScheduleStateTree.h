@@ -42,6 +42,10 @@ struct CYBERWARDEN_API FPrisonPlanDestinationInstanceData
 	UPROPERTY(VisibleAnywhere, Category = Output)
 	bool bPlanValid = false;
 
+	/** Acceptable radius (cm) for the Move To task: 60 for ordinary stops, smaller when the destination is an interaction point that needs a tighter stop. */
+	UPROPERTY(VisibleAnywhere, Category = Output)
+	float ArrivalTolerance = 60.f;
+
 	UPROPERTY(VisibleAnywhere, Category = Output)
 	FName MarkerId;
 
@@ -92,4 +96,42 @@ struct CYBERWARDEN_API FPrisonReplanRequestedCondition : public FStateTreeCondit
 
 	UPROPERTY(EditAnywhere, Category = Parameter)
 	bool bInvert = false;
+};
+
+/** Instance data of "Prison: Perform Activity". */
+USTRUCT()
+struct CYBERWARDEN_API FPrisonPerformActivityInstanceData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, Category = Context)
+	TObjectPtr<AActor> Actor = nullptr;
+
+	/** Destination marker of the current stop: bind to "Prison: Plan Destination > Marker Id". */
+	UPROPERTY(EditAnywhere, Category = Input)
+	FName MarkerId;
+
+	/** True when the destination is an interaction point and the activity started or continues. */
+	UPROPERTY(VisibleAnywhere, Category = Output)
+	bool bActivityAccepted = false;
+};
+
+/**
+ * Runs the interaction point's activity (UPrisonActivityComponent) for the destination the NPC is standing at. Meant for the
+ * idle state of the routine, next to the Delay task: entering the state requests the activity (a stop without an interaction
+ * point is simply ignored), leaving the state releases it. The task never completes the state (the Delay decides how long the
+ * activity lasts) and never moves anything; the activity component holds movement while it is busy and restores it itself.
+ */
+USTRUCT(meta = (DisplayName = "Prison: Perform Activity", Category = "Cyber Warden"))
+struct CYBERWARDEN_API FPrisonPerformActivityTask : public FStateTreeTaskCommonBase
+{
+	GENERATED_BODY()
+
+	using FInstanceDataType = FPrisonPerformActivityInstanceData;
+
+	FPrisonPerformActivityTask();
+
+	virtual const UStruct* GetInstanceDataType() const override { return FInstanceDataType::StaticStruct(); }
+	virtual EStateTreeRunStatus EnterState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) const override;
+	virtual void ExitState(FStateTreeExecutionContext& Context, const FStateTreeTransitionResult& Transition) const override;
 };

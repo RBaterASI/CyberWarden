@@ -7,6 +7,7 @@
 #include "Animation/AnimInstance.h"
 #include "Animation/AnimMontage.h"
 #include "Animation/AnimSequence.h"
+#include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "EngineUtils.h"
 #include "GameFramework/Character.h"
@@ -272,6 +273,52 @@ double UPrisonActivityComponent::ReleaseActivity()
 		return FMath::Max(0.0, PhaseEndAt - Now());
 	}
 	return 0.0;
+}
+
+double UPrisonActivityComponent::GetSecondsUntilFree() const
+{
+	const double T = Now();
+	switch (State)
+	{
+	case EPrisonActivityState::Idle:
+	case EPrisonActivityState::Aligning:
+		return 0.0; // aligning is cancelled immediately
+	case EPrisonActivityState::Entering:
+		return ActiveDef.BlendOutSeconds;
+	case EPrisonActivityState::Performing:
+		return (bReleasePending ? FMath::Max(0.0, ReleaseAt - T) : ReleaseGraceSeconds) + ExitSeconds();
+	case EPrisonActivityState::Exiting:
+		return FMath::Max(0.0, PhaseEndAt - T);
+	}
+	return 0.0;
+}
+
+double UPrisonActivityComponent::GetSecondsUntilFreeFor(FName NextMarkerId, bool bNextMoveRequired) const
+{
+	if (State != EPrisonActivityState::Idle && State != EPrisonActivityState::Exiting && NextMarkerId == ActiveMarkerId && !bNextMoveRequired)
+	{
+		return 0.0; // the same activity continues
+	}
+	return GetSecondsUntilFree();
+}
+
+double UPrisonActivityComponent::GetMoveAcceptableRadius(FName MarkerId, double DefaultRadius)
+{
+	const UPrisonActivityData* Data = ResolveData();
+	const FPrisonInteractionPoint* Point = Data ? Data->FindPoint(MarkerId) : nullptr;
+	if (!Point)
+	{
+		return DefaultRadius;
+	}
+	double Capsule = 34.0;
+	if (const ACharacter* Character = Cast<ACharacter>(GetOwner()))
+	{
+		if (const UCapsuleComponent* Cap = Character->GetCapsuleComponent())
+		{
+			Capsule = Cap->GetScaledCapsuleRadius();
+		}
+	}
+	return FMath::Clamp(static_cast<double>(Point->ArrivalToleranceCm) - Capsule - 20.0, 10.0, DefaultRadius);
 }
 
 void UPrisonActivityComponent::AbortActivity()

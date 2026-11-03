@@ -55,7 +55,7 @@ public:
 	 * seamlessly (single-stop destinations re-plan every idle cycle and must not restart the animation).
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity", meta = (ClampMin = "0.0"))
-	double ReleaseGraceSeconds = 0.25;
+	double ReleaseGraceSeconds = 0.5;
 
 	// ---- Diagnostics (Blueprint / Python readable) ---------------------------------------------------------------
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
@@ -134,6 +134,27 @@ public:
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Activity")
 	double ReleaseActivity();
+
+	/**
+	 * Seconds until the NPC is free to move: 0 when idle, the remaining grace + exit time while a release is pending or the exit
+	 * is playing. A prediction for planning only: the movement hold (released by the component itself) is the authority.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Activity")
+	double GetSecondsUntilFree() const;
+
+	/**
+	 * Like GetSecondsUntilFree, but 0 when the NPC is about to continue the same activity (same marker and no movement needed),
+	 * which is the case for single-stop destinations that re-plan every idle cycle.
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Activity")
+	double GetSecondsUntilFreeFor(FName NextMarkerId, bool bNextMoveRequired) const;
+
+	/**
+	 * Acceptable radius for the Move To task when walking to a destination: DefaultRadius, or smaller when the interaction point
+	 * needs a tighter stop (point tolerance minus the capsule radius minus a 20 cm margin, never below 10 cm).
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Activity")
+	double GetMoveAcceptableRadius(FName MarkerId, double DefaultRadius = 60.0);
 
 	/** Stops everything now and restores movement (used when the owner is destroyed or something must interrupt hard). */
 	UFUNCTION(BlueprintCallable, Category = "Activity")

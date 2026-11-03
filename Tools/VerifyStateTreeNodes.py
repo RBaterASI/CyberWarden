@@ -14,6 +14,8 @@ def chk(name, ok, detail=""):
 
 for path, label in (("/Script/CyberWarden.PrisonPlanDestinationTask", "Prison: Plan Destination (task)"),
                     ("/Script/CyberWarden.PrisonReplanRequestedCondition", "Prison: Replan Requested (condition)"),
+                    ("/Script/CyberWarden.PrisonPerformActivityTask", "Prison: Perform Activity (task)"),
+                    ("/Script/CyberWarden.PrisonPerformActivityInstanceData", "perform activity instance data"),
                     ("/Script/CyberWarden.PrisonPlanDestinationInstanceData", "task instance data"),
                     ("/Script/CyberWarden.PrisonReplanRequestedConditionInstanceData", "condition instance data")):
     s = unreal.load_object(None, path)
