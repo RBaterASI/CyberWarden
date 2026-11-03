@@ -1,0 +1,78 @@
+"""M2.3 activity data support: loading, facing resolution and structural validation of Docs/Layout/S01_LW_F1_activities.json.
+
+Pure Python (no `unreal` import), used by Tools/ConfigureActivities.py, Tools/ValidateActivities.py and the tests.
+"""
+import json
+import os
+
+FACING_MODES = ("none", "yaw", "point", "prop")
+
+
+def project_dir():
+    return os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
+
+
+def load(path=None):
+    path = path or os.path.join(project_dir(), "Docs", "Layout", "S01_LW_F1_activities.json")
+    with open(path, "r", encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def load_layout():
+    with open(os.path.join(project_dir(), "Docs", "Layout", "S01_LW_F1.json"), "r", encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def prop_center(layout, prop_id):
+    """XY centre and top height of a layout box, or None."""
+    for b in layout.get("boxes", []):
+        if b["id"] == prop_id:
+            return ((b["x0"] + b["x1"]) / 2.0, (b["y0"] + b["y1"]) / 2.0, b.get("z1", 0.0))
+    return None
+
+
+def resolve_facing(point, layout):
+    """Returns (mode, yaw_degrees, (x, y, z)) with mode in none/yaw/point; 'prop' facing becomes a point at the prop centre."""
+    f = point.get("facing", {"mode": "none"})
+    mode = f.get("mode", "none")
+    if mode == "prop":
+        c = prop_center(layout, f.get("prop_id", ""))
+        if c is None:
+            raise ValueError("unknown prop %s" % f.get("prop_id"))
+        return "point", 0.0, c
+    if mode == "point":
+        return "point", 0.0, (f["x"], f["y"], f.get("z", 0.0))
+    if mode == "yaw":
+        return "yaw", float(f["degrees"]), (0.0, 0.0, 0.0)
+    return "none", 0.0, (0.0, 0.0, 0.0)
+
+
+def validate_schema(data, layout, errs):
+    def need(cond, msg):
+        if not cond:
+            errs.append(msg)
+        return cond
+
+    ids = set()
+    for a in data.get("activities", []):
+        aid = a.get("id")
+        need(bool(aid), "activity without id")
+        need(aid not in ids, "duplicate activity id %s" % aid)
+        ids.add(aid)
+        need(bool(a.get("slot")), "%s: no animation slot" % aid)
+        need(a.get("blend_in_seconds", 0) >= 0 and a.get("blend_out_seconds", 0) >= 0, "%s: negative blend time" % aid)
+        need(a.get("play_rate", 1) > 0, "%s: play rate must be > 0" % aid)
+        need(a.get("align_yaw_rate_deg_per_sec", 1) > 0 and a.get("yaw_tolerance_degrees", 1) > 0, "%s: align rate and yaw tolerance must be > 0" % aid)
+    markers = set()
+    for p in data.get("interaction_points", []):
+        mid = p.get("marker_id")
+        need(bool(mid), "interaction point without marker id")
+        need(mid not in markers, "duplicate interaction point for %s" % mid)
+        markers.add(mid)
+        need(p.get("activity") in ids, "%s: unknown activity %s" % (mid, p.get("activity")))
+        need(p.get("arrival_tolerance_cm", 0) > 0, "%s: arrival tolerance must be > 0" % mid)
+        need(p.get("capacity", 1) >= 1, "%s: capacity must be >= 1" % mid)
+        mode = p.get("facing", {"mode": "none"}).get("mode", "none")
+        need(mode in FACING_MODES, "%s: unknown facing mode %s" % (mid, mode))
+        if mode == "prop":
+            need(prop_center(layout, p["facing"].get("prop_id", "")) is not None, "%s: facing prop %s is not in the layout" % (mid, p["facing"].get("prop_id")))

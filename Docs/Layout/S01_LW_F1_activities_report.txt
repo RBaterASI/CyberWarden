@@ -1,0 +1,13 @@
+== Schema ==
+  schema errors: 0
+
+== Interaction points ==
+  Rec_TV     -> WatchTV   marker (4000, 3200) facing point 90.0 deg at distance 165 cm ; nearest opening Door_Rec_Washrooms 1221 cm ; tolerance 150 cm ; capacity 1
+             scheduled use: QUI01/work, QUI01/recreation
+
+== Animations ==
+  WatchTV    enter_animation (none - falls back to the normal idle pose)
+  WatchTV    loop_animation  /Game/Characters/Mannequins/Anims/Unarmed/MM_Idle (7.57 s, skeleton SK_Mannequin)
+  WatchTV    exit_animation  (none - falls back to the normal idle pose)
+
+RESULT: PASS (0 problems)

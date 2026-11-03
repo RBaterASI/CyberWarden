@@ -7,6 +7,7 @@
 #include "PrisonScheduleManager.generated.h"
 
 class UPrisonScheduleData;
+class UPrisonActivityData;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnPrisonPeriodChanged, int32, OldPeriodIndex, int32, NewPeriodIndex, const FString&, NewPeriodName);
 
@@ -46,6 +47,10 @@ public:
 	/** Sector schedule data (periods + per-NPC assignments). When set, PeriodIds/PeriodNames/PeriodStartHours are taken from it. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Schedule")
 	TObjectPtr<UPrisonScheduleData> ScheduleData;
+
+	/** Activity definitions and interaction points of this sector (M2.3). NPC activity components read it from here. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Schedule")
+	TObjectPtr<UPrisonActivityData> ActivityData;
 
 	/** Derived from ScheduleData (or "P0", "P1" ... when there is none): the id of each period, parallel to PeriodNames. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Schedule")

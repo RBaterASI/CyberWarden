@@ -62,6 +62,10 @@ def run(gw):
         return
     m = mgrs[0]
     m.set_editor_property("paused", True)
+    for _a in npcs.values():  # since Checkpoint B the real StateTree plans and acknowledges replans itself: stop it in the PIE copy so this component-level test sees only its own calls
+        _stc = _a.get_controller().get_component_by_class(unreal.StateTreeAIComponent)
+        if _stc is not None:
+            _stc.stop_logic("component test")
     m.set_editor_property("time_scale", 30.0)
     yield ("ticks", 20)
     comps = {nid: comp_of(a) for nid, a in npcs.items()}
@@ -94,7 +98,9 @@ def run(gw):
     # ---- 2. plan at 06:00 + replan on the 07:00 boundary --------------------------------------------------------
     m.set_time_of_day_hours(6.0 + 59.0 / 60.0 + 58.0 / 3600.0)  # 06:59:58, Wake-up
     yield ("secs", 0.3)
+    plan_count0 = {nid: c.get_editor_property("plan_count") for nid, c in comps.items()}  # the live StateTree may already have planned once at startup
     plans = {nid: c.plan_for_current_period() for nid, c in comps.items()}
+    streak0 = {nid: c.get_editor_property("retry_streak_count") for nid, c in comps.items()}  # read right after the plan: later plans change it
     for nid, c in comps.items():
         p = plans[nid]
         w = data["assignments"][nid]["schedule"]["wake"]
@@ -156,8 +162,11 @@ def run(gw):
 
     # ---- 3b. start delay and retry back-off (outputs consumed by the StateTree task) --------------------------------------
     for nid in ("EXP01", "QUI01", "TRB01", "WRK01"):
-        check("%s: first plan carried the stagger as its start delay (%.1f s)" % (nid, plans[nid].start_delay_seconds),
-              abs(plans[nid].start_delay_seconds - comps[nid].get_stagger_real_seconds()) < 1e-6, str(plans[nid].start_delay_seconds))
+        streak = streak0[nid]  # the live tree may have planned the same required movement a moment ago: that is a retry, with its back-off
+        backoff = 0.0 if streak <= 0 else min(30.0, 2.0 * 2.0 ** (streak - 1))
+        want_delay = comps[nid].get_stagger_real_seconds() if plan_count0[nid] == 0 else backoff  # only the very first plan of an NPC carries the stagger
+        check("%s: start delay of the first test plan is %.1f s (%s)" % (nid, want_delay, "first plan ever: the stagger" if plan_count0[nid] == 0 else "a plan already existed: back-off for retry streak %d" % streak),
+              abs(plans[nid].start_delay_seconds - want_delay) < 1e-6, str(plans[nid].start_delay_seconds))
     m.set_time_of_day_hours(6.5)  # wake-up: QUI01 has the single stop CellAssign_Cell_N5
     yield ("secs", 0.3)
     q = npcs["QUI01"]
