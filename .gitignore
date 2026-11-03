@@ -41,3 +41,6 @@ Plugins/**/Intermediate/
 # Python caches
 __pycache__/
 *.pyc
+
+# Raw third-party animation downloads (for example Mixamo FBX): never committed. Imported Unreal assets live in Content/ and are tracked.
+/ArtSource/Mixamo/
