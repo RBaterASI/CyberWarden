@@ -64,4 +64,24 @@ namespace PrisonActivityMath
 		}
 		return bAnimationFinished || NowSeconds >= PlannedEndSeconds + FMath::Max(SafetyMarginSeconds, 0.0);
 	}
+
+	bool ApproachInReach(double DistanceCm, double MaxDistanceCm)
+	{
+		return DistanceCm <= MaxDistanceCm;
+	}
+
+	bool ApproachConfirmed(double DistanceCm, double ToleranceCm)
+	{
+		return DistanceCm <= ToleranceCm;
+	}
+
+	bool ApproachTimedOut(double NowSeconds, double StartedAtSeconds, double TimeoutSeconds)
+	{
+		return NowSeconds - StartedAtSeconds >= TimeoutSeconds;
+	}
+
+	bool ApproachLockedOut(double NowSeconds, double FailedAtSeconds, double LockoutSeconds)
+	{
+		return NowSeconds - FailedAtSeconds < LockoutSeconds;
+	}
 }

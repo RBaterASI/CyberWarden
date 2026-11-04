@@ -44,6 +44,15 @@
       "facing": { "mode": "prop", "prop_id": "Prop_Rec_TV" },
       "arrival_tolerance_cm": 150.0,
       "capacity": 1
+    },
+    {
+      "marker_id": "Seat_Table_1_5",
+      "_note": "M2.3 Stage C2 prototype seat (QUI01 breakfast / lunch / dinner). Faces -Y: the table (Prop_Caf_Table_1, y -150..-50) is on the -Y side of the marker (y -5). A tight tolerance asks Move To for its 10 cm radius floor; Move To still stops 40-47 cm out (Phase 1 measurement), so the final approach then walks the NPC to the exact marker.",
+      "activity": "SeatedIdle",
+      "facing": { "mode": "yaw", "degrees": -90.0 },
+      "arrival_tolerance_cm": 60.0,
+      "capacity": 1,
+      "final_approach": { "enabled": true, "accept_cm": 1.0, "tolerance_cm": 7.0, "max_distance_cm": 80.0, "timeout_seconds": 3.0 }
     }
   ]
 }

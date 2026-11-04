@@ -7,6 +7,8 @@
 #include "Animation/AnimInstance.h"
 #include "Animation/AnimMontage.h"
 #include "Animation/AnimSequence.h"
+#include "AIController.h"
+#include "Navigation/PathFollowingComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "EngineUtils.h"
@@ -195,7 +197,21 @@ bool UPrisonActivityComponent::TryStart(FName MarkerId)
 	}
 	const double Dist = FVector::Dist2D(Owner->GetActorLocation(), Marker->GetActorLocation());
 	DistanceToMarker = Dist;
-	if (Dist > Point->ArrivalToleranceCm)
+	if (Point->bFinalApproach)
+	{
+		if (const FApproachLockout* Lockout = ApproachLockouts.Find(MarkerId); Lockout && PrisonActivityMath::ApproachLockedOut(Now(), Lockout->At, ApproachRetryLockoutSeconds))
+		{
+			++ApproachLockoutRefusals;
+			Fail(FString::Printf(TEXT("final approach to %s failed %.0f s ago (%s): not retried for %.0f s"), *MarkerId.ToString(), Now() - Lockout->At, *Lockout->Reason, ApproachRetryLockoutSeconds));
+			return false;
+		}
+		if (!PrisonActivityMath::ApproachInReach(Dist, Point->FinalApproachMaxDistanceCm))
+		{
+			Fail(FString::Printf(TEXT("too far from %s for the final approach: %.0f cm > %.0f cm (navigate closer first)"), *MarkerId.ToString(), Dist, Point->FinalApproachMaxDistanceCm));
+			return false;
+		}
+	}
+	else if (Dist > Point->ArrivalToleranceCm)
 	{
 		Fail(FString::Printf(TEXT("too far from %s: %.0f cm > tolerance %.0f cm (navigate closer first)"), *MarkerId.ToString(), Dist, Point->ArrivalToleranceCm));
 		return false;
@@ -208,26 +224,223 @@ bool UPrisonActivityComponent::TryStart(FName MarkerId)
 	LoopRestarts = 0;
 	bReleasePending = false;
 	bUsingFallbackIdle = false;
+	LastFailureReason.Empty();
+	if (Point->bFinalApproach)
+	{
+		if (PrisonActivityMath::ApproachConfirmed(Dist, Point->FinalApproachToleranceCm))
+		{
+			LastApproachResult = TEXT("already there");
+			LastApproachStartCm = LastApproachEndCm = Dist;
+			LastApproachSeconds = LastApproachTravelCm = 0.0;
+		}
+		else
+		{
+			return BeginApproach(*Marker); // on failure the NPC stays standing, nothing started
+		}
+	}
+	BeginAlignment();
+	return true;
+}
+
+void UPrisonActivityComponent::BeginAlignment()
+{
+	const AActor* Owner = GetOwner();
 	const FVector Loc = Owner->GetActorLocation();
-	switch (Point->FacingMode)
+	switch (ActivePoint.FacingMode)
 	{
 	case EPrisonFacingMode::Yaw:
-		TargetYawDegrees = PrisonActivityMath::NormalizeYaw(Point->FacingYawDegrees);
+		TargetYawDegrees = PrisonActivityMath::NormalizeYaw(ActivePoint.FacingYawDegrees);
 		break;
 	case EPrisonFacingMode::Point:
-		TargetYawDegrees = PrisonActivityMath::YawToPoint(Loc.X, Loc.Y, Point->FacingPoint.X, Point->FacingPoint.Y);
+		TargetYawDegrees = PrisonActivityMath::YawToPoint(Loc.X, Loc.Y, ActivePoint.FacingPoint.X, ActivePoint.FacingPoint.Y);
 		break;
 	default:
 		TargetYawDegrees = PrisonActivityMath::NormalizeYaw(Owner->GetActorRotation().Yaw);
 		break;
 	}
 	++StartCount;
-	LastFailureReason.Empty();
 	ActivityStartLocation = Loc;
 	MaxDisplacementCm = 0.0;
 	HoldMovement();
 	SetState(EPrisonActivityState::Aligning);
+}
+
+bool UPrisonActivityComponent::BeginApproach(const AActor& Marker)
+{
+	const ACharacter* Character = Cast<ACharacter>(GetOwner());
+	AAIController* AIController = Character ? Cast<AAIController>(Character->GetController()) : nullptr;
+	UPathFollowingComponent* PathFollowing = AIController ? AIController->GetPathFollowingComponent() : nullptr;
+	const FVector Loc = GetOwner()->GetActorLocation();
+	ApproachGoal = Marker.GetActorLocation();
+	ApproachStartedAt = Now();
+	ApproachStartLocation = Loc;
+	LastApproachStartCm = FVector::Dist2D(Loc, ApproachGoal);
+	LastApproachEndCm = LastApproachStartCm;
+	LastApproachSeconds = LastApproachTravelCm = 0.0;
+	LastApproachResult = TEXT("approaching");
+	++ApproachStartCount;
+	bApproachMoveFinished = false;
+	ApproachMoveResult = EPathFollowingResult::Invalid;
+	SetState(EPrisonActivityState::Approaching);
+	if (!PathFollowing)
+	{
+		FailApproach(TEXT("the NPC has no AI controller to walk the final approach"));
+		return false;
+	}
+
+	// One ordinary AI move request to the exact marker: normal navigation, collision, avoidance and locomotion animation. The acceptance radius is small and
+	// the agent radius is not added (no stop-on-overlap), which is what Move To's stopping 40-47 cm out lacks. Nothing here moves the capsule directly.
+	FAIMoveRequest Request(ApproachGoal);
+	Request.SetAcceptanceRadius(ActivePoint.FinalApproachAcceptCm);
+	Request.SetReachTestIncludesAgentRadius(false);
+	Request.SetReachTestIncludesGoalRadius(false);
+	Request.SetUsePathfinding(true);
+	Request.SetProjectGoalLocation(true);
+	Request.SetAllowPartialPath(false);
+	Request.SetCanStrafe(false);
+	Request.SetNavigationFilter(AIController->GetDefaultNavigationFilterClass());
+	const FPathFollowingRequestResult Result = AIController->MoveTo(Request);
+	switch (Result.Code)
+	{
+	case EPathFollowingRequestResult::Failed:
+		FailApproach(TEXT("navigation refused the move request to the marker (no path or marker off the navigation mesh)"));
+		return false;
+	case EPathFollowingRequestResult::AlreadyAtGoal:
+		bApproachMoveFinished = true; // the distance check in the tick decides whether that is accurate enough
+		ApproachMoveResult = EPathFollowingResult::Success;
+		break;
+	default:
+		ApproachRequestId = Result.MoveId;
+		ApproachPathFollowing = PathFollowing;
+		ApproachFinishedHandle = PathFollowing->OnRequestFinished.AddUObject(this, &UPrisonActivityComponent::OnApproachMoveFinished);
+		bApproachMoveIssued = true;
+		break;
+	}
 	return true;
+}
+
+void UPrisonActivityComponent::OnApproachMoveFinished(FAIRequestID RequestId, const FPathFollowingResult& Result)
+{
+	if (!bApproachMoveIssued || !ApproachRequestId.IsEquivalent(RequestId))
+	{
+		return;
+	}
+	bApproachMoveFinished = true;
+	ApproachMoveResult = Result.Code;
+	bApproachSuperseded = Result.HasFlag(FPathFollowingResultFlags::NewRequest);
+}
+
+void UPrisonActivityComponent::StopApproachMove()
+{
+	if (!bApproachMoveIssued)
+	{
+		return;
+	}
+	bApproachMoveIssued = false;
+	if (UPathFollowingComponent* PathFollowing = ApproachPathFollowing.Get())
+	{
+		PathFollowing->OnRequestFinished.Remove(ApproachFinishedHandle);
+		// Only our own request is aborted: if another one has replaced it (the routine's Move To) that request is not ours to touch.
+		if (PathFollowing->GetStatus() != EPathFollowingStatus::Idle && PathFollowing->GetCurrentRequestId().IsEquivalent(ApproachRequestId))
+		{
+			PathFollowing->AbortMove(*this, FPathFollowingResultFlags::UserAbort, ApproachRequestId);
+		}
+	}
+	ApproachFinishedHandle.Reset();
+	ApproachPathFollowing.Reset();
+}
+
+namespace
+{
+	const TCHAR* PathResultName(EPathFollowingResult::Type Code)
+	{
+		switch (Code)
+		{
+		case EPathFollowingResult::Success: return TEXT("success");
+		case EPathFollowingResult::Blocked: return TEXT("blocked");
+		case EPathFollowingResult::OffPath: return TEXT("off path");
+		case EPathFollowingResult::Aborted: return TEXT("aborted");
+		default: return TEXT("invalid");
+		}
+	}
+}
+
+void UPrisonActivityComponent::TickApproach()
+{
+	const AActor* Owner = GetOwner();
+	const FVector Loc = Owner->GetActorLocation();
+	const double Dist = FVector::Dist2D(Loc, ApproachGoal);
+	const FPrisonInteractionPoint& Point = ActivePoint;
+	if (bApproachMoveFinished)
+	{
+		const EPathFollowingResult::Type Code = ApproachMoveResult;
+		const bool bSuperseded = bApproachSuperseded;
+		StopApproachMove();
+		if (Code == EPathFollowingResult::Success)
+		{
+			// Confirm the final position with the capsule held still: the activity only starts from where the NPC really stands.
+			HoldMovement();
+			const double Held = FVector::Dist2D(Owner->GetActorLocation(), ApproachGoal);
+			if (PrisonActivityMath::ApproachConfirmed(Held, Point.FinalApproachToleranceCm))
+			{
+				LastApproachEndCm = Held;
+				LastApproachSeconds = Now() - ApproachStartedAt;
+				LastApproachTravelCm = FVector::Dist2D(Owner->GetActorLocation(), ApproachStartLocation);
+				LastApproachResult = TEXT("success");
+				++ApproachSuccessCount;
+				BeginAlignment();
+				return;
+			}
+			ReleaseMovement();
+			FailApproach(FString::Printf(TEXT("the NPC stopped %.1f cm from the marker (tolerance %.1f cm)"), Held, Point.FinalApproachToleranceCm));
+		}
+		else if (Code == EPathFollowingResult::Aborted && bSuperseded)
+		{
+			CancelApproach(TEXT("another move request replaced it"));
+		}
+		else
+		{
+			FailApproach(FString::Printf(TEXT("path following ended with %s %.1f cm from the marker"), PathResultName(Code), Dist));
+		}
+		return;
+	}
+	if (FVector::Dist2D(Loc, ApproachStartLocation) > Point.FinalApproachMaxDistanceCm)
+	{
+		FailApproach(FString::Printf(TEXT("the walk left the %.0f cm bound"), Point.FinalApproachMaxDistanceCm));
+	}
+	else if (PrisonActivityMath::ApproachTimedOut(Now(), ApproachStartedAt, Point.FinalApproachTimeoutSeconds))
+	{
+		FailApproach(FString::Printf(TEXT("timed out after %.1f s, %.1f cm from the marker"), Point.FinalApproachTimeoutSeconds, Dist));
+	}
+}
+
+void UPrisonActivityComponent::CancelApproach(const FString& Why)
+{
+	const AActor* Owner = GetOwner();
+	LastApproachEndCm = Owner ? FVector::Dist2D(Owner->GetActorLocation(), ApproachGoal) : LastApproachEndCm;
+	LastApproachSeconds = Now() - ApproachStartedAt;
+	LastApproachTravelCm = Owner ? FVector::Dist2D(Owner->GetActorLocation(), ApproachStartLocation) : 0.0;
+	LastApproachResult = FString::Printf(TEXT("cancelled: %s"), *Why);
+	++ApproachCancelCount;
+	StopApproachMove();
+	FinishActivity(); // starts a queued request, if any
+}
+
+void UPrisonActivityComponent::FailApproach(const FString& Reason)
+{
+	const AActor* Owner = GetOwner();
+	const FName MarkerId = ActiveMarkerId;
+	LastApproachEndCm = Owner ? FVector::Dist2D(Owner->GetActorLocation(), ApproachGoal) : LastApproachEndCm;
+	LastApproachSeconds = Now() - ApproachStartedAt;
+	LastApproachTravelCm = Owner ? FVector::Dist2D(Owner->GetActorLocation(), ApproachStartLocation) : 0.0;
+	LastApproachResult = FString::Printf(TEXT("failed: %s"), *Reason);
+	++ApproachFailCount;
+	ApproachLockouts.Add(MarkerId, FApproachLockout{ Now(), Reason });
+	StopApproachMove(); // the NPC stays standing; movement authority goes back to the routine (it was never held during the approach)
+	PendingMarkerId = NAME_None;
+	FinishActivity();
+	LastFailureReason = FString::Printf(TEXT("final approach to %s failed: %s"), *MarkerId.ToString(), *Reason);
+	UE_LOG(LogCyberWarden, Warning, TEXT("%s: %s"), *GetNameSafe(GetOwner()), *LastFailureReason);
 }
 
 bool UPrisonActivityComponent::RequestActivity(FName MarkerId)
@@ -248,7 +461,11 @@ bool UPrisonActivityComponent::RequestActivity(FName MarkerId)
 		}
 		// Another point (or the same point while it is exiting): finish the current activity first, then start this one.
 		PendingMarkerId = MarkerId;
-		if (State == EPrisonActivityState::Aligning)
+		if (State == EPrisonActivityState::Approaching)
+		{
+			CancelApproach(TEXT("another interaction point was requested")); // also starts the queued request
+		}
+		else if (State == EPrisonActivityState::Aligning)
 		{
 			++InterruptCount;
 			FinishActivity();
@@ -284,6 +501,9 @@ double UPrisonActivityComponent::ReleaseActivity()
 	switch (State)
 	{
 	case EPrisonActivityState::Idle:
+		return 0.0;
+	case EPrisonActivityState::Approaching:
+		CancelApproach(TEXT("released")); // the NPC is not held while approaching: it is free as soon as its own move request is dropped
 		return 0.0;
 	case EPrisonActivityState::Aligning:
 		++InterruptCount;
@@ -324,8 +544,9 @@ double UPrisonActivityComponent::GetSecondsUntilFree() const
 	switch (State)
 	{
 	case EPrisonActivityState::Idle:
+	case EPrisonActivityState::Approaching:
 	case EPrisonActivityState::Aligning:
-		return 0.0; // aligning is cancelled immediately
+		return 0.0; // approaching and aligning are cancelled immediately
 	case EPrisonActivityState::Entering:
 		if (ActiveDef.bCommitEnter)
 		{
@@ -380,7 +601,11 @@ double UPrisonActivityComponent::GetMoveAcceptableRadius(FName MarkerId, double 
 void UPrisonActivityComponent::AbortActivity()
 {
 	PendingMarkerId = NAME_None;
-	if (State != EPrisonActivityState::Idle)
+	if (State == EPrisonActivityState::Approaching)
+	{
+		CancelApproach(TEXT("aborted"));
+	}
+	else if (State != EPrisonActivityState::Idle)
 	{
 		++InterruptCount;
 		StopMontage(0.f);
@@ -443,6 +668,7 @@ void UPrisonActivityComponent::BeginExit()
 
 void UPrisonActivityComponent::FinishActivity()
 {
+	StopApproachMove(); // a no-op unless a final approach is still walking
 	StopMontage(0.1f);
 	bMontagePlaying = false; // diagnostics must not lag behind the state
 	SlotNodeWeight = 0.0;
@@ -465,7 +691,11 @@ void UPrisonActivityComponent::UpdateDiagnostics()
 	UAnimInstance* Anim = GetAnimInstance();
 	bMontagePlaying = Anim && ActiveMontage && Anim->Montage_IsPlaying(ActiveMontage);
 	SlotNodeWeight = (Anim && State != EPrisonActivityState::Idle) ? Anim->GetSlotNodeGlobalWeight(ActiveDef.SlotName) : 0.0;
-	if (const AActor* Owner = GetOwner(); Owner && State != EPrisonActivityState::Idle)
+	if (const AActor* Owner = GetOwner(); Owner && State == EPrisonActivityState::Approaching)
+	{
+		DistanceToMarker = FVector::Dist2D(Owner->GetActorLocation(), ApproachGoal); // the activity has not started: no start location, no target yaw yet
+	}
+	else if (Owner && State != EPrisonActivityState::Idle)
 	{
 		MaxDisplacementCm = FMath::Max(MaxDisplacementCm, FVector::Dist(Owner->GetActorLocation(), ActivityStartLocation));
 		YawErrorDegrees = PrisonActivityMath::DeltaYaw(Owner->GetActorRotation().Yaw, TargetYawDegrees);
@@ -489,6 +719,9 @@ void UPrisonActivityComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	const double T = Now();
 	switch (State)
 	{
+	case EPrisonActivityState::Approaching:
+		TickApproach();
+		break;
 	case EPrisonActivityState::Aligning:
 	{
 		const FRotator Current = Owner->GetActorRotation();

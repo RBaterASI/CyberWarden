@@ -4,6 +4,9 @@
 == Interaction points ==
   Rec_TV     -> WatchTV   marker (4000, 3200) facing point 90.0 deg at distance 165 cm ; nearest opening Door_Rec_Washrooms 1221 cm ; tolerance 150 cm ; capacity 1
              scheduled use: QUI01/work, QUI01/recreation
+             final approach: accept 1.0 cm, tolerance 7.0 cm, max 80 cm, timeout 3.0 s (walk starts where Move To stops, ~44 cm out)
+  Seat_Table_1_5 -> SeatedIdle marker (6150, -5) facing yaw -90.0 deg ; nearest opening Arch_East_Cafeteria 683 cm ; tolerance 60 cm ; capacity 1
+             scheduled use: QUI01/breakfast, QUI01/lunch, QUI01/dinner
 
 == Animations ==
   WatchTV    enter_animation (none - falls back to the normal idle pose)

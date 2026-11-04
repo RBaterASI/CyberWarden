@@ -80,6 +80,17 @@ bool UPrisonActivityData::Validate(TArray<FString>& OutErrors) const
 		{
 			OutErrors.Add(FString::Printf(TEXT("point %s: capacity must be >= 1"), *Name));
 		}
+		if (P.bFinalApproach)
+		{
+			if (P.FinalApproachAcceptCm <= 0.f || P.FinalApproachToleranceCm <= 0.f || P.FinalApproachMaxDistanceCm <= 0.f || P.FinalApproachTimeoutSeconds <= 0.f)
+			{
+				OutErrors.Add(FString::Printf(TEXT("point %s: final approach accept radius, tolerance, maximum distance and timeout must be > 0"), *Name));
+			}
+			else if (P.FinalApproachToleranceCm < P.FinalApproachAcceptCm)
+			{
+				OutErrors.Add(FString::Printf(TEXT("point %s: final approach tolerance (%.1f cm) is smaller than its accept radius (%.1f cm)"), *Name, P.FinalApproachToleranceCm, P.FinalApproachAcceptCm));
+			}
+		}
 	}
 	return OutErrors.Num() == StartErrors;
 }

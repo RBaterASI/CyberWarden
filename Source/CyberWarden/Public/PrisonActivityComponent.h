@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Math/RandomStream.h"
+#include "AITypes.h"
+#include "Navigation/PathFollowingComponent.h"
 #include "PrisonActivityData.h"
 #include "PrisonActivityComponent.generated.h"
 
@@ -23,7 +25,9 @@ enum class EPrisonActivityState : uint8
 	/** Looping the activity (or simply standing, when the activity has no animation). */
 	Performing,
 	/** Playing the optional exit animation / blending out; movement is held until it ends. */
-	Exiting
+	Exiting,
+	/** Final approach (precision points only): the NPC walks the last stretch to the marker with AI navigation; movement is NOT held. */
+	Approaching
 };
 
 /**
@@ -42,6 +46,14 @@ enum class EPrisonActivityState : uint8
  * between them; the exit cross-fades out of the loop. A definition with bCommitEnter finishes sitting down even if it is released meanwhile. The exit
  * ends, and movement is restored, when the animation reports it is finished (the planned duration is only the earliest time, with a safety margin
  * after it). All per-phase blends, the release grace and the commit flag come from the activity definition; nothing is specific to an NPC or a point.
+ *
+ * Final approach (M2.3 Stage C2, opt-in per interaction point): Move To stops the NPC about radius + capsule radius (40-47 cm) from the marker, in a direction that
+ * depends on where it came from, which is too imprecise for a physical seat. A point with bFinalApproach makes the request start an Approaching phase first: the
+ * NPC walks to the exact marker with one AI move request (normal navigation, collision, avoidance and locomotion animation; never a teleport, snap or slide), and
+ * the activity starts only when it stands within the point's tolerance. The component owns the movement only during that phase and only through its own
+ * request: a request made by someone else (the routine's Move To) supersedes it and the approach is dropped without touching that request; a release, another
+ * point, ExpediteRelease or AbortActivity cancels it at once. If the marker cannot be reached (timeout, blocked path, too far, too long a walk, wrong stopping
+ * position) the NPC stays standing, LastFailureReason says why and the point is not retried for ApproachRetryLockoutSeconds.
  */
 UCLASS(ClassGroup = (CyberWarden), meta = (BlueprintSpawnableComponent))
 class CYBERWARDEN_API UPrisonActivityComponent : public UActorComponent
@@ -70,9 +82,51 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity", meta = (ClampMin = "0.0"))
 	double ExitSafetyMarginSeconds = 1.0;
 
+	/** After a failed final approach the same point is not attempted again for this long (an unreachable seat must not be retried every idle cycle). */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Activity", meta = (ClampMin = "0.0"))
+	double ApproachRetryLockoutSeconds = 120.0;
+
 	// ---- Diagnostics (Blueprint / Python readable) ---------------------------------------------------------------
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
 	EPrisonActivityState State = EPrisonActivityState::Idle;
+
+	/** Final approaches started (the NPC was not already within tolerance). */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	int32 ApproachStartCount = 0;
+
+	/** Final approaches that ended within the tolerance; the activity started afterwards. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	int32 ApproachSuccessCount = 0;
+
+	/** Final approaches that failed (the NPC stayed standing; LastApproachResult says why). */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	int32 ApproachFailCount = 0;
+
+	/** Final approaches dropped on purpose: a release, another point, ExpediteRelease, an abort or another move request. Not failures. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	int32 ApproachCancelCount = 0;
+
+	/** Requests refused because the point's final approach failed recently. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	int32 ApproachLockoutRefusals = 0;
+
+	/** Horizontal distance to the marker when the last final approach started / ended (cm). */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	double LastApproachStartCm = 0.0;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	double LastApproachEndCm = 0.0;
+
+	/** Duration of the last final approach (game seconds) and the distance the capsule really travelled during it (cm). */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	double LastApproachSeconds = 0.0;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	double LastApproachTravelCm = 0.0;
+
+	/** "success", "already there", "failed: <reason>", "cancelled: <reason>" for the last final approach. */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics|Final Approach")
+	FString LastApproachResult;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Diagnostics")
 	FName ActiveActivityId;
@@ -213,6 +267,17 @@ private:
 	double Now() const;
 
 	bool TryStart(FName MarkerId);
+	/** Starts the Aligning phase at the NPC's current position (movement held): the point of no return for the activity. */
+	void BeginAlignment();
+	/** Starts the final walk to the marker. False (with LastFailureReason / LastApproachResult set, nothing started) when it cannot be issued. */
+	bool BeginApproach(const AActor& Marker);
+	/** Ends the approach without failure (a release, another request, a competing move request...): drops our own move request, keeps the NPC standing. */
+	void CancelApproach(const FString& Why);
+	/** Ends the approach as a failure: the NPC stays standing, the reason is recorded and the point is locked out for ApproachRetryLockoutSeconds. */
+	void FailApproach(const FString& Reason);
+	void TickApproach();
+	void StopApproachMove();
+	void OnApproachMoveFinished(FAIRequestID RequestId, const FPathFollowingResult& Result);
 	void StartLoop();
 	void BeginExit();
 	void FinishActivity();
@@ -242,4 +307,22 @@ private:
 	FRandomStream RandomStream;
 	bool bRandomInitialized = false;
 	TMap<FName, TWeakObjectPtr<AActor>> MarkerCache;
+
+	// Final approach bookkeeping.
+	struct FApproachLockout
+	{
+		double At = 0.0;
+		FString Reason;
+	};
+	TMap<FName, FApproachLockout> ApproachLockouts;
+	double ApproachStartedAt = 0.0;
+	FVector ApproachStartLocation = FVector::ZeroVector;
+	FVector ApproachGoal = FVector::ZeroVector;
+	FAIRequestID ApproachRequestId;
+	FDelegateHandle ApproachFinishedHandle;
+	TWeakObjectPtr<class UPathFollowingComponent> ApproachPathFollowing;
+	bool bApproachMoveIssued = false;
+	bool bApproachMoveFinished = false;
+	bool bApproachSuperseded = false;
+	EPathFollowingResult::Type ApproachMoveResult = EPathFollowingResult::Invalid;
 };

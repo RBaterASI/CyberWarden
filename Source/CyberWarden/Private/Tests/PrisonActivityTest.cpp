@@ -96,6 +96,49 @@ bool FPrisonActivityTimingTest::RunTest(const FString& Parameters)
 	return true;
 }
 
+IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPrisonActivityApproachTest, "CyberWarden.Prison.ActivityApproach",
+	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::ProductFilter)
+
+bool FPrisonActivityApproachTest::RunTest(const FString& Parameters)
+{
+	using namespace PrisonActivityMath;
+	TestTrue(TEXT("80 cm is in reach of an 80 cm bound"), ApproachInReach(80.0, 80.0));
+	TestFalse(TEXT("81 cm is out of reach"), ApproachInReach(81.0, 80.0));
+	TestTrue(TEXT("a position exactly at the tolerance is confirmed"), ApproachConfirmed(5.0, 5.0));
+	TestFalse(TEXT("a position just outside the tolerance is not"), ApproachConfirmed(5.1, 5.0));
+	TestFalse(TEXT("no timeout before 3 s"), ApproachTimedOut(12.9, 10.0, 3.0));
+	TestTrue(TEXT("timeout at 3 s"), ApproachTimedOut(13.0, 10.0, 3.0));
+	TestTrue(TEXT("locked out right after a failure"), ApproachLockedOut(100.0, 100.0, 120.0));
+	TestTrue(TEXT("locked out just before the end of the lockout"), ApproachLockedOut(219.0, 100.0, 120.0));
+	TestFalse(TEXT("retry allowed once the lockout has passed"), ApproachLockedOut(220.0, 100.0, 120.0));
+	TestFalse(TEXT("a zero lockout never blocks"), ApproachLockedOut(100.0, 100.0, 0.0));
+
+	FPrisonInteractionPoint Point;
+	TestFalse(TEXT("final approach is off by default"), Point.bFinalApproach);
+	TestEqual(TEXT("default accept radius"), Point.FinalApproachAcceptCm, 3.f);
+	TestEqual(TEXT("default tolerance"), Point.FinalApproachToleranceCm, 5.f);
+	TestEqual(TEXT("default maximum distance"), Point.FinalApproachMaxDistanceCm, 80.f);
+	TestEqual(TEXT("default timeout"), Point.FinalApproachTimeoutSeconds, 3.f);
+
+	UPrisonActivityData* Data = NewObject<UPrisonActivityData>(GetTransientPackage());
+	FPrisonActivityDefinition Sit;
+	Sit.Id = TEXT("SeatedIdle");
+	Data->Activities.Add(Sit);
+	Point.MarkerId = TEXT("Seat_Table_1_5");
+	Point.ActivityId = TEXT("SeatedIdle");
+	Point.bFinalApproach = true;
+	Data->Points.Add(Point);
+	TestEqual(TEXT("a point with the default final approach is valid"), Data->ValidateData().Num(), 0);
+	Data->Points[0].FinalApproachToleranceCm = 2.f;
+	TestTrue(TEXT("a tolerance below the accept radius is reported"), Data->ValidateData().Num() > 0);
+	Data->Points[0].FinalApproachToleranceCm = 5.f;
+	Data->Points[0].FinalApproachTimeoutSeconds = 0.f;
+	TestTrue(TEXT("a zero timeout is reported"), Data->ValidateData().Num() > 0);
+	Data->Points[0].bFinalApproach = false;
+	TestEqual(TEXT("the same values are not checked when the final approach is off"), Data->ValidateData().Num(), 0);
+	return true;
+}
+
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FPrisonActivityDataTest, "CyberWarden.Prison.ActivityData",
 	EAutomationTestFlags::EditorContext | EAutomationTestFlags::ClientContext | EAutomationTestFlags::ProductFilter)
 

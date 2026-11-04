@@ -68,6 +68,13 @@ def ev(kind, detail=""):
     log("t=%7.1f %s %s" % (S["last_t"], kind, detail))
 
 
+def tv_starts():
+    """Activity starts at the TV only. Stage C2 made Seat_Table_1_5 a real SeatedIdle activity point, so QUI01's lunch seat now counts as an activity start of its own
+    (APPROACHING -> ALIGNING -> ENTERING -> PERFORMING); this test is about WatchTV, so the seat's starts are subtracted."""
+    seat = sum(1 for e in S["events"] if e[1].endswith("-> ALIGNING") and "marker=Seat_" in e[2])
+    return g(S["ac"], "start_count") - seat
+
+
 # ------------------------------------------------------------------------------------------------ driver (emulation mode)
 def plan(now):
     sc, ac = S["sc"], S["ac"]
@@ -229,14 +236,14 @@ def run(gw):
     mgr.set_editor_property("paused", True)
 
     # ---- second visit after the next change (lunch -> recreation) ---------------------------------------------------------
-    starts_before = g(ac, "start_count")
+    starts_before = tv_starts()  # Stage C2: WatchTV starts only (the lunch seat is now a real SeatedIdle activity point with a start of its own)
     serial1 = g(S["sc"], "replan_serial")
     mgr.set_time_of_day_hours(13.0)  # recreation: Rec_TV and Rec_Table_B
     mgr.set_editor_property("paused", False)
     yield ("until", lambda: g(ac, "state").name == "PERFORMING" and str(g(ac, "active_marker_id")) == "Rec_TV", 500.0)
     check("recreation: QUI01 came back to the TV and started WatchTV again", not S["timed_out"])
     yield ("secs", 3.0)
-    check("a second arrival is a second start (%d -> %d), still no restarts" % (starts_before, g(ac, "start_count")), g(ac, "start_count") == starts_before + 1 and g(ac, "state").name == "PERFORMING")
+    check("a second arrival is a second WatchTV start (%d -> %d; the seat visit in between is not counted), still no restarts" % (starts_before, tv_starts()), tv_starts() == starts_before + 1 and g(ac, "state").name == "PERFORMING")
     mgr.set_editor_property("paused", True)
 
     # ---- single-stop destination: re-planning at the end of every idle cycle must not restart the activity ----------------------
@@ -265,8 +272,8 @@ def run(gw):
     yield ("until", lambda: g(S["sc"], "replan_serial") > serial2, 40.0)
     check("work (single stop Rec_TV) replans once", not S["timed_out"])
     yield ("secs", 4.0)
-    check("QUI01 was already at the TV: the replan continued the activity instead of restarting it", g(ac, "state").name == "PERFORMING" and g(ac, "start_count") == starts_before + 1,
-          "%s %s" % (g(ac, "state").name, g(ac, "start_count")))
+    check("QUI01 was already at the TV: the replan continued the activity instead of restarting it", g(ac, "state").name == "PERFORMING" and tv_starts() == starts_before + 1,
+          "%s %s" % (g(ac, "state").name, tv_starts()))
     base_start, base_cont, base_n = g(ac, "start_count"), g(ac, "continuation_count"), len(S["events"])
     yield ("secs", 70.0)  # three or more idle cycles of 20-25 s, each ending in a re-plan of the same stop
     cycles = g(ac, "continuation_count") - base_cont

@@ -33,4 +33,16 @@ namespace PrisonActivityMath
 	 * the planned end plus the safety margin has passed (so a montage that never reports completion cannot hold the NPC for ever).
 	 */
 	CYBERWARDEN_API bool ExitComplete(double NowSeconds, double PlannedEndSeconds, bool bAnimationFinished, double SafetyMarginSeconds);
+
+	/** A final approach may be attempted from this horizontal distance (at most MaxDistanceCm). */
+	CYBERWARDEN_API bool ApproachInReach(double DistanceCm, double MaxDistanceCm);
+
+	/** The final position is confirmed: the NPC stands within ToleranceCm of the marker. */
+	CYBERWARDEN_API bool ApproachConfirmed(double DistanceCm, double ToleranceCm);
+
+	/** The final approach has run for TimeoutSeconds without finishing. */
+	CYBERWARDEN_API bool ApproachTimedOut(double NowSeconds, double StartedAtSeconds, double TimeoutSeconds);
+
+	/** A point whose final approach failed at FailedAtSeconds is not retried until LockoutSeconds have passed. */
+	CYBERWARDEN_API bool ApproachLockedOut(double NowSeconds, double FailedAtSeconds, double LockoutSeconds);
 }

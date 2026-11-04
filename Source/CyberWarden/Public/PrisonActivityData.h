@@ -141,6 +141,32 @@ struct CYBERWARDEN_API FPrisonInteractionPoint
 	/** How many NPCs may use the point at once (validated now, enforced when shared points are added). */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction", meta = (ClampMin = "1"))
 	int32 Capacity = 1;
+
+	// ---- Final approach (M2.3 Stage C2). Off by default: existing points (WatchTV) behave exactly as before. ----
+
+	/**
+	 * Precision interaction (for example sitting on a stool): when the request arrives the NPC walks the last stretch to the marker itself with ordinary
+	 * AI navigation and locomotion (no teleport, no snap, no slide), and the activity starts only once it stands within FinalApproachToleranceCm of it.
+	 * If that fails the NPC stays standing, the reason is recorded and the point is not retried for a while.
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction|Final Approach")
+	bool bFinalApproach = false;
+
+	/** Acceptance radius of the final walk to the marker (the agent radius is not added: stop-on-overlap is off). */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction|Final Approach", meta = (ClampMin = "0.5"))
+	float FinalApproachAcceptCm = 3.f;
+
+	/** The position is confirmed, and the activity may start, when the NPC is within this horizontal distance of the marker. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction|Final Approach", meta = (ClampMin = "0.5"))
+	float FinalApproachToleranceCm = 5.f;
+
+	/** The final approach is only attempted from this horizontal distance, and the NPC may not travel farther than this during it. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction|Final Approach", meta = (ClampMin = "1.0"))
+	float FinalApproachMaxDistanceCm = 80.f;
+
+	/** The final approach fails when it has not finished after this long. */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction|Final Approach", meta = (ClampMin = "0.1"))
+	float FinalApproachTimeoutSeconds = 3.f;
 };
 
 /**

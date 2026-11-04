@@ -2,9 +2,10 @@
 
   powershell -File Tools/RunHeadless.ps1 -Script Tools/SeatedScheduleTest.py -Log <abs log>
 
-Nothing is driven: QUI01 runs the real ST_NPCRoutine. Only in memory (the PIE copy) the schedule manager's activity data is replaced by a copy that
-also holds a SeatedIdle interaction point on the existing marker Seat_Table_1_5 (the point is a Stage C2 data change and is not saved), and QUI01's
-lunch is reduced to the single stop Seat_Table_1_5 with short idle cycles. Then, following only its schedule, QUI01 walks to the seat and sits;
+Nothing is driven: QUI01 runs the real ST_NPCRoutine. The sector's regenerated activity data (Stage C2) already holds the SeatedIdle point on the existing
+marker Seat_Table_1_5 (with its final approach) and is reused as it is; if the data has no seat point (Stage C1 data) the original behaviour applies: only in
+memory (the PIE copy) the manager's data is replaced by a copy with an ordinary SeatedIdle point. QUI01's lunch is reduced (in memory) to the single stop
+Seat_Table_1_5 with short idle cycles. Then, following only its schedule, QUI01 walks to the seat and sits;
 the single-stop destination re-plans at the end of every idle cycle and must never stand the NPC up or restart the sit; a schedule change
 (lunch -> recreation) must stand it up at once (the release grace is skipped because the NPC is leaving), restore movement only after the stand-up
 and send it on to the TV (WatchTV starts again). Per-tick invariants: movement held while busy, capsule never moved, slot never empty.
@@ -83,15 +84,21 @@ def run(gw):
 
     # ---- in-memory data: the sector's activities + a SeatedIdle point on Seat_Table_1_5 (not saved) -----------------------------------------------
     sector = mgr.get_editor_property("activity_data")
-    data = unreal.new_object(unreal.PrisonActivityData)
-    data.set_editor_property("activities", list(sector.get_editor_property("activities")))
-    seat_pt = unreal.PrisonInteractionPoint(marker_id=SEAT, activity_id="SeatedIdle", facing_mode=unreal.PrisonFacingMode.YAW, facing_yaw_degrees=-90.0, arrival_tolerance_cm=150.0, capacity=1)
-    data.set_editor_property("points", list(sector.get_editor_property("points")) + [seat_pt])
-    check("test activity data validates", len(list(data.validate_data())) == 0, str(list(data.validate_data())))
-    mgr.set_editor_property("activity_data", data)
-    mgr = unreal.GameplayStatics.get_all_actors_with_tag(gw, "S01F1ScheduleManager")[0]
-    S["mgr"] = mgr
-    check("the schedule manager now serves the test data", mgr.get_editor_property("activity_data") is not None and S["ac"].has_interaction_point(SEAT) and S["ac"].has_interaction_point("Rec_TV"))
+    have_seat = any(str(p.get_editor_property("marker_id")) == SEAT for p in sector.get_editor_property("points"))
+    if have_seat:
+        # Stage C2: the regenerated data asset already holds the seat point (with its final approach). It is reused as it is, not duplicated and not replaced.
+        check("the sector's regenerated data already holds the %s point and validates (reused, nothing replaced)" % SEAT, len(list(sector.validate_data())) == 0, str(list(sector.validate_data())))
+    else:
+        # Stage C1 data (no seat point yet): the original behaviour, a copy with an ordinary SeatedIdle point (tolerance 150), in memory only.
+        data = unreal.new_object(unreal.PrisonActivityData)
+        data.set_editor_property("activities", list(sector.get_editor_property("activities")))
+        seat_pt = unreal.PrisonInteractionPoint(marker_id=SEAT, activity_id="SeatedIdle", facing_mode=unreal.PrisonFacingMode.YAW, facing_yaw_degrees=-90.0, arrival_tolerance_cm=150.0, capacity=1)
+        data.set_editor_property("points", list(sector.get_editor_property("points")) + [seat_pt])
+        check("test activity data validates", len(list(data.validate_data())) == 0, str(list(data.validate_data())))
+        mgr.set_editor_property("activity_data", data)
+        mgr = unreal.GameplayStatics.get_all_actors_with_tag(gw, "S01F1ScheduleManager")[0]
+        S["mgr"] = mgr
+    check("the schedule manager serves data with the seat point and Rec_TV", mgr.get_editor_property("activity_data") is not None and S["ac"].has_interaction_point(SEAT) and S["ac"].has_interaction_point("Rec_TV"))
     sd = mgr.get_editor_property("schedule_data")  # QUI01 lunch: single stop at the seat with short idle cycles (in memory only)
     rows = sd.get_editor_property("npcs")
     for i, row in enumerate(rows):
@@ -163,9 +170,10 @@ def run(gw):
 
     # ---- invariants and regression ----------------------------------------------------------------------------------------------------------------
     smp = S["samples"]
-    busy = [s for s in smp if s["st"] != "IDLE"]
-    check("movement held on every tick while an activity was busy (%d samples)" % len(busy), all(s["mm"] == "MOVE_NONE" for s in busy), str([s for s in busy if s["mm"] != "MOVE_NONE"][:2]))
-    steps = [d2(p["x"], p["y"], q["x"], q["y"]) for p, q in zip(smp, smp[1:]) if p["st"] != "IDLE" and q["st"] != "IDLE"]
+    # Stage C2: the APPROACHING state (the final walk to the marker) is the one busy state in which movement is deliberately NOT held; every other busy state is.
+    busy = [s for s in smp if s["st"] not in ("IDLE", "APPROACHING")]
+    check("movement held on every tick while an activity was busy (%d samples; the final approach walk is excluded by design)" % len(busy), all(s["mm"] == "MOVE_NONE" for s in busy), str([s for s in busy if s["mm"] != "MOVE_NONE"][:2]))
+    steps = [d2(p["x"], p["y"], q["x"], q["y"]) for p, q in zip(smp, smp[1:]) if p["st"] not in ("IDLE", "APPROACHING") and q["st"] not in ("IDLE", "APPROACHING")]
     check("no snapping while an activity was active: largest step %.3f cm" % max(steps + [0.0]), max(steps + [0.0]) < 1.0)
     big = max(d2(p["x"], p["y"], q["x"], q["y"]) for p, q in zip(smp, smp[1:]))
     check("no teleport: largest per-tick step %.1f cm" % big, big < 40.0)

@@ -58,9 +58,14 @@ for a in data["activities"]:
 pts = []
 for p in data["interaction_points"]:
     mode, yaw, target = ca.resolve_facing(p, layout)
+    fa = p.get("final_approach") or {}
+    fad = ca.FINAL_APPROACH_DEFAULTS
     pts.append(unreal.PrisonInteractionPoint(
         marker_id=p["marker_id"], activity_id=p["activity"], facing_mode=FACING[mode], facing_yaw_degrees=yaw,
-        facing_point=unreal.Vector(target[0], target[1], target[2]), arrival_tolerance_cm=p["arrival_tolerance_cm"], capacity=p["capacity"]))
+        facing_point=unreal.Vector(target[0], target[1], target[2]), arrival_tolerance_cm=p["arrival_tolerance_cm"], capacity=p["capacity"],
+        final_approach=bool(fa.get("enabled", False)), final_approach_accept_cm=fa.get("accept_cm", fad["accept_cm"]),
+        final_approach_tolerance_cm=fa.get("tolerance_cm", fad["tolerance_cm"]), final_approach_max_distance_cm=fa.get("max_distance_cm", fad["max_distance_cm"]),
+        final_approach_timeout_seconds=fa.get("timeout_seconds", fad["timeout_seconds"])))
 da.set_editor_property("activities", acts)
 da.set_editor_property("points", pts)
 errors = list(da.validate_data())
