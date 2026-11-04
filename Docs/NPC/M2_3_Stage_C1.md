@@ -55,3 +55,6 @@ One existing assertion was updated on purpose: the Stage A enter check expected 
 
 ## 6. Manual Unreal Editor work
 None required for C1. Optional: open Play In Editor only after C2 for the visual check.
+
+## 7. Follow-up: Stage C2
+The items in section 5 were carried out in Stage C2 (final approach to the seat marker, seat interaction point, prototype stool, visual acceptance). See `Docs/NPC/M2_3_Stage_C2.md`. The C1 results above are unchanged.
