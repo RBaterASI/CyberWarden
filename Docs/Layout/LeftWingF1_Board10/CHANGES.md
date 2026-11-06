@@ -50,3 +50,9 @@ This folder holds the patched copies. Counts: 83 rooms, 84 doors (D39 added), 7 
 
 ## Still conflicting
 - None found offline (92 of 92 door/window traces, 0 failed door lanes, 0 unprotected edges, 0 corner gaps, no furniture within 1 m of a door, every room reachable, all routes pass, D27 slab blocks as intended). Engine-side untested: the translucent net and emissive materials, `RebuildNavigation`, `is_navigation_being_built`, the trace return shape, the post process / fog / sky setters, the spring-arm lookup, and the toggle script.
+
+## Editor validation (2026-11-06): 0 failures of 259
+- DOOR 85/85, WINDOW 7/7, ZONE 84/84, REACH 83/83 in the editor (trace return shape and navmesh preflight work).
+- First run had no navmesh (scripted `RebuildNavigation` is refused while the build is locked): use **Build > Build Paths**. The validator now stops if there is no RecastNavMesh.
+- The 1.0 m cell doors closed on the default navmesh voxel grid (18 of 21 cells unreachable). Fix is an engine setting on `RecastNavMesh-Default`, set by hand in Details (Python cannot write them): **Cell Size 10, Cell Height 5, Agent Max Step Height 45**, then Build Paths. No layout change; doors stay 1.0 m. `diagnose_reach.py` and `set_navmesh_resolution.py` (logs the protected-property warnings) document this.
+- Validator: if the room centre sits on furniture (Office desk), REACH also tries points 1.2 m off-centre.

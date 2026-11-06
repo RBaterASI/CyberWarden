@@ -22,6 +22,8 @@ UP = spec["levels"]["upper"]["floor_z"]
 
 # preflight: the REACH rows need a finished NavMesh. Build > Build Paths, wait until "NAVMESH NEEDS TO BE REBUILT" is gone, then run this again.
 try:
+    if not unreal.GameplayStatics.get_all_actors_of_class(world, unreal.RecastNavMesh):
+        raise SystemExit("[LW_F1] there is no RecastNavMesh in the level yet - run Build > Build Paths (the scripted RebuildNavigation is refused while the build is locked), wait for it to finish, then re-run ue_validate_layout.py")
     if unreal.NavigationSystemV1.is_navigation_being_built(world):
         raise SystemExit("[LW_F1] NavMesh is still building - wait for it to finish (Build > Build Paths), then re-run ue_validate_layout.py")
 except SystemExit:
@@ -90,17 +92,27 @@ for r in spec["rooms"]:
     if min(r["w"], r["h"]) < 1.0 or r.get("reach") is False:   # sealed rooms (goods lift shaft) are not walkable by design
         continue
     z = (UP if r["tier"] == "upper" else 0.0) + 0.5
-    goal = P(r["x"] + r["w"] / 2, r["y"] + r["h"] / 2, z)
-    path = unreal.NavigationSystemV1.find_path_to_location_synchronously(world, start, goal)
+    cx, cy = r["x"] + r["w"] / 2, r["y"] + r["h"] / 2
     ok, note = False, "no path"
-    if path is not None:
-        pts = list(path.path_points)
-        if pts:
-            end = pts[-1]
-            gap = ((end.x - goal.x) ** 2 + (end.y - goal.y) ** 2) ** 0.5 / 100.0
-            partial = path.is_partial() if hasattr(path, "is_partial") else False
-            ok = gap < 1.5 and not partial
-            note = f"path ends {gap:.1f} m from room centre" + (" (partial)" if partial else "")
+    # the centre can sit on furniture (a carved-out navmesh hole): if the centre fails, also try points 1.2 m off-centre (kept inside the room)
+    cands = [(0.0, 0.0, "room centre")] + [(dx, dy, "%.1f m off-centre" % (1.2 * (dx * dx + dy * dy) ** 0.5)) for dx, dy in ((1.2, 0), (-1.2, 0), (0, 1.2), (0, -1.2))
+                                           if abs(dx) < r["w"] / 2 - 0.5 and abs(dy) < r["h"] / 2 - 0.5]
+    for k, (dx, dy, label) in enumerate(cands):
+        goal = P(cx + dx, cy + dy, z)
+        path = unreal.NavigationSystemV1.find_path_to_location_synchronously(world, start, goal)
+        this_ok, this_note = False, "no path"
+        if path is not None:
+            pts = list(path.path_points)
+            if pts:
+                end = pts[-1]
+                gap = ((end.x - goal.x) ** 2 + (end.y - goal.y) ** 2) ** 0.5 / 100.0
+                partial = path.is_partial() if hasattr(path, "is_partial") else False
+                this_ok = gap < 1.5 and not partial
+                this_note = f"path ends {gap:.1f} m from {label}" + (" (partial)" if partial else "")
+        if k == 0 or this_ok:
+            ok, note = this_ok, this_note + ("" if k == 0 else " (centre blocked, e.g. by furniture)")
+        if this_ok:
+            break
     fails += 0 if ok else 1
     rows.append(("REACH", r["id"], r["name"], note, "reachable from spawn", "PASS" if ok else "FAIL"))
 

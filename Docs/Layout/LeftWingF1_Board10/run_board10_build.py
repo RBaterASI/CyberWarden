@@ -49,6 +49,6 @@ runpy.run_path(os.path.join(HERE, "ue_build_from_spec.py"), run_name="__main__")
 level_sub.save_current_level()
 try:
     unreal.SystemLibrary.execute_console_command(world, "RebuildNavigation")
-    unreal.log("[LW_F1] NavMesh rebuild started - wait for it to finish, then run ue_validate_layout.py")
+    unreal.log("[LW_F1] RebuildNavigation sent (the engine may refuse it while the build is locked: if the log says so, use Build > Build Paths), then run ue_validate_layout.py once the navmesh exists")
 except Exception as ex:
     unreal.log_warning("[LW_F1] could not start the NavMesh rebuild (%s): use Build > Build Paths" % ex)
