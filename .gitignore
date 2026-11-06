@@ -44,3 +44,14 @@ __pycache__/
 
 # Raw third-party animation downloads (for example Mixamo FBX): never committed. Imported Unreal assets live in Content/ and are tracked.
 /ArtSource/Mixamo/
+
+# Artifact Signing (Tools/BuildCpp.ps1): the real signing config lives outside the repository (%LOCALAPPDATA%\CyberWarden\ArtifactSigning) and the script refuses a config inside it.
+# State, logs, backups and signing work copies live under Saved/ (ignored above). These patterns are a second line of defence if a config, key material or scratch file is ever
+# created inside the repository. Tools/ArtifactSigning.config.example.json (placeholders only) stays tracked.
+ArtifactSigning.config.json
+ArtifactSigning.local.json
+metadata-*.json
+*.signing
+*.pfx
+*.p12
+*.snk

@@ -1,0 +1,15 @@
+{
+  "_comment": "Copy to %LOCALAPPDATA%\\CyberWarden\\ArtifactSigning\\config.json (or point CW_SIGN_CONFIG at it). Identifiers only - never put a secret, key or password here. Keep it out of Git. Signing happens ONLY when Mode is exactly \"Required\"; with \"Off\" the other fields are not even checked.",
+  "Mode": "Off",
+  "Endpoint": "https://eus.codesigning.azure.net",
+  "Account": "<artifact signing account name, 3-24 chars>",
+  "Profile": "<Public Trust certificate profile name>",
+  "TenantId": "00000000-0000-0000-0000-000000000000",
+  "SubscriptionId": "00000000-0000-0000-0000-000000000000",
+  "ExpectedCommonName": "<your validated legal name exactly as in the certificate CN, without 'CN='>",
+  "DlibPath": "C:\\path\\to\\Azure.CodeSigning.Dlib.dll (x64)",
+  "SigntoolPath": "",
+  "ExpectedRoot": "",
+  "ExpectedRootThumbprint": "",
+  "ExpectedTimestampAuthority": ""
+}
