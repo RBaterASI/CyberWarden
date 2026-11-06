@@ -1,0 +1,310 @@
+{
+  "_comment": "Sector 01 / Left Wing / Floor 1 - RECTANGLE STUDY (alternative layout, NOT the accepted M1 map). Units: cm. +X east (down the hall), +Y north, Z up. All values PROVISIONAL, for walk-through judgement of shape, scale, sightlines and routes. Consumed by Content/Python/cw_rectstudy.py (pure Python geometry + validation), Tools/ValidateRectangleStudy.py (standalone) and Tools/BuildRectangleStudy.py (Unreal). Wall coordinates are centre lines (clear widths are measured centre-to-centre, as in M1).",
+
+  "meta": {
+    "level": "/Game/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy",
+    "footprint": { "x0": 0, "y0": -1200, "x1": 6400, "y1": 1630 },
+    "player_start": { "x": 500, "y": 450, "yaw": 0 },
+    "floor2_note": "Both tiers belong to Sector Floor 1. Upper tier deck z=390 (same idea as the M1 mezzanine, 330 there). The roof slab is z 760-790; Sector Floor 2 is ASSUMED to start above that (not validated against Floor2_Compatibility.md, which is M1-specific: floor-to-floor 500)."
+  },
+
+  "params": {
+    "wall_thickness": 30,
+    "slab_thickness": 30,
+    "capsule_radius": 34,
+    "capsule_half_height": 90,
+    "max_step_height": 45,
+    "upper_z": 390,
+    "wall_top": 790,
+    "rail_height": 110,
+    "kick_height": 25,
+    "camera_arm": 200
+  },
+
+  "areas": {
+    "Intake":      { "label": "Intake",                  "color": [235, 120, 30] },
+    "Orientation": { "label": "Orientation",             "color": [160, 85, 200] },
+    "Hall":        { "label": "Main Hall",               "color": [140, 150, 168] },
+    "CellBlock":   { "label": "Lower Cells",             "color": [50, 115, 215] },
+    "UpperCells":  { "label": "Upper Cells",             "color": [95, 150, 235] },
+    "Cafeteria":   { "label": "Cafeteria",               "color": [45, 175, 85] },
+    "Work":        { "label": "Work Area",               "color": [20, 165, 165] },
+    "Guard":       { "label": "Guard Level",             "color": [215, 150, 35] },
+    "Crossing":    { "label": "Upper Crossing",          "color": [110, 195, 240] },
+    "Landing":     { "label": "Authorized Landing",      "color": [250, 215, 30] },
+    "Restricted":  { "label": "Restricted Guard Office", "color": [205, 45, 45] },
+    "Secured":     { "label": "Secured (Floor 2)",       "color": [150, 25, 65] },
+    "Rail":        { "label": "Rail (proposed)",         "color": [150, 235, 40] },
+    "CCTV":        { "label": "CCTV (proposed)",         "color": [0, 205, 235] },
+    "Route":       { "label": "Guard route",             "color": [255, 140, 0] },
+    "Roster":      { "label": "Roster",                  "color": [255, 240, 70] },
+    "Cover":       { "label": "Cover",                   "color": [165, 105, 60] }
+  },
+
+  "rooms": [
+    { "id": "Intake_Zone",       "name": "Intake & Orientation (hall west end)", "area": "Intake",      "sign": "INTAKE",          "x0": 0,    "y0": 0,     "x1": 1200, "y1": 900,  "z": 0,   "ceil": 760, "floor": true },
+    { "id": "Main_Hall",         "name": "Main Hall (atrium)",                  "area": "Hall",        "sign": "MAIN HALL",       "x0": 1200, "y0": 0,     "x1": 5600, "y1": 900,  "z": 0,   "ceil": 760, "floor": true },
+    { "id": "Orientation",       "name": "Orientation Room",                    "area": "Orientation", "sign": "ORIENTATION",     "x0": 0,    "y0": -1200, "x1": 1200, "y1": 0,    "z": 0,   "ceil": 360, "floor": true },
+    { "id": "Staff_Stair_Bay",   "name": "Staff Stair (to guard level)",        "area": "Guard",       "sign": "STAFF STAIR",     "x0": 1200, "y0": -600,  "x1": 2116, "y1": 0,    "z": 0,   "ceil": 760, "floor": true },
+    { "id": "Cafeteria",         "name": "Cafeteria & Common Seating",          "area": "Cafeteria",   "sign": "CAFETERIA",       "x0": 2116, "y0": -1200, "x1": 3500, "y1": 0,    "z": 0,   "ceil": 360, "floor": true },
+    { "id": "Work_Area",         "name": "Work Area & Service Counter",         "area": "Work",        "sign": "WORK AREA",       "x0": 3500, "y0": -1200, "x1": 5300, "y1": 0,    "z": 0,   "ceil": 360, "floor": true },
+    { "id": "Cell_Aisle_Lower",  "name": "Lower Cell Aisle & Prisoner Stair",   "area": "CellBlock",   "sign": "LOWER CELL AISLE","x0": 700,  "y0": 900,   "x1": 5000, "y1": 1180, "z": 0,   "ceil": 360, "floor": true },
+    { "id": "Secured_Stairwell", "name": "Secured Stair toward Sector Floor 2", "area": "Secured",     "sign": "FLOOR 2 (SECURED)","x0": 5600, "y0": 0,     "x1": 6400, "y1": 900,  "z": 0,   "ceil": 760, "floor": true },
+
+    { "id": "Upper_Walkway",     "name": "Upper Cell Walkway",                  "area": "UpperCells",  "sign": "UPPER WALKWAY",   "x0": 1600, "y0": 900,   "x1": 5000, "y1": 1180, "z": 390, "ceil": 370 },
+    { "id": "Upper_Crossing",    "name": "Upper Crossing (bridge)",             "area": "Crossing",    "sign": "UPPER CROSSING",  "x0": 3700, "y0": 0,     "x1": 4000, "y1": 900,  "z": 390, "ceil": 370 },
+    { "id": "Guard_Gallery",     "name": "Guard Lookout Gallery",               "area": "Guard",       "sign": "GUARD LOOKOUT",   "x0": 2116, "y0": -600,  "x1": 3500, "y1": 0,    "z": 390, "ceil": 370 },
+    { "id": "Lookout_Cabin",     "name": "Guard Lookout Cabin (projects over the hall)", "area": "Guard", "sign": "GUARD LOOKOUT", "x0": 2800, "y0": 0, "x1": 3300, "y1": 260, "z": 390, "ceil": 300 },
+    { "id": "Guard_Office",      "name": "Guard Office (restricted)",           "area": "Restricted",  "sign": "GUARD OFFICE",    "x0": 2500, "y0": -1200, "x1": 3500, "y1": -600, "z": 390, "ceil": 300 },
+    { "id": "Authorized_Landing","name": "Authorized Landing (outside office)", "area": "Landing",     "sign": "AUTHORIZED LANDING","x0": 3500,"y0": -900,  "x1": 4100, "y1": 0,    "z": 390, "ceil": 370 }
+  ],
+
+  "cell_tiers": {
+    "x0": 1700, "count": 8, "width": 400, "y0": 1180, "y1": 1630, "door_w": 160, "door_h": 260,
+    "lower_z": 0, "upper_z": 390, "lower_ceil": 360, "upper_ceil": 300
+  },
+
+  "slabs": [
+    { "id": "Roof_Atrium",         "x0": 0,    "y0": -1200, "x1": 6400, "y1": 1630, "z0": 760, "z1": 790, "area": null },
+    { "id": "Deck_Orientation",    "x0": 0,    "y0": -1200, "x1": 1200, "y1": 0,    "z0": 360, "z1": 390, "area": null },
+    { "id": "Deck_South",          "x0": 2116, "y0": -1200, "x1": 5300, "y1": 0,    "z0": 360, "z1": 390, "area": "Guard" },
+    { "id": "Deck_North",          "x0": 1600, "y0": 900,   "x1": 5000, "y1": 1630, "z0": 360, "z1": 390, "area": "UpperCells" },
+    { "id": "Deck_Crossing",       "x0": 3700, "y0": 0,     "x1": 4000, "y1": 900,  "z0": 360, "z1": 390, "area": "Crossing" },
+    { "id": "Deck_Cabin",         "x0": 2800, "y0": 0,     "x1": 3300, "y1": 260,  "z0": 360, "z1": 390, "area": "Guard" },
+    { "id": "Roof_Cabin",         "x0": 2800, "y0": 0,     "x1": 3300, "y1": 260,  "z0": 690, "z1": 720, "area": null },
+    { "id": "Roof_Office",         "x0": 2500, "y0": -1200, "x1": 3500, "y1": -600, "z0": 690, "z1": 720, "area": null },
+    { "id": "Roof_UpperCells",     "x0": 1700, "y0": 1180,  "x1": 4900, "y1": 1630, "z0": 690, "z1": 720, "area": null }
+  ],
+
+  "walls": [
+    { "id": "W_South",        "axis": "h", "coord": -1200, "a": 0,    "b": 6400, "z0": 0, "z1": 790 },
+    { "id": "W_North",        "axis": "h", "coord": 1630,  "a": 0,    "b": 6400, "z0": 0, "z1": 790 },
+    { "id": "W_West",         "axis": "v", "coord": 0,     "a": -1200, "b": 1630, "z0": 0, "z1": 790,
+      "cuts": [ { "id": "Intake_Arrival_Door", "name": "Arrival transfer door (sealed)", "c": 450, "w": 300, "z0": 0, "h": 270, "kind": "sealed" } ] },
+    { "id": "W_East",         "axis": "v", "coord": 6400,  "a": -1200, "b": 1630, "z0": 0, "z1": 790 },
+
+    { "id": "W_Intake_N",     "axis": "h", "coord": 900,   "a": 0,    "b": 700,  "z0": 0, "z1": 790 },
+    { "id": "W_Orient_N",     "axis": "h", "coord": 0,     "a": 0,    "b": 1200, "z0": 0, "z1": 790,
+      "cuts": [ { "id": "Arch_Intake_Orientation", "name": "Intake to Orientation", "c": 600, "w": 600, "z0": 0, "h": 300 } ] },
+    { "id": "W_Orient_E",     "axis": "v", "coord": 1200,  "a": -1200, "b": 0,   "z0": 0, "z1": 790 },
+
+    { "id": "W_Bay_N",        "axis": "h", "coord": 0,     "a": 1200, "b": 2116, "z0": 0, "z1": 790,
+      "cuts": [ { "id": "Door_Staff_Stair", "name": "Staff stair door (staff only)", "c": 1850, "w": 300, "z0": 0, "h": 270 } ] },
+    { "id": "W_Bay_S",        "axis": "h", "coord": -600,  "a": 1200, "b": 2116, "z0": 0, "z1": 790 },
+    { "id": "W_Caf_W",        "axis": "v", "coord": 2116,  "a": -1200, "b": 0,   "z0": 0, "z1": 360 },
+    { "id": "W_Caf_N",        "axis": "h", "coord": 0,     "a": 2116, "b": 3500, "z0": 0, "z1": 390,
+      "cuts": [ { "id": "Arch_Cafeteria", "name": "Hall to Cafeteria", "c": 2750, "w": 900, "z0": 0, "h": 300 } ] },
+    { "id": "W_CafWork",      "axis": "v", "coord": 3500,  "a": -1200, "b": 0,   "z0": 0, "z1": 360,
+      "cuts": [ { "id": "Arch_Caf_Work", "name": "Cafeteria to Work Area", "c": -600, "w": 500, "z0": 0, "h": 300 } ] },
+    { "id": "W_Landing_N",    "axis": "h", "coord": 0,     "a": 3500, "b": 4100, "z0": 0, "z1": 390 },
+    { "id": "W_Work_N",       "axis": "h", "coord": 0,     "a": 4100, "b": 5600, "z0": 0, "z1": 790,
+      "cuts": [ { "id": "Arch_Work", "name": "Hall to Work Area", "c": 4700, "w": 800, "z0": 0, "h": 300 } ] },
+    { "id": "W_Work_E",       "axis": "v", "coord": 5300,  "a": -1200, "b": 0,   "z0": 0, "z1": 360 },
+
+    { "id": "W_Gallery_S",    "axis": "h", "coord": -600,  "a": 2116, "b": 3500, "z0": 390, "z1": 790,
+      "cuts": [ { "id": "Door_Office_Staff", "name": "Office north door (staff approach)", "c": 2800, "w": 200, "z0": 390, "h": 260 },
+                { "id": "Win_Office_Lookout", "name": "Office window onto gallery", "c": 3250, "w": 400, "z0": 480, "h": 140 } ] },
+    { "id": "W_Office_W",     "axis": "v", "coord": 2500,  "a": -1200, "b": -600, "z0": 390, "z1": 790 },
+    { "id": "W_Gallery_E",    "axis": "v", "coord": 3500,  "a": -600, "b": 0,    "z0": 390, "z1": 790 },
+    { "id": "W_Office_E",     "axis": "v", "coord": 3500,  "a": -1200, "b": -600, "z0": 390, "z1": 790,
+      "cuts": [ { "id": "Door_Office_Landing", "name": "Office east door (landing approach)", "c": -750, "w": 200, "z0": 390, "h": 260 } ] },
+    { "id": "W_Landing_S",    "axis": "h", "coord": -900,  "a": 3500, "b": 4100, "z0": 390, "z1": 790 },
+    { "id": "W_Landing_E",    "axis": "v", "coord": 4100,  "a": -900, "b": 0,    "z0": 390, "z1": 790 },
+
+    { "id": "W_Aisle_W",      "axis": "v", "coord": 700,   "a": 900,  "b": 1180, "z0": 0, "z1": 790 },
+    { "id": "W_Cells_Front",  "axis": "h", "coord": 1180,  "a": 700,  "b": 5000, "z0": 0, "z1": 790, "cuts_from": "cell_doors" },
+    { "id": "W_Aisle_E",      "axis": "v", "coord": 5000,  "a": 900,  "b": 1180, "z0": 0, "z1": 790 },
+    { "id": "W_Hall_NE",      "axis": "h", "coord": 900,   "a": 5000, "b": 6400, "z0": 0, "z1": 790 },
+    { "id": "W_Hall_E",       "axis": "v", "coord": 5600,  "a": 0,    "b": 900,  "z0": 0, "z1": 790,
+      "cuts": [ { "id": "Gate_Floor2", "name": "Secured gate to Sector Floor 2 stair", "c": 450, "w": 500, "z0": 0, "h": 300, "kind": "gate" } ] },
+    { "id": "W_Cabin_Front", "axis": "h", "coord": 260,  "a": 2800, "b": 3300, "z0": 390, "z1": 690,
+      "cuts": [ { "id": "Win_Cabin_Front", "name": "Lookout cabin front window", "c": 3050, "w": 440, "z0": 440, "h": 140 } ] },
+    { "id": "W_Cabin_W",     "axis": "v", "coord": 2800, "a": 0,    "b": 260,  "z0": 390, "z1": 690,
+      "cuts": [ { "id": "Win_Cabin_West", "name": "Lookout cabin west window", "c": 130, "w": 180, "z0": 440, "h": 140 } ] },
+    { "id": "W_Cabin_E",     "axis": "v", "coord": 3300, "a": 0,    "b": 260,  "z0": 390, "z1": 690,
+      "cuts": [ { "id": "Win_Cabin_East", "name": "Lookout cabin east window", "c": 130, "w": 180, "z0": 440, "h": 140 } ] },
+    { "id": "W_Stairwell_S",  "axis": "h", "coord": 0,     "a": 5600, "b": 6400, "z0": 0, "z1": 790 }
+  ],
+
+  "rails": [
+    { "id": "Bal_Walkway_S",  "axis": "h", "coord": 906,  "a": 1600, "b": 5000, "z": 390, "gaps": [[3700, 4000]] },
+    { "id": "Bal_Walkway_W",  "axis": "v", "coord": 1606, "a": 900,  "b": 925,  "z": 390 },
+    { "id": "Bal_Bridge_W",   "axis": "v", "coord": 3706, "a": 0,    "b": 900,  "z": 390 },
+    { "id": "Bal_Bridge_E",   "axis": "v", "coord": 3994, "a": 0,    "b": 900,  "z": 390 },
+    { "id": "Bal_Gallery_N",  "axis": "h", "coord": -8,   "a": 2116, "b": 3500, "z": 390, "gaps": [[2800, 3300]] },
+    { "id": "Bal_Gallery_W",  "axis": "v", "coord": 2122, "a": -320, "b": 0,    "z": 390 },
+    { "id": "Bal_Landing_N",  "axis": "h", "coord": -8,   "a": 3500, "b": 4100, "z": 390, "gaps": [[3700, 4000]] }
+  ],
+
+  "stairs": [
+    { "id": "Stair_Prisoner", "name": "Prisoner stair to upper cells",     "axis": "+x", "start": 984,  "lo": 930,  "hi": 1150, "z_start": 0, "steps": 22, "total_rise": 390, "run": 28, "rails": ["lo", "hi"], "area": "CellBlock" },
+    { "id": "Stair_Staff",    "name": "Staff stair to guard level",        "axis": "+x", "start": 1500, "lo": -580, "hi": -320, "z_start": 0, "steps": 22, "total_rise": 390, "run": 28, "rails": ["lo", "hi"], "area": "Guard" },
+    { "id": "Stair_Floor2",   "name": "Secured stair toward Sector Floor 2 (future)", "axis": "+x", "start": 5700, "lo": 250, "hi": 650, "z_start": 0, "steps": 22, "total_rise": 390, "run": 28, "rails": ["lo", "hi"], "area": "Secured" }
+  ],
+
+  "columns": { "y": 900, "x_from": 1700, "x_to": 4900, "step": 400, "size": 40, "z1": 360, "skip_between": [3660, 4040] },
+
+  "boxes": [
+    { "id": "Intake_Desk",        "name": "Intake desk",                 "x0": 300,  "y0": 800,  "x1": 700,  "y1": 880,  "z0": 0,   "z1": 105, "mat": "lit:Intake" },
+    { "id": "Orient_Bench_1",     "name": "Orientation bench",           "x0": 250,  "y0": -370, "x1": 850,  "y1": -330, "z0": 0,   "z1": 50,  "mat": "lit:Orientation" },
+    { "id": "Orient_Bench_2",     "name": "Orientation bench",           "x0": 250,  "y0": -570, "x1": 850,  "y1": -530, "z0": 0,   "z1": 50,  "mat": "lit:Orientation" },
+    { "id": "Orient_Bench_3",     "name": "Orientation bench",           "x0": 250,  "y0": -770, "x1": 850,  "y1": -730, "z0": 0,   "z1": 50,  "mat": "lit:Orientation" },
+    { "id": "Orient_Bench_4",     "name": "Orientation bench",           "x0": 250,  "y0": -970, "x1": 850,  "y1": -930, "z0": 0,   "z1": 50,  "mat": "lit:Orientation" },
+    { "id": "Orient_Board",       "name": "Orientation board",           "x0": 300,  "y0": -1185,"x1": 800,  "y1": -1170,"z0": 120, "z1": 260, "mat": "lit:Orientation", "collision": false },
+
+    { "id": "Caf_Counter_S",      "name": "Serving counter south",       "x0": 3380, "y0": -1180,"x1": 3470, "y1": -900, "z0": 0,   "z1": 110, "mat": "lit:Cafeteria" },
+    { "id": "Caf_Counter_N",      "name": "Serving counter north",       "x0": 3380, "y0": -300, "x1": 3470, "y1": -90,  "z0": 0,   "z1": 110, "mat": "lit:Cafeteria" },
+
+    { "id": "Work_Counter",       "name": "Service counter",             "x0": 4250, "y0": -330, "x1": 5150, "y1": -250, "z0": 0,   "z1": 110, "mat": "lit:Work" },
+    { "id": "Work_Bench_1",       "name": "Workbench",                   "x0": 3900, "y0": -1100,"x1": 4200, "y1": -1010,"z0": 0,   "z1": 90,  "mat": "lit:Work" },
+    { "id": "Work_Bench_2",       "name": "Workbench",                   "x0": 4400, "y0": -1100,"x1": 4700, "y1": -1010,"z0": 0,   "z1": 90,  "mat": "lit:Work" },
+    { "id": "Work_Bench_3",       "name": "Workbench",                   "x0": 4900, "y0": -1100,"x1": 5200, "y1": -1010,"z0": 0,   "z1": 90,  "mat": "lit:Work" },
+    { "id": "Work_Press_1",       "name": "Press (machine block)",       "x0": 4600, "y0": -720, "x1": 4800, "y1": -580, "z0": 0,   "z1": 120, "mat": "lit:Work" },
+    { "id": "Work_Rack_1",        "name": "Parts rack",                  "x0": 3600, "y0": -1180,"x1": 3700, "y1": -900, "z0": 0,   "z1": 200, "mat": "lit:Work" },
+
+    { "id": "Lookout_Console",    "name": "Guard lookout console",       "x0": 2900, "y0": 190,  "x1": 3200, "y1": 225,  "z0": 390, "z1": 500, "mat": "lit:Guard" },
+    { "id": "Cabin_Col_W",        "name": "Lookout cabin support column","x0": 2810, "y0": 235,  "x1": 2850, "y1": 275,  "z0": 0,   "z1": 360, "mat": null },
+    { "id": "Cabin_Col_E",        "name": "Lookout cabin support column","x0": 3250, "y0": 235,  "x1": 3290, "y1": 275,  "z0": 0,   "z1": 360, "mat": null },
+    { "id": "Office_Desk",        "name": "Guard desk",                  "x0": 3000, "y0": -1130,"x1": 3350, "y1": -1040,"z0": 390, "z1": 470, "mat": "lit:Restricted" },
+    { "id": "Office_Cabinet_1",   "name": "Office cabinet",              "x0": 2540, "y0": -1190,"x1": 2640, "y1": -1090,"z0": 390, "z1": 590, "mat": "lit:Restricted" },
+    { "id": "Office_Cabinet_2",   "name": "Office cabinet",              "x0": 2660, "y0": -1190,"x1": 2760, "y1": -1090,"z0": 390, "z1": 590, "mat": "lit:Restricted" },
+    { "id": "Office_Chair",       "name": "Guard chair",                 "x0": 3380, "y0": -1000,"x1": 3440, "y1": -940, "z0": 390, "z1": 440, "mat": "lit:Restricted" },
+
+    { "id": "Cover_Cabinet_A",    "name": "Cover: cabinet by stair top", "x0": 2300, "y0": -590, "x1": 2420, "y1": -510, "z0": 390, "z1": 590, "mat": "lit:Cover" },
+    { "id": "Cover_Pillar_B",     "name": "Cover: gallery pillar",       "x0": 2560, "y0": -330, "x1": 2640, "y1": -250, "z0": 390, "z1": 690, "mat": "lit:Cover" },
+    { "id": "Cover_Wall_C",       "name": "Cover: low wall",             "x0": 2930, "y0": -380, "x1": 3240, "y1": -350, "z0": 390, "z1": 590, "mat": "lit:Cover" },
+    { "id": "Cover_Locker_D",     "name": "Cover: lockers by office",    "x0": 3360, "y0": -590, "x1": 3480, "y1": -480, "z0": 390, "z1": 590, "mat": "lit:Cover" },
+    { "id": "Cover_Crates_E",     "name": "Cover: crates on landing",    "x0": 3860, "y0": -880, "x1": 4000, "y1": -760, "z0": 390, "z1": 590, "mat": "lit:Cover" },
+    { "id": "Cover_Partition_F",  "name": "Cover: partition on landing", "x0": 4010, "y0": -230, "x1": 4075, "y1": -140, "z0": 390, "z1": 590, "mat": "lit:Cover" },
+
+    { "id": "Roster",             "name": "Roster (placeholder)",        "x0": 3090, "y0": -1105,"x1": 3150, "y1": -1070,"z0": 470, "z1": 474, "mat": "unlit:Roster", "collision": false },
+
+    { "id": "Rail_End_A",         "name": "Rail endpoint A",             "x0": 1965, "y0": 415,  "x1": 2035, "y1": 485,  "z0": 660, "z1": 720, "mat": "unlit:Rail", "collision": false },
+    { "id": "Rail_End_B",         "name": "Rail endpoint B",             "x0": 4765, "y0": 415,  "x1": 4835, "y1": 485,  "z0": 660, "z1": 720, "mat": "unlit:Rail", "collision": false },
+    { "id": "Rail_Floor_A",       "name": "Rail endpoint A floor mark",  "x0": 1940, "y0": 390,  "x1": 2060, "y1": 510,  "z0": 0,   "z1": 2,   "mat": "unlit:Rail", "collision": false },
+    { "id": "Rail_Floor_B",       "name": "Rail endpoint B floor mark",  "x0": 4740, "y0": 390,  "x1": 4860, "y1": 510,  "z0": 0,   "z1": 2,   "mat": "unlit:Rail", "collision": false },
+    { "id": "CCTV_Body",          "name": "CCTV-01 housing",             "x0": 3820, "y0": 1135, "x1": 3880, "y1": 1175, "z0": 600, "z1": 640, "mat": "unlit:CCTV", "collision": false },
+    { "id": "CCTV_Bracket",       "name": "CCTV-01 bracket",             "x0": 3845, "y0": 1165, "x1": 3855, "y1": 1180, "z0": 610, "z1": 630, "mat": "lit:CCTV", "collision": false },
+
+    { "id": "Mark_Office_Floor",  "name": "Restricted office floor tint","x0": 2500, "y0": -1200,"x1": 3500, "y1": -600, "z0": 390, "z1": 392, "mat": "unlit:Restricted", "collision": false },
+    { "id": "Mark_Office_Line_E", "name": "Restricted boundary line (landing door)", "x0": 3490, "y0": -870, "x1": 3530, "y1": -630, "z0": 390, "z1": 393, "mat": "unlit:Roster", "collision": false },
+    { "id": "Mark_Office_Line_N", "name": "Restricted boundary line (staff door)",   "x0": 2690, "y0": -620, "x1": 2910, "y1": -580, "z0": 390, "z1": 393, "mat": "unlit:Roster", "collision": false },
+    { "id": "Mark_Landing_Pad",   "name": "Authorized landing pad",      "x0": 3510, "y0": -890, "x1": 4090, "y1": -10,  "z0": 390, "z1": 392, "mat": "unlit:Landing", "collision": false },
+    { "id": "Mark_Landing_Edge",  "name": "Landing / office boundary strip", "x0": 3530, "y0": -890, "x1": 3600, "y1": -610, "z0": 392, "z1": 394, "mat": "unlit:Restricted", "collision": false },
+    { "id": "Mark_Crossing_Deck", "name": "Crossing deck tint",          "x0": 3720, "y0": 20,   "x1": 3980, "y1": 880,  "z0": 390, "z1": 392, "mat": "unlit:Crossing", "collision": false },
+    { "id": "Mark_Gallery_Deck",  "name": "Gallery deck tint",           "x0": 2130, "y0": -590, "x1": 3490, "y1": -20,  "z0": 390, "z1": 391, "mat": "unlit:Guard", "collision": false },
+    { "id": "Band_Lower_Tier",    "name": "Lower tier colour band",      "x0": 1700, "y0": 1163, "x1": 4900, "y1": 1165, "z0": 270, "z1": 330, "mat": "unlit:CellBlock", "collision": false },
+    { "id": "Band_Upper_Tier",    "name": "Upper tier colour band",      "x0": 1700, "y0": 1163, "x1": 4900, "y1": 1165, "z0": 665, "z1": 725, "mat": "unlit:UpperCells", "collision": false },
+    { "id": "Mark_Walkway_Deck",  "name": "Upper walkway deck tint",     "x0": 1620, "y0": 920,  "x1": 4990, "y1": 1170, "z0": 390, "z1": 391, "mat": "unlit:UpperCells", "collision": false }
+  ],
+
+  "lines": [
+    { "id": "Rail_Track",    "p0": [2000, 450, 690], "p1": [4800, 450, 690], "thick": 24, "mat": "unlit:Rail" },
+    { "id": "Rail_Floor_Strip_Dashes", "dashes": { "p0": [2060, 450, 1], "p1": [4740, 450, 1], "len": 100, "gap": 100, "thick": 12 }, "mat": "unlit:Rail" },
+    { "id": "Rail_Hangers",  "hangers": { "x_from": 2000, "x_to": 4800, "step": 400, "y": 450, "z0": 702, "z1": 760, "thick": 8 }, "mat": "unlit:Rail" },
+    { "id": "CCTV_Frustum",  "frustum": { "pos": [3850, 1145, 620], "yaw": -90, "pitch": -10, "hfov": 70, "vfov": 40, "range": 2200, "thick": 5 }, "mat": "unlit:CCTV" }
+  ],
+
+  "guard_route": {
+    "_comment": "Guard's normal approach: staff door in the hall wall -> staff stair -> gallery -> office north door. Dashed on the floor; waypoints z is the walking floor.",
+    "points": [[1850, -120, 0], [1850, -200, 0], [1350, -200, 0], [1350, -450, 0], [1500, -450, 0], [2116, -450, 390], [2800, -450, 390], [2800, -545, 390], [2800, -700, 390]]
+  },
+
+  "signs": [
+    { "text": "INTAKE & ORIENTATION",          "x": 15,   "y": 450,  "z": 520, "f": "E", "size": 40, "area": "Intake" },
+    { "text": "ARRIVAL DOOR (SEALED)",         "x": 15,   "y": 450,  "z": 325, "f": "E", "size": 18, "area": "Secured" },
+    { "text": "INTAKE DESK",                   "x": 500,  "y": 885,  "z": 260, "f": "S", "size": 24, "area": "Intake" },
+    { "text": "ORIENTATION",                   "x": 600,  "y": 15,   "z": 345, "f": "N", "size": 26, "area": "Orientation" },
+    { "text": "ORIENTATION ROOM",              "x": 600,  "y": -15,  "z": 345, "f": "S", "size": 26, "area": "Orientation" },
+
+    { "text": "MAIN HALL  >",                  "x": 1200, "y": 450,  "z": 640, "hang": "x", "size": 56, "area": "Hall" },
+    { "text": "LEFT: CELLS (LOWER + UPPER TIER)", "x": 1500, "y": 450, "z": 600, "hang": "x", "size": 30, "area": "CellBlock" },
+    { "text": "RIGHT: CAFETERIA / WORK / GUARD LEVEL", "x": 1500, "y": 450, "z": 550, "hang": "x", "size": 30, "area": "Cafeteria" },
+
+    { "text": "STAFF STAIR - GUARD LEVEL (STAFF ONLY)", "x": 1850, "y": 15, "z": 335, "f": "N", "size": 22, "area": "Guard" },
+    { "text": "GUARD ROUTE START",             "x": 1850, "y": -585, "z": 430, "f": "N", "size": 22, "area": "Route" },
+    { "text": "CAFETERIA & COMMON SEATING",    "x": 2750, "y": 15,   "z": 337, "f": "N", "size": 30, "area": "Cafeteria" },
+    { "text": "WORK AREA & SERVICE COUNTER",   "x": 4700, "y": 15,   "z": 345, "f": "N", "size": 30, "area": "Work" },
+    { "text": "SERVICE COUNTER",               "x": 4700, "y": -300, "z": 160, "hang": "y", "size": 18, "area": "Work" },
+
+    { "text": "PRISONER STAIR  >>  UPPER CELLS", "x": 1250, "y": 1165, "z": 520, "f": "S", "size": 32, "area": "CellBlock" },
+    { "text": "PRISONER STAIR",                "x": 715,  "y": 1040, "z": 300, "f": "E", "size": 24, "area": "CellBlock" },
+    { "text": "LOWER CELLS  L1-L8",            "x": 3300, "y": 1165, "z": 300, "f": "S", "size": 26, "area": "CellBlock" },
+    { "text": "UPPER CELLS  U1-U8",            "x": 3300, "y": 1165, "z": 695, "f": "S", "size": 34, "area": "UpperCells" },
+
+    { "text": "UPPER CROSSING",                "x": 3850, "y": 450,  "z": 560, "hang": "y", "size": 40, "area": "Crossing" },
+    { "text": "UPPER CROSSING >> GUARD LANDING", "x": 3850, "y": 450, "z": 520, "hang": "x", "size": 28, "area": "Crossing" },
+    { "text": "AUTHORIZED LANDING",            "x": 4085, "y": -450, "z": 520, "f": "W", "size": 34, "area": "Landing" },
+    { "text": "RESTRICTED - GUARD OFFICE (AUTHORIZED STAFF ONLY)", "x": 3515, "y": -750, "z": 700, "f": "E", "size": 22, "area": "Restricted" },
+    { "text": "GUARD OFFICE - RESTRICTED",     "x": 2800, "y": -585, "z": 700, "f": "N", "size": 26, "area": "Restricted" },
+        { "text": "GUARD LOOKOUT GALLERY",         "x": 2300, "y": -585, "z": 680, "f": "N", "size": 24, "area": "Guard" },
+    { "text": "GUARD LOOKOUT",                 "x": 2785, "y": 130,  "z": 430, "f": "W", "size": 36, "area": "Guard" },
+    { "text": "GUARD LOOKOUT",                 "x": 3050, "y": 275,  "z": 430, "f": "N", "size": 36, "area": "Guard" },
+    { "text": "GUARD LOOKOUT",                 "x": 3315, "y": 130,  "z": 430, "f": "E", "size": 36, "area": "Guard" },
+    { "text": "LOOKOUT CABIN (OVERLOOKS HALL)", "x": 3050, "y": -585, "z": 740, "f": "N", "size": 22, "area": "Guard" },
+    { "text": "ROSTER (PLACEHOLDER)",          "x": 3125, "y": -1185,"z": 520, "f": "N", "size": 18, "area": "Roster" },
+    { "text": "GUARD ROUTE END (OFFICE DOOR)", "x": 2500, "y": -585, "z": 500, "f": "N", "size": 20, "area": "Route" },
+    { "text": "COVER",                         "x": 3420, "y": -585, "z": 620, "f": "N", "size": 18, "area": "Cover" },
+
+    { "text": "SECTOR FLOOR 2 - SECURED STAIR (FUTURE)", "x": 5585, "y": 450, "z": 440, "f": "W", "size": 38, "area": "Secured" },
+    { "text": "SECURED GATE",                  "x": 5585, "y": 450,  "z": 330, "f": "W", "size": 22, "area": "Secured" },
+
+    { "text": "PROPOSED RAIL TRACK (PLACEHOLDER)", "x": 3400, "y": 450, "z": 650, "hang": "x", "size": 30, "area": "Rail" },
+    { "text": "RAIL END A",                    "x": 2000, "y": 450,  "z": 610, "hang": "x", "size": 30, "area": "Rail" },
+    { "text": "RAIL END B",                    "x": 4800, "y": 450,  "z": 610, "hang": "x", "size": 30, "area": "Rail" },
+    { "text": "CCTV-01 (FIXED, PLACEHOLDER)",  "x": 3850, "y": 1165, "z": 740, "f": "S", "size": 24, "area": "CCTV" }
+  ],
+
+  "markers": [
+    { "id": "Start_Intake",          "type": "PlayerSpawn",   "x": 500,  "y": 450,  "z": 0 },
+    { "id": "Guard_Office_Roster",   "type": "Roster",        "x": 3120, "y": -1088, "z": 474 },
+    { "id": "Landing_Center",        "type": "Landing",       "x": 3800, "y": -450, "z": 390 },
+    { "id": "Office_Door_East",      "type": "RestrictedDoor","x": 3500, "y": -750, "z": 390 },
+    { "id": "Office_Door_North",     "type": "RestrictedDoor","x": 2800, "y": -600, "z": 390 },
+    { "id": "Lookout_Position",      "type": "Lookout",       "x": 3050, "y": 110,  "z": 390 },
+    { "id": "Rail_End_A",            "type": "RailEnd",       "x": 2000, "y": 450,  "z": 690 },
+    { "id": "Rail_End_B",            "type": "RailEnd",       "x": 4800, "y": 450,  "z": 690 },
+    { "id": "CCTV_01",               "type": "CCTV",          "x": 3850, "y": 1145, "z": 620 },
+    { "id": "Floor2_Gate",           "type": "FutureAccess",  "x": 5560, "y": 450,  "z": 0 }
+  ],
+
+  "routes": [
+    { "id": "R1a_Intake_to_LowerCells",   "z": 0,   "points": [[500, 450], [1000, 450], [1300, 800], [1900, 850], [1900, 1000], [1900, 1400], [1900, 1000], [3100, 1000], [3100, 1400], [3100, 1000]] },
+    { "id": "R1b_Intake_to_Cafeteria",    "z": 0,   "points": [[500, 450], [2675, 450], [2675, 100], [2675, -250], [2675, -550], [3300, -550], [3300, -600], [3700, -600], [4000, -600]] },
+    { "id": "R1c_Work_Area_and_Counter",  "z": 0,   "points": [[4000, -600], [4000, -400], [4000, -200], [4700, -150], [5200, -150], [5200, -300], [5200, -150], [4700, -150], [4700, 100], [4700, 450]] },
+    { "id": "R1d_Orientation",            "z": 0,   "points": [[500, 450], [600, 150], [600, -250], [150, -300], [150, -1100], [900, -1100], [1050, -300], [600, -150], [600, 150]] },
+    { "id": "R2a_Prisoner_Stair_Up",      "z": 0,   "points": [[500, 450], [900, 760], [900, 1040], [1500, 1040], [1990, 1040]] },
+    { "id": "R2b_Upper_Cells",            "z": 390, "points": [[1990, 1040], [1900, 1040], [1900, 1400], [1900, 1040], [3100, 1040], [3100, 1400], [3100, 1040], [4700, 1040], [4700, 1400], [4700, 1040]] },
+    { "id": "R2c_Cross_to_Landing",       "z": 390, "points": [[4700, 1040], [3850, 1040], [3850, 450], [3850, 50], [3850, -200]] },
+    { "id": "R3_Landing_Office_Roster",   "z": 390, "points": [[3850, -200], [3850, -600], [3800, -750], [3500, -750], [3300, -800], [3250, -940], [3175, -990], [3300, -800], [3500, -750], [3800, -750], [3850, -450]] },
+    { "id": "R4a_Staff_Stair_Up",         "z": 0,   "points": [[500, 450], [1850, 450], [1850, 100], [1850, -120], [1850, -200], [1350, -200], [1350, -450], [1500, -450], [2116, -450], [2300, -450]] },
+    { "id": "R4b_Gallery_Office_North",   "z": 390, "points": [[2116, -450], [2800, -450], [2800, -545], [2800, -700], [2800, -545]] },
+    { "id": "R4c_Lookout_Cabin_View",     "z": 390, "points": [[2800, -450], [2800, -250], [3050, -250], [3050, -100], [3050, 110], [3050, -100], [3050, -250], [2800, -250], [2800, -450], [2250, -450], [2200, -300], [2200, -100], [2200, -300]] },
+    { "id": "R5_Cover_Pieces_Gallery",    "z": 390, "points": [[2300, -450], [2700, -430], [2800, -250], [3100, -250], [3300, -250], [3300, -450], [2800, -450]] },
+    { "id": "R6_Hall_End_to_Gate",        "z": 0,   "points": [[500, 450], [2000, 450], [4800, 450], [5500, 450]] }
+  ],
+
+  "blocked_routes": [
+    { "id": "B1_Floor2_gate_secured",       "z": 0,   "points": [[5500, 450], [5700, 450]] },
+    { "id": "B2_Intake_arrival_door_sealed","z": 0,   "points": [[100, 450], [-100, 450]] },
+    { "id": "B3_Gallery_to_Landing_wall",   "z": 390, "points": [[3400, -250], [3700, -250]] },
+    { "id": "B4_Walkway_edge_to_hall",      "z": 390, "points": [[2500, 1040], [2500, 800]] },
+    { "id": "B5_Gallery_edge_to_hall",      "z": 390, "points": [[2500, -250], [2500, 150]] },
+    { "id": "B6_Landing_edge_to_hall",      "z": 390, "points": [[3600, -250], [3600, 150]] },
+    { "id": "B7_Landing_to_work_roof",      "z": 390, "points": [[3800, -450], [4300, -450]] },
+    { "id": "B8_Crossing_edge",             "z": 390, "points": [[3850, 450], [3500, 450]] }
+  ],
+
+  "reachability": {
+    "_comment": "Sample points that MUST (true) or MUST NOT (false) be reachable by walking from the player start without falling. [x, y, z_floor, expected, label]",
+    "samples": [
+      [500, 450, 0, true, "Intake"], [150, -650, 0, true, "Orientation"], [2750, -600, 0, true, "Cafeteria"], [4500, -600, 0, true, "Work area"],
+      [1900, 1400, 0, true, "Lower cell L1"], [4700, 1400, 0, true, "Lower cell L8"], [1900, 1400, 390, true, "Upper cell U1"], [4700, 1400, 390, true, "Upper cell U8"],
+      [3000, 1040, 390, true, "Upper walkway"], [3050, 100, 390, true, "Lookout cabin"], [3850, 450, 390, true, "Upper crossing"], [3800, -450, 390, true, "Authorized landing"],
+      [3175, -980, 390, true, "Office at roster"], [2800, -450, 390, true, "Guard gallery"],
+      [1700, -150, 0, true, "Staff stair vestibule"], [5300, 450, 0, true, "Hall east end"],
+      [6000, 450, 0, false, "Secured stairwell (behind gate)"], [4800, -450, 390, false, "Work-area roof"], [3700, -1100, 390, false, "Void south of landing"],
+      [1500, -900, 0, false, "Void south of staff bay"], [5400, 1400, 0, false, "Void NE of cells"], [400, 1300, 0, false, "Void NW of aisle"]
+    ]
+  }
+}

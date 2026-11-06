@@ -1,0 +1,7296 @@
+{
+ "_comment": "Sector 01 / Left Wing / Floor 1 - RECTANGLE STUDY V7 (review map) built from the Greybox Build Sheet CONFINED LAYOUT (board 10 + board 11 back of house; replaces the board 07 sheet used by V6). Frame: metres from the interior NW corner, +X east, +Y SOUTH, Z up; UE X = X*100, UE Y = Y*100. Generator facing letters use N = +Y. NOT the accepted M1 map, NOT V1-V6.",
+ "meta": {
+  "level": "/Game/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V7",
+  "footprint": {
+   "x0": 0,
+   "y0": 0,
+   "x1": 6100,
+   "y1": 5100
+  },
+  "player_start": {
+   "x": 5940.0,
+   "y": 1030.0,
+   "yaw": 180
+  },
+  "note": "Lower ceiling 3.6 (2.7 in corridors/chase), upper floor 3.9, upper ceiling 7.5, roof slab 7.5-7.8. Only the secured door D06 and the sealed arrival door D03 are blocked (plus the sealed goods lift volume)."
+ },
+ "params": {
+  "wall_thickness": 30,
+  "slab_thickness": 30,
+  "capsule_radius": 34,
+  "capsule_half_height": 90,
+  "max_step_height": 45,
+  "upper_z": 390,
+  "wall_top": 780,
+  "rail_height": 110,
+  "kick_height": 25,
+  "camera_arm": 200
+ },
+ "areas": {
+  "Hall": {
+   "label": "Main Hall",
+   "color": [
+    140,
+    150,
+    168
+   ]
+  },
+  "Cells": {
+   "label": "Cells",
+   "color": [
+    50,
+    115,
+    215
+   ]
+  },
+  "CellsW": {
+   "label": "W block cells (darker blue)",
+   "color": [
+    28,
+    72,
+    160
+   ]
+  },
+  "BandN": {
+   "label": "N block wall band",
+   "color": [
+    50,
+    115,
+    215
+   ]
+  },
+  "BandS": {
+   "label": "S block wall band (teal)",
+   "color": [
+    40,
+    165,
+    165
+   ]
+  },
+  "BandW": {
+   "label": "Rec wing / W block wall band",
+   "color": [
+    45,
+    175,
+    85
+   ]
+  },
+  "Walkway": {
+   "label": "Walkway / prisoner corridor",
+   "color": [
+    110,
+    190,
+    230
+   ]
+  },
+  "Stairs": {
+   "label": "Stairs",
+   "color": [
+    235,
+    120,
+    30
+   ]
+  },
+  "Crossing": {
+   "label": "Crossover",
+   "color": [
+    170,
+    120,
+    220
+   ]
+  },
+  "Guard": {
+   "label": "Guard rooms",
+   "color": [
+    205,
+    45,
+    45
+   ]
+  },
+  "Staff": {
+   "label": "Staff chase / staff rooms / flush staff doors",
+   "color": [
+    120,
+    32,
+    44
+   ]
+  },
+  "StaffLink": {
+   "label": "Staff link doors (chase to guard rooms)",
+   "color": [
+    235,
+    120,
+    120
+   ]
+  },
+  "Warning": {
+   "label": "Gate / clock-in / warning strip",
+   "color": [
+    255,
+    225,
+    0
+   ]
+  },
+  "Window": {
+   "label": "Window / lit strip",
+   "color": [
+    255,
+    245,
+    80
+   ]
+  },
+  "Secured": {
+   "label": "Sealed door",
+   "color": [
+    150,
+    25,
+    65
+   ]
+  },
+  "Dest": {
+   "label": "Prisoner destination",
+   "color": [
+    45,
+    175,
+    85
+   ]
+  },
+  "Job": {
+   "label": "Job duty",
+   "color": [
+    190,
+    140,
+    40
+   ]
+  },
+  "Intake": {
+   "label": "New Arrival Intake",
+   "color": [
+    230,
+    95,
+    160
+   ]
+  },
+  "Work": {
+   "label": "Work corridor / service alley (grey-teal)",
+   "color": [
+    95,
+    135,
+    140
+   ]
+  },
+  "Kitchen": {
+   "label": "Kitchen / back of house",
+   "color": [
+    165,
+    105,
+    60
+   ]
+  },
+  "Store": {
+   "label": "Stores",
+   "color": [
+    100,
+    112,
+    112
+   ]
+  },
+  "Cover": {
+   "label": "Cover",
+   "color": [
+    165,
+    105,
+    60
+   ]
+  },
+  "Mesh": {
+   "label": "Full-height mesh",
+   "color": [
+    150,
+    156,
+    166
+   ]
+  },
+  "Net": {
+   "label": "Safety net",
+   "color": [
+    200,
+    200,
+    205
+   ]
+  },
+  "Amber": {
+   "label": "Status light (amber)",
+   "color": [
+    255,
+    170,
+    20
+   ]
+  },
+  "Cyan": {
+   "label": "Status light (cyan)",
+   "color": [
+    30,
+    220,
+    235
+   ]
+  }
+ },
+ "rooms": [
+  {
+   "id": "L01",
+   "name": "North staff chase",
+   "area": "Staff",
+   "sign": "STAFF CHASE",
+   "x0": 0.0,
+   "y0": 0.0,
+   "x1": 4300.0,
+   "y1": 180.0,
+   "z": 0,
+   "ceil": 270,
+   "pad": true
+  },
+  {
+   "id": "L02",
+   "name": "West staff chase",
+   "area": "Staff",
+   "sign": "STAFF CHASE",
+   "x0": 0.0,
+   "y0": 180.0,
+   "x1": 180.0,
+   "y1": 4920.0,
+   "z": 0,
+   "ceil": 270,
+   "pad": true
+  },
+  {
+   "id": "L03",
+   "name": "South staff chase",
+   "area": "Staff",
+   "sign": "STAFF CHASE",
+   "x0": 0.0,
+   "y0": 4920.0,
+   "x1": 5400.0,
+   "y1": 5100.0,
+   "z": 0,
+   "ceil": 270,
+   "pad": true
+  },
+  {
+   "id": "L04",
+   "name": "Utility",
+   "area": "Staff",
+   "sign": "UTILITY",
+   "x0": 180.0,
+   "y0": 180.0,
+   "x1": 400.0,
+   "y1": 800.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L06",
+   "name": "Staff store",
+   "area": "Staff",
+   "sign": "STAFF STORE",
+   "x0": 4300.0,
+   "y0": 0.0,
+   "x1": 5400.0,
+   "y1": 460.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L07",
+   "name": "NE stair landing",
+   "area": "Stairs",
+   "sign": "STAIRS UP (N)",
+   "x0": 4300.0,
+   "y0": 460.0,
+   "x1": 5400.0,
+   "y1": 800.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L08",
+   "name": "Main hall (double height)",
+   "area": "Hall",
+   "sign": "MAIN HALL",
+   "x0": 800.0,
+   "y0": 800.0,
+   "x1": 5400.0,
+   "y1": 2000.0,
+   "z": 0,
+   "ceil": 750,
+   "pad": true
+  },
+  {
+   "id": "L09b",
+   "name": "Cell-front bay corridor",
+   "area": "Walkway",
+   "sign": "BAY",
+   "x0": 180.0,
+   "y0": 800.0,
+   "x1": 800.0,
+   "y1": 980.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L09",
+   "name": "Showers",
+   "area": "Dest",
+   "sign": "SHOWERS",
+   "x0": 180.0,
+   "y0": 980.0,
+   "x1": 800.0,
+   "y1": 2000.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L10",
+   "name": "Intake (player start)",
+   "area": "Intake",
+   "sign": "INTAKE",
+   "x0": 5400.0,
+   "y0": 0.0,
+   "x1": 6100.0,
+   "y1": 1250.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L11",
+   "name": "Vestibule (behind the secured door)",
+   "area": "Staff",
+   "sign": "VESTIBULE",
+   "x0": 5400.0,
+   "y0": 1250.0,
+   "x1": 6100.0,
+   "y1": 2000.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L12",
+   "name": "Guard post",
+   "area": "Guard",
+   "sign": "GUARD POST",
+   "x0": 5400.0,
+   "y0": 2000.0,
+   "x1": 6100.0,
+   "y1": 2800.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L13",
+   "name": "Staff room",
+   "area": "Staff",
+   "sign": "STAFF ROOM",
+   "x0": 5400.0,
+   "y0": 2800.0,
+   "x1": 6100.0,
+   "y1": 4400.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L14",
+   "name": "SE stair block",
+   "area": "Staff",
+   "sign": "STAFF STAIR",
+   "x0": 5400.0,
+   "y0": 4400.0,
+   "x1": 6100.0,
+   "y1": 5100.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L15",
+   "name": "Water heater",
+   "area": "Staff",
+   "sign": "WATER HEATER",
+   "x0": 180.0,
+   "y0": 2000.0,
+   "x1": 460.0,
+   "y1": 2800.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L16",
+   "name": "Shower lockers",
+   "area": "Dest",
+   "sign": "LOCKERS",
+   "x0": 460.0,
+   "y0": 2000.0,
+   "x1": 860.0,
+   "y1": 2800.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L17",
+   "name": "Service alley",
+   "area": "Work",
+   "sign": "SERVICE ALLEY",
+   "x0": 860.0,
+   "y0": 2000.0,
+   "x1": 1040.0,
+   "y1": 2800.0,
+   "z": 0,
+   "ceil": 270,
+   "pad": true
+  },
+  {
+   "id": "L18",
+   "name": "Commissary (closed room, window only)",
+   "area": "Dest",
+   "sign": "COMMISSARY",
+   "x0": 1040.0,
+   "y0": 2000.0,
+   "x1": 1600.0,
+   "y1": 2800.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L19",
+   "name": "Open seating",
+   "area": "Dest",
+   "sign": "OPEN SEATING",
+   "x0": 1600.0,
+   "y0": 2000.0,
+   "x1": 5400.0,
+   "y1": 2800.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L20",
+   "name": "Work corridor, west leg",
+   "area": "Work",
+   "sign": "WORK CORRIDOR",
+   "x0": 860.0,
+   "y0": 2800.0,
+   "x1": 1040.0,
+   "y1": 3780.0,
+   "z": 0,
+   "ceil": 270,
+   "pad": true
+  },
+  {
+   "id": "L21",
+   "name": "Work corridor, east leg",
+   "area": "Work",
+   "sign": "WORK CORRIDOR",
+   "x0": 5160.0,
+   "y0": 2800.0,
+   "x1": 5340.0,
+   "y1": 3780.0,
+   "z": 0,
+   "ceil": 270,
+   "pad": true
+  },
+  {
+   "id": "L22",
+   "name": "Work corridor",
+   "area": "Work",
+   "sign": "WORK CORRIDOR",
+   "x0": 860.0,
+   "y0": 3600.0,
+   "x1": 5340.0,
+   "y1": 3780.0,
+   "z": 0,
+   "ceil": 270,
+   "pad": true
+  },
+  {
+   "id": "L23",
+   "name": "Walk-in cold store",
+   "area": "Store",
+   "sign": "WALK-IN",
+   "x0": 1040.0,
+   "y0": 2800.0,
+   "x1": 1600.0,
+   "y1": 3600.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L24",
+   "name": "Kitchen and cook line",
+   "area": "Kitchen",
+   "sign": "KITCHEN",
+   "x0": 1600.0,
+   "y0": 2800.0,
+   "x1": 3600.0,
+   "y1": 3600.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L25",
+   "name": "Dish pit",
+   "area": "Kitchen",
+   "sign": "DISH PIT",
+   "x0": 3600.0,
+   "y0": 2800.0,
+   "x1": 4400.0,
+   "y1": 3600.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L26",
+   "name": "Waste",
+   "area": "Kitchen",
+   "sign": "WASTE",
+   "x0": 4400.0,
+   "y0": 2800.0,
+   "x1": 5160.0,
+   "y1": 3600.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L27",
+   "name": "Dry store",
+   "area": "Store",
+   "sign": "DRY STORE",
+   "x0": 860.0,
+   "y0": 3780.0,
+   "x1": 1800.0,
+   "y1": 4920.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L28",
+   "name": "Laundry (job duty)",
+   "area": "Job",
+   "sign": "LAUNDRY",
+   "x0": 1800.0,
+   "y0": 3780.0,
+   "x1": 3400.0,
+   "y1": 4920.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L29",
+   "name": "Linen",
+   "area": "Store",
+   "sign": "LINEN",
+   "x0": 3400.0,
+   "y0": 3780.0,
+   "x1": 4200.0,
+   "y1": 4920.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L30",
+   "name": "Maintenance workshop (job duty)",
+   "area": "Job",
+   "sign": "MAINTENANCE",
+   "x0": 4200.0,
+   "y0": 3780.0,
+   "x1": 4800.0,
+   "y1": 4920.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L31",
+   "name": "Loading bay",
+   "area": "Staff",
+   "sign": "LOADING BAY",
+   "x0": 4800.0,
+   "y0": 3780.0,
+   "x1": 5400.0,
+   "y1": 4920.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "L32",
+   "name": "Plant",
+   "area": "Staff",
+   "sign": "PLANT",
+   "x0": 180.0,
+   "y0": 2800.0,
+   "x1": 860.0,
+   "y1": 4920.0,
+   "z": 0,
+   "ceil": 360,
+   "pad": true
+  },
+  {
+   "id": "U01",
+   "name": "North staff chase",
+   "area": "Staff",
+   "sign": "STAFF CHASE",
+   "x0": 0.0,
+   "y0": 0.0,
+   "x1": 4000.0,
+   "y1": 180.0,
+   "z": 390,
+   "ceil": 270
+  },
+  {
+   "id": "U02",
+   "name": "West staff chase",
+   "area": "Staff",
+   "sign": "STAFF CHASE",
+   "x0": 0.0,
+   "y0": 180.0,
+   "x1": 180.0,
+   "y1": 4920.0,
+   "z": 390,
+   "ceil": 270
+  },
+  {
+   "id": "U03",
+   "name": "South staff chase",
+   "area": "Staff",
+   "sign": "STAFF CHASE",
+   "x0": 0.0,
+   "y0": 4920.0,
+   "x1": 4400.0,
+   "y1": 5100.0,
+   "z": 390,
+   "ceil": 270
+  },
+  {
+   "id": "U05",
+   "name": "North walkway (runs to X 1.8)",
+   "area": "Walkway",
+   "sign": "NORTH WALKWAY",
+   "x0": 180.0,
+   "y0": 660.0,
+   "x1": 4500.0,
+   "y1": 880.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U06",
+   "name": "West walkway",
+   "area": "Walkway",
+   "sign": "WEST WALKWAY",
+   "x0": 660.0,
+   "y0": 880.0,
+   "x1": 880.0,
+   "y1": 1920.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U07",
+   "name": "South walkway (runs to X 1.8)",
+   "area": "Walkway",
+   "sign": "SOUTH WALKWAY",
+   "x0": 180.0,
+   "y0": 1920.0,
+   "x1": 4400.0,
+   "y1": 2140.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U08",
+   "name": "Library",
+   "area": "Dest",
+   "sign": "LIBRARY",
+   "x0": 180.0,
+   "y0": 880.0,
+   "x1": 660.0,
+   "y1": 1920.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U10",
+   "name": "Crossover",
+   "area": "Crossing",
+   "sign": "CROSSOVER",
+   "x0": 3000.0,
+   "y0": 880.0,
+   "x1": 3200.0,
+   "y1": 1920.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U11",
+   "name": "Guard suite, north arm (over the intake)",
+   "area": "Guard",
+   "sign": "GUARD NORTH ARM",
+   "x0": 4000.0,
+   "y0": 0.0,
+   "x1": 6100.0,
+   "y1": 660.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U11b",
+   "name": "Guard suite, north arm lobe",
+   "area": "Guard",
+   "sign": "GUARD NORTH ARM",
+   "x0": 5200.0,
+   "y0": 660.0,
+   "x1": 6100.0,
+   "y1": 880.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U12",
+   "name": "Lookout",
+   "area": "Guard",
+   "sign": "GUARD LOOKOUT",
+   "x0": 5400.0,
+   "y0": 880.0,
+   "x1": 6100.0,
+   "y1": 1920.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U13",
+   "name": "Office (restricted)",
+   "area": "Guard",
+   "sign": "GUARD OFFICE",
+   "x0": 4400.0,
+   "y0": 1920.0,
+   "x1": 6100.0,
+   "y1": 3100.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U16",
+   "name": "Sally port",
+   "area": "Warning",
+   "sign": "SALLY PORT",
+   "x0": 3000.0,
+   "y0": 2140.0,
+   "x1": 3200.0,
+   "y1": 3100.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U17",
+   "name": "Rec corridor",
+   "area": "Walkway",
+   "sign": "REC CORRIDOR",
+   "x0": 180.0,
+   "y0": 3100.0,
+   "x1": 4400.0,
+   "y1": 3360.0,
+   "z": 390,
+   "ceil": 270
+  },
+  {
+   "id": "U18",
+   "name": "Rec room",
+   "area": "Dest",
+   "sign": "REC ROOM",
+   "x0": 180.0,
+   "y0": 3360.0,
+   "x1": 1560.0,
+   "y1": 4920.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U19",
+   "name": "Fitness",
+   "area": "Dest",
+   "sign": "FITNESS",
+   "x0": 1560.0,
+   "y0": 3360.0,
+   "x1": 3000.0,
+   "y1": 4920.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U20",
+   "name": "Workshop (job duty 2)",
+   "area": "Job",
+   "sign": "WORKSHOP",
+   "x0": 3000.0,
+   "y0": 3360.0,
+   "x1": 4400.0,
+   "y1": 4920.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U21",
+   "name": "Staff spine",
+   "area": "Staff",
+   "sign": "STAFF SPINE",
+   "x0": 4400.0,
+   "y0": 3100.0,
+   "x1": 4620.0,
+   "y1": 5100.0,
+   "z": 390,
+   "ceil": 270
+  },
+  {
+   "id": "U22",
+   "name": "Control room",
+   "area": "Guard",
+   "sign": "CONTROL",
+   "x0": 4620.0,
+   "y0": 3100.0,
+   "x1": 6100.0,
+   "y1": 3800.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U23",
+   "name": "Kit and armoury",
+   "area": "Guard",
+   "sign": "KIT / ARMOURY",
+   "x0": 4620.0,
+   "y0": 3800.0,
+   "x1": 6100.0,
+   "y1": 4340.0,
+   "z": 390,
+   "ceil": 360
+  },
+  {
+   "id": "U24",
+   "name": "Break room",
+   "area": "Guard",
+   "sign": "BREAK ROOM",
+   "x0": 4620.0,
+   "y0": 4340.0,
+   "x1": 6100.0,
+   "y1": 5100.0,
+   "z": 390,
+   "ceil": 360
+  }
+ ],
+ "cell_rows": [
+  {
+   "id": "LC",
+   "label": "C",
+   "along": "x",
+   "from": 400.0,
+   "count": 9,
+   "width": 433.333,
+   "front": 800.0,
+   "back": 180.0,
+   "z": 0,
+   "ceil": 360,
+   "area": "Cells",
+   "face": "N",
+   "door_w": 100,
+   "door_h": 210,
+   "pad": true
+  },
+  {
+   "id": "UN",
+   "label": "N",
+   "along": "x",
+   "from": 180.0,
+   "count": 7,
+   "width": 545.714,
+   "front": 660.0,
+   "back": 180.0,
+   "z": 390,
+   "ceil": 360,
+   "area": "Cells",
+   "face": "N",
+   "door_w": 100,
+   "door_h": 210
+  },
+  {
+   "id": "SA",
+   "label": "S",
+   "along": "x",
+   "from": 180.0,
+   "count": 5,
+   "width": 564.0,
+   "front": 2140.0,
+   "back": 2620.0,
+   "z": 390,
+   "ceil": 360,
+   "area": "Cells",
+   "face": "S",
+   "door_w": 100,
+   "door_h": 210
+  },
+  {
+   "id": "SB",
+   "label": "S",
+   "num0": 5,
+   "along": "x",
+   "from": 3200.0,
+   "count": 2,
+   "width": 600.0,
+   "front": 2140.0,
+   "back": 2620.0,
+   "z": 390,
+   "ceil": 360,
+   "area": "Cells",
+   "face": "S",
+   "door_w": 100,
+   "door_h": 210
+  },
+  {
+   "id": "WA",
+   "label": "W",
+   "along": "x",
+   "from": 180.0,
+   "count": 5,
+   "width": 564.0,
+   "front": 3100.0,
+   "back": 2620.0,
+   "z": 390,
+   "ceil": 360,
+   "area": "CellsW",
+   "face": "N",
+   "door_w": 100,
+   "door_h": 210
+  },
+  {
+   "id": "WB",
+   "label": "W",
+   "num0": 5,
+   "along": "x",
+   "from": 3200.0,
+   "count": 2,
+   "width": 600.0,
+   "front": 3100.0,
+   "back": 2620.0,
+   "z": 390,
+   "ceil": 360,
+   "area": "CellsW",
+   "face": "N",
+   "door_w": 100,
+   "door_h": 210
+  }
+ ],
+ "slabs": [
+  {
+   "id": "Floor_Base",
+   "x0": 0,
+   "y0": 0,
+   "x1": 6100,
+   "y1": 5100,
+   "z0": -30,
+   "z1": 0,
+   "area": null
+  },
+  {
+   "id": "Roof",
+   "x0": 0,
+   "y0": 0,
+   "x1": 6100,
+   "y1": 5100,
+   "z0": 750,
+   "z1": 780,
+   "area": null
+  },
+  {
+   "id": "Deck_N_Chase",
+   "x0": 0.0,
+   "y0": 0.0,
+   "x1": 4000.0,
+   "y1": 180.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Staff"
+  },
+  {
+   "id": "Deck_W_Chase",
+   "x0": 0.0,
+   "y0": 180.0,
+   "x1": 180.0,
+   "y1": 4920.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Staff"
+  },
+  {
+   "id": "Deck_S_Chase",
+   "x0": 0.0,
+   "y0": 4920.0,
+   "x1": 4400.0,
+   "y1": 5100.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Staff"
+  },
+  {
+   "id": "Deck_N_Cells",
+   "x0": 180.0,
+   "y0": 180.0,
+   "x1": 4000.0,
+   "y1": 660.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Cells"
+  },
+  {
+   "id": "Deck_Arm",
+   "x0": 4000.0,
+   "y0": 0.0,
+   "x1": 6100.0,
+   "y1": 660.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Deck_Arm_Lobe",
+   "x0": 5200.0,
+   "y0": 660.0,
+   "x1": 6100.0,
+   "y1": 880.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Deck_N_Walk",
+   "x0": 180.0,
+   "y0": 660.0,
+   "x1": 4500.0,
+   "y1": 880.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Walkway"
+  },
+  {
+   "id": "Deck_W_Walk",
+   "x0": 660.0,
+   "y0": 880.0,
+   "x1": 880.0,
+   "y1": 1920.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Walkway"
+  },
+  {
+   "id": "Deck_Library",
+   "x0": 180.0,
+   "y0": 880.0,
+   "x1": 660.0,
+   "y1": 1920.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Dest"
+  },
+  {
+   "id": "Deck_S_Walk",
+   "x0": 180.0,
+   "y0": 1920.0,
+   "x1": 4400.0,
+   "y1": 2140.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Walkway"
+  },
+  {
+   "id": "Deck_Crossover",
+   "x0": 3000.0,
+   "y0": 880.0,
+   "x1": 3200.0,
+   "y1": 1920.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Crossing"
+  },
+  {
+   "id": "Deck_Lookout",
+   "x0": 5400.0,
+   "y0": 880.0,
+   "x1": 6100.0,
+   "y1": 1660.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Deck_Lookout_1",
+   "x0": 5400.0,
+   "y0": 1660.0,
+   "x1": 5620.0,
+   "y1": 1920.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Deck_Office",
+   "x0": 4400.0,
+   "y0": 1920.0,
+   "x1": 6100.0,
+   "y1": 3100.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Deck_S_Cells",
+   "x0": 180.0,
+   "y0": 2140.0,
+   "x1": 3000.0,
+   "y1": 2620.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Cells"
+  },
+  {
+   "id": "Deck_S_Cells_B",
+   "x0": 3200.0,
+   "y0": 2140.0,
+   "x1": 4400.0,
+   "y1": 2620.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Cells"
+  },
+  {
+   "id": "Deck_Sally",
+   "x0": 3000.0,
+   "y0": 2140.0,
+   "x1": 3200.0,
+   "y1": 3100.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Warning"
+  },
+  {
+   "id": "Deck_W_Cells",
+   "x0": 180.0,
+   "y0": 2620.0,
+   "x1": 3000.0,
+   "y1": 3100.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "CellsW"
+  },
+  {
+   "id": "Deck_W_Cells_B",
+   "x0": 3200.0,
+   "y0": 2620.0,
+   "x1": 4400.0,
+   "y1": 3100.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "CellsW"
+  },
+  {
+   "id": "Deck_Rec_Corridor",
+   "x0": 180.0,
+   "y0": 3100.0,
+   "x1": 3000.0,
+   "y1": 3360.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Walkway"
+  },
+  {
+   "id": "Deck_Rec_Corridor_B",
+   "x0": 3000.0,
+   "y0": 3100.0,
+   "x1": 4400.0,
+   "y1": 3360.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Walkway"
+  },
+  {
+   "id": "Deck_Rec",
+   "x0": 180.0,
+   "y0": 3360.0,
+   "x1": 1560.0,
+   "y1": 4920.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Dest"
+  },
+  {
+   "id": "Deck_Fit",
+   "x0": 1560.0,
+   "y0": 3360.0,
+   "x1": 3000.0,
+   "y1": 4920.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Dest"
+  },
+  {
+   "id": "Deck_Work",
+   "x0": 3000.0,
+   "y0": 3360.0,
+   "x1": 4400.0,
+   "y1": 4920.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Job"
+  },
+  {
+   "id": "Deck_Spine",
+   "x0": 4400.0,
+   "y0": 3100.0,
+   "x1": 4620.0,
+   "y1": 5100.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Staff"
+  },
+  {
+   "id": "Deck_Control",
+   "x0": 4620.0,
+   "y0": 3100.0,
+   "x1": 6100.0,
+   "y1": 3800.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Deck_Kit",
+   "x0": 4620.0,
+   "y0": 3800.0,
+   "x1": 6100.0,
+   "y1": 4340.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Deck_Break",
+   "x0": 4620.0,
+   "y0": 4340.0,
+   "x1": 6100.0,
+   "y1": 4500.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Deck_Break_1",
+   "x0": 4620.0,
+   "y0": 4500.0,
+   "x1": 5660.0,
+   "y1": 5100.0,
+   "z0": 360,
+   "z1": 390,
+   "area": "Guard"
+  },
+  {
+   "id": "Ceil_L01",
+   "x0": 0.0,
+   "y0": 0.0,
+   "x1": 4300.0,
+   "y1": 180.0,
+   "z0": 270,
+   "z1": 300,
+   "area": null
+  },
+  {
+   "id": "Ceil_L02",
+   "x0": 0.0,
+   "y0": 180.0,
+   "x1": 180.0,
+   "y1": 4920.0,
+   "z0": 270,
+   "z1": 300,
+   "area": null
+  },
+  {
+   "id": "Ceil_L03",
+   "x0": 0.0,
+   "y0": 4920.0,
+   "x1": 5400.0,
+   "y1": 5100.0,
+   "z0": 270,
+   "z1": 300,
+   "area": null
+  },
+  {
+   "id": "Ceil_L17",
+   "x0": 860.0,
+   "y0": 2000.0,
+   "x1": 1040.0,
+   "y1": 2800.0,
+   "z0": 270,
+   "z1": 300,
+   "area": null
+  },
+  {
+   "id": "Ceil_L20",
+   "x0": 860.0,
+   "y0": 2800.0,
+   "x1": 1040.0,
+   "y1": 3780.0,
+   "z0": 270,
+   "z1": 300,
+   "area": null
+  },
+  {
+   "id": "Ceil_L21",
+   "x0": 5160.0,
+   "y0": 2800.0,
+   "x1": 5340.0,
+   "y1": 3780.0,
+   "z0": 270,
+   "z1": 300,
+   "area": null
+  },
+  {
+   "id": "Ceil_L22",
+   "x0": 1040.0,
+   "y0": 3600.0,
+   "x1": 5160.0,
+   "y1": 3780.0,
+   "z0": 270,
+   "z1": 300,
+   "area": null
+  },
+  {
+   "id": "Ceil_U01",
+   "x0": 0.0,
+   "y0": 0.0,
+   "x1": 4000.0,
+   "y1": 180.0,
+   "z0": 660,
+   "z1": 690,
+   "area": null
+  },
+  {
+   "id": "Ceil_U02",
+   "x0": 0.0,
+   "y0": 180.0,
+   "x1": 180.0,
+   "y1": 4920.0,
+   "z0": 660,
+   "z1": 690,
+   "area": null
+  },
+  {
+   "id": "Ceil_U03",
+   "x0": 0.0,
+   "y0": 4920.0,
+   "x1": 4400.0,
+   "y1": 5100.0,
+   "z0": 660,
+   "z1": 690,
+   "area": null
+  },
+  {
+   "id": "Ceil_U17",
+   "x0": 180.0,
+   "y0": 3100.0,
+   "x1": 4400.0,
+   "y1": 3360.0,
+   "z0": 660,
+   "z1": 690,
+   "area": null
+  },
+  {
+   "id": "Ceil_U21",
+   "x0": 4400.0,
+   "y0": 3100.0,
+   "x1": 4620.0,
+   "y1": 5100.0,
+   "z0": 660,
+   "z1": 690,
+   "area": null
+  }
+ ],
+ "walls": [
+  {
+   "id": "W_N",
+   "axis": "h",
+   "coord": 0.0,
+   "a": 0.0,
+   "b": 6100.0,
+   "z0": 0,
+   "z1": 780
+  },
+  {
+   "id": "W_S",
+   "axis": "h",
+   "coord": 5100.0,
+   "a": 0.0,
+   "b": 6100.0,
+   "z0": 0,
+   "z1": 780
+  },
+  {
+   "id": "W_W",
+   "axis": "v",
+   "coord": 0.0,
+   "a": 0.0,
+   "b": 5100.0,
+   "z0": 0,
+   "z1": 780
+  },
+  {
+   "id": "W_E",
+   "axis": "v",
+   "coord": 6100.0,
+   "a": 0.0,
+   "b": 5100.0,
+   "z0": 0,
+   "z1": 780,
+   "cuts": [
+    {
+     "id": "D03",
+     "name": "Arrival door, intake east wall (SEALED)",
+     "c": 600.0,
+     "w": 300.0,
+     "z0": 0,
+     "h": 210,
+     "kind": "sealed"
+    }
+   ]
+  },
+  {
+   "id": "L_WChase_E",
+   "axis": "v",
+   "coord": 180.0,
+   "a": 180.0,
+   "b": 4920.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D12a",
+     "name": "West chase to utility (staff, flush)",
+     "c": 560.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D12b",
+     "name": "West chase to showers (staff, flush)",
+     "c": 1360.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D12c",
+     "name": "West chase to water heater (staff, flush)",
+     "c": 2200.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D12d",
+     "name": "West chase to plant (staff, flush)",
+     "c": 3860.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_NChase_S",
+   "axis": "h",
+   "coord": 180.0,
+   "a": 180.0,
+   "b": 4300.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Cells_Front",
+   "axis": "h",
+   "coord": 800.0,
+   "a": 180.0,
+   "b": 4300.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts_from": [
+    "LC"
+   ]
+  },
+  {
+   "id": "L_Store_W",
+   "axis": "v",
+   "coord": 4300.0,
+   "a": 0.0,
+   "b": 180.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D04",
+     "name": "North chase to staff store (staff link)",
+     "c": 90.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_Store_S",
+   "axis": "h",
+   "coord": 460.0,
+   "a": 4300.0,
+   "b": 5400.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_SChase_N",
+   "axis": "h",
+   "coord": 4920.0,
+   "a": 180.0,
+   "b": 5400.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D22b",
+     "name": "Loading bay to south chase (staff link)",
+     "c": 5090.0,
+     "w": 140.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_Shower_N",
+   "axis": "h",
+   "coord": 980.0,
+   "a": 180.0,
+   "b": 800.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Shower_E",
+   "axis": "v",
+   "coord": 800.0,
+   "a": 980.0,
+   "b": 2000.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D13",
+     "name": "Showers to hall, through the \"01\" wall (open)",
+     "c": 1400.0,
+     "w": 300.0,
+     "z0": 0,
+     "h": 210,
+     "kind": "open"
+    }
+   ]
+  },
+  {
+   "id": "L_Hall_SW",
+   "axis": "h",
+   "coord": 2000.0,
+   "a": 180.0,
+   "b": 1600.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D14",
+     "name": "Lockers to showers",
+     "c": 660.0,
+     "w": 200.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D15",
+     "name": "Hall to service alley (open)",
+     "c": 950.0,
+     "w": 180.0,
+     "z0": 0,
+     "h": 360,
+     "kind": "open"
+    }
+   ]
+  },
+  {
+   "id": "L_Heater_E",
+   "axis": "v",
+   "coord": 460.0,
+   "a": 2000.0,
+   "b": 2800.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Lockers_E",
+   "axis": "v",
+   "coord": 860.0,
+   "a": 2000.0,
+   "b": 4920.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Alley_E",
+   "axis": "v",
+   "coord": 1040.0,
+   "a": 2000.0,
+   "b": 3600.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Comm_E",
+   "axis": "v",
+   "coord": 1600.0,
+   "a": 2000.0,
+   "b": 2800.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "W03",
+     "name": "Commissary counter window onto the seating",
+     "c": 2380.0,
+     "w": 440.0,
+     "z0": 90,
+     "h": 90
+    }
+   ]
+  },
+  {
+   "id": "L_Seat_S",
+   "axis": "h",
+   "coord": 2800.0,
+   "a": 180.0,
+   "b": 5400.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D16",
+     "name": "Service alley to work corridor west leg (clock-in T02)",
+     "c": 950.0,
+     "w": 180.0,
+     "z0": 0,
+     "h": 360,
+     "kind": "open"
+    },
+    {
+     "id": "D17",
+     "name": "Seating to work corridor east leg (clock-in T03)",
+     "c": 5250.0,
+     "w": 180.0,
+     "z0": 0,
+     "h": 360,
+     "kind": "open"
+    },
+    {
+     "id": "W04",
+     "name": "Kitchen serving hatch onto the seating",
+     "c": 2900.0,
+     "w": 1000.0,
+     "z0": 90,
+     "h": 120
+    }
+   ]
+  },
+  {
+   "id": "L_Kit_Walkin",
+   "axis": "v",
+   "coord": 1600.0,
+   "a": 2800.0,
+   "b": 3600.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Kit_Dish",
+   "axis": "v",
+   "coord": 3600.0,
+   "a": 2800.0,
+   "b": 3600.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Kit_Waste",
+   "axis": "v",
+   "coord": 4400.0,
+   "a": 2800.0,
+   "b": 3600.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Leg_E_W",
+   "axis": "v",
+   "coord": 5160.0,
+   "a": 2800.0,
+   "b": 3600.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Leg_E_E",
+   "axis": "v",
+   "coord": 5355.0,
+   "a": 2800.0,
+   "b": 3600.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Work_N",
+   "axis": "h",
+   "coord": 3600.0,
+   "a": 1040.0,
+   "b": 5160.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D18a",
+     "name": "Walk-in to work corridor",
+     "c": 1320.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D18b",
+     "name": "Kitchen to work corridor (west door)",
+     "c": 1980.0,
+     "w": 160.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D18c",
+     "name": "Kitchen to work corridor (east door)",
+     "c": 3180.0,
+     "w": 160.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D18d",
+     "name": "Dish pit to work corridor",
+     "c": 4000.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D18e",
+     "name": "Waste to work corridor",
+     "c": 4780.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_Work_S",
+   "axis": "h",
+   "coord": 3780.0,
+   "a": 860.0,
+   "b": 5400.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D19a",
+     "name": "Dry store to work corridor",
+     "c": 1330.0,
+     "w": 140.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D19b",
+     "name": "Laundry to work corridor",
+     "c": 2400.0,
+     "w": 200.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D19c",
+     "name": "Linen to work corridor",
+     "c": 3800.0,
+     "w": 160.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D19d",
+     "name": "Maintenance to work corridor",
+     "c": 4500.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D21",
+     "name": "Work corridor to loading bay (staff, locked)",
+     "c": 5040.0,
+     "w": 160.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_South_Dry",
+   "axis": "v",
+   "coord": 1800.0,
+   "a": 3780.0,
+   "b": 4920.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_South_Laundry",
+   "axis": "v",
+   "coord": 3400.0,
+   "a": 3780.0,
+   "b": 4920.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D20",
+     "name": "Laundry to linen",
+     "c": 4080.0,
+     "w": 160.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_South_Linen",
+   "axis": "v",
+   "coord": 4200.0,
+   "a": 3780.0,
+   "b": 4920.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_South_Maint",
+   "axis": "v",
+   "coord": 4800.0,
+   "a": 3780.0,
+   "b": 4920.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_Plant_N",
+   "axis": "h",
+   "coord": 2800.0,
+   "a": 180.0,
+   "b": 860.0,
+   "z0": 0,
+   "z1": 360
+  },
+  {
+   "id": "L_E54_N",
+   "axis": "v",
+   "coord": 5400.0,
+   "a": 0.0,
+   "b": 800.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D05",
+     "name": "Staff store to intake (staff link)",
+     "c": 160.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D02a",
+     "name": "Intake to NE landing and hall (open), north part",
+     "c": 750.0,
+     "w": 100.0,
+     "z0": 0,
+     "h": 210,
+     "kind": "open"
+    }
+   ]
+  },
+  {
+   "id": "L_E54_Hall",
+   "axis": "v",
+   "coord": 5400.0,
+   "a": 800.0,
+   "b": 2000.0,
+   "z0": 0,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D02",
+     "name": "Intake to NE landing and hall (open)",
+     "c": 975.0,
+     "w": 350.0,
+     "z0": 0,
+     "h": 210,
+     "kind": "open"
+    },
+    {
+     "id": "D06",
+     "name": "SECURED door, hall to vestibule (SEALED)",
+     "c": 1500.0,
+     "w": 300.0,
+     "z0": 0,
+     "h": 210,
+     "kind": "sealed"
+    },
+    {
+     "id": "W07",
+     "name": "Lookout window onto the full hall",
+     "c": 1400.0,
+     "w": 1040.0,
+     "z0": 490,
+     "h": 200
+    }
+   ]
+  },
+  {
+   "id": "L_E54_S",
+   "axis": "v",
+   "coord": 5400.0,
+   "a": 2000.0,
+   "b": 5100.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "W01",
+     "name": "Guard post window onto the seating",
+     "c": 2400.0,
+     "w": 600.0,
+     "z0": 100,
+     "h": 140
+    },
+    {
+     "id": "W02",
+     "name": "Staff room window down the work corridor",
+     "c": 3690.0,
+     "w": 180.0,
+     "z0": 100,
+     "h": 110
+    },
+    {
+     "id": "D22a",
+     "name": "Loading bay to staff room (staff link)",
+     "c": 4030.0,
+     "w": 140.0,
+     "z0": 0,
+     "h": 210
+    },
+    {
+     "id": "D11",
+     "name": "South chase to SE stair block (staff link)",
+     "c": 5010.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_E_Intake_S",
+   "axis": "h",
+   "coord": 1250.0,
+   "a": 5400.0,
+   "b": 6100.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D07",
+     "name": "Intake to vestibule (staff link)",
+     "c": 5960.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_E_Vest_S",
+   "axis": "h",
+   "coord": 2000.0,
+   "a": 5400.0,
+   "b": 6100.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D08",
+     "name": "Vestibule to guard post (staff link; moved west of S3, the sheet's X 59-60.2 opens onto the stair)",
+     "c": 5520.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_E_Guard_S",
+   "axis": "h",
+   "coord": 2800.0,
+   "a": 5400.0,
+   "b": 6100.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D09",
+     "name": "Guard post to staff room (staff link)",
+     "c": 5960.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "L_E_Staff_S",
+   "axis": "h",
+   "coord": 4400.0,
+   "a": 5400.0,
+   "b": 6100.0,
+   "z0": 0,
+   "z1": 360,
+   "cuts": [
+    {
+     "id": "D10",
+     "name": "Staff room to SE stair block (staff link)",
+     "c": 5960.0,
+     "w": 120.0,
+     "z0": 0,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "U_WChase_E",
+   "axis": "v",
+   "coord": 180.0,
+   "a": 180.0,
+   "b": 4920.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D36",
+     "name": "West chase to library (staff, flush)",
+     "c": 1360.0,
+     "w": 120.0,
+     "z0": 390,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "U_NChase_S",
+   "axis": "h",
+   "coord": 180.0,
+   "a": 180.0,
+   "b": 4000.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_Arm_W",
+   "axis": "v",
+   "coord": 4000.0,
+   "a": 0.0,
+   "b": 180.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D31",
+     "name": "North chase to north arm (staff link)",
+     "c": 90.0,
+     "w": 120.0,
+     "z0": 390,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "U_N_Front",
+   "axis": "h",
+   "coord": 660.0,
+   "a": 180.0,
+   "b": 4000.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts_from": [
+    "UN"
+   ]
+  },
+  {
+   "id": "U_Arm_S",
+   "axis": "h",
+   "coord": 660.0,
+   "a": 4000.0,
+   "b": 5200.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "W05",
+     "name": "North arm window onto the north walkway",
+     "c": 4250.0,
+     "w": 500.0,
+     "z0": 490,
+     "h": 140
+    }
+   ]
+  },
+  {
+   "id": "U_Lobe_W",
+   "axis": "v",
+   "coord": 5200.0,
+   "a": 660.0,
+   "b": 880.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_Lobe_S",
+   "axis": "h",
+   "coord": 880.0,
+   "a": 5200.0,
+   "b": 6100.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D37b",
+     "name": "Lookout to north arm (open passage)",
+     "c": 5800.0,
+     "w": 300.0,
+     "z0": 390,
+     "h": 300,
+     "kind": "open"
+    }
+   ]
+  },
+  {
+   "id": "U_Lib_E",
+   "axis": "v",
+   "coord": 660.0,
+   "a": 880.0,
+   "b": 1920.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D24",
+     "name": "Library to west walkway (open)",
+     "c": 1400.0,
+     "w": 480.0,
+     "z0": 390,
+     "h": 300,
+     "kind": "open"
+    }
+   ]
+  },
+  {
+   "id": "U_Lib_N",
+   "axis": "h",
+   "coord": 880.0,
+   "a": 180.0,
+   "b": 660.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_Lib_S",
+   "axis": "h",
+   "coord": 1920.0,
+   "a": 180.0,
+   "b": 660.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_S_Front",
+   "axis": "h",
+   "coord": 2140.0,
+   "a": 180.0,
+   "b": 4400.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D28a",
+     "name": "Sally port gate, walkway side (scheduled; OPEN in the greybox)",
+     "c": 3100.0,
+     "w": 200.0,
+     "z0": 390,
+     "h": 300,
+     "kind": "open"
+    }
+   ],
+   "cuts_from": [
+    "SA",
+    "SB"
+   ]
+  },
+  {
+   "id": "U_SW_Back_A",
+   "axis": "h",
+   "coord": 2620.0,
+   "a": 180.0,
+   "b": 3000.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_SW_Back_B",
+   "axis": "h",
+   "coord": 2620.0,
+   "a": 3200.0,
+   "b": 4400.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_W_Front",
+   "axis": "h",
+   "coord": 3100.0,
+   "a": 180.0,
+   "b": 4400.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D28b",
+     "name": "Sally port gate, rec corridor side (scheduled; OPEN in the greybox)",
+     "c": 3100.0,
+     "w": 200.0,
+     "z0": 390,
+     "h": 300,
+     "kind": "open"
+    }
+   ],
+   "cuts_from": [
+    "WA",
+    "WB"
+   ]
+  },
+  {
+   "id": "U_Rec_N",
+   "axis": "h",
+   "coord": 3360.0,
+   "a": 180.0,
+   "b": 4400.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D29a",
+     "name": "Rec corridor to rec room",
+     "c": 870.0,
+     "w": 200.0,
+     "z0": 390,
+     "h": 210
+    },
+    {
+     "id": "D29b",
+     "name": "Rec corridor to fitness",
+     "c": 2280.0,
+     "w": 200.0,
+     "z0": 390,
+     "h": 210
+    },
+    {
+     "id": "D29c",
+     "name": "Rec corridor to workshop",
+     "c": 3700.0,
+     "w": 200.0,
+     "z0": 390,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "U_Rec_Fit",
+   "axis": "v",
+   "coord": 1560.0,
+   "a": 3360.0,
+   "b": 4920.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_Fit_Work",
+   "axis": "v",
+   "coord": 3000.0,
+   "a": 3360.0,
+   "b": 4920.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_S_Back",
+   "axis": "h",
+   "coord": 4920.0,
+   "a": 180.0,
+   "b": 4400.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_Spine_W",
+   "axis": "v",
+   "coord": 4400.0,
+   "a": 3100.0,
+   "b": 5100.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D34a",
+     "name": "Staff spine to rec corridor (flush, locked from prisoner side)",
+     "c": 3230.0,
+     "w": 120.0,
+     "z0": 390,
+     "h": 210
+    },
+    {
+     "id": "D34b",
+     "name": "Staff spine to workshop (flush, locked from prisoner side)",
+     "c": 3940.0,
+     "w": 160.0,
+     "z0": 390,
+     "h": 210
+    },
+    {
+     "id": "D32",
+     "name": "South chase to staff spine (staff link)",
+     "c": 5010.0,
+     "w": 120.0,
+     "z0": 390,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "U_Spine_E",
+   "axis": "v",
+   "coord": 4620.0,
+   "a": 3100.0,
+   "b": 5100.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D35a",
+     "name": "Staff spine to control room",
+     "c": 3460.0,
+     "w": 120.0,
+     "z0": 390,
+     "h": 210
+    },
+    {
+     "id": "D35b",
+     "name": "Staff spine to kit and armoury",
+     "c": 4060.0,
+     "w": 120.0,
+     "z0": 390,
+     "h": 210
+    },
+    {
+     "id": "D35c",
+     "name": "Staff spine to break room",
+     "c": 4660.0,
+     "w": 120.0,
+     "z0": 390,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "U_Ctl_Kit",
+   "axis": "h",
+   "coord": 3800.0,
+   "a": 4620.0,
+   "b": 6100.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_Kit_Brk",
+   "axis": "h",
+   "coord": 4340.0,
+   "a": 4620.0,
+   "b": 6100.0,
+   "z0": 390,
+   "z1": 750
+  },
+  {
+   "id": "U_Office_W",
+   "axis": "v",
+   "coord": 4400.0,
+   "a": 1920.0,
+   "b": 3100.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D27",
+     "name": "OFFICE DOOR: restricted boundary",
+     "c": 2030.0,
+     "w": 140.0,
+     "z0": 390,
+     "h": 210
+    }
+   ]
+  },
+  {
+   "id": "U_Office_N",
+   "axis": "h",
+   "coord": 1920.0,
+   "a": 4400.0,
+   "b": 6100.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "W06",
+     "name": "Office window onto the hall void",
+     "c": 4890.0,
+     "w": 980.0,
+     "z0": 490,
+     "h": 140
+    },
+    {
+     "id": "D37a",
+     "name": "Office to lookout (open passage, moved west of the S3 opening)",
+     "c": 5520.0,
+     "w": 160.0,
+     "z0": 390,
+     "h": 300,
+     "kind": "open"
+    }
+   ]
+  },
+  {
+   "id": "U_Office_S",
+   "axis": "h",
+   "coord": 3100.0,
+   "a": 4400.0,
+   "b": 6100.0,
+   "z0": 390,
+   "z1": 750,
+   "cuts": [
+    {
+     "id": "D33",
+     "name": "Office to staff spine (staff link)",
+     "c": 4520.0,
+     "w": 140.0,
+     "z0": 390,
+     "h": 210
+    }
+   ]
+  }
+ ],
+ "rails": [
+  {
+   "id": "Bal_S3_N",
+   "axis": "h",
+   "coord": 1654.0,
+   "a": 5620.0,
+   "b": 6060.0,
+   "z": 390
+  },
+  {
+   "id": "Bal_S3_W",
+   "axis": "v",
+   "coord": 5614.0,
+   "a": 1660.0,
+   "b": 1790.0,
+   "z": 390
+  },
+  {
+   "id": "Bal_S4_N",
+   "axis": "h",
+   "coord": 4494.0,
+   "a": 5830.0,
+   "b": 6020.0,
+   "z": 390
+  },
+  {
+   "id": "Bal_S4_E",
+   "axis": "v",
+   "coord": 6026.0,
+   "a": 4500.0,
+   "b": 5080.0,
+   "z": 390
+  },
+  {
+   "id": "Bal_S4_W",
+   "axis": "v",
+   "coord": 5654.0,
+   "a": 4660.0,
+   "b": 5080.0,
+   "z": 390
+  }
+ ],
+ "stairs": [
+  {
+   "id": "Stair_S1",
+   "name": "S1 NE prisoner stair (open, mesh side)",
+   "axis": "-x",
+   "start": 5200.0,
+   "lo": 700.0,
+   "hi": 880.0,
+   "z_start": 0,
+   "steps": 26,
+   "total_rise": 390,
+   "run": 26.923076923076923,
+   "rails": [],
+   "area": "Stairs"
+  },
+  {
+   "id": "Stair_S2",
+   "name": "S2 SW prisoner stair (open, mesh sides)",
+   "axis": "-x",
+   "start": 1580.0,
+   "lo": 1690.0,
+   "hi": 1870.0,
+   "z_start": 0,
+   "steps": 26,
+   "total_rise": 390,
+   "run": 26.923076923076923,
+   "rails": [],
+   "area": "Stairs"
+  },
+  {
+   "id": "Stair_S3a",
+   "name": "S3 vestibule staff stair, lower flight",
+   "axis": "+x",
+   "start": 5620.0,
+   "lo": 1660.0,
+   "hi": 1780.0,
+   "z_start": 0,
+   "steps": 13,
+   "total_rise": 195,
+   "run": 24.615384615384617,
+   "rails": [
+    "lo"
+   ],
+   "area": "Stairs"
+  },
+  {
+   "id": "Stair_S3b",
+   "name": "S3 vestibule staff stair, upper flight",
+   "axis": "-x",
+   "start": 5940.0,
+   "lo": 1800.0,
+   "hi": 1920.0,
+   "z_start": 195,
+   "steps": 13,
+   "total_rise": 195,
+   "run": 24.615384615384617,
+   "rails": [],
+   "area": "Stairs"
+  },
+  {
+   "id": "Stair_S4a",
+   "name": "S4 SE staff stair, lower flight",
+   "axis": "+y",
+   "start": 4500.0,
+   "lo": 5850.0,
+   "hi": 6020.0,
+   "z_start": 0,
+   "steps": 13,
+   "total_rise": 195,
+   "run": 32.30769230769231,
+   "rails": [
+    "hi"
+   ],
+   "area": "Stairs"
+  },
+  {
+   "id": "Stair_S4b",
+   "name": "S4 SE staff stair, upper flight",
+   "axis": "-y",
+   "start": 4920.0,
+   "lo": 5660.0,
+   "hi": 5830.0,
+   "z_start": 195,
+   "steps": 13,
+   "total_rise": 195,
+   "run": 32.30769230769231,
+   "rails": [],
+   "area": "Stairs"
+  }
+ ],
+ "columns": [],
+ "tables": {
+  "cols": [],
+  "rows": [],
+  "len": 0,
+  "dep": 0,
+  "h": 0,
+  "bench_h": 0,
+  "bench_off": 0,
+  "area": "Dest"
+ },
+ "boxes": [
+  {
+   "id": "S3_Landing",
+   "name": "S3 landing",
+   "x0": 5940.0,
+   "y0": 1660.0,
+   "x1": 6060.0,
+   "y1": 1920.0,
+   "z0": 0,
+   "z1": 195,
+   "mat": "lit:Stairs"
+  },
+  {
+   "id": "S3_Fill_B",
+   "name": "S3 upper flight support",
+   "x0": 5620.0,
+   "y0": 1800.0,
+   "x1": 5940.0,
+   "y1": 1920.0,
+   "z0": 0,
+   "z1": 195,
+   "mat": "lit:Stairs"
+  },
+  {
+   "id": "S3_Divider",
+   "name": "S3 flight divider",
+   "x0": 5620.0,
+   "y0": 1780.0,
+   "x1": 5940.0,
+   "y1": 1800.0,
+   "z0": 0,
+   "z1": 490,
+   "mat": "lit:Stairs"
+  },
+  {
+   "id": "S4_Landing",
+   "name": "S4 landing",
+   "x0": 5660.0,
+   "y0": 4920.0,
+   "x1": 6020.0,
+   "y1": 5080.0,
+   "z0": 0,
+   "z1": 195,
+   "mat": "lit:Stairs"
+  },
+  {
+   "id": "S4_Fill_W",
+   "name": "S4 upper flight support",
+   "x0": 5660.0,
+   "y0": 4500.0,
+   "x1": 5830.0,
+   "y1": 4920.0,
+   "z0": 0,
+   "z1": 195,
+   "mat": "lit:Stairs"
+  },
+  {
+   "id": "S4_Divider",
+   "name": "S4 flight divider",
+   "x0": 5830.0,
+   "y0": 4500.0,
+   "x1": 5850.0,
+   "y1": 4920.0,
+   "z0": 0,
+   "z1": 490,
+   "mat": "lit:Stairs"
+  },
+  {
+   "id": "Landmark_01_Panel",
+   "name": "Green \"01\" landmark wall (X 8)",
+   "x0": 816.0,
+   "y0": 980.0,
+   "x1": 820.0,
+   "y1": 2000.0,
+   "z0": 0,
+   "z1": 360,
+   "mat": "lit:Dest",
+   "collision": false
+  },
+  {
+   "id": "Table_1_1",
+   "name": "Seating table",
+   "x0": 1800.0,
+   "y0": 2260.0,
+   "x1": 2500.0,
+   "y1": 2380.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Bench_1_1",
+   "name": "Seating bench (outer side only)",
+   "x0": 1800.0,
+   "y0": 2225.0,
+   "x1": 2500.0,
+   "y1": 2255.0,
+   "z0": 0,
+   "z1": 50,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Table_1_2",
+   "name": "Seating table",
+   "x0": 2700.0,
+   "y0": 2260.0,
+   "x1": 3400.0,
+   "y1": 2380.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Bench_1_2",
+   "name": "Seating bench (outer side only)",
+   "x0": 2700.0,
+   "y0": 2225.0,
+   "x1": 3400.0,
+   "y1": 2255.0,
+   "z0": 0,
+   "z1": 50,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Table_1_3",
+   "name": "Seating table",
+   "x0": 3600.0,
+   "y0": 2260.0,
+   "x1": 4300.0,
+   "y1": 2380.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Bench_1_3",
+   "name": "Seating bench (outer side only)",
+   "x0": 3600.0,
+   "y0": 2225.0,
+   "x1": 4300.0,
+   "y1": 2255.0,
+   "z0": 0,
+   "z1": 50,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Table_1_4",
+   "name": "Seating table",
+   "x0": 4500.0,
+   "y0": 2260.0,
+   "x1": 5200.0,
+   "y1": 2380.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Bench_1_4",
+   "name": "Seating bench (outer side only)",
+   "x0": 4500.0,
+   "y0": 2225.0,
+   "x1": 5200.0,
+   "y1": 2255.0,
+   "z0": 0,
+   "z1": 50,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Table_2_1",
+   "name": "Seating table",
+   "x0": 1800.0,
+   "y0": 2500.0,
+   "x1": 2500.0,
+   "y1": 2620.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Bench_2_1",
+   "name": "Seating bench (outer side only)",
+   "x0": 1800.0,
+   "y0": 2625.0,
+   "x1": 2500.0,
+   "y1": 2655.0,
+   "z0": 0,
+   "z1": 50,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Table_2_2",
+   "name": "Seating table",
+   "x0": 2700.0,
+   "y0": 2500.0,
+   "x1": 3400.0,
+   "y1": 2620.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Bench_2_2",
+   "name": "Seating bench (outer side only)",
+   "x0": 2700.0,
+   "y0": 2625.0,
+   "x1": 3400.0,
+   "y1": 2655.0,
+   "z0": 0,
+   "z1": 50,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Table_2_3",
+   "name": "Seating table",
+   "x0": 3600.0,
+   "y0": 2500.0,
+   "x1": 4300.0,
+   "y1": 2620.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Bench_2_3",
+   "name": "Seating bench (outer side only)",
+   "x0": 3600.0,
+   "y0": 2625.0,
+   "x1": 4300.0,
+   "y1": 2655.0,
+   "z0": 0,
+   "z1": 50,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Table_2_4",
+   "name": "Seating table",
+   "x0": 4500.0,
+   "y0": 2500.0,
+   "x1": 5200.0,
+   "y1": 2620.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Bench_2_4",
+   "name": "Seating bench (outer side only)",
+   "x0": 4500.0,
+   "y0": 2625.0,
+   "x1": 5200.0,
+   "y1": 2655.0,
+   "z0": 0,
+   "z1": 50,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Hatch_Counter",
+   "name": "Kitchen hatch counter (faces the seating)",
+   "x0": 2400.0,
+   "y0": 2740.0,
+   "x1": 3400.0,
+   "y1": 2785.0,
+   "z0": 0,
+   "z1": 90,
+   "mat": "lit:Kitchen"
+  },
+  {
+   "id": "Comm_Counter",
+   "name": "Commissary counter (faces the seating)",
+   "x0": 1510.0,
+   "y0": 2160.0,
+   "x1": 1570.0,
+   "y1": 2600.0,
+   "z0": 0,
+   "z1": 90,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Comm_Shelves",
+   "name": "Commissary shelving",
+   "x0": 1060.0,
+   "y0": 2100.0,
+   "x1": 1100.0,
+   "y1": 2700.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Kitchen_Line",
+   "name": "Cook line",
+   "x0": 1660.0,
+   "y0": 2840.0,
+   "x1": 3540.0,
+   "y1": 2920.0,
+   "z0": 0,
+   "z1": 95,
+   "mat": "lit:Kitchen"
+  },
+  {
+   "id": "Kitchen_Island",
+   "name": "Kitchen island",
+   "x0": 2200.0,
+   "y0": 3100.0,
+   "x1": 2950.0,
+   "y1": 3200.0,
+   "z0": 0,
+   "z1": 90,
+   "mat": "lit:Kitchen"
+  },
+  {
+   "id": "Dish_Line",
+   "name": "Dish pit stations",
+   "x0": 3640.0,
+   "y0": 2840.0,
+   "x1": 4360.0,
+   "y1": 2920.0,
+   "z0": 0,
+   "z1": 90,
+   "mat": "lit:Kitchen"
+  },
+  {
+   "id": "Compactor",
+   "name": "Waste compactor",
+   "x0": 4440.0,
+   "y0": 2840.0,
+   "x1": 4640.0,
+   "y1": 3120.0,
+   "z0": 0,
+   "z1": 180,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Walkin_Shelves",
+   "name": "Cover: walk-in cold store shelving",
+   "x0": 1060.0,
+   "y0": 2950.0,
+   "x1": 1240.0,
+   "y1": 3010.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Walkin_Shelves_2",
+   "name": "Cover: walk-in cold store shelving",
+   "x0": 1420.0,
+   "y0": 3300.0,
+   "x1": 1580.0,
+   "y1": 3360.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Dry_Shelf_1",
+   "name": "Cover: dry store shelving",
+   "x0": 900.0,
+   "y0": 4000.0,
+   "x1": 940.0,
+   "y1": 4700.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Dry_Shelf_2",
+   "name": "Cover: dry store shelving",
+   "x0": 1550.0,
+   "y0": 4000.0,
+   "x1": 1590.0,
+   "y1": 4700.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Dry_Shelf_3",
+   "name": "Cover: dry store shelving",
+   "x0": 1100.0,
+   "y0": 4450.0,
+   "x1": 1450.0,
+   "y1": 4490.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Laundry_Machines",
+   "name": "Washer / dryer bank",
+   "x0": 1840.0,
+   "y0": 3820.0,
+   "x1": 2240.0,
+   "y1": 3900.0,
+   "z0": 0,
+   "z1": 110,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Laundry_Machines_B",
+   "name": "Washer / dryer bank",
+   "x0": 2600.0,
+   "y0": 3820.0,
+   "x1": 3360.0,
+   "y1": 3900.0,
+   "z0": 0,
+   "z1": 110,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Laundry_Sort_1",
+   "name": "Sorting table",
+   "x0": 1950.0,
+   "y0": 4300.0,
+   "x1": 2200.0,
+   "y1": 4380.0,
+   "z0": 0,
+   "z1": 90,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Laundry_Sort_2",
+   "name": "Sorting table",
+   "x0": 2650.0,
+   "y0": 4300.0,
+   "x1": 2900.0,
+   "y1": 4380.0,
+   "z0": 0,
+   "z1": 90,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Laundry_Chute_Outlet",
+   "name": "Laundry chute outlet (X 31, Y 41)",
+   "x0": 3060.0,
+   "y0": 4060.0,
+   "x1": 3140.0,
+   "y1": 4140.0,
+   "z0": 0,
+   "z1": 250,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Cover_Cart_L1",
+   "name": "Cover: laundry cart",
+   "x0": 1840.0,
+   "y0": 4780.0,
+   "x1": 1960.0,
+   "y1": 4860.0,
+   "z0": 0,
+   "z1": 190,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Cover_Cart_L2",
+   "name": "Cover: laundry cart",
+   "x0": 3200.0,
+   "y0": 4780.0,
+   "x1": 3320.0,
+   "y1": 4860.0,
+   "z0": 0,
+   "z1": 190,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Linen_Shelf_1",
+   "name": "Cover: linen shelving",
+   "x0": 3430.0,
+   "y0": 4300.0,
+   "x1": 3800.0,
+   "y1": 4340.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Linen_Shelf_2",
+   "name": "Cover: linen shelving",
+   "x0": 3860.0,
+   "y0": 4600.0,
+   "x1": 4180.0,
+   "y1": 4640.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Maint_Bench",
+   "name": "Maintenance tool bench",
+   "x0": 4240.0,
+   "y0": 4400.0,
+   "x1": 4760.0,
+   "y1": 4480.0,
+   "z0": 0,
+   "z1": 90,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Maint_Rack",
+   "name": "Cover: maintenance rack",
+   "x0": 4240.0,
+   "y0": 4800.0,
+   "x1": 4460.0,
+   "y1": 4840.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Goods_Lift",
+   "name": "Goods lift to Floor 2 (SEALED, route not built; moved 0.6 m north of the sheet so the D22b door lane stays open)",
+   "x0": 5000.0,
+   "y0": 4440.0,
+   "x1": 5340.0,
+   "y1": 4800.0,
+   "z0": 0,
+   "z1": 360,
+   "mat": "lit:Secured"
+  },
+  {
+   "id": "Bay_Pallets",
+   "name": "Cover: pallet stack",
+   "x0": 4840.0,
+   "y0": 4020.0,
+   "x1": 4940.0,
+   "y1": 4220.0,
+   "z0": 0,
+   "z1": 150,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Bay_Crates",
+   "name": "Cover: crates",
+   "x0": 5180.0,
+   "y0": 4200.0,
+   "x1": 5360.0,
+   "y1": 4340.0,
+   "z0": 0,
+   "z1": 150,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Locker_Bank",
+   "name": "Shower locker bank",
+   "x0": 480.0,
+   "y0": 2730.0,
+   "x1": 840.0,
+   "y1": 2770.0,
+   "z0": 0,
+   "z1": 190,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Heater_Tank",
+   "name": "Water heater tank",
+   "x0": 220.0,
+   "y0": 2450.0,
+   "x1": 420.0,
+   "y1": 2650.0,
+   "z0": 0,
+   "z1": 220,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "Heater_Pipes",
+   "name": "Hot-water pipes (to the plant)",
+   "x0": 200.0,
+   "y0": 2660.0,
+   "x1": 240.0,
+   "y1": 2800.0,
+   "z0": 150,
+   "z1": 200,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "Plant_Boiler_1",
+   "name": "Boiler",
+   "x0": 480.0,
+   "y0": 3000.0,
+   "x1": 800.0,
+   "y1": 3350.0,
+   "z0": 0,
+   "z1": 220,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "Plant_Boiler_2",
+   "name": "Boiler",
+   "x0": 480.0,
+   "y0": 4200.0,
+   "x1": 800.0,
+   "y1": 4550.0,
+   "z0": 0,
+   "z1": 220,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "Plant_Pumps",
+   "name": "Pumps",
+   "x0": 240.0,
+   "y0": 4200.0,
+   "x1": 420.0,
+   "y1": 4600.0,
+   "z0": 0,
+   "z1": 130,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "Intake_Counter",
+   "name": "Processing counter (1.0 m high)",
+   "x0": 5600.0,
+   "y0": 220.0,
+   "x1": 5960.0,
+   "y1": 380.0,
+   "z0": 0,
+   "z1": 100,
+   "mat": "lit:Intake"
+  },
+  {
+   "id": "Intake_Bench",
+   "name": "Arrival waiting bench",
+   "x0": 6030.0,
+   "y0": 800.0,
+   "x1": 6080.0,
+   "y1": 1050.0,
+   "z0": 0,
+   "z1": 45,
+   "mat": "lit:Intake"
+  },
+  {
+   "id": "GuardPost_Desk",
+   "name": "Guard post desk",
+   "x0": 5680.0,
+   "y0": 2200.0,
+   "x1": 5950.0,
+   "y1": 2280.0,
+   "z0": 0,
+   "z1": 90,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "StaffRoom_Table",
+   "name": "Staff room table",
+   "x0": 5650.0,
+   "y0": 3100.0,
+   "x1": 5900.0,
+   "y1": 3220.0,
+   "z0": 0,
+   "z1": 75,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "StaffRoom_Lockers",
+   "name": "Staff room lockers",
+   "x0": 6020.0,
+   "y0": 3300.0,
+   "x1": 6070.0,
+   "y1": 3600.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "Store_Shelf_A",
+   "name": "Staff store shelving",
+   "x0": 4500.0,
+   "y0": 220.0,
+   "x1": 4900.0,
+   "y1": 260.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "Store_Shelf_B",
+   "name": "Staff store shelving",
+   "x0": 5050.0,
+   "y0": 40.0,
+   "x1": 5350.0,
+   "y1": 80.0,
+   "z0": 0,
+   "z1": 200,
+   "mat": "lit:Staff"
+  },
+  {
+   "id": "Lookout_Console",
+   "name": "Guard lookout console",
+   "x0": 5420.0,
+   "y0": 960.0,
+   "x1": 5460.0,
+   "y1": 1620.0,
+   "z0": 390,
+   "z1": 500,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Office_Desk",
+   "name": "Guard desk",
+   "x0": 5500.0,
+   "y0": 2560.0,
+   "x1": 5850.0,
+   "y1": 2640.0,
+   "z0": 390,
+   "z1": 470,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Office_Table",
+   "name": "Staff briefing table",
+   "x0": 4700.0,
+   "y0": 2440.0,
+   "x1": 5100.0,
+   "y1": 2590.0,
+   "z0": 390,
+   "z1": 465,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Office_Lockers",
+   "name": "Staff lockers",
+   "x0": 5950.0,
+   "y0": 2140.0,
+   "x1": 6080.0,
+   "y1": 2400.0,
+   "z0": 390,
+   "z1": 590,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Arm_Desk",
+   "name": "North arm desk",
+   "x0": 4200.0,
+   "y0": 100.0,
+   "x1": 4600.0,
+   "y1": 180.0,
+   "z0": 390,
+   "z1": 470,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Arm_Cabinet",
+   "name": "North arm cabinet",
+   "x0": 4800.0,
+   "y0": 40.0,
+   "x1": 4920.0,
+   "y1": 120.0,
+   "z0": 390,
+   "z1": 590,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Control_Desk",
+   "name": "Control desk",
+   "x0": 4900.0,
+   "y0": 3200.0,
+   "x1": 5800.0,
+   "y1": 3300.0,
+   "z0": 390,
+   "z1": 470,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Kit_Racks",
+   "name": "Kit and armoury racks",
+   "x0": 4740.0,
+   "y0": 3840.0,
+   "x1": 6040.0,
+   "y1": 3920.0,
+   "z0": 390,
+   "z1": 610,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Break_Table",
+   "name": "Break table",
+   "x0": 4900.0,
+   "y0": 4960.0,
+   "x1": 5200.0,
+   "y1": 5040.0,
+   "z0": 390,
+   "z1": 465,
+   "mat": "lit:Guard"
+  },
+  {
+   "id": "Library_Terminals_A",
+   "name": "Library terminal bank",
+   "x0": 200.0,
+   "y0": 920.0,
+   "x1": 260.0,
+   "y1": 1240.0,
+   "z0": 390,
+   "z1": 420,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Library_Terminals_B",
+   "name": "Library terminal bank",
+   "x0": 200.0,
+   "y0": 1460.0,
+   "x1": 260.0,
+   "y1": 1880.0,
+   "z0": 390,
+   "z1": 420,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Library_Shelves_A",
+   "name": "Library shelving",
+   "x0": 360.0,
+   "y0": 920.0,
+   "x1": 400.0,
+   "y1": 1240.0,
+   "z0": 390,
+   "z1": 590,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Library_Shelves_B",
+   "name": "Library shelving",
+   "x0": 360.0,
+   "y0": 1460.0,
+   "x1": 400.0,
+   "y1": 1880.0,
+   "z0": 390,
+   "z1": 590,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Rec_Table_1",
+   "name": "Rec table",
+   "x0": 500.0,
+   "y0": 3800.0,
+   "x1": 740.0,
+   "y1": 3900.0,
+   "z0": 390,
+   "z1": 465,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Rec_Table_2",
+   "name": "Rec table",
+   "x0": 950.0,
+   "y0": 4300.0,
+   "x1": 1200.0,
+   "y1": 4400.0,
+   "z0": 390,
+   "z1": 465,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Fit_Track",
+   "name": "Fitness track marking",
+   "x0": 1850.0,
+   "y0": 3600.0,
+   "x1": 2750.0,
+   "y1": 4650.0,
+   "z0": 390,
+   "z1": 391,
+   "mat": "unlit:Dest",
+   "collision": false
+  },
+  {
+   "id": "Fit_Bench_1",
+   "name": "Fitness bench",
+   "x0": 1900.0,
+   "y0": 3800.0,
+   "x1": 2150.0,
+   "y1": 3880.0,
+   "z0": 390,
+   "z1": 435,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Fit_Bench_2",
+   "name": "Fitness bench",
+   "x0": 2500.0,
+   "y0": 4400.0,
+   "x1": 2750.0,
+   "y1": 4480.0,
+   "z0": 390,
+   "z1": 435,
+   "mat": "lit:Dest"
+  },
+  {
+   "id": "Work_Bench_1",
+   "name": "Workshop bench",
+   "x0": 3200.0,
+   "y0": 4200.0,
+   "x1": 3440.0,
+   "y1": 4280.0,
+   "z0": 390,
+   "z1": 480,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Work_Bench_2",
+   "name": "Workshop bench",
+   "x0": 3550.0,
+   "y0": 4200.0,
+   "x1": 3790.0,
+   "y1": 4280.0,
+   "z0": 390,
+   "z1": 480,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Work_Bench_3",
+   "name": "Workshop bench",
+   "x0": 3900.0,
+   "y0": 4200.0,
+   "x1": 4140.0,
+   "y1": 4280.0,
+   "z0": 390,
+   "z1": 480,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Work_Chute_Inlet",
+   "name": "Laundry chute inlet (X 31, Y 41)",
+   "x0": 3060.0,
+   "y0": 4060.0,
+   "x1": 3140.0,
+   "y1": 4140.0,
+   "z0": 390,
+   "z1": 510,
+   "mat": "lit:Job"
+  },
+  {
+   "id": "Work_Rack",
+   "name": "Workshop rack (cover)",
+   "x0": 4100.0,
+   "y0": 4750.0,
+   "x1": 4320.0,
+   "y1": 4840.0,
+   "z0": 390,
+   "z1": 590,
+   "mat": "lit:Cover"
+  },
+  {
+   "id": "Band_N_Upper",
+   "name": "N block wall band (walkway side)",
+   "x0": 180.0,
+   "y0": 676.0,
+   "x1": 4000.0,
+   "y1": 678.0,
+   "z0": 660,
+   "z1": 720,
+   "mat": "unlit:BandN",
+   "collision": false
+  },
+  {
+   "id": "Band_N_Lower",
+   "name": "N block wall band (hall side, Y 8)",
+   "x0": 400.0,
+   "y0": 816.0,
+   "x1": 4300.0,
+   "y1": 818.0,
+   "z0": 270,
+   "z1": 330,
+   "mat": "unlit:BandN",
+   "collision": false
+  },
+  {
+   "id": "Band_S_Upper",
+   "name": "S block wall band (walkway side)",
+   "x0": 180.0,
+   "y0": 2122.0,
+   "x1": 4400.0,
+   "y1": 2124.0,
+   "z0": 660,
+   "z1": 720,
+   "mat": "unlit:BandS",
+   "collision": false
+  },
+  {
+   "id": "Band_W_Upper",
+   "name": "W block wall band (rec corridor side)",
+   "x0": 180.0,
+   "y0": 3116.0,
+   "x1": 4400.0,
+   "y1": 3118.0,
+   "z0": 660,
+   "z1": 720,
+   "mat": "unlit:BandW",
+   "collision": false
+  },
+  {
+   "id": "Band_Rec_Wing",
+   "name": "Rec wing wall band",
+   "x0": 180.0,
+   "y0": 3342.0,
+   "x1": 4400.0,
+   "y1": 3344.0,
+   "z0": 660,
+   "z1": 720,
+   "mat": "unlit:BandW",
+   "collision": false
+  },
+  {
+   "id": "Mark_T01",
+   "name": "T01 office warning strip",
+   "x0": 4240.0,
+   "y0": 1920.0,
+   "x1": 4400.0,
+   "y1": 2140.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_T02",
+   "name": "T02 west clock-in strip",
+   "x0": 860.0,
+   "y0": 2800.0,
+   "x1": 1040.0,
+   "y1": 2900.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_T03",
+   "name": "T03 east clock-in strip",
+   "x0": 5160.0,
+   "y0": 2800.0,
+   "x1": 5340.0,
+   "y1": 2900.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_T04_a",
+   "name": "T04 sally port gate strip (north gate)",
+   "x0": 3000.0,
+   "y0": 2130.0,
+   "x1": 3200.0,
+   "y1": 2150.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_T04_b",
+   "name": "T04 sally port gate strip (south gate)",
+   "x0": 3000.0,
+   "y0": 3090.0,
+   "x1": 3200.0,
+   "y1": 3110.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_T05_a",
+   "name": "T05 walkway block gate (north walkway, X 43.7)",
+   "x0": 4360.0,
+   "y0": 660.0,
+   "x1": 4380.0,
+   "y1": 880.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_T05_b",
+   "name": "T05 walkway block gate (west walkway, Y 10.2)",
+   "x0": 660.0,
+   "y0": 1010.0,
+   "x1": 880.0,
+   "y1": 1030.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_D06_Hatch",
+   "name": "Secured door hatching",
+   "x0": 5260.0,
+   "y0": 1350.0,
+   "x1": 5390.0,
+   "y1": 1650.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Secured",
+   "collision": false
+  },
+  {
+   "id": "Mark_D03_Hatch",
+   "name": "Arrival door hatching",
+   "x0": 5980.0,
+   "y0": 450.0,
+   "x1": 6090.0,
+   "y1": 750.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Secured",
+   "collision": false
+  },
+  {
+   "id": "Mark_W07_Strip",
+   "name": "W07 lit strip along the head of the lookout window",
+   "x0": 5415.0,
+   "y0": 890.0,
+   "x1": 5425.0,
+   "y1": 1910.0,
+   "z0": 683,
+   "z1": 690,
+   "mat": "unlit:Window",
+   "collision": false
+  },
+  {
+   "id": "Mark_D27",
+   "name": "Office door boundary strip (D27)",
+   "x0": 4390.0,
+   "y0": 1960.0,
+   "x1": 4440.0,
+   "y1": 2100.0,
+   "z0": 390,
+   "z1": 393,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_T07",
+   "name": "T07 vent crawl entrance (hidden route, not built)",
+   "x0": 220.0,
+   "y0": 1040.0,
+   "x1": 360.0,
+   "y1": 1140.0,
+   "z0": 200,
+   "z1": 260,
+   "mat": "unlit:Warning",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D12a",
+   "name": "Flush staff door strip D12a",
+   "x0": 180.0,
+   "y0": 500.0,
+   "x1": 240.0,
+   "y1": 620.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D12b",
+   "name": "Flush staff door strip D12b",
+   "x0": 180.0,
+   "y0": 1300.0,
+   "x1": 240.0,
+   "y1": 1420.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D12c",
+   "name": "Flush staff door strip D12c",
+   "x0": 180.0,
+   "y0": 2140.0,
+   "x1": 240.0,
+   "y1": 2260.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D12d",
+   "name": "Flush staff door strip D12d",
+   "x0": 180.0,
+   "y0": 3800.0,
+   "x1": 240.0,
+   "y1": 3920.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D36",
+   "name": "Flush staff door strip D36",
+   "x0": 180.0,
+   "y0": 1300.0,
+   "x1": 240.0,
+   "y1": 1420.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D34a",
+   "name": "Flush staff door strip D34a",
+   "x0": 4370.0,
+   "y0": 3170.0,
+   "x1": 4430.0,
+   "y1": 3290.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D34b",
+   "name": "Flush staff door strip D34b",
+   "x0": 4370.0,
+   "y0": 3860.0,
+   "x1": 4430.0,
+   "y1": 4020.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D21",
+   "name": "Flush staff door strip D21",
+   "x0": 4960.0,
+   "y0": 3750.0,
+   "x1": 5120.0,
+   "y1": 3810.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D35a",
+   "name": "Flush staff door strip D35a",
+   "x0": 4590.0,
+   "y0": 3400.0,
+   "x1": 4650.0,
+   "y1": 3520.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D35b",
+   "name": "Flush staff door strip D35b",
+   "x0": 4590.0,
+   "y0": 4000.0,
+   "x1": 4650.0,
+   "y1": 4120.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Flush_D35c",
+   "name": "Flush staff door strip D35c",
+   "x0": 4590.0,
+   "y0": 4600.0,
+   "x1": 4650.0,
+   "y1": 4720.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:Staff",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D04",
+   "name": "Staff link door strip D04",
+   "x0": 4270.0,
+   "y0": 30.0,
+   "x1": 4330.0,
+   "y1": 150.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D05",
+   "name": "Staff link door strip D05",
+   "x0": 5370.0,
+   "y0": 100.0,
+   "x1": 5430.0,
+   "y1": 220.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D07",
+   "name": "Staff link door strip D07",
+   "x0": 5900.0,
+   "y0": 1220.0,
+   "x1": 6020.0,
+   "y1": 1280.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D08",
+   "name": "Staff link door strip D08",
+   "x0": 5460.0,
+   "y0": 1970.0,
+   "x1": 5580.0,
+   "y1": 2030.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D09",
+   "name": "Staff link door strip D09",
+   "x0": 5900.0,
+   "y0": 2770.0,
+   "x1": 6020.0,
+   "y1": 2830.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D10",
+   "name": "Staff link door strip D10",
+   "x0": 5900.0,
+   "y0": 4370.0,
+   "x1": 6020.0,
+   "y1": 4430.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D11",
+   "name": "Staff link door strip D11",
+   "x0": 5370.0,
+   "y0": 4950.0,
+   "x1": 5430.0,
+   "y1": 5070.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D22a",
+   "name": "Staff link door strip D22a",
+   "x0": 5370.0,
+   "y0": 3960.0,
+   "x1": 5430.0,
+   "y1": 4100.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D22b",
+   "name": "Staff link door strip D22b",
+   "x0": 5020.0,
+   "y0": 4890.0,
+   "x1": 5160.0,
+   "y1": 4950.0,
+   "z0": 0,
+   "z1": 2,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D31",
+   "name": "Staff link door strip D31",
+   "x0": 3970.0,
+   "y0": 30.0,
+   "x1": 4030.0,
+   "y1": 150.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D32",
+   "name": "Staff link door strip D32",
+   "x0": 4370.0,
+   "y0": 4950.0,
+   "x1": 4430.0,
+   "y1": 5070.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Mark_Link_D33",
+   "name": "Staff link door strip D33",
+   "x0": 4450.0,
+   "y0": 3070.0,
+   "x1": 4590.0,
+   "y1": 3130.0,
+   "z0": 390,
+   "z1": 392,
+   "mat": "unlit:StaffLink",
+   "collision": false
+  },
+  {
+   "id": "Status_Amber_D06",
+   "name": "amber status light at D06",
+   "x0": 5355.0,
+   "y0": 1485.0,
+   "x1": 5385.0,
+   "y1": 1515.0,
+   "z0": 235,
+   "z1": 265,
+   "mat": "unlit:Amber",
+   "collision": false
+  },
+  {
+   "id": "Status_Amber_D03",
+   "name": "amber status light at D03",
+   "x0": 6065.0,
+   "y0": 585.0,
+   "x1": 6095.0,
+   "y1": 615.0,
+   "z0": 235,
+   "z1": 265,
+   "mat": "unlit:Amber",
+   "collision": false
+  },
+  {
+   "id": "Status_Amber_D27",
+   "name": "amber status light at D27",
+   "x0": 4365.0,
+   "y0": 2015.0,
+   "x1": 4395.0,
+   "y1": 2045.0,
+   "z0": 625,
+   "z1": 655,
+   "mat": "unlit:Amber",
+   "collision": false
+  },
+  {
+   "id": "Status_Amber_D28a",
+   "name": "amber status light at D28a",
+   "x0": 3085.0,
+   "y0": 2135.0,
+   "x1": 3115.0,
+   "y1": 2165.0,
+   "z0": 710,
+   "z1": 740,
+   "mat": "unlit:Amber",
+   "collision": false
+  },
+  {
+   "id": "Status_Amber_D16",
+   "name": "amber status light at D16",
+   "x0": 935.0,
+   "y0": 2835.0,
+   "x1": 965.0,
+   "y1": 2865.0,
+   "z0": 330,
+   "z1": 360,
+   "mat": "unlit:Amber",
+   "collision": false
+  },
+  {
+   "id": "Status_Amber_D17",
+   "name": "amber status light at D17",
+   "x0": 5235.0,
+   "y0": 2835.0,
+   "x1": 5265.0,
+   "y1": 2865.0,
+   "z0": 330,
+   "z1": 360,
+   "mat": "unlit:Amber",
+   "collision": false
+  },
+  {
+   "id": "Status_Cyan_D02",
+   "name": "cyan status light at D02",
+   "x0": 5365.0,
+   "y0": 965.0,
+   "x1": 5395.0,
+   "y1": 995.0,
+   "z0": 235,
+   "z1": 265,
+   "mat": "unlit:Cyan",
+   "collision": false
+  },
+  {
+   "id": "Status_Cyan_S1",
+   "name": "cyan status light at S1",
+   "x0": 5175.0,
+   "y0": 775.0,
+   "x1": 5205.0,
+   "y1": 805.0,
+   "z0": 330,
+   "z1": 360,
+   "mat": "unlit:Cyan",
+   "collision": false
+  },
+  {
+   "id": "Status_Cyan_S2",
+   "name": "cyan status light at S2",
+   "x0": 1585.0,
+   "y0": 1765.0,
+   "x1": 1615.0,
+   "y1": 1795.0,
+   "z0": 330,
+   "z1": 360,
+   "mat": "unlit:Cyan",
+   "collision": false
+  }
+ ],
+ "lines": [
+  {
+   "id": "Guide_0",
+   "p0": [
+    6040.0,
+    600.0,
+    3
+   ],
+   "p1": [
+    5720.0,
+    600.0,
+    3
+   ],
+   "thick": 30,
+   "mat": "unlit:Warning"
+  },
+  {
+   "id": "Guide_1",
+   "p0": [
+    5720.0,
+    600.0,
+    3
+   ],
+   "p1": [
+    5720.0,
+    960.0,
+    3
+   ],
+   "thick": 30,
+   "mat": "unlit:Warning"
+  },
+  {
+   "id": "Guide_2",
+   "p0": [
+    5720.0,
+    960.0,
+    3
+   ],
+   "p1": [
+    5320.0,
+    960.0,
+    3
+   ],
+   "thick": 30,
+   "mat": "unlit:Warning"
+  },
+  {
+   "id": "Guide_3",
+   "p0": [
+    5320.0,
+    960.0,
+    3
+   ],
+   "p1": [
+    5240.0,
+    790.0,
+    3
+   ],
+   "thick": 30,
+   "mat": "unlit:Warning"
+  }
+ ],
+ "meshes": [
+  {
+   "id": "Mesh_N",
+   "axis": "h",
+   "coord": 874.0,
+   "a": 880.0,
+   "b": 4500.0,
+   "z0": 390,
+   "z1": 750,
+   "gaps": [
+    [
+     3000.0,
+     3200.0
+    ]
+   ]
+  },
+  {
+   "id": "Mesh_S",
+   "axis": "h",
+   "coord": 1926.0,
+   "a": 880.0,
+   "b": 4400.0,
+   "z0": 390,
+   "z1": 750,
+   "gaps": [
+    [
+     3000.0,
+     3200.0
+    ]
+   ]
+  },
+  {
+   "id": "Mesh_S_Stair",
+   "axis": "h",
+   "coord": 1880.0,
+   "a": 880.0,
+   "b": 1580.0,
+   "z0": 0,
+   "z1": 750,
+   "gaps": []
+  },
+  {
+   "id": "Mesh_W",
+   "axis": "v",
+   "coord": 874.0,
+   "a": 880.0,
+   "b": 1690.0,
+   "z0": 390,
+   "z1": 750,
+   "gaps": []
+  },
+  {
+   "id": "Mesh_W2",
+   "axis": "v",
+   "coord": 874.0,
+   "a": 1870.0,
+   "b": 1926.0,
+   "z0": 390,
+   "z1": 750,
+   "gaps": []
+  },
+  {
+   "id": "Mesh_S1_North",
+   "axis": "h",
+   "coord": 694.0,
+   "a": 4500.0,
+   "b": 5200.0,
+   "z0": 0,
+   "z1": 750,
+   "gaps": []
+  },
+  {
+   "id": "Mesh_Cross_W",
+   "axis": "v",
+   "coord": 3006.0,
+   "a": 880.0,
+   "b": 1920.0,
+   "z0": 390,
+   "z1": 750,
+   "gaps": []
+  },
+  {
+   "id": "Mesh_Cross_E",
+   "axis": "v",
+   "coord": 3194.0,
+   "a": 880.0,
+   "b": 1920.0,
+   "z0": 390,
+   "z1": 750,
+   "gaps": []
+  },
+  {
+   "id": "Mesh_S1_Side",
+   "axis": "h",
+   "coord": 886.0,
+   "a": 4500.0,
+   "b": 5200.0,
+   "z0": 0,
+   "z1": 750,
+   "gaps": []
+  },
+  {
+   "id": "Mesh_S2_Side",
+   "axis": "h",
+   "coord": 1684.0,
+   "a": 880.0,
+   "b": 1580.0,
+   "z0": 0,
+   "z1": 750,
+   "gaps": []
+  }
+ ],
+ "nets": [
+  {
+   "rect": [
+    880.0,
+    880.0,
+    5400.0,
+    1920.0
+   ],
+   "z": 355,
+   "pitch": 200,
+   "holes": [
+    [
+     3000.0,
+     880.0,
+     3200.0,
+     1920.0
+    ],
+    [
+     880.0,
+     1690.0,
+     1580.0,
+     1870.0
+    ]
+   ]
+  }
+ ],
+ "signs": [
+  {
+   "text": "MAIN HALL  46 x 12 m  -  the one open space",
+   "x": 3000.0,
+   "y": 1400.0,
+   "z": 720,
+   "size": 50,
+   "area": "Hall",
+   "hang": "x"
+  },
+  {
+   "text": "01",
+   "x": 840.0,
+   "y": 1400.0,
+   "z": 250,
+   "size": 120,
+   "area": "Dest",
+   "f": "E"
+  },
+  {
+   "text": "INTAKE (SPAWN)",
+   "x": 5420.0,
+   "y": 350.0,
+   "z": 250,
+   "size": 24,
+   "area": "Intake",
+   "f": "E"
+  },
+  {
+   "text": "N STAIR UP  (N)",
+   "x": 5250.0,
+   "y": 900.0,
+   "z": 330,
+   "size": 30,
+   "area": "Stairs",
+   "f": "N"
+  },
+  {
+   "text": "S STAIR UP  (S)",
+   "x": 1240.0,
+   "y": 1670.0,
+   "z": 330,
+   "size": 30,
+   "area": "Stairs",
+   "f": "S"
+  },
+  {
+   "text": "CROSSOVER",
+   "x": 3100.0,
+   "y": 890.0,
+   "z": 560,
+   "size": 32,
+   "area": "Crossing",
+   "f": "N"
+  },
+  {
+   "text": "SECURED DOOR - SECTOR FLOOR 2",
+   "x": 5385.0,
+   "y": 1500.0,
+   "z": 330,
+   "size": 26,
+   "area": "Secured",
+   "f": "W"
+  },
+  {
+   "text": "NO ACCESS - ROUTE NOT BUILT",
+   "x": 5385.0,
+   "y": 1500.0,
+   "z": 130,
+   "size": 18,
+   "area": "Secured",
+   "f": "W"
+  },
+  {
+   "text": "SHOWERS",
+   "x": 830.0,
+   "y": 1800.0,
+   "z": 250,
+   "size": 28,
+   "area": "Dest",
+   "f": "E"
+  },
+  {
+   "text": "OPEN SEATING (UNDER UPPER TIER)",
+   "x": 3000.0,
+   "y": 2020.0,
+   "z": 300,
+   "size": 28,
+   "area": "Dest",
+   "f": "N"
+  },
+  {
+   "text": "GUARD POST",
+   "x": 5380.0,
+   "y": 2400.0,
+   "z": 300,
+   "size": 24,
+   "area": "Guard",
+   "f": "W"
+  },
+  {
+   "text": "KITCHEN - SERVING HATCH",
+   "x": 2900.0,
+   "y": 2780.0,
+   "z": 300,
+   "size": 28,
+   "area": "Kitchen",
+   "f": "S"
+  },
+  {
+   "text": "COMMISSARY - COUNTER",
+   "x": 1580.0,
+   "y": 2380.0,
+   "z": 300,
+   "size": 22,
+   "area": "Dest",
+   "f": "E"
+  },
+  {
+   "text": "SERVICE ALLEY (CLOCK-IN)",
+   "x": 950.0,
+   "y": 2820.0,
+   "z": 300,
+   "size": 20,
+   "area": "Work",
+   "f": "N"
+  },
+  {
+   "text": "EAST CLOCK-IN (IN VIEW OF THE GUARD POST)",
+   "x": 5250.0,
+   "y": 2820.0,
+   "z": 300,
+   "size": 18,
+   "area": "Work",
+   "f": "N"
+  },
+  {
+   "text": "WORK CORRIDOR (STAFF AND JOB DUTY)",
+   "x": 3000.0,
+   "y": 3610.0,
+   "z": 230,
+   "size": 22,
+   "area": "Work",
+   "f": "N"
+  },
+  {
+   "text": "KITCHEN",
+   "x": 1980.0,
+   "y": 3620.0,
+   "z": 250,
+   "size": 20,
+   "area": "Kitchen",
+   "f": "N"
+  },
+  {
+   "text": "DISH PIT",
+   "x": 4000.0,
+   "y": 3620.0,
+   "z": 250,
+   "size": 20,
+   "area": "Kitchen",
+   "f": "N"
+  },
+  {
+   "text": "WASTE",
+   "x": 4780.0,
+   "y": 3620.0,
+   "z": 250,
+   "size": 20,
+   "area": "Kitchen",
+   "f": "N"
+  },
+  {
+   "text": "WALK-IN",
+   "x": 1320.0,
+   "y": 3620.0,
+   "z": 250,
+   "size": 20,
+   "area": "Store",
+   "f": "N"
+  },
+  {
+   "text": "DRY STORE",
+   "x": 1330.0,
+   "y": 3760.0,
+   "z": 250,
+   "size": 20,
+   "area": "Store",
+   "f": "S"
+  },
+  {
+   "text": "LAUNDRY (JOB DUTY)",
+   "x": 2400.0,
+   "y": 3760.0,
+   "z": 250,
+   "size": 20,
+   "area": "Job",
+   "f": "S"
+  },
+  {
+   "text": "LINEN",
+   "x": 3800.0,
+   "y": 3760.0,
+   "z": 250,
+   "size": 20,
+   "area": "Store",
+   "f": "S"
+  },
+  {
+   "text": "MAINTENANCE (JOB DUTY)",
+   "x": 4500.0,
+   "y": 3760.0,
+   "z": 250,
+   "size": 16,
+   "area": "Job",
+   "f": "S"
+  },
+  {
+   "text": "LOADING BAY (STAFF ONLY)",
+   "x": 5040.0,
+   "y": 3760.0,
+   "z": 250,
+   "size": 16,
+   "area": "Staff",
+   "f": "S"
+  },
+  {
+   "text": "PLANT / VENT CRAWL START",
+   "x": 450.0,
+   "y": 2820.0,
+   "z": 250,
+   "size": 18,
+   "area": "Staff",
+   "f": "N"
+  },
+  {
+   "text": "STAFF CHASE",
+   "x": 2000.0,
+   "y": 170.0,
+   "z": 220,
+   "size": 22,
+   "area": "Staff",
+   "f": "N"
+  },
+  {
+   "text": "STAFF CHASE",
+   "x": 170.0,
+   "y": 2500.0,
+   "z": 220,
+   "size": 22,
+   "area": "Staff",
+   "f": "E"
+  },
+  {
+   "text": "STAFF CHASE",
+   "x": 2500.0,
+   "y": 4930.0,
+   "z": 220,
+   "size": 22,
+   "area": "Staff",
+   "f": "S"
+  },
+  {
+   "text": "VESTIBULE",
+   "x": 5750.0,
+   "y": 1270.0,
+   "z": 300,
+   "size": 24,
+   "area": "Staff",
+   "f": "N"
+  },
+  {
+   "text": "N CELLS C01-C09",
+   "x": 2400.0,
+   "y": 820.0,
+   "z": 330,
+   "size": 26,
+   "area": "Cells",
+   "f": "N"
+  },
+  {
+   "text": "N BLOCK  N01-N07",
+   "x": 2100.0,
+   "y": 670.0,
+   "z": 700,
+   "size": 30,
+   "area": "Cells",
+   "f": "N"
+  },
+  {
+   "text": "S BLOCK  S01-S07",
+   "x": 1500.0,
+   "y": 2130.0,
+   "z": 700,
+   "size": 28,
+   "area": "BandS",
+   "f": "S"
+  },
+  {
+   "text": "W BLOCK  W01-W07",
+   "x": 1500.0,
+   "y": 3120.0,
+   "z": 700,
+   "size": 28,
+   "area": "CellsW",
+   "f": "N"
+  },
+  {
+   "text": "NORTH WALKWAY 2.2 m (MESH)",
+   "x": 2500.0,
+   "y": 870.0,
+   "z": 560,
+   "size": 24,
+   "area": "Walkway",
+   "f": "S"
+  },
+  {
+   "text": "SOUTH WALKWAY 2.2 m (MESH)",
+   "x": 2500.0,
+   "y": 1930.0,
+   "z": 560,
+   "size": 24,
+   "area": "Walkway",
+   "f": "N"
+  },
+  {
+   "text": "GUARD SUITE - NORTH ARM (WINDOWS ONLY)",
+   "x": 4240.0,
+   "y": 670.0,
+   "z": 660,
+   "size": 20,
+   "area": "Guard",
+   "f": "N"
+  },
+  {
+   "text": "GUARD LOOKOUT - EAST SPAN",
+   "x": 5420.0,
+   "y": 1400.0,
+   "z": 640,
+   "size": 34,
+   "area": "Guard",
+   "f": "W"
+  },
+  {
+   "text": "GUARD OFFICE - RESTRICTED (D27)",
+   "x": 4380.0,
+   "y": 2030.0,
+   "z": 660,
+   "size": 20,
+   "area": "Guard",
+   "f": "W"
+  },
+  {
+   "text": "SALLY PORT (ONE GATE AT A TIME)",
+   "x": 3100.0,
+   "y": 2150.0,
+   "z": 660,
+   "size": 18,
+   "area": "Warning",
+   "f": "S"
+  },
+  {
+   "text": "REC CORRIDOR 2.6 m",
+   "x": 2200.0,
+   "y": 3120.0,
+   "z": 560,
+   "size": 22,
+   "area": "Walkway",
+   "f": "N"
+  },
+  {
+   "text": "REC ROOM",
+   "x": 870.0,
+   "y": 3370.0,
+   "z": 560,
+   "size": 22,
+   "area": "Dest",
+   "f": "S"
+  },
+  {
+   "text": "FITNESS",
+   "x": 2280.0,
+   "y": 3370.0,
+   "z": 560,
+   "size": 22,
+   "area": "Dest",
+   "f": "S"
+  },
+  {
+   "text": "WORKSHOP (JOB DUTY)",
+   "x": 3700.0,
+   "y": 3370.0,
+   "z": 560,
+   "size": 22,
+   "area": "Job",
+   "f": "S"
+  },
+  {
+   "text": "LIBRARY",
+   "x": 680.0,
+   "y": 950.0,
+   "z": 560,
+   "size": 24,
+   "area": "Dest",
+   "f": "E"
+  },
+  {
+   "text": "STAFF SPINE",
+   "x": 4510.0,
+   "y": 3120.0,
+   "z": 540,
+   "size": 18,
+   "area": "Staff",
+   "f": "N"
+  },
+  {
+   "text": "CONTROL",
+   "x": 4610.0,
+   "y": 3300.0,
+   "z": 600,
+   "size": 22,
+   "area": "Guard",
+   "f": "W"
+  },
+  {
+   "text": "KIT / ARMOURY",
+   "x": 4610.0,
+   "y": 3900.0,
+   "z": 600,
+   "size": 22,
+   "area": "Guard",
+   "f": "W"
+  },
+  {
+   "text": "BREAK ROOM",
+   "x": 4610.0,
+   "y": 4500.0,
+   "z": 600,
+   "size": 22,
+   "area": "Guard",
+   "f": "W"
+  }
+ ],
+ "markers": [
+  {
+   "id": "Start_Intake",
+   "type": "PlayerSpawn",
+   "x": 5940.0,
+   "y": 1030.0,
+   "z": 0
+  },
+  {
+   "id": "D02_Intake_Opening",
+   "type": "IntakeExit",
+   "x": 5400.0,
+   "y": 920.0,
+   "z": 0
+  },
+  {
+   "id": "D03_Arrival_Door",
+   "type": "ArrivalDoor",
+   "x": 6100.0,
+   "y": 600.0,
+   "z": 0
+  },
+  {
+   "id": "Intake_Counter",
+   "type": "Processing",
+   "x": 5780.0,
+   "y": 300.0,
+   "z": 0
+  },
+  {
+   "id": "D06_Floor2_Secured_Door",
+   "type": "FutureAccess",
+   "x": 5400.0,
+   "y": 1500.0,
+   "z": 0
+  },
+  {
+   "id": "Goods_Lift_Floor2",
+   "type": "FutureAccess",
+   "x": 5170.0,
+   "y": 4620.0,
+   "z": 0
+  },
+  {
+   "id": "D27_Office_Door",
+   "type": "RestrictedDoor",
+   "x": 4400.0,
+   "y": 2030.0,
+   "z": 390
+  },
+  {
+   "id": "Lookout_Eye",
+   "type": "Lookout",
+   "x": 5550.0,
+   "y": 1400.0,
+   "z": 390
+  },
+  {
+   "id": "Stair_S1_Foot",
+   "type": "StairFoot",
+   "x": 5200.0,
+   "y": 790.0,
+   "z": 0
+  },
+  {
+   "id": "Stair_S2_Foot",
+   "type": "StairFoot",
+   "x": 1580.0,
+   "y": 1780.0,
+   "z": 0
+  },
+  {
+   "id": "Crossover_Center",
+   "type": "Crossover",
+   "x": 3100.0,
+   "y": 1400.0,
+   "z": 390
+  },
+  {
+   "id": "T02_West_Clock_In",
+   "type": "ClockIn",
+   "x": 950.0,
+   "y": 2850.0,
+   "z": 0
+  },
+  {
+   "id": "T03_East_Clock_In",
+   "type": "ClockIn",
+   "x": 5250.0,
+   "y": 2850.0,
+   "z": 0
+  },
+  {
+   "id": "T04_Sally_Port",
+   "type": "Gate",
+   "x": 3100.0,
+   "y": 2600.0,
+   "z": 390
+  },
+  {
+   "id": "T05_Walkway_Gate_N",
+   "type": "Gate",
+   "x": 4370.0,
+   "y": 770.0,
+   "z": 390
+  },
+  {
+   "id": "T05_Walkway_Gate_W",
+   "type": "Gate",
+   "x": 770.0,
+   "y": 1020.0,
+   "z": 390
+  },
+  {
+   "id": "T06_Blind_Band_Ref",
+   "type": "SightlineTest",
+   "x": 1450.0,
+   "y": 1400.0,
+   "z": 0
+  },
+  {
+   "id": "T07_Vent_Crawl",
+   "type": "HiddenRoute",
+   "x": 300.0,
+   "y": 1090.0,
+   "z": 200
+  }
+ ],
+ "routes": [
+  {
+   "id": "R01_Start_West_Through_D02_Down_The_Hall",
+   "z": 0,
+   "points": [
+    [
+     5940,
+     1030
+    ],
+    [
+     5700,
+     1030
+    ],
+    [
+     5400,
+     1030
+    ],
+    [
+     4500,
+     1030
+    ],
+    [
+     3100,
+     1400
+    ],
+    [
+     1100,
+     1400
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R02_Guide_Line_To_S1_And_Up_To_North_Walkway",
+   "z": 0,
+   "points": [
+    [
+     5940,
+     1030
+    ],
+    [
+     5720,
+     960
+    ],
+    [
+     5320,
+     960
+    ],
+    [
+     5250,
+     790
+    ],
+    [
+     5150,
+     790
+    ],
+    [
+     4600,
+     790
+    ],
+    [
+     4300,
+     780
+    ],
+    [
+     3000,
+     773
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R03_S1_Landing_To_Hall_Without_Climbing",
+   "z": 0,
+   "points": [
+    [
+     5300,
+     640
+    ],
+    [
+     5300,
+     1000
+    ],
+    [
+     5000,
+     1400
+    ],
+    [
+     3200,
+     1400
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R04_Under_Crossover_North_South",
+   "z": 0,
+   "points": [
+    [
+     3100,
+     900
+    ],
+    [
+     3100,
+     1950
+    ],
+    [
+     3100,
+     900
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R05_S2_Up_To_West_Walkway",
+   "z": 0,
+   "points": [
+    [
+     1800,
+     1500
+    ],
+    [
+     1800,
+     1780
+    ],
+    [
+     1580,
+     1780
+    ],
+    [
+     1000,
+     1780
+    ],
+    [
+     900,
+     1780
+    ],
+    [
+     780,
+     1780
+    ],
+    [
+     773,
+     1650
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R06_Lower_Cells_C01_C02_C09_Via_Bay_Corridor",
+   "z": 0,
+   "points": [
+    [
+     1100,
+     1400
+    ],
+    [
+     1000,
+     1000
+    ],
+    [
+     950,
+     890
+    ],
+    [
+     700,
+     890
+    ],
+    [
+     617,
+     890
+    ],
+    [
+     617,
+     700
+    ],
+    [
+     617,
+     450
+    ],
+    [
+     617,
+     890
+    ],
+    [
+     1050,
+     890
+    ],
+    [
+     1050,
+     700
+    ],
+    [
+     1050,
+     450
+    ],
+    [
+     1050,
+     890
+    ],
+    [
+     4083,
+     890
+    ],
+    [
+     4083,
+     700
+    ],
+    [
+     4083,
+     450
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R07_Showers_Through_01_Wall_And_Lockers",
+   "z": 0,
+   "points": [
+    [
+     1100,
+     1400
+    ],
+    [
+     800,
+     1400
+    ],
+    [
+     600,
+     1400
+    ],
+    [
+     400,
+     1400
+    ],
+    [
+     400,
+     1100
+    ],
+    [
+     400,
+     1500
+    ],
+    [
+     660,
+     1900
+    ],
+    [
+     660,
+     2000
+    ],
+    [
+     660,
+     2300
+    ],
+    [
+     660,
+     2600
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R08_Hall_To_Service_Alley_Clock_In_Work_Corridor_East_Leg_Seating",
+   "z": 0,
+   "points": [
+    [
+     1700,
+     1500
+    ],
+    [
+     1700,
+     1934
+    ],
+    [
+     950,
+     1934
+    ],
+    [
+     950,
+     2100
+    ],
+    [
+     950,
+     2800
+    ],
+    [
+     950,
+     3690
+    ],
+    [
+     3000,
+     3690
+    ],
+    [
+     5257,
+     3690
+    ],
+    [
+     5257,
+     2900
+    ],
+    [
+     5257,
+     2750
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R09_Seating_Lanes_Between_Tables",
+   "z": 0,
+   "points": [
+    [
+     1700,
+     1500
+    ],
+    [
+     1700,
+     2100
+    ],
+    [
+     1700,
+     2440
+    ],
+    [
+     5300,
+     2440
+    ],
+    [
+     5300,
+     2100
+    ],
+    [
+     1700,
+     2100
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R10_Hatch_Counter_Lane",
+   "z": 0,
+   "points": [
+    [
+     1700,
+     2100
+    ],
+    [
+     1700,
+     2698
+    ],
+    [
+     5200,
+     2698
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R11_Walk_In_Kitchen_Dish_Waste_From_Work_Corridor",
+   "z": 0,
+   "points": [
+    [
+     1320,
+     3690
+    ],
+    [
+     1320,
+     3550
+    ],
+    [
+     1320,
+     3050
+    ],
+    [
+     1320,
+     3690
+    ],
+    [
+     1980,
+     3690
+    ],
+    [
+     1980,
+     3550
+    ],
+    [
+     1980,
+     3000
+    ],
+    [
+     1980,
+     3690
+    ],
+    [
+     4000,
+     3690
+    ],
+    [
+     4000,
+     3300
+    ],
+    [
+     4000,
+     3690
+    ],
+    [
+     4780,
+     3690
+    ],
+    [
+     4780,
+     3300
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R12_South_Block_Dry_Store_Laundry_Linen_Maintenance",
+   "z": 0,
+   "points": [
+    [
+     1330,
+     3690
+    ],
+    [
+     1330,
+     3900
+    ],
+    [
+     1330,
+     4250
+    ],
+    [
+     1330,
+     3690
+    ],
+    [
+     2400,
+     3690
+    ],
+    [
+     2400,
+     3960
+    ],
+    [
+     2400,
+     4200
+    ],
+    [
+     2400,
+     3960
+    ],
+    [
+     3300,
+     3960
+    ],
+    [
+     3300,
+     4080
+    ],
+    [
+     3500,
+     4080
+    ],
+    [
+     3800,
+     4080
+    ],
+    [
+     3800,
+     3690
+    ],
+    [
+     4500,
+     3690
+    ],
+    [
+     4500,
+     3900
+    ],
+    [
+     4500,
+     4300
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R13_Loading_Bay_Through_D21_To_Staff_Room_And_South_Chase",
+   "z": 0,
+   "points": [
+    [
+     5040,
+     3690
+    ],
+    [
+     5040,
+     3900
+    ],
+    [
+     5040,
+     4030
+    ],
+    [
+     5300,
+     4030
+    ],
+    [
+     5560,
+     4030
+    ],
+    [
+     5300,
+     4030
+    ],
+    [
+     5040,
+     4030
+    ],
+    [
+     5040,
+     4300
+    ],
+    [
+     4900,
+     4300
+    ],
+    [
+     4900,
+     4852
+    ],
+    [
+     5090,
+     4852
+    ],
+    [
+     5090,
+     4960
+    ],
+    [
+     5090,
+     5010
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R14_Intake_To_Staff_Store_North_Chase_Utility",
+   "z": 0,
+   "points": [
+    [
+     5940,
+     1030
+    ],
+    [
+     5500,
+     700
+    ],
+    [
+     5500,
+     220
+    ],
+    [
+     5440,
+     150
+    ],
+    [
+     5300,
+     150
+    ],
+    [
+     4500,
+     150
+    ],
+    [
+     4400,
+     90
+    ],
+    [
+     4300,
+     90
+    ],
+    [
+     200,
+     90
+    ],
+    [
+     90,
+     90
+    ],
+    [
+     90,
+     200
+    ],
+    [
+     90,
+     500
+    ],
+    [
+     90,
+     560
+    ],
+    [
+     190,
+     560
+    ],
+    [
+     300,
+     560
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R15_West_Chase_Doors_Showers_Water_Heater_Plant",
+   "z": 0,
+   "points": [
+    [
+     90,
+     560
+    ],
+    [
+     90,
+     1360
+    ],
+    [
+     300,
+     1360
+    ],
+    [
+     500,
+     1360
+    ],
+    [
+     90,
+     1360
+    ],
+    [
+     90,
+     2200
+    ],
+    [
+     300,
+     2200
+    ],
+    [
+     400,
+     2200
+    ],
+    [
+     90,
+     2200
+    ],
+    [
+     90,
+     3860
+    ],
+    [
+     300,
+     3860
+    ],
+    [
+     337,
+     3860
+    ],
+    [
+     337,
+     3000
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R16_South_Chase_To_SE_Block_Via_D11",
+   "z": 0,
+   "points": [
+    [
+     90,
+     4800
+    ],
+    [
+     90,
+     5010
+    ],
+    [
+     200,
+     5010
+    ],
+    [
+     5000,
+     5010
+    ],
+    [
+     5400,
+     5010
+    ],
+    [
+     5450,
+     5010
+    ],
+    [
+     5530,
+     4960
+    ],
+    [
+     5530,
+     4700
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R17_East_Column_Door_To_Door_Intake_To_SE_Block",
+   "z": 0,
+   "points": [
+    [
+     5940,
+     1030
+    ],
+    [
+     5960,
+     1180
+    ],
+    [
+     5960,
+     1300
+    ],
+    [
+     5700,
+     1400
+    ],
+    [
+     5500,
+     1500
+    ],
+    [
+     5500,
+     1900
+    ],
+    [
+     5520,
+     2100
+    ],
+    [
+     5520,
+     2400
+    ],
+    [
+     5960,
+     2400
+    ],
+    [
+     5960,
+     2800
+    ],
+    [
+     5960,
+     2900
+    ],
+    [
+     5960,
+     4200
+    ],
+    [
+     5960,
+     4350
+    ],
+    [
+     5935,
+     4450
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R18_S3_Vestibule_Staff_Stair_Up",
+   "z": 0,
+   "points": [
+    [
+     5960,
+     1300
+    ],
+    [
+     5700,
+     1400
+    ],
+    [
+     5500,
+     1500
+    ],
+    [
+     5500,
+     1720
+    ],
+    [
+     5950,
+     1720
+    ],
+    [
+     5990,
+     1760
+    ],
+    [
+     5990,
+     1850
+    ],
+    [
+     5650,
+     1850
+    ],
+    [
+     5500,
+     1850
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R19_S4_SE_Staff_Stair_Up",
+   "z": 0,
+   "points": [
+    [
+     5960,
+     4300
+    ],
+    [
+     5935,
+     4400
+    ],
+    [
+     5935,
+     4470
+    ],
+    [
+     5935,
+     4900
+    ],
+    [
+     5935,
+     5000
+    ],
+    [
+     5745,
+     5000
+    ],
+    [
+     5745,
+     4560
+    ],
+    [
+     5745,
+     4470
+    ],
+    [
+     5500,
+     4470
+    ],
+    [
+     5400,
+     4470
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R20_Down_S1_To_Intake",
+   "z": 390,
+   "points": [
+    [
+     4300,
+     780
+    ],
+    [
+     4600,
+     790
+    ],
+    [
+     5150,
+     790
+    ],
+    [
+     5250,
+     790
+    ],
+    [
+     5290,
+     900
+    ],
+    [
+     5700,
+     1000
+    ],
+    [
+     5940,
+     1030
+    ]
+   ],
+   "end_z": 0
+  },
+  {
+   "id": "R30_North_Walkway_Cells_N01_N04_N07",
+   "z": 390,
+   "points": [
+    [
+     4300,
+     773
+    ],
+    [
+     3727,
+     773
+    ],
+    [
+     3727,
+     400
+    ],
+    [
+     3727,
+     773
+    ],
+    [
+     2090,
+     773
+    ],
+    [
+     2090,
+     400
+    ],
+    [
+     2090,
+     773
+    ],
+    [
+     453,
+     773
+    ],
+    [
+     453,
+     400
+    ],
+    [
+     453,
+     773
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R31_Walkway_Ring_West_South_And_Library",
+   "z": 390,
+   "points": [
+    [
+     453,
+     773
+    ],
+    [
+     773,
+     773
+    ],
+    [
+     773,
+     1400
+    ],
+    [
+     520,
+     1400
+    ],
+    [
+     520,
+     1000
+    ],
+    [
+     520,
+     1800
+    ],
+    [
+     520,
+     1400
+    ],
+    [
+     773,
+     1400
+    ],
+    [
+     773,
+     1900
+    ],
+    [
+     773,
+     2030
+    ],
+    [
+     4300,
+     2030
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R32_South_Cells_S01_S03_S05_S06_S07",
+   "z": 390,
+   "points": [
+    [
+     773,
+     2030
+    ],
+    [
+     462,
+     2030
+    ],
+    [
+     462,
+     2400
+    ],
+    [
+     462,
+     2030
+    ],
+    [
+     1590,
+     2030
+    ],
+    [
+     1590,
+     2400
+    ],
+    [
+     1590,
+     2030
+    ],
+    [
+     2718,
+     2030
+    ],
+    [
+     2718,
+     2400
+    ],
+    [
+     2718,
+     2030
+    ],
+    [
+     3500,
+     2030
+    ],
+    [
+     3500,
+     2400
+    ],
+    [
+     3500,
+     2030
+    ],
+    [
+     4100,
+     2030
+    ],
+    [
+     4100,
+     2400
+    ],
+    [
+     4100,
+     2030
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R33_Crossover_Walkway_To_Walkway",
+   "z": 390,
+   "points": [
+    [
+     3100,
+     773
+    ],
+    [
+     3100,
+     1400
+    ],
+    [
+     3100,
+     2030
+    ],
+    [
+     3100,
+     1400
+    ],
+    [
+     3100,
+     773
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R34_Sally_Port_South_Walkway_To_Rec_Corridor",
+   "z": 390,
+   "points": [
+    [
+     3100,
+     2030
+    ],
+    [
+     3100,
+     2200
+    ],
+    [
+     3100,
+     2900
+    ],
+    [
+     3100,
+     3100
+    ],
+    [
+     3100,
+     3230
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R35_Rec_Corridor_W_Cells_And_Corridor_Ends",
+   "z": 390,
+   "points": [
+    [
+     3100,
+     3230
+    ],
+    [
+     462,
+     3230
+    ],
+    [
+     462,
+     2900
+    ],
+    [
+     462,
+     3230
+    ],
+    [
+     1590,
+     3230
+    ],
+    [
+     1590,
+     2900
+    ],
+    [
+     1590,
+     3230
+    ],
+    [
+     3100,
+     3230
+    ],
+    [
+     3500,
+     3230
+    ],
+    [
+     3500,
+     2900
+    ],
+    [
+     3500,
+     3230
+    ],
+    [
+     4100,
+     3230
+    ],
+    [
+     4100,
+     2900
+    ],
+    [
+     4100,
+     3230
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R36_Rec_Room_Fitness_Workshop",
+   "z": 390,
+   "points": [
+    [
+     870,
+     3230
+    ],
+    [
+     870,
+     3400
+    ],
+    [
+     870,
+     3700
+    ],
+    [
+     870,
+     4200
+    ],
+    [
+     870,
+     3230
+    ],
+    [
+     2280,
+     3230
+    ],
+    [
+     2280,
+     3400
+    ],
+    [
+     2280,
+     4300
+    ],
+    [
+     2280,
+     3230
+    ],
+    [
+     3700,
+     3230
+    ],
+    [
+     3700,
+     3400
+    ],
+    [
+     3700,
+     4100
+    ],
+    [
+     3700,
+     3230
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R37_Office_Door_D27_And_Office",
+   "z": 390,
+   "points": [
+    [
+     4300,
+     2030
+    ],
+    [
+     4500,
+     2030
+    ],
+    [
+     4600,
+     2030
+    ],
+    [
+     5000,
+     2300
+    ],
+    [
+     5400,
+     2400
+    ],
+    [
+     5000,
+     2300
+    ],
+    [
+     4520,
+     2400
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R38_Office_To_Spine_D33_And_Spine_Doors",
+   "z": 390,
+   "points": [
+    [
+     4520,
+     2400
+    ],
+    [
+     4520,
+     2900
+    ],
+    [
+     4510,
+     3150
+    ],
+    [
+     4510,
+     3300
+    ],
+    [
+     4510,
+     3230
+    ],
+    [
+     4300,
+     3230
+    ],
+    [
+     4510,
+     3230
+    ],
+    [
+     4510,
+     3460
+    ],
+    [
+     5000,
+     3460
+    ],
+    [
+     5500,
+     3460
+    ],
+    [
+     4510,
+     3460
+    ],
+    [
+     4510,
+     3940
+    ],
+    [
+     4300,
+     3940
+    ],
+    [
+     4100,
+     3940
+    ],
+    [
+     4510,
+     3940
+    ],
+    [
+     4510,
+     4060
+    ],
+    [
+     5000,
+     4060
+    ],
+    [
+     5500,
+     4060
+    ],
+    [
+     4510,
+     4060
+    ],
+    [
+     4510,
+     4660
+    ],
+    [
+     5000,
+     4660
+    ],
+    [
+     5300,
+     4600
+    ],
+    [
+     4510,
+     4660
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R39_Spine_To_South_Chase_And_West_Chase_To_Library",
+   "z": 390,
+   "points": [
+    [
+     4510,
+     4800
+    ],
+    [
+     4510,
+     5010
+    ],
+    [
+     4300,
+     5010
+    ],
+    [
+     200,
+     5010
+    ],
+    [
+     90,
+     5010
+    ],
+    [
+     90,
+     4800
+    ],
+    [
+     90,
+     1360
+    ],
+    [
+     330,
+     1360
+    ],
+    [
+     520,
+     1360
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R40_Office_To_Lookout_To_North_Arm_To_North_Chase",
+   "z": 390,
+   "points": [
+    [
+     4900,
+     2300
+    ],
+    [
+     5300,
+     2200
+    ],
+    [
+     5420,
+     2100
+    ],
+    [
+     5520,
+     1990
+    ],
+    [
+     5520,
+     1850
+    ],
+    [
+     5520,
+     1000
+    ],
+    [
+     5800,
+     1000
+    ],
+    [
+     5800,
+     800
+    ],
+    [
+     5800,
+     300
+    ],
+    [
+     4500,
+     300
+    ],
+    [
+     4150,
+     300
+    ],
+    [
+     4150,
+     90
+    ],
+    [
+     3900,
+     90
+    ],
+    [
+     200,
+     90
+    ],
+    [
+     90,
+     90
+    ],
+    [
+     90,
+     200
+    ],
+    [
+     90,
+     1000
+    ]
+   ],
+   "end_z": 390
+  },
+  {
+   "id": "R41_Lookout_Console_Row_And_Window_Side",
+   "z": 390,
+   "points": [
+    [
+     5520,
+     1000
+    ],
+    [
+     5520,
+     1600
+    ],
+    [
+     5800,
+     1600
+    ],
+    [
+     5800,
+     1000
+    ]
+   ],
+   "end_z": 390
+  }
+ ],
+ "blocked_routes": [
+  {
+   "id": "B01_D06_Secured_Door",
+   "z": 0,
+   "points": [
+    [
+     5250,
+     1500
+    ],
+    [
+     5450,
+     1500
+    ]
+   ]
+  },
+  {
+   "id": "B02_D03_Arrival_Door_Sealed",
+   "z": 0,
+   "points": [
+    [
+     5940,
+     600
+    ],
+    [
+     6150,
+     600
+    ]
+   ]
+  },
+  {
+   "id": "B03_Goods_Lift_Is_Sealed",
+   "z": 0,
+   "points": [
+    [
+     4900,
+     4600
+    ],
+    [
+     5150,
+     4600
+    ]
+   ]
+  },
+  {
+   "id": "B04_North_Void_Edge_Mesh",
+   "z": 390,
+   "points": [
+    [
+     2000,
+     773
+    ],
+    [
+     2000,
+     1000
+    ]
+   ]
+  },
+  {
+   "id": "B05_South_Void_Edge_Mesh",
+   "z": 390,
+   "points": [
+    [
+     2000,
+     2030
+    ],
+    [
+     2000,
+     1700
+    ]
+   ]
+  },
+  {
+   "id": "B06_Crossover_Edge_Mesh",
+   "z": 390,
+   "points": [
+    [
+     3100,
+     1200
+    ],
+    [
+     3500,
+     1200
+    ]
+   ]
+  },
+  {
+   "id": "B07_West_Walkway_Edge_Mesh",
+   "z": 390,
+   "points": [
+    [
+     773,
+     1400
+    ],
+    [
+     1000,
+     1400
+    ]
+   ]
+  },
+  {
+   "id": "B08_S1_Hall_Side_Mesh",
+   "z": 0,
+   "points": [
+    [
+     4800,
+     790
+    ],
+    [
+     4800,
+     1000
+    ]
+   ]
+  },
+  {
+   "id": "B09_S2_North_Side_Mesh",
+   "z": 0,
+   "points": [
+    [
+     1200,
+     1780
+    ],
+    [
+     1200,
+     1500
+    ]
+   ]
+  },
+  {
+   "id": "B10_N01_Not_Into_Library",
+   "z": 390,
+   "points": [
+    [
+     300,
+     1000
+    ],
+    [
+     300,
+     780
+    ]
+   ]
+  },
+  {
+   "id": "B11_Commissary_Is_Window_Only",
+   "z": 0,
+   "points": [
+    [
+     1900,
+     2400
+    ],
+    [
+     1500,
+     2400
+    ]
+   ]
+  },
+  {
+   "id": "B12_Kitchen_Hatch",
+   "z": 0,
+   "points": [
+    [
+     2900,
+     2698
+    ],
+    [
+     2900,
+     2950
+    ]
+   ]
+  },
+  {
+   "id": "B13_Guard_Post_Window_W01",
+   "z": 0,
+   "points": [
+    [
+     5300,
+     2300
+    ],
+    [
+     5450,
+     2300
+    ]
+   ]
+  },
+  {
+   "id": "B14_Lookout_Window_W07",
+   "z": 390,
+   "points": [
+    [
+     5520,
+     1400
+    ],
+    [
+     5300,
+     1400
+    ]
+   ]
+  },
+  {
+   "id": "B15_North_Arm_Window_W05",
+   "z": 390,
+   "points": [
+    [
+     4200,
+     773
+    ],
+    [
+     4200,
+     500
+    ]
+   ]
+  },
+  {
+   "id": "B16_01_Wall_Solid_Away_From_D13",
+   "z": 0,
+   "points": [
+    [
+     600,
+     1100
+    ],
+    [
+     1000,
+     1100
+    ]
+   ]
+  },
+  {
+   "id": "B17_Cell_Back_Wall",
+   "z": 0,
+   "points": [
+    [
+     1050,
+     700
+    ],
+    [
+     1050,
+     100
+    ]
+   ]
+  },
+  {
+   "id": "B18_S_Block_Back_To_Back_With_W_Block",
+   "z": 390,
+   "points": [
+    [
+     462,
+     2400
+    ],
+    [
+     462,
+     3000
+    ]
+   ]
+  },
+  {
+   "id": "B19_Rec_Room_Rear_Wall",
+   "z": 390,
+   "points": [
+    [
+     870,
+     4000
+    ],
+    [
+     870,
+     5000
+    ]
+   ]
+  },
+  {
+   "id": "B20_S4_Opening_Rail",
+   "z": 390,
+   "points": [
+    [
+     5900,
+     4700
+    ],
+    [
+     6000,
+     4800
+    ]
+   ]
+  }
+ ],
+ "reachability": {
+  "_comment": "[x, y, z_floor, must_be_reachable, label] from the player start without falling.",
+  "samples": [
+   [
+    5940,
+    1030,
+    0,
+    true,
+    "Intake (player start)"
+   ],
+   [
+    5400,
+    1030,
+    0,
+    true,
+    "D02 opening"
+   ],
+   [
+    5300,
+    640,
+    0,
+    true,
+    "S1 landing"
+   ],
+   [
+    3100,
+    1400,
+    0,
+    true,
+    "Hall under the crossover"
+   ],
+   [
+    1100,
+    1400,
+    0,
+    true,
+    "Hall west end"
+   ],
+   [
+    400,
+    1400,
+    0,
+    true,
+    "Showers interior"
+   ],
+   [
+    660,
+    2400,
+    0,
+    true,
+    "Shower lockers"
+   ],
+   [
+    900,
+    890,
+    0,
+    true,
+    "Cell-front bay corridor"
+   ],
+   [
+    617,
+    500,
+    0,
+    true,
+    "Lower cell C01"
+   ],
+   [
+    4083,
+    500,
+    0,
+    true,
+    "Lower cell C09"
+   ],
+   [
+    2300,
+    2440,
+    0,
+    true,
+    "Seating lane between table rows"
+   ],
+   [
+    3100,
+    2698,
+    0,
+    true,
+    "Hatch counter lane"
+   ],
+   [
+    950,
+    2400,
+    0,
+    true,
+    "Service alley"
+   ],
+   [
+    950,
+    3300,
+    0,
+    true,
+    "Work corridor west leg"
+   ],
+   [
+    3000,
+    3690,
+    0,
+    true,
+    "Work corridor"
+   ],
+   [
+    5257,
+    3300,
+    0,
+    true,
+    "Work corridor east leg"
+   ],
+   [
+    1320,
+    3200,
+    0,
+    true,
+    "Walk-in cold store"
+   ],
+   [
+    2000,
+    3000,
+    0,
+    true,
+    "Kitchen"
+   ],
+   [
+    4000,
+    3200,
+    0,
+    true,
+    "Dish pit"
+   ],
+   [
+    4780,
+    3200,
+    0,
+    true,
+    "Waste"
+   ],
+   [
+    1330,
+    4100,
+    0,
+    true,
+    "Dry store"
+   ],
+   [
+    2400,
+    4100,
+    0,
+    true,
+    "Laundry"
+   ],
+   [
+    3800,
+    4000,
+    0,
+    true,
+    "Linen"
+   ],
+   [
+    4500,
+    4200,
+    0,
+    true,
+    "Maintenance"
+   ],
+   [
+    5040,
+    4300,
+    0,
+    true,
+    "Loading bay"
+   ],
+   [
+    200,
+    90,
+    0,
+    true,
+    "North staff chase, west end"
+   ],
+   [
+    90,
+    2500,
+    0,
+    true,
+    "West staff chase"
+   ],
+   [
+    2500,
+    5010,
+    0,
+    true,
+    "South staff chase"
+   ],
+   [
+    300,
+    560,
+    0,
+    true,
+    "Utility"
+   ],
+   [
+    300,
+    2200,
+    0,
+    true,
+    "Water heater"
+   ],
+   [
+    337,
+    3500,
+    0,
+    true,
+    "Plant"
+   ],
+   [
+    5000,
+    250,
+    0,
+    true,
+    "Staff store"
+   ],
+   [
+    5500,
+    1400,
+    0,
+    true,
+    "Vestibule"
+   ],
+   [
+    5900,
+    2500,
+    0,
+    true,
+    "Guard post"
+   ],
+   [
+    5700,
+    3600,
+    0,
+    true,
+    "Staff room"
+   ],
+   [
+    5535,
+    4800,
+    0,
+    true,
+    "SE stair block"
+   ],
+   [
+    773,
+    773,
+    390,
+    true,
+    "North walkway, west end"
+   ],
+   [
+    3100,
+    773,
+    390,
+    true,
+    "North walkway"
+   ],
+   [
+    773,
+    1400,
+    390,
+    true,
+    "West walkway"
+   ],
+   [
+    3100,
+    2030,
+    390,
+    true,
+    "South walkway"
+   ],
+   [
+    3100,
+    1400,
+    390,
+    true,
+    "Crossover"
+   ],
+   [
+    520,
+    1400,
+    390,
+    true,
+    "Library"
+   ],
+   [
+    453,
+    450,
+    390,
+    true,
+    "Upper cell N01"
+   ],
+   [
+    3727,
+    450,
+    390,
+    true,
+    "Upper cell N07"
+   ],
+   [
+    462,
+    2400,
+    390,
+    true,
+    "Upper cell S01"
+   ],
+   [
+    4100,
+    2400,
+    390,
+    true,
+    "Upper cell S07"
+   ],
+   [
+    462,
+    2900,
+    390,
+    true,
+    "Upper cell W01"
+   ],
+   [
+    4100,
+    2900,
+    390,
+    true,
+    "Upper cell W07"
+   ],
+   [
+    3100,
+    2600,
+    390,
+    true,
+    "Sally port"
+   ],
+   [
+    2200,
+    3230,
+    390,
+    true,
+    "Rec corridor"
+   ],
+   [
+    870,
+    3700,
+    390,
+    true,
+    "Rec room"
+   ],
+   [
+    2280,
+    3700,
+    390,
+    true,
+    "Fitness"
+   ],
+   [
+    3700,
+    3700,
+    390,
+    true,
+    "Workshop"
+   ],
+   [
+    4510,
+    4000,
+    390,
+    true,
+    "Staff spine"
+   ],
+   [
+    4800,
+    3460,
+    390,
+    true,
+    "Control room"
+   ],
+   [
+    4800,
+    4060,
+    390,
+    true,
+    "Kit and armoury"
+   ],
+   [
+    5300,
+    4660,
+    390,
+    true,
+    "Break room"
+   ],
+   [
+    5000,
+    2300,
+    390,
+    true,
+    "Office"
+   ],
+   [
+    5700,
+    1200,
+    390,
+    true,
+    "Lookout"
+   ],
+   [
+    5800,
+    300,
+    390,
+    true,
+    "North arm (over the intake)"
+   ],
+   [
+    4100,
+    300,
+    390,
+    true,
+    "North arm, west end"
+   ],
+   [
+    5800,
+    700,
+    390,
+    true,
+    "North arm lobe"
+   ],
+   [
+    200,
+    90,
+    390,
+    true,
+    "Upper north chase"
+   ],
+   [
+    90,
+    2500,
+    390,
+    true,
+    "Upper west chase"
+   ],
+   [
+    2000,
+    5010,
+    390,
+    true,
+    "Upper south chase"
+   ],
+   [
+    1300,
+    2400,
+    0,
+    false,
+    "Commissary (window only, no door in the sheet)"
+   ],
+   [
+    2000,
+    1400,
+    390,
+    false,
+    "Hall void (no deck, net only)"
+   ],
+   [
+    4800,
+    600,
+    0,
+    true,
+    "S1 alcove (under the arm, north of the stair)"
+   ],
+   [
+    5800,
+    4700,
+    390,
+    false,
+    "S4 opening (void)"
+   ],
+   [
+    5800,
+    1750,
+    390,
+    false,
+    "S3 opening (void)"
+   ]
+  ]
+ }
+}

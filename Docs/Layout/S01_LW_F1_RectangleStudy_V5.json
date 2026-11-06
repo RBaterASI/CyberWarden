@@ -1,0 +1,368 @@
+{
+  "_comment": "Sector 01 / Left Wing / Floor 1 - RECTANGLE STUDY V5 (review map) = V4 with: the New Arrival intake MOVED to the foot of the NORTH prisoner stair (old east-wall intake closed) and a NORTH ARM added so the guard suite is one connected U (south arm = office, east span = lookout, north arm directly above the new intake). Earlier V4 text: V3 with: guard office extended west from the lookout end and joined to the lookout as one staff area; New Arrival intake recessed off the hall beside the foot of the south (orange) stair; Floor 2 secured door moved north on the hall east wall. Based on V3 = V2 (user sketch: upper cell ring, walkways, crossover, two OPEN prisoner stairs, lookout, office) + a deeper lower tier on a widened service side: cafeteria kitchen with serving hatch, pantry, laundry, linen store and a dog-leg service hallway with two distinct hall connections. Only the route to Sector Floor 2 is blocked (secured door at the hall east end). NOT the accepted M1 map, NOT V1/V2. Units cm, +X east, +Y north, Z up, wall coordinates are centre lines. Same schema as V2 (generator: Content/Python/cw_rectstudy_v2.py StudyV2).",
+
+  "meta": {
+    "level": "/Game/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V5",
+    "footprint": { "x0": 0, "y0": -2300, "x1": 6100, "y1": 2800 },
+    "player_start": { "x": 5350, "y": 2620, "yaw": -90 },
+    "note": "Both tiers belong to Sector Floor 1 (upper deck z=390, roof slab z 760-790). Floors 2 and 3 are outside this greybox; the only Floor 2 element is the secured door on the lower hall's east wall (now at y 1750)."
+  },
+
+  "params": {
+    "wall_thickness": 30, "slab_thickness": 30, "capsule_radius": 34, "capsule_half_height": 90, "max_step_height": 45,
+    "upper_z": 390, "wall_top": 790, "rail_height": 110, "kick_height": 25, "camera_arm": 200
+  },
+
+  "areas": {
+    "Hall":       { "label": "Lower Hall",             "color": [140, 150, 168] },
+    "CellBlock":  { "label": "Lower Cells",            "color": [50, 115, 215] },
+    "UpperCells": { "label": "Upper Cells",            "color": [95, 150, 235] },
+    "Walkway":    { "label": "Upper Walkway",          "color": [110, 190, 230] },
+    "Crossing":   { "label": "Crossover",              "color": [170, 120, 220] },
+    "Seating":    { "label": "Open Seating",           "color": [45, 175, 85] },
+    "Kitchen":    { "label": "Kitchen",                "color": [225, 140, 40] },
+    "Pantry":     { "label": "Pantry",                 "color": [200, 170, 90] },
+    "Laundry":    { "label": "Laundry",                "color": [120, 165, 235] },
+    "Linen":      { "label": "Linen Store",            "color": [200, 200, 235] },
+    "Service":    { "label": "Service Hallway (staff)", "color": [105, 118, 128] },
+    "Stairs":     { "label": "Stairs",                 "color": [235, 120, 30] },
+    "Guard":      { "label": "Guard Level",            "color": [215, 150, 35] },
+    "Lookout":    { "label": "Guard Lookout",          "color": [250, 215, 30] },
+    "Restricted": { "label": "Guard Office (restricted)", "color": [205, 45, 45] },
+    "Secured":    { "label": "Secured (Sector Floor 2)", "color": [150, 25, 65] },
+    "Intake":     { "label": "New Arrival Intake",     "color": [230, 95, 160] },
+    "Cover":      { "label": "Cover",                  "color": [165, 105, 60] },
+    "Warning":    { "label": "Staff / restricted marking", "color": [255, 225, 0] }
+  },
+
+  "rooms": [
+    { "id": "Lower_Hall",    "name": "Lower Hall (one continuous open hall)", "area": "Hall",      "sign": "LOWER HALL",  "x0": 800,  "y0": 800,   "x1": 5600, "y1": 2000, "z": 0, "ceil": 760, "pad": true },
+    { "id": "Lower_Aisle_N", "name": "Lower North Aisle (under walkway)",     "area": "CellBlock", "sign": "AISLE",       "x0": 800,  "y0": 2000,  "x1": 4334, "y1": 2300, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Lower_Aisle_W", "name": "Lower West Aisle (under walkway)",      "area": "CellBlock", "sign": "AISLE",       "x0": 500,  "y0": 800,   "x1": 800,  "y1": 2300, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Open_Seating",  "name": "Open Seating (tables and benches)",     "area": "Seating",   "sign": "SEATING",     "x0": 500,  "y0": 0,     "x1": 3300, "y1": 800,  "z": 0, "ceil": 360, "pad": true },
+    { "id": "Stair_Foot_S",  "name": "South Stair (foot and lobby)",          "area": "Stairs",    "sign": "STAIRS",      "x0": 4334, "y0": 500,   "x1": 5600, "y1": 800,  "z": 0, "ceil": 760, "pad": true },
+    { "id": "Intake",        "name": "New Arrival Intake (north of the north stair foot, under the guard suite north arm)", "area": "Intake", "sign": "INTAKE", "x0": 5000, "y0": 2300, "x1": 6100, "y1": 2800, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Stair_Foot_N",  "name": "North Stair (foot and lobby)",          "area": "Stairs",    "sign": "STAIRS",      "x0": 4334, "y0": 2000,  "x1": 5600, "y1": 2300, "z": 0, "ceil": 760, "pad": true },
+
+    { "id": "Kitchen",       "name": "Cafeteria Kitchen",                     "area": "Kitchen",   "sign": "KITCHEN",     "x0": 500,  "y0": -1000, "x1": 2500, "y1": 0,    "z": 0, "ceil": 360, "pad": true },
+    { "id": "Pantry",        "name": "Kitchen Pantry",                        "area": "Pantry",    "sign": "PANTRY",      "x0": 2500, "y0": -1000, "x1": 3300, "y1": 0,    "z": 0, "ceil": 360, "pad": true },
+    { "id": "Service_West",  "name": "Service Hallway - west leg (from the hall west aisle)", "area": "Service", "sign": "SERVICE HALLWAY", "x0": 0, "y0": -1000, "x1": 500, "y1": 1500, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Service_A",     "name": "Service Hallway - back of the kitchen", "area": "Service",   "sign": "SERVICE HALLWAY", "x0": 0,   "y0": -1360, "x1": 3300, "y1": -1000, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Service_V",     "name": "Service Hallway - offset (dog-leg)",    "area": "Service",   "sign": "SERVICE HALLWAY", "x0": 2940, "y0": -1900, "x1": 3300, "y1": -1360, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Service_B",     "name": "Service Hallway - east run",            "area": "Service",   "sign": "SERVICE HALLWAY", "x0": 3300, "y0": -1900, "x1": 5600, "y1": -1540, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Service_E",     "name": "Service Hallway - east leg (to the south stair lobby)", "area": "Service", "sign": "SERVICE HALLWAY", "x0": 5240, "y0": -1540, "x1": 5600, "y1": 500, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Laundry",       "name": "Laundry (sorting tables and carts)",    "area": "Laundry",   "sign": "LAUNDRY",     "x0": 500,  "y0": -2300, "x1": 2300, "y1": -1360, "z": 0, "ceil": 360, "pad": true },
+    { "id": "Linen_Store",   "name": "Linen Store",                           "area": "Linen",     "sign": "LINEN STORE", "x0": 2300, "y0": -2300, "x1": 2940, "y1": -1360, "z": 0, "ceil": 360, "pad": true },
+
+    { "id": "Walkway_S",     "name": "Upper Walkway - South",                 "area": "Walkway",   "sign": "WALKWAY",     "x0": 800,  "y0": 500,   "x1": 4334, "y1": 800,  "z": 390, "ceil": 370 },
+    { "id": "Walkway_N",     "name": "Upper Walkway - North",                 "area": "Walkway",   "sign": "WALKWAY",     "x0": 800,  "y0": 2000,  "x1": 4334, "y1": 2300, "z": 390, "ceil": 370 },
+    { "id": "Walkway_W",     "name": "Upper Walkway - West",                  "area": "Walkway",   "sign": "WALKWAY",     "x0": 500,  "y0": 500,   "x1": 800,  "y1": 2300, "z": 390, "ceil": 370 },
+    { "id": "Crossover",     "name": "Crossover (upper bridge over the hall)", "area": "Crossing", "sign": "CROSSOVER",   "x0": 3050, "y0": 800,   "x1": 3350, "y1": 2000, "z": 390, "ceil": 370 },
+    { "id": "Guard_Office",  "name": "Guard Suite - south arm (office; restricted)", "area": "Restricted","sign": "GUARD OFFICE","x0": 2900, "y0": 0,     "x1": 6100, "y1": 500,  "z": 390, "ceil": 300 },
+    { "id": "Guard_Lookout", "name": "Guard Lookout (east span of the U-shaped suite)", "area": "Lookout",   "sign": "GUARD LOOKOUT","x0": 5600, "y0": 500,   "x1": 6100, "y1": 2300, "z": 390, "ceil": 300 },
+    { "id": "Guard_North_Arm","name": "Guard Suite - north arm (above the intake)", "area": "Restricted","sign": "GUARD SUITE NORTH ARM","x0": 2900, "y0": 2300, "x1": 6100, "y1": 2800, "z": 390, "ceil": 300 }
+  ],
+
+  "cell_rows": [
+    { "id": "LN", "label": "L", "along": "x", "from": 500, "count": 9, "width": 400, "front": 2300, "back": 2800, "z": 0,   "ceil": 360, "area": "CellBlock",  "face": "S", "door_w": 160, "door_h": 260, "pad": true },
+    { "id": "UN", "label": "U", "along": "x", "from": 500, "count": 6, "width": 400, "front": 2300, "back": 2800, "z": 390, "ceil": 300, "area": "UpperCells", "face": "S", "door_w": 160, "door_h": 260 },
+    { "id": "US", "label": "S", "along": "x", "from": 500, "count": 6, "width": 400, "front": 500,  "back": 0,    "z": 390, "ceil": 300, "area": "UpperCells", "face": "N", "door_w": 160, "door_h": 260 },
+    { "id": "UW", "label": "W", "along": "y", "from": 500, "count": 4, "width": 450, "front": 500,  "back": 0,    "z": 390, "ceil": 300, "area": "UpperCells", "face": "E", "door_w": 160, "door_h": 260 }
+  ],
+
+  "slabs": [
+    { "id": "Floor_Base",        "x0": 0,    "y0": -2300, "x1": 6100, "y1": 2800, "z0": -30, "z1": 0,   "area": null },
+    { "id": "Roof_Atrium",       "x0": 0,    "y0": -2300, "x1": 6100, "y1": 2800, "z0": 760, "z1": 790, "area": null },
+    { "id": "Deck_Service",      "x0": 0,    "y0": -2300, "x1": 6100, "y1": 0,    "z0": 360, "z1": 390, "area": null },
+
+    { "id": "Deck_South_Cells",  "x0": 0,    "y0": 0,    "x1": 2900, "y1": 500,  "z0": 360, "z1": 390, "area": "UpperCells" },
+    { "id": "Deck_Office",       "x0": 2900, "y0": 0,    "x1": 6100, "y1": 500,  "z0": 360, "z1": 390, "area": "Restricted" },
+    { "id": "Deck_West_Cells",   "x0": 0,    "y0": 500,  "x1": 500,  "y1": 2300, "z0": 360, "z1": 390, "area": "UpperCells" },
+    { "id": "Deck_West_Walk",    "x0": 500,  "y0": 500,  "x1": 800,  "y1": 2300, "z0": 360, "z1": 390, "area": "Walkway" },
+    { "id": "Deck_South_Walk",   "x0": 800,  "y0": 500,  "x1": 4334, "y1": 800,  "z0": 360, "z1": 390, "area": "Walkway" },
+    { "id": "Deck_North_Walk",   "x0": 800,  "y0": 2000, "x1": 4334, "y1": 2300, "z0": 360, "z1": 390, "area": "Walkway" },
+    { "id": "Deck_North_Cells",  "x0": 0,    "y0": 2300, "x1": 2900, "y1": 2800, "z0": 360, "z1": 390, "area": "UpperCells" },
+    { "id": "Deck_North_Arm",    "x0": 2900, "y0": 2300, "x1": 6100, "y1": 2800, "z0": 360, "z1": 390, "area": "Restricted" },
+    { "id": "Deck_Lookout",      "x0": 5600, "y0": 500,  "x1": 6100, "y1": 2300, "z0": 360, "z1": 390, "area": "Restricted" },
+    { "id": "Deck_Crossover",    "x0": 3050, "y0": 800,  "x1": 3350, "y1": 2000, "z0": 360, "z1": 390, "area": "Crossing" },
+
+    { "id": "Roof_North",        "x0": 0,    "y0": 2300, "x1": 6100, "y1": 2800, "z0": 690, "z1": 720, "area": null },
+    { "id": "Roof_South_Cells",  "x0": 0,    "y0": 0,    "x1": 2900, "y1": 500,  "z0": 690, "z1": 720, "area": null },
+    { "id": "Roof_West_Cells",   "x0": 0,    "y0": 500,  "x1": 500,  "y1": 2300, "z0": 690, "z1": 720, "area": null },
+    { "id": "Roof_Office",       "x0": 2900, "y0": 0,    "x1": 6100, "y1": 500,  "z0": 690, "z1": 720, "area": null },
+    { "id": "Roof_Lookout",      "x0": 5600, "y0": 500,  "x1": 6100, "y1": 2300, "z0": 690, "z1": 720, "area": null }
+  ],
+
+  "walls": [
+    { "id": "W_South",     "axis": "h", "coord": -2300, "a": 0,     "b": 6100, "z0": 0,   "z1": 790 },
+    { "id": "W_North",     "axis": "h", "coord": 2800,  "a": 0,     "b": 6100, "z0": 0,   "z1": 790 },
+    { "id": "W_West",      "axis": "v", "coord": 0,     "a": -2300, "b": 2800, "z0": 0,   "z1": 790 },
+    { "id": "W_East",      "axis": "v", "coord": 6100,  "a": -2300, "b": 2800, "z0": 0,   "z1": 790,
+      "cuts": [ { "id": "Door_Arrival", "name": "New Arrival transfer door (sealed)", "c": 2550, "w": 200, "z0": 0, "h": 270, "kind": "sealed" } ] },
+
+    { "id": "W_Upper_Back", "axis": "h", "coord": 0,    "a": 0,     "b": 6100, "z0": 390, "z1": 790 },
+
+    { "id": "W_Hall_W",    "axis": "v", "coord": 500,   "a": -1000, "b": 2300, "z0": 0,   "z1": 790, "cuts_from": ["UW"],
+      "cuts": [ { "id": "Door_Service_W", "name": "Service hallway west door (staff access)", "c": 1300, "w": 200, "z0": 0, "h": 270 } ] },
+    { "id": "W_N_Front",   "axis": "h", "coord": 2300,  "a": 500,   "b": 6100, "z0": 0,   "z1": 790, "cuts_from": ["LN", "UN"],
+      "cuts": [ { "id": "Exit_Intake", "name": "Intake exit onto the north stair foot lobby", "c": 5350, "w": 400, "z0": 0, "h": 270 },
+                { "id": "Open_Lookout_N", "name": "Open staff passage between the lookout and the north arm", "c": 5850, "w": 400, "z0": 390, "h": 300 },
+                { "id": "Win_Arm_Walkway", "name": "North arm window onto the prisoner walkway", "c": 3300, "w": 600, "z0": 480, "h": 140 } ] },
+    { "id": "W_Arm_W",     "axis": "v", "coord": 2900,  "a": 2300,  "b": 2800, "z0": 390, "z1": 790 },
+    { "id": "W_Intake_W",  "axis": "v", "coord": 5000,  "a": 2300,  "b": 2800, "z0": 0,   "z1": 360 },
+    { "id": "W_S_Front",   "axis": "h", "coord": 500,   "a": 500,   "b": 2900, "z0": 390, "z1": 790, "cuts_from": ["US"] },
+    { "id": "W_Office_N",  "axis": "h", "coord": 500,   "a": 2900,  "b": 6100, "z0": 390, "z1": 790,
+      "cuts": [ { "id": "Door_Office",  "name": "Guard office doorway (PROPOSED restricted boundary)", "c": 4000, "w": 200, "z0": 390, "h": 260 },
+                { "id": "Open_Lookout", "name": "Open staff passage between the office and the lookout", "c": 5850, "w": 400, "z0": 390, "h": 300 },
+                { "id": "Win_Office_Walkway", "name": "Office window onto the prisoner walkway", "c": 3300, "w": 600, "z0": 480, "h": 140 } ] },
+    { "id": "W_Office_W",  "axis": "v", "coord": 2900,  "a": 0,     "b": 500,  "z0": 390, "z1": 790 },
+    { "id": "W_Lobby_S",   "axis": "h", "coord": 500,   "a": 4334,  "b": 5600, "z0": 0,   "z1": 390,
+      "cuts": [ { "id": "Door_Service_E", "name": "Service hallway east door (staff access)", "c": 5420, "w": 200, "z0": 0, "h": 270 } ] },
+    { "id": "W_Hall_E",    "axis": "v", "coord": 5600,  "a": 500,   "b": 2300, "z0": 0,   "z1": 790,
+      "cuts": [ { "id": "Win_Lookout", "name": "Lookout window onto the hall", "c": 1400, "w": 1500, "z0": 440, "h": 140 },
+                { "id": "Door_Floor2", "name": "SECURED door to Sector Floor 2 (route not built)", "c": 1750, "w": 200, "z0": 0, "h": 270, "kind": "sealed" } ] },
+
+    { "id": "W_Kitchen_N", "axis": "h", "coord": 0,     "a": 500,   "b": 3300, "z0": 0,   "z1": 390,
+      "cuts": [ { "id": "Kitchen_Hatch", "name": "Serving hatch facing the seating", "c": 1500, "w": 1600, "z0": 105, "h": 135 } ] },
+    { "id": "W_Seat_E",    "axis": "v", "coord": 3300,  "a": -1900, "b": 800,  "z0": 0,   "z1": 360,
+      "cuts": [ { "id": "Opening_B", "name": "Service hallway dog-leg to the east run", "c": -1720, "w": 360, "z0": 0, "h": 360 } ] },
+    { "id": "W_Block_N",   "axis": "h", "coord": 800,   "a": 3300,  "b": 4334, "z0": 0,   "z1": 360 },
+    { "id": "W_Pantry_Div","axis": "v", "coord": 2500,  "a": -1000, "b": 0,    "z0": 0,   "z1": 360,
+      "cuts": [ { "id": "Door_Pantry", "name": "Kitchen to pantry", "c": -500, "w": 200, "z0": 0, "h": 260 } ] },
+
+    { "id": "W_A_N",       "axis": "h", "coord": -1000, "a": 500,   "b": 3300, "z0": 0,   "z1": 360,
+      "cuts": [ { "id": "Niche_Kitchen", "name": "Recessed kitchen back door (niche opening)", "c": 2000, "w": 240, "z0": 0, "h": 270 } ] },
+    { "id": "W_NicheK_W",  "axis": "v", "coord": 1880,  "a": -1000, "b": -880, "z0": 0,   "z1": 360 },
+    { "id": "W_NicheK_E",  "axis": "v", "coord": 2120,  "a": -1000, "b": -880, "z0": 0,   "z1": 360 },
+    { "id": "W_NicheK_B",  "axis": "h", "coord": -880,  "a": 1880,  "b": 2120, "z0": 0,   "z1": 360,
+      "cuts": [ { "id": "Door_Kitchen_Back", "name": "Kitchen back door onto the service hallway", "c": 2000, "w": 200, "z0": 0, "h": 270 } ] },
+
+    { "id": "W_A_S",       "axis": "h", "coord": -1360, "a": 0,     "b": 2940, "z0": 0,   "z1": 360,
+      "cuts": [ { "id": "Niche_Laundry", "name": "Recessed laundry door (niche opening)", "c": 1400, "w": 240, "z0": 0, "h": 270 },
+                { "id": "Door_Linen",    "name": "Linen store door onto the service hallway", "c": 2620, "w": 200, "z0": 0, "h": 270 } ] },
+    { "id": "W_NicheL_W",  "axis": "v", "coord": 1280,  "a": -1480, "b": -1360, "z0": 0,  "z1": 360 },
+    { "id": "W_NicheL_E",  "axis": "v", "coord": 1520,  "a": -1480, "b": -1360, "z0": 0,  "z1": 360 },
+    { "id": "W_NicheL_B",  "axis": "h", "coord": -1480, "a": 1280,  "b": 1520, "z0": 0,   "z1": 360,
+      "cuts": [ { "id": "Door_Laundry", "name": "Laundry door", "c": 1400, "w": 200, "z0": 0, "h": 270 } ] },
+
+    { "id": "W_Laundry_W", "axis": "v", "coord": 500,   "a": -2300, "b": -1360, "z0": 0,   "z1": 360 },
+    { "id": "W_Laundry_E", "axis": "v", "coord": 2300,  "a": -2300, "b": -1360, "z0": 0,   "z1": 360 },
+    { "id": "W_Linen_E",   "axis": "v", "coord": 2940,  "a": -2300, "b": -1360, "z0": 0,   "z1": 360 },
+    { "id": "W_B_S",       "axis": "h", "coord": -1900, "a": 2940,  "b": 5600, "z0": 0,   "z1": 360 },
+    { "id": "W_B_N",       "axis": "h", "coord": -1540, "a": 3300,  "b": 5240, "z0": 0,   "z1": 360 },
+    { "id": "W_E_W",       "axis": "v", "coord": 5240,  "a": -1540, "b": 500,  "z0": 0,   "z1": 360 },
+    { "id": "W_E_E",       "axis": "v", "coord": 5600,  "a": -1900, "b": 500,  "z0": 0,   "z1": 360 },
+    { "id": "W_WestLeg_N", "axis": "h", "coord": 1500,  "a": 0,     "b": 500,  "z0": 0,   "z1": 360 }
+  ],
+
+  "rails": [
+    { "id": "Bal_South",     "axis": "h", "coord": 794,  "a": 788,  "b": 4334, "z": 390, "gaps": [[3050, 3350]] },
+    { "id": "Bal_North",     "axis": "h", "coord": 2006, "a": 788,  "b": 4334, "z": 390, "gaps": [[3050, 3350]] },
+    { "id": "Bal_West",      "axis": "v", "coord": 794,  "a": 788,  "b": 2012, "z": 390 },
+    { "id": "Bal_Cross_W",   "axis": "v", "coord": 3056, "a": 800,  "b": 2000, "z": 390 },
+    { "id": "Bal_Cross_E",   "axis": "v", "coord": 3344, "a": 800,  "b": 2000, "z": 390 }
+  ],
+
+  "stairs": [
+    { "id": "Stair_South", "name": "South stair (open to prisoners)", "axis": "-x", "start": 4950, "lo": 530,  "hi": 770,  "z_start": 0, "steps": 22, "total_rise": 390, "run": 28, "rails": ["lo", "hi"], "area": "Stairs" },
+    { "id": "Stair_North", "name": "North stair (open to prisoners)", "axis": "-x", "start": 4950, "lo": 2030, "hi": 2270, "z_start": 0, "steps": 22, "total_rise": 390, "run": 28, "rails": ["lo", "hi"], "area": "Stairs" }
+  ],
+
+  "columns": [
+    { "line": 2000, "axis": "x", "from": 900, "to": 4100, "step": 400, "size": 40, "z1": 360, "skip": [[3000, 3400]] },
+    { "line": 800,  "axis": "x", "from": 900, "to": 2900, "step": 400, "size": 40, "z1": 360, "skip": [] },
+    { "line": 800,  "axis": "y", "from": 1000, "to": 1800, "step": 400, "size": 40, "z1": 360, "skip": [] }
+  ],
+
+  "tables": { "cols": [1000, 1450, 1900, 2350], "rows": [280, 590, 1050], "len": 260, "dep": 100, "h": 75, "bench_h": 50, "bench_off": 85, "area": "Seating" },
+
+  "boxes": [
+    { "id": "Serving_Counter",    "name": "Serving counter (faces the seating)", "x0": 700,  "y0": 15,   "x1": 2300, "y1": 75,   "z0": 0, "z1": 105, "mat": "lit:Kitchen" },
+    { "id": "Kitchen_Line",       "name": "Kitchen hot line",            "x0": 700,  "y0": -100, "x1": 2300, "y1": -30,  "z0": 0, "z1": 95,  "mat": "lit:Kitchen" },
+    { "id": "Kitchen_Island",     "name": "Kitchen island",              "x0": 1100, "y0": -600, "x1": 1900, "y1": -500, "z0": 0, "z1": 90,  "mat": "lit:Kitchen" },
+    { "id": "Kitchen_Prep_W",     "name": "Kitchen prep bench",          "x0": 530,  "y0": -900, "x1": 620,  "y1": -300, "z0": 0, "z1": 90,  "mat": "lit:Kitchen" },
+    { "id": "Cover_Kitchen_Cooler","name": "Cover: kitchen walk-in cooler","x0": 2350, "y0": -950, "x1": 2480, "y1": -700, "z0": 0, "z1": 200, "mat": "lit:Cover" },
+
+    { "id": "Cover_Shelf_P1a",    "name": "Cover: pantry shelving",      "x0": 2650, "y0": -950, "x1": 2710, "y1": -650, "z0": 0, "z1": 200, "mat": "lit:Cover" },
+    { "id": "Cover_Shelf_P1b",    "name": "Cover: pantry shelving",      "x0": 2650, "y0": -350, "x1": 2710, "y1": -100, "z0": 0, "z1": 200, "mat": "lit:Cover" },
+    { "id": "Cover_Shelf_P2",     "name": "Cover: pantry shelving",      "x0": 3050, "y0": -900, "x1": 3110, "y1": -100, "z0": 0, "z1": 200, "mat": "lit:Cover" },
+
+    { "id": "Cover_Cart_H1",      "name": "Cover: linen cart parked in the hallway", "x0": 1750, "y0": -1345, "x1": 1870, "y1": -1265, "z0": 0, "z1": 190, "mat": "lit:Cover" },
+    { "id": "Cover_Cart_H2",      "name": "Cover: linen cart parked in the east run","x0": 3900, "y0": -1885, "x1": 4020, "y1": -1805, "z0": 0, "z1": 190, "mat": "lit:Cover" },
+    { "id": "Cover_Locker_B",     "name": "Cover: staff lockers on the east run",    "x0": 4400, "y0": -1615, "x1": 4800, "y1": -1555, "z0": 0, "z1": 200, "mat": "lit:Cover" },
+
+    { "id": "Laundry_Sort_1",     "name": "Sorting table",               "x0": 600,  "y0": -1750, "x1": 900,  "y1": -1650, "z0": 0, "z1": 90,  "mat": "lit:Laundry" },
+    { "id": "Laundry_Sort_2",     "name": "Sorting table",               "x0": 950,  "y0": -1750, "x1": 1250, "y1": -1650, "z0": 0, "z1": 90,  "mat": "lit:Laundry" },
+    { "id": "Laundry_Sort_3",     "name": "Sorting table",               "x0": 1550, "y0": -1750, "x1": 1850, "y1": -1650, "z0": 0, "z1": 90,  "mat": "lit:Laundry" },
+    { "id": "Cover_Cart_L1",      "name": "Cover: laundry cart",         "x0": 800,  "y0": -2050, "x1": 920,  "y1": -1970, "z0": 0, "z1": 190, "mat": "lit:Cover" },
+    { "id": "Cover_Cart_L2",      "name": "Cover: laundry cart",         "x0": 1000, "y0": -1950, "x1": 1120, "y1": -1870, "z0": 0, "z1": 190, "mat": "lit:Cover" },
+    { "id": "Cover_Cart_L3",      "name": "Cover: laundry cart",         "x0": 2100, "y0": -2150, "x1": 2220, "y1": -2070, "z0": 0, "z1": 190, "mat": "lit:Cover" },
+    { "id": "Laundry_Machines_W", "name": "Washer / dryer bank (west)",  "x0": 515,  "y0": -2250, "x1": 640,  "y1": -1700, "z0": 0, "z1": 110, "mat": "lit:Laundry" },
+    { "id": "Laundry_Machines_S", "name": "Washer / dryer bank (south)", "x0": 900,  "y0": -2285, "x1": 2200, "y1": -2185, "z0": 0, "z1": 110, "mat": "lit:Laundry" },
+
+    { "id": "Cover_Shelf_L1",     "name": "Cover: linen shelving",       "x0": 2345, "y0": -1620, "x1": 2745, "y1": -1560, "z0": 0, "z1": 200, "mat": "lit:Cover" },
+    { "id": "Cover_Shelf_L2",     "name": "Cover: linen shelving",       "x0": 2500, "y0": -1860, "x1": 2900, "y1": -1800, "z0": 0, "z1": 200, "mat": "lit:Cover" },
+    { "id": "Cover_Shelf_L3",     "name": "Cover: linen shelving",       "x0": 2345, "y0": -2100, "x1": 2745, "y1": -2040, "z0": 0, "z1": 200, "mat": "lit:Cover" },
+
+    { "id": "Lookout_Console",    "name": "Guard lookout console",       "x0": 5630, "y0": 700,  "x1": 5700, "y1": 2100, "z0": 390, "z1": 500, "mat": "lit:Lookout" },
+    { "id": "Office_Desk_2",      "name": "Second guard desk (west office)", "x0": 3100, "y0": 60,   "x1": 3500, "y1": 150,  "z0": 390, "z1": 470, "mat": "lit:Restricted" },
+    { "id": "Office_Lockers",     "name": "Staff lockers",               "x0": 2940, "y0": 20,   "x1": 3050, "y1": 140,  "z0": 390, "z1": 590, "mat": "lit:Restricted" },
+    { "id": "Office_Table",       "name": "Staff briefing table",        "x0": 4350, "y0": 130,  "x1": 4750, "y1": 230,  "z0": 390, "z1": 465, "mat": "lit:Restricted" },
+    { "id": "Office_Desk",        "name": "Guard desk",                  "x0": 5100, "y0": 60,   "x1": 5500, "y1": 150,  "z0": 390, "z1": 470, "mat": "lit:Restricted" },
+    { "id": "Office_Cabinet_1",   "name": "Office cabinet",              "x0": 3800, "y0": 20,   "x1": 3900, "y1": 120,  "z0": 390, "z1": 590, "mat": "lit:Restricted" },
+    { "id": "Office_Cabinet_2",   "name": "Office cabinet",              "x0": 3920, "y0": 20,   "x1": 4020, "y1": 120,  "z0": 390, "z1": 590, "mat": "lit:Restricted" },
+
+    { "id": "Band_Lower_N",       "name": "Lower tier colour band",      "x0": 500,  "y0": 2283, "x1": 4100, "y1": 2285, "z0": 275, "z1": 335, "mat": "unlit:CellBlock",  "collision": false },
+    { "id": "Band_Upper_N",       "name": "Upper tier colour band (N)",  "x0": 500,  "y0": 2283, "x1": 2900, "y1": 2285, "z0": 665, "z1": 725, "mat": "unlit:UpperCells", "collision": false },
+    { "id": "Band_Upper_S",       "name": "Upper tier colour band (S)",  "x0": 500,  "y0": 515,  "x1": 2900, "y1": 517,  "z0": 665, "z1": 725, "mat": "unlit:UpperCells", "collision": false },
+    { "id": "Band_Upper_W",       "name": "Upper tier colour band (W)",  "x0": 515,  "y0": 500,  "x1": 517,  "y1": 2300, "z0": 665, "z1": 725, "mat": "unlit:UpperCells", "collision": false },
+
+    { "id": "Mark_Office_Threshold", "name": "Restricted boundary line at the office doorway", "x0": 3880, "y0": 488, "x1": 4120, "y1": 512, "z0": 390, "z1": 393, "mat": "unlit:Restricted", "collision": false },
+    { "id": "Mark_Office_Hatch",  "name": "Restricted boundary hatch (approach side)", "x0": 3860, "y0": 520, "x1": 4140, "y1": 600, "z0": 390, "z1": 392, "mat": "unlit:Warning", "collision": false },
+    { "id": "Mark_Office_Inside", "name": "Restricted boundary hatch (inside)",        "x0": 3860, "y0": 400, "x1": 4140, "y1": 480, "z0": 390, "z1": 392, "mat": "unlit:Warning", "collision": false },
+
+    { "id": "Mark_Staff_W",       "name": "Staff access marking (west service door)", "x0": 520,  "y0": 1190, "x1": 640,  "y1": 1410, "z0": 0, "z1": 3, "mat": "unlit:Warning", "collision": false },
+    { "id": "Mark_Staff_E",       "name": "Staff access marking (east service door)", "x0": 5300, "y0": 515,  "x1": 5540, "y1": 610,  "z0": 0, "z1": 3, "mat": "unlit:Warning", "collision": false },
+    { "id": "Mark_Staff_Kitchen", "name": "Staff access marking (kitchen back door)", "x0": 1860, "y0": -1090,"x1": 2140, "y1": -1020,"z0": 0, "z1": 3, "mat": "unlit:Warning", "collision": false },
+    { "id": "Mark_Staff_Laundry", "name": "Staff access marking (laundry door)",      "x0": 1260, "y0": -1340,"x1": 1540, "y1": -1270,"z0": 0, "z1": 3, "mat": "unlit:Warning", "collision": false },
+    { "id": "Mark_F2_Hatch",      "name": "Sector Floor 2 secured door: floor hatching", "x0": 5440, "y0": 1600, "x1": 5580, "y1": 1900, "z0": 0, "z1": 3, "mat": "unlit:Secured", "collision": false },
+    { "id": "Intake_Counter",       "name": "Small processing counter",    "x0": 5550, "y0": 2420, "x1": 5850, "y1": 2490, "z0": 0, "z1": 105, "mat": "lit:Intake" },
+    { "id": "Intake_Bench",         "name": "Arrival waiting bench",       "x0": 5850, "y0": 2690, "x1": 6050, "y1": 2770, "z0": 0, "z1": 50,  "mat": "lit:Intake" },
+    { "id": "Mark_Intake_Exit",     "name": "Intake exit threshold strip", "x0": 5150, "y0": 2315, "x1": 5550, "y1": 2365, "z0": 0, "z1": 3,   "mat": "unlit:Intake", "collision": false },
+    { "id": "Mark_Intake_Queue_H",  "name": "Intake walking line (arrival door to the exit), east-west leg", "x0": 5340, "y0": 2535, "x1": 6040, "y1": 2565, "z0": 0, "z1": 2, "mat": "unlit:Warning", "collision": false },
+    { "id": "Mark_Intake_Queue_V",  "name": "Intake walking line, north-south leg to the exit", "x0": 5335, "y0": 2365, "x1": 5365, "y1": 2565, "z0": 0, "z1": 2, "mat": "unlit:Warning", "collision": false },
+    { "id": "Mark_Intake_Arrival",  "name": "Arrival door hatching",       "x0": 6010, "y0": 2480, "x1": 6085, "y1": 2620, "z0": 0, "z1": 3,   "mat": "unlit:Secured", "collision": false },
+    { "id": "Mark_Stair_Keepclear", "name": "North stair landing: keep clear", "x0": 4990, "y0": 2030, "x1": 5110, "y1": 2270, "z0": 0, "z1": 2, "mat": "unlit:Stairs", "collision": false },
+    { "id": "North_Desk_1",         "name": "North arm desk",              "x0": 3100, "y0": 2690, "x1": 3500, "y1": 2770, "z0": 390, "z1": 470, "mat": "lit:Restricted" },
+    { "id": "North_Lockers",        "name": "North arm staff lockers",     "x0": 2940, "y0": 2660, "x1": 3050, "y1": 2780, "z0": 390, "z1": 590, "mat": "lit:Restricted" },
+    { "id": "North_Cabinet",        "name": "North arm cabinet",           "x0": 3600, "y0": 2680, "x1": 3700, "y1": 2780, "z0": 390, "z1": 590, "mat": "lit:Restricted" },
+    { "id": "North_Records_Table",  "name": "North arm records table",     "x0": 4350, "y0": 2690, "x1": 4750, "y1": 2780, "z0": 390, "z1": 465, "mat": "lit:Restricted" },
+    { "id": "Mark_F2_Keypad",     "name": "Sector Floor 2 secured door: keypad",      "x0": 5578, "y0": 1860, "x1": 5584, "y1": 1910, "z0": 110, "z1": 160, "mat": "unlit:Warning", "collision": false }
+  ],
+
+  "signs": [
+    { "text": "LOWER HALL  (OPEN, CONTINUOUS)",       "x": 1500, "y": 1400, "z": 640, "hang": "x", "size": 50, "area": "Hall" },
+    { "text": "OPEN SEATING + KITCHEN ALONG SOUTH SIDE  >", "x": 700, "y": 1400, "z": 320, "hang": "x", "size": 26, "area": "Seating" },
+    { "text": "STAIRS UP (NORTH + SOUTH)  >>",         "x": 4100, "y": 1400, "z": 600, "hang": "x", "size": 38, "area": "Stairs" },
+    { "text": "CROSSOVER",                             "x": 3200, "y": 1150, "z": 590, "hang": "y", "size": 40, "area": "Crossing" },
+    { "text": "CROSSOVER  (UPPER WALKWAYS)",           "x": 3200, "y": 1650, "z": 560, "hang": "x", "size": 28, "area": "Crossing" },
+
+    { "text": "LOWER HALL - WEST END",                 "x": 515,  "y": 1750, "z": 200, "f": "E", "size": 32, "area": "Hall" },
+    { "text": "SERVICE HALLWAY (STAFF ONLY) - WEST",   "x": 515,  "y": 1300, "z": 330, "f": "E", "size": 22, "area": "Service" },
+    { "text": "SERVICE HALLWAY (STAFF ONLY) - EAST",   "x": 5420, "y": 515,  "z": 330, "f": "N", "size": 22, "area": "Service" },
+    { "text": "STAIRS UP (SOUTH)",                     "x": 5000, "y": 515,  "z": 240, "f": "N", "size": 28, "area": "Stairs" },
+    { "text": "STAIRS UP (NORTH)",                     "x": 5300, "y": 2285, "z": 240, "f": "S", "size": 28, "area": "Stairs" },
+    { "text": "NEW ARRIVAL - INTAKE  (EXIT)",          "x": 5350, "y": 2285, "z": 305, "f": "S", "size": 24, "area": "Intake" },
+    { "text": "NEW ARRIVAL - PROCESSING",              "x": 5800, "y": 2785, "z": 230, "f": "S", "size": 24, "area": "Intake" },
+    { "text": "PROCESSING COUNTER",                    "x": 5700, "y": 2315, "z": 200, "f": "N", "size": 22, "area": "Intake" },
+    { "text": "ARRIVAL DOOR (SEALED)",                 "x": 6085, "y": 2550, "z": 320, "f": "W", "size": 18, "area": "Secured" },
+    { "text": "NORTH STAIR LANDING - KEEP CLEAR",      "x": 5050, "y": 2285, "z": 175, "f": "S", "size": 20, "area": "Stairs" },
+    { "text": "GUARD SUITE - NORTH ARM (STAFF ONLY)",  "x": 4000, "y": 2285, "z": 700, "f": "S", "size": 26, "area": "Restricted" },
+    { "text": "GUARD LOOKOUT (UPPER, EAST END)",       "x": 5585, "y": 1400, "z": 640, "f": "W", "size": 44, "area": "Lookout" },
+    { "text": "SECTOR FLOOR 2 - SECURED",              "x": 5585, "y": 1750, "z": 330, "f": "W", "size": 26, "area": "Secured" },
+    { "text": "NO ACCESS - ROUTE NOT BUILT",           "x": 5585, "y": 1750, "z": 130, "f": "W", "size": 18, "area": "Secured" },
+
+    { "text": "UPPER CELLS  U1-U6",                    "x": 1700, "y": 2285, "z": 695, "f": "S", "size": 34, "area": "UpperCells" },
+    { "text": "LOWER CELLS  L1-L9",                    "x": 2300, "y": 2285, "z": 305, "f": "S", "size": 26, "area": "CellBlock" },
+    { "text": "UPPER CELLS  S1-S6",                    "x": 1700, "y": 515,  "z": 695, "f": "N", "size": 34, "area": "UpperCells" },
+    { "text": "UPPER CELLS  W1-W4",                    "x": 515,  "y": 1400, "z": 695, "f": "E", "size": 34, "area": "UpperCells" },
+    { "text": "GUARD OFFICE - RESTRICTED (PROPOSED BOUNDARY)", "x": 4000, "y": 515, "z": 700, "f": "N", "size": 24, "area": "Restricted" },
+    { "text": "GUARD SUITE: OFFICE + LOOKOUT + NORTH ARM", "x": 3300, "y": 515, "z": 700, "f": "N", "size": 24, "area": "Restricted" },
+
+    { "text": "KITCHEN - SERVING COUNTER",             "x": 1500, "y": 15,   "z": 320, "f": "N", "size": 30, "area": "Kitchen" },
+    { "text": "OPEN SEATING - TABLES & BENCHES",       "x": 3800, "y": 815,  "z": 300, "f": "N", "size": 26, "area": "Seating" },
+    { "text": "KITCHEN",                               "x": 2300, "y": -15,  "z": 320, "f": "S", "size": 30, "area": "Kitchen" },
+    { "text": "PANTRY",                                "x": 2900, "y": -15,  "z": 320, "f": "S", "size": 30, "area": "Pantry" },
+    { "text": "PANTRY",                                "x": 2485, "y": -500, "z": 320, "f": "W", "size": 28, "area": "Pantry" },
+    { "text": "KITCHEN - BACK DOOR",                   "x": 2000, "y": -1015,"z": 320, "f": "S", "size": 26, "area": "Kitchen" },
+    { "text": "LAUNDRY",                               "x": 1400, "y": -1345,"z": 320, "f": "N", "size": 30, "area": "Laundry" },
+    { "text": "LINEN STORE",                           "x": 2620, "y": -1345,"z": 320, "f": "N", "size": 26, "area": "Linen" },
+    { "text": "SERVICE HALLWAY",                       "x": 800,  "y": -1015,"z": 300, "f": "S", "size": 28, "area": "Service" },
+    { "text": "SERVICE HALLWAY",                       "x": 4200, "y": -1555,"z": 300, "f": "S", "size": 28, "area": "Service" },
+    { "text": "LAUNDRY - SORTING TABLES + CARTS",      "x": 1500, "y": -2285,"z": 300, "f": "N", "size": 28, "area": "Laundry" },
+    { "text": "LINEN STORE",                           "x": 2620, "y": -2285,"z": 300, "f": "N", "size": 24, "area": "Linen" }
+  ],
+
+  "markers": [
+    { "id": "Start_Intake",          "type": "PlayerSpawn",    "x": 5350, "y": 2620, "z": 0 },
+    { "id": "Intake_Exit",           "type": "IntakeExit",     "x": 5350, "y": 2300, "z": 0 },
+    { "id": "Intake_Arrival_Door",   "type": "ArrivalDoor",    "x": 6100, "y": 2550, "z": 0 },
+    { "id": "Intake_Counter",        "type": "Processing",     "x": 5700, "y": 2455, "z": 0 },
+    { "id": "Office_Doorway",        "type": "RestrictedDoor", "x": 4000, "y": 500,  "z": 390 },
+    { "id": "Lookout_Eye",           "type": "Lookout",        "x": 5740, "y": 1400, "z": 390 },
+    { "id": "Stair_Foot_South",      "type": "StairFoot",      "x": 5100, "y": 650,  "z": 0 },
+    { "id": "Stair_Foot_North",      "type": "StairFoot",      "x": 5100, "y": 2150, "z": 0 },
+    { "id": "Crossover_Center",      "type": "Crossover",      "x": 3200, "y": 1400, "z": 390 },
+    { "id": "Service_Door_West",     "type": "StaffAccess",    "x": 500,  "y": 1300, "z": 0 },
+    { "id": "Service_Door_East",     "type": "StaffAccess",    "x": 5420, "y": 500,  "z": 0 },
+    { "id": "Kitchen_Back_Door",     "type": "StaffAccess",    "x": 2000, "y": -1000,"z": 0 },
+    { "id": "Floor2_Secured_Door",   "type": "FutureAccess",   "x": 5560, "y": 1750, "z": 0 }
+  ],
+
+  "routes": [
+    { "id": "R01_Hall_End_to_End",          "z": 0,   "points": [[1100, 1400], [1100, 1200], [700, 1200], [1100, 1200], [1100, 1400], [5450, 1400], [1100, 1400]] },
+    { "id": "R02_Under_Crossover_NS",       "z": 0,   "points": [[3200, 850], [3200, 1950], [3200, 850]] },
+    { "id": "R03_Lower_North_Cells",        "z": 0,   "points": [[1100, 1400], [1100, 2150], [700, 2150], [700, 2600], [700, 2150], [3900, 2150], [3900, 2600], [3900, 2150]] },
+    { "id": "R04_Seating_and_Counter",      "z": 0,   "points": [[1225, 1400], [1225, 125], [1225, 435], [2125, 435], [2125, 125], [1675, 125], [1675, 435], [1225, 435], [1225, 1400]] },
+    { "id": "R05_Service_Loop",             "z": 0,   "points": [[1100, 1400], [1100, 1200], [650, 1200], [650, 1300], [250, 1300], [250, -1180], [3120, -1180], [3120, -1720], [5420, -1720], [5420, 650], [5420, 1100], [1100, 1400]] },
+    { "id": "R06_Service_Loop_Reverse",     "z": 0,   "points": [[5420, 1100], [5420, 650], [5420, -1720], [3120, -1720], [3120, -1180], [250, -1180], [250, 1300], [650, 1300], [650, 1200], [1100, 1200], [1100, 1400]] },
+    { "id": "R07_Kitchen_and_Pantry",       "z": 0,   "points": [[2000, -1180], [2000, -700], [2250, -700], [2250, -500], [2800, -500], [2800, -200], [2800, -800], [2800, -500], [2250, -500], [2250, -300], [2250, -700], [2000, -700], [2000, -1180]] },
+    { "id": "R08_Laundry",                  "z": 0,   "points": [[1400, -1180], [1400, -2100], [1190, -2100], [1190, -1830], [1190, -2100], [1400, -2100], [1400, -1180]] },
+    { "id": "R09_Linen_Store",              "z": 0,   "points": [[2620, -1180], [2620, -1480], [2835, -1480], [2835, -1700], [2410, -1700], [2410, -1950], [2835, -1950], [2410, -1950], [2410, -1700], [2835, -1700], [2835, -1480], [2620, -1480], [2620, -1180]] },
+    { "id": "R10_Cover_Dash_East_Run",      "z": 0,   "points": [[3120, -1720], [3800, -1720], [3800, -1650], [4300, -1650], [4300, -1720], [5000, -1720], [5420, -1720]] },
+    { "id": "R11_Floor2_Door_Approach",     "z": 0,   "points": [[1100, 1400], [5450, 1750]] },
+    { "id": "R12_Intake_Exit_to_Hall",      "z": 0,   "points": [[5350, 2620], [5350, 2400], [5350, 2250], [5350, 2150], [5350, 1900], [5100, 1500], [1100, 1400]] },
+    { "id": "R13_Intake_Arrival_to_Exit",   "z": 0,   "points": [[6030, 2550], [5350, 2550], [5350, 2400], [5350, 2250], [5350, 2100]] },
+    { "id": "R15_North_Stair_Foot_to_Hall", "z": 0,   "points": [[5000, 2150], [5200, 1900], [5000, 1400], [3200, 1400]] },
+    { "id": "R16_Intake_to_North_Stair_to_Walkway", "z": 0, "points": [[5350, 2620], [5350, 2250], [5150, 2150], [4900, 2150], [4300, 2150], [2700, 2150]] },
+    { "id": "R17_North_Stair_Past_Arm_to_Cells",   "z": 0, "points": [[5300, 1900], [5300, 2150], [4900, 2150], [4300, 2150], [2700, 2150], [2700, 2550], [2700, 2150], [1700, 2150]] },
+    { "id": "R14_Stair_Lobby_to_Hall",      "z": 0,   "points": [[5300, 650], [5300, 900], [5300, 1100], [5000, 1400], [3200, 1400]] },
+
+    { "id": "R20_South_Stair_Up",           "z": 0,   "points": [[5400, 1400], [5400, 650], [4900, 650], [4300, 650]] },
+    { "id": "R21_Upper_Walkway_Ring",       "z": 390, "points": [[4300, 650], [650, 650], [650, 2150], [4300, 2150]] },
+    { "id": "R22_Crossover_S_to_N",         "z": 390, "points": [[3200, 650], [3200, 1400], [3200, 2150], [3200, 1400], [3200, 650]] },
+    { "id": "R23_North_Stair_Down",         "z": 390, "points": [[4300, 2150], [4900, 2150], [5400, 2150], [5400, 1400]] },
+    { "id": "R24_Upper_Cells_W_S_N",        "z": 390, "points": [[650, 1400], [650, 725], [250, 725], [650, 725], [650, 650], [700, 650], [700, 250], [700, 650], [650, 2150], [700, 2150], [700, 2550], [700, 2150]] },
+    { "id": "R26_Stair_Past_Office_to_Cells", "z": 0, "points": [[5400, 1400], [5400, 650], [4900, 650], [4300, 650], [3300, 650], [2700, 650], [2700, 250], [2700, 650], [1700, 650]] },
+    { "id": "R27_Walkway_to_Crossover_from_Stair", "z": 0, "points": [[5400, 1400], [5400, 650], [4900, 650], [4300, 650], [3200, 650], [3200, 1400], [3200, 2150], [4300, 2150]] },
+    { "id": "R25_Office_and_Lookout",       "z": 390, "points": [[4000, 650], [4000, 500], [4000, 300], [3200, 300], [5300, 300], [5850, 300], [5850, 500], [5850, 700], [5850, 1400], [5850, 2100], [5850, 2300], [5850, 2500], [4500, 2500], [3200, 2500], [4500, 2500], [5850, 2500], [5850, 2100], [5850, 700], [5850, 300], [4000, 300], [4000, 650]] }
+  ],
+
+  "blocked_routes": [
+    { "id": "B01_Floor2_secured_door",      "z": 0,   "points": [[5450, 1750], [5700, 1750]] },
+    { "id": "B11_North_lobby_east_wall",    "z": 0,   "points": [[5450, 2150], [5800, 2150]] },
+    { "id": "B12_Intake_arrival_door_sealed","z": 0,  "points": [[6030, 2550], [6200, 2550]] },
+    { "id": "B13_Intake_west_wall",         "z": 0,   "points": [[5200, 2550], [4800, 2550]] },
+    { "id": "B14_North_arm_closed_to_walkway", "z": 390, "points": [[4000, 2150], [4000, 2450]] },
+    { "id": "B15_Old_east_intake_closed",    "z": 0,   "points": [[5450, 1200], [5700, 1200]] },
+    { "id": "B02_South_walkway_edge",       "z": 390, "points": [[2000, 650], [2000, 1000]] },
+    { "id": "B03_North_walkway_edge",       "z": 390, "points": [[2000, 2150], [2000, 1700]] },
+    { "id": "B04_Crossover_edge",           "z": 390, "points": [[3200, 1200], [3500, 1200]] },
+    { "id": "B05_West_walkway_edge",        "z": 390, "points": [[650, 1400], [950, 1400]] },
+    { "id": "B06_Walkway_into_cell_wall",   "z": 390, "points": [[2100, 650], [2100, 300]] },
+    { "id": "B07_Lookout_window",           "z": 390, "points": [[5850, 1400], [5300, 1400]] },
+    { "id": "B08_Seating_to_kitchen_hatch", "z": 0,   "points": [[1500, 125], [1500, -300]] },
+    { "id": "B09_Pantry_not_on_hallway",    "z": 0,   "points": [[2900, -700], [2900, -1180]] },
+    { "id": "B10_Hallway_A_straight_to_B",  "z": 0,   "points": [[2500, -1180], [4500, -1180]] }
+  ],
+
+  "reachability": {
+    "_comment": "[x, y, z_floor, must_be_reachable, label] from the player start without falling.",
+    "samples": [
+      [1100, 1400, 0, true, "Lower hall west"], [3200, 1400, 0, true, "Lower hall under crossover"], [5400, 1400, 0, true, "Lower hall east end"], [5400, 1750, 0, true, "Sector Floor 2 secured door approach"], [5350, 2620, 0, true, "Intake (player start)"], [5350, 2250, 0, true, "Intake exit onto the north stair foot lobby"], [4500, 2550, 390, true, "North arm of the guard suite"], [3200, 2500, 390, true, "North arm, west end"],
+      [1225, 435, 0, true, "Seating (lane under south walkway)"], [1225, 1030, 0, true, "Seating row in the open hall (lane)"], [1500, 125, 0, true, "In front of the serving counter"],
+      [700, 2600, 0, true, "Lower cell L1"], [3900, 2600, 0, true, "Lower cell L9"], [650, 1400, 0, true, "West aisle (lower)"], [2000, 2150, 0, true, "North aisle (lower)"],
+      [5300, 650, 0, true, "South stair foot lobby"], [5300, 2150, 0, true, "North stair foot lobby"],
+      [250, 1000, 0, true, "Service hallway, west leg"], [1000, -1180, 0, true, "Service hallway, behind the kitchen"], [3120, -1500, 0, true, "Service hallway, offset"],
+      [4500, -1720, 0, true, "Service hallway, east run"], [5420, -500, 0, true, "Service hallway, east leg"],
+      [2000, -940, 0, true, "Kitchen back-door niche"], [2250, -300, 0, true, "Kitchen"], [2800, -500, 0, true, "Pantry"],
+      [1400, -1420, 0, true, "Laundry door niche"], [1500, -2000, 0, true, "Laundry"], [2835, -1700, 0, true, "Linen store"],
+      [2000, 650, 390, true, "South walkway"], [3200, 300, 390, true, "Office, west end"], [2700, 250, 390, true, "Upper cell S6"], [2000, 2150, 390, true, "North walkway"], [650, 1400, 390, true, "West walkway"], [3200, 1400, 390, true, "Crossover"],
+      [250, 725, 390, true, "Upper cell W1"], [700, 250, 390, true, "Upper cell S1"], [700, 2550, 390, true, "Upper cell U1"], [3900, 2550, 390, true, "Upper cell U9"],
+      [4500, 300, 390, true, "Guard office interior"], [5850, 1400, 390, true, "Guard lookout"],
+      [250, 2000, 0, false, "Closed mass north of the west service leg"], [5000, 250, 0, false, "Closed block under the office"], [3800, 400, 0, false, "Closed block east of the seating"],
+      [4500, -1450, 0, false, "Closed mass between the east run and the block"], [4500, -2100, 0, false, "Closed mass south of the east run"], [5850, 2000, 0, false, "Closed mass under the lookout, near the north lobby"], [5850, 1200, 0, false, "Former east-wall intake site (now closed)"], [4500, 2550, 0, false, "Closed mass between the lower cells and the new intake"], [5850, 700, 0, false, "Closed mass under the lookout, south of intake"],
+      [4500, 2650, 0, false, "Closed mass NE of the lower cells (west of the intake)"], [250, 2600, 0, false, "NW corner mass"], [4700, 650, 390, false, "Stair body is not deck level"]
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+== Geometry summary ==
+Boxes: 549 total (floor=16, marking=26, prop=68, rail=194, secured=16, sign=61, slab=9, stair=66, wall=93); collision boxes 462; text signs 61; lines 50; lights 59; markers 19
+Exterior footprint: x 0..6400, y -1200..1630 = 64.0 m x 28.3 m (continuous exterior walls on all four sides: True)
+== Dimensions ==
+Doors/arches: 24, smallest width 160 cm (capsule diameter 68); narrow (<108): none
+Stair Stair_Prisoner  22 steps, riser 17.73 cm, run 28 cm, width 220 cm (max step 45)
+Stair Stair_Staff     22 steps, riser 17.73 cm, run 28 cm, width 260 cm (max step 45)
+Stair Stair_Floor2    22 steps, riser 17.73 cm, run 28 cm, width 400 cm (max step 45)
+Hall clear width 900 cm (y 0..900), hall length 5600 cm; lower aisle / upper walkway 280 cm deep x 360 cm high (open to the hall); gallery 600 cm deep; lookout cabin 500 x 260 cm projecting over the hall; crossing 300 cm wide (276 clear between rails); landing 600 x 900 cm; atrium roof underside z=760; upper deck z=390
+== Walk simulation (capsule r=34 hh=90, max step 45) ==
+  route R1a_Intake_to_LowerCells       PASS (end floor z=0)
+  route R1b_Intake_to_Cafeteria        PASS (end floor z=0)
+  route R1c_Work_Area_and_Counter      PASS (end floor z=0)
+  route R1d_Orientation                PASS (end floor z=0)
+  route R2a_Prisoner_Stair_Up          PASS (end floor z=390)
+  route R2b_Upper_Cells                PASS (end floor z=390)
+  route R2c_Cross_to_Landing           PASS (end floor z=390)
+  route R3_Landing_Office_Roster       PASS (end floor z=390)
+  route R4a_Staff_Stair_Up             PASS (end floor z=390)
+  route R4b_Gallery_Office_North       PASS (end floor z=390)
+  route R4c_Lookout_Cabin_View         PASS (end floor z=390)
+  route R5_Cover_Pieces_Gallery        PASS (end floor z=390)
+  route R6_Hall_End_to_Gate            PASS (end floor z=0)
+  blocked B1_Floor2_gate_secured       PASS (blocked) (blocked by GateBar_6 at (5564,450) z=14)
+  blocked B2_Intake_arrival_door_sealed PASS (blocked) (blocked by SECURED_Intake_Arrival_Door at (36,450) z=0)
+  blocked B3_Gallery_to_Landing_wall   PASS (blocked) (blocked by W_Gallery_E_-600 at (3456,-250) z=390)
+  blocked B4_Walkway_edge_to_hall      PASS (blocked) (blocked by Bal_Walkway_S_Bar_0 at (2500,944) z=415)
+  blocked B5_Gallery_edge_to_hall      PASS (blocked) (blocked by Bal_Gallery_N_Bar_0 at (2500,-42) z=415)
+  blocked B6_Landing_edge_to_hall      PASS (blocked) (blocked by Bal_Landing_N_Bar_0 at (3600,-42) z=415)
+  blocked B7_Landing_to_work_roof      PASS (blocked) (blocked by W_Landing_E_-900 at (4058,-450) z=390)
+  blocked B8_Crossing_edge             PASS (blocked) (blocked by Bal_Bridge_W_Bar_0 at (3744,450) z=415)
+Player start (500,450) floor z=0 blocked=None -> VALID
+== Reachability and edges ==
+Reachable walking cells (20 cm grid): 32930 (~1317 m2)
+  Intake                             (  500,  450,z  0) reachable=True  expected=True  ok
+  Orientation                        (  150, -650,z  0) reachable=True  expected=True  ok
+  Cafeteria                          ( 2750, -600,z  0) reachable=True  expected=True  ok
+  Work area                          ( 4500, -600,z  0) reachable=True  expected=True  ok
+  Lower cell L1                      ( 1900, 1400,z  0) reachable=True  expected=True  ok
+  Lower cell L8                      ( 4700, 1400,z  0) reachable=True  expected=True  ok
+  Upper cell U1                      ( 1900, 1400,z390) reachable=True  expected=True  ok
+  Upper cell U8                      ( 4700, 1400,z390) reachable=True  expected=True  ok
+  Upper walkway                      ( 3000, 1040,z390) reachable=True  expected=True  ok
+  Lookout cabin                      ( 3050,  100,z390) reachable=True  expected=True  ok
+  Upper crossing                     ( 3850,  450,z390) reachable=True  expected=True  ok
+  Authorized landing                 ( 3800, -450,z390) reachable=True  expected=True  ok
+  Office at roster                   ( 3175, -980,z390) reachable=True  expected=True  ok
+  Guard gallery                      ( 2800, -450,z390) reachable=True  expected=True  ok
+  Staff stair vestibule              ( 1700, -150,z  0) reachable=True  expected=True  ok
+  Hall east end                      ( 5300,  450,z  0) reachable=True  expected=True  ok
+  Secured stairwell (behind gate)    ( 6000,  450,z  0) reachable=False expected=False ok
+  Work-area roof                     ( 4800, -450,z390) reachable=False expected=False ok
+  Void south of landing              ( 3700,-1100,z390) reachable=False expected=False ok
+  Void south of staff bay            ( 1500, -900,z  0) reachable=False expected=False ok
+  Void NE of cells                   ( 5400, 1400,z  0) reachable=False expected=False ok
+  Void NW of aisle                   (  400, 1300,z  0) reachable=False expected=False ok
+Unprotected walkable edges with drop > 60 cm: 0 cells
+== Sightlines ==
+From the intake start (eye z=170, camera ~200 cm behind at z=230):
+  lower cell door faces (z=130)      5/8 visible
+  lower tier colour band (z=300)     5/8 visible
+  upper cell door tops (z=620)       8/8 visible
+  upper cell door middles (z=540)    6/8 visible
+  upper tier colour band (z=695)     8/8 visible
+  intake -> lookout cabin west wall + sign     VISIBLE
+  intake -> lookout cabin front wall + sign    VISIBLE
+  intake -> lookout cabin front window         VISIBLE
+  intake -> gallery balustrade (x=2400)        VISIBLE
+  intake -> upper crossing side rail           VISIBLE
+  intake -> authorized landing rail            hidden
+  intake -> Floor 2 secured gate sign          VISIBLE
+  intake -> rail endpoint A                    VISIBLE
+  intake -> rail endpoint B                    VISIBLE
+  intake -> CCTV housing                       VISIBLE
+  intake -> hall -> prisoner stair foot        VISIBLE
+  intake -> hall -> staff stair door           VISIBLE
+  intake -> hall -> cafeteria arch interior    hidden
+From the lookout cabin (3 eye positions behind the console, z=555): hall floor visible at head height 64% (317/495 points)
+From the upper cell walkway (3 eyes): hall floor visible 46%; cabin or walkway: 84%
+  cabin sees lower cell door faces    7/8
+  cabin sees upper cell door faces    8/8
+  cabin sees intake entrance (60,450)           True
+  cabin sees Floor 2 gate approach (5400,450)   False
+  cabin sees cafeteria arch (2750,20)           False
+  cabin sees prisoner stair foot (900,1000)     False
+  cabin sees upper crossing mid (3850,450)      True
+  cabin sees staff stair door (1850,10)         True
+== Guard approach and cover ==
+Watcher eye positions: 14 (guard route ~every 100 cm, eye z=555; guard leaving the office east door x2; CCTV-01); gallery+landing walkable cells (40 cm): 669
+  watcher at (2116,-450): 261 cells hidden by walls/fittings alone, 381 with cover pieces (+120 from cover)
+  watcher at (2230,-450): 253 cells hidden by walls/fittings alone, 363 with cover pieces (+110 from cover)
+  watcher at (2344,-450): 258 cells hidden by walls/fittings alone, 353 with cover pieces (+95 from cover)
+  watcher at (2458,-450): 259 cells hidden by walls/fittings alone, 338 with cover pieces (+79 from cover)
+  watcher at (2572,-450): 250 cells hidden by walls/fittings alone, 313 with cover pieces (+63 from cover)
+  watcher at (2686,-450): 241 cells hidden by walls/fittings alone, 322 with cover pieces (+81 from cover)
+  watcher at (2800,-450): 227 cells hidden by walls/fittings alone, 351 with cover pieces (+124 from cover)
+  watcher at (2800,-450): 227 cells hidden by walls/fittings alone, 351 with cover pieces (+124 from cover)
+  watcher at (2800,-545): 264 cells hidden by walls/fittings alone, 392 with cover pieces (+128 from cover)
+  watcher at (2800,-545): 264 cells hidden by walls/fittings alone, 392 with cover pieces (+128 from cover)
+  watcher at (2800,-700): 390 cells hidden by walls/fittings alone, 469 with cover pieces (+79 from cover)
+  watcher at (3470,-750): 165 cells hidden by walls/fittings alone, 371 with cover pieces (+206 from cover)
+  watcher at (3420,-750): 216 cells hidden by walls/fittings alone, 433 with cover pieces (+217 from cover)
+  watcher at (3850,1145): 171 cells hidden by walls/fittings alone, 211 with cover pieces (+40 from cover)
+  cells hidden from at least one guard position only because of cover: 304
+    Cover_Cabinet_A    best single guard position: +13 hiding cells within 200 cm
+    Cover_Pillar_B     best single guard position: +67 hiding cells within 200 cm
+    Cover_Wall_C       best single guard position: +105 hiding cells within 200 cm
+    Cover_Locker_D     best single guard position: +32 hiding cells within 200 cm
+    Cover_Crates_E     best single guard position: +3 hiding cells within 200 cm
+    Cover_Partition_F  best single guard position: +6 hiding cells within 200 cm
+  roster (3120,-1088) visible from the office north door (2800,-560): True; from the landing door line (3520,-750): True
+  office north door visible from the stair top (2150,-450): True; from the hall floor below (2800,450): False
+  office east door visible from the bridge mid (3850,450): True; from the landing (3850,-200): True
+== CCTV-01 (fixed, placeholder) ==
+Frustum: pos (3850,1145,620) yaw -90 pitch -10, 70 x 40 deg, range 2200
+  upper walkway        covered   3% (58/1802 walkable cells at head height)
+  upper crossing       covered 100% (450/450 walkable cells at head height)
+  authorized landing   covered  98% (949/963 walkable cells at head height)
+  guard gallery        covered  21% (336/1538 walkable cells at head height)
+  lookout cabin        covered  13% (23/166 walkable cells at head height)
+  hall floor           covered   3% (318/9294 walkable cells at head height)
+  guard office         covered  11% (109/923 walkable cells at head height)
+  office east door threshold   in frustum=True  line of sight=True
+  office north door threshold  in frustum=True  line of sight=False
+  landing centre               in frustum=True  line of sight=True
+== Camera clearance along the test routes (approximation, arm 200 cm, heights floor+160 / +230) ==
+Route samples: 740; camera arm shortened directly behind the player at 14 (2%); an orbit extreme (+/-45/90 deg) would be < 120 cm at 82
+    tightest around (800..1000, -1200..-1000, z~0): 120 cm of arm free
+    tightest around (1200..1400, -200..0, z~0): 130 cm of arm free
+    tightest around (3000..3200, -400..-200, z~300): 130 cm of arm free
+    tightest around (5000..5200, -200..0, z~0): 140 cm of arm free
+    tightest around (2200..2400, -600..-400, z~300): 160 cm of arm free
+    tightest around (1000..1200, -400..-200, z~0): 170 cm of arm free
+    tightest around (5200..5400, -200..0, z~0): 180 cm of arm free
+    tightest around (0..200, -1200..-1000, z~0): 180 cm of arm free
+    tightest around (800..1000, 1000..1200, z~0): 180 cm of arm free
+    tightest around (1400..1600, -600..-400, z~0): 180 cm of arm free
+Errors: 0  Warnings: 0
+Analytic validation only (no engine collision, no PIE). Elapsed 1.6 s.

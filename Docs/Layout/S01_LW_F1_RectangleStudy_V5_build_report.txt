@@ -1,0 +1,263 @@
+Created new level /Game/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V5
+Spawned 605 axis-aligned boxes
+Spawned 67 text signs
+Spawned 13 metadata markers (hidden in game): ArrivalDoor=1, Crossover=1, FutureAccess=1, IntakeExit=1, Lookout=1, PlayerSpawn=1, Processing=1, RestrictedDoor=1, StaffAccess=3, StairFoot=2
+Spawned 111 point lights
+World Settings override: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
+== Geometry summary ==
+Boxes: 605 total (marking=43, prop=113, rail=159, secured=2, sign=67, slab=18, stair=44, wall=159); collision boxes 495; text signs 67; lights 111; markers 13
+Footprint: x 0..6100, y -2300..2800 = 61.0 m x 51.0 m, one continuous rectangle (same footprint as V3)
+== Dimensions ==
+Doors/openings: 39, smallest width 160 cm (capsule diameter 68); narrow: none; low: none
+Service hallway: 360 cm centre-to-centre (330 clear); legs: west x0..500 (500 wide, N-S), A y-1360..-1000 (x 0..3300, behind the kitchen), dog-leg V x 2940..3300 (y -1900..-1360), east run B y -1900..-1540 (x 3300..5600), east leg E x 5240..5600 (N-S to the stair lobby)
+Kitchen 2000 x 1000 (hatch 1600 wide), pantry 800 x 1000, laundry 1800 x 940, linen store 640 x 940, recessed doors: kitchen back door and laundry door (240 wide x 120 deep niches); guard suite = south arm 3200 x 500 + east span 500 x 1800 + north arm 3200 x 500 (a U open to the hall), intake 1100 x 500 under the north arm
+== Walk simulation (capsule r=34 hh=90, max step 45) ==
+  route R01_Hall_End_to_End            PASS (end floor z=0)
+  route R02_Under_Crossover_NS         PASS (end floor z=0)
+  route R03_Lower_North_Cells          PASS (end floor z=0)
+  route R04_Seating_and_Counter        PASS (end floor z=0)
+  route R05_Service_Loop               PASS (end floor z=0)
+  route R06_Service_Loop_Reverse       PASS (end floor z=0)
+  route R07_Kitchen_and_Pantry         PASS (end floor z=0)
+  route R08_Laundry                    PASS (end floor z=0)
+  route R09_Linen_Store                PASS (end floor z=0)
+  route R10_Cover_Dash_East_Run        PASS (end floor z=0)
+  route R11_Floor2_Door_Approach       PASS (end floor z=0)
+  route R12_Intake_Exit_to_Hall        PASS (end floor z=0)
+  route R13_Intake_Arrival_to_Exit     PASS (end floor z=0)
+  route R15_North_Stair_Foot_to_Hall   PASS (end floor z=0)
+  route R16_Intake_to_North_Stair_to_Walkway PASS (end floor z=390)
+  route R17_North_Stair_Past_Arm_to_Cells PASS (end floor z=390)
+  route R14_Stair_Lobby_to_Hall        PASS (end floor z=0)
+  route R20_South_Stair_Up             PASS (end floor z=390)
+  route R21_Upper_Walkway_Ring         PASS (end floor z=390)
+  route R22_Crossover_S_to_N           PASS (end floor z=390)
+  route R23_North_Stair_Down           PASS (end floor z=0)
+  route R24_Upper_Cells_W_S_N          PASS (end floor z=390)
+  route R26_Stair_Past_Office_to_Cells PASS (end floor z=390)
+  route R27_Walkway_to_Crossover_from_Stair PASS (end floor z=390)
+  route R25_Office_and_Lookout         PASS (end floor z=390)
+  blocked B01_Floor2_secured_door        PASS (blocked) (blocked by SECURED_Door_Floor2 at (5562,1750) z=0)
+  blocked B11_North_lobby_east_wall      PASS (blocked) (blocked by W_Hall_E_1850 at (5555,2150) z=0)
+  blocked B12_Intake_arrival_door_sealed PASS (blocked) (blocked by SECURED_Door_Arrival at (6062,2550) z=0)
+  blocked B13_Intake_west_wall           PASS (blocked) (blocked by W_Intake_W_2300 at (5048,2550) z=0)
+  blocked B14_North_arm_closed_to_walkway PASS (blocked) (blocked by W_N_Front_3980 at (4000,2255) z=390)
+  blocked B15_Old_east_intake_closed     PASS (blocked) (blocked by W_Hall_E_650 at (5554,1200) z=0)
+  blocked B02_South_walkway_edge         PASS (blocked) (blocked by Bal_South_Bar_0 at (2000,755) z=415)
+  blocked B03_North_walkway_edge         PASS (blocked) (blocked by Bal_North_Bar_0 at (2000,2037) z=415)
+  blocked B04_Crossover_edge             PASS (blocked) (blocked by Bal_Cross_E_Bar_0 at (3305,1200) z=415)
+  blocked B05_West_walkway_edge          PASS (blocked) (blocked by Bal_West_Bar_0 at (755,1400) z=415)
+  blocked B06_Walkway_into_cell_wall     PASS (blocked) (blocked by W_S_Front_1980 at (2100,544) z=390)
+  blocked B07_Lookout_window             PASS (blocked) (blocked by Lookout_Console at (5728,1400) z=390)
+  blocked B08_Seating_to_kitchen_hatch   PASS (blocked) (blocked by Serving_Counter at (1500,100) z=0)
+  blocked B09_Pantry_not_on_hallway      PASS (blocked) (blocked by W_A_N_2120 at (2900,-956) z=0)
+  blocked B10_Hallway_A_straight_to_B    PASS (blocked) (blocked by W_Seat_E_-1540 at (3252,-1180) z=0)
+Player start (5350,2620) on the lower tier: floor z=0 blocked=None -> VALID
+== Reachability and edges ==
+Reachable walking cells (20 cm grid): 56205 (~2248 m2)
+  52 reachability samples checked, 0 mismatches (reachable: 40, must-be-closed: 12)
+Unprotected walkable edges with drop > 60 cm: 0 cells
+== Main hall: legibility and the view up to the crossover ==
+Hall void x 800..5600, y 800..2000 (4800 x 1200, no partition): 89% of its 20 cm cells are walkable (the rest are seating tables/benches in the south part)
+From the hall west viewpoint (1100,1400), facing east (camera ~200 cm behind; this was the V3 start):
+  start -> crossover west rail face                     VISIBLE
+  start -> crossover deck underside                     VISIBLE
+  start -> far hall: Sector Floor 2 secured door sign   VISIBLE
+  start -> lookout window opening                       VISIBLE
+  start -> south stair, void-side rail face             VISIBLE
+  start -> north stair, void-side rail face             VISIBLE
+  start -> office doorway (z=520)                       VISIBLE
+  start -> kitchen serving counter sign                 VISIBLE
+  east service door sign (lobby wall) from the hall east end (5000,1400): True; west service door sign from the west aisle (700,1700): True
+  upper north tier band 6/6, upper south tier band 6/6 (the tiers still read from the hall)
+From the guard lookout (5 eyes, x=5740, z=555):
+  seating under the south walkway 40% (1188/2964), seating row out in the hall 99% (1400/1409), both 59% standing / 67% seated
+From the crossover looking down (3 eyes, z=555):
+  seating under the south walkway 55% (1652/2964), seating row out in the hall 77% (1098/1409), both 62% standing / 59% seated
+  hall floor visible at head height: lookout 85%, crossover 70%
+  straight line seating -> hatch -> kitchen -> back door (x=2000) reaches the hallway's south wall but never the laundry: True
+  kitchen hatch lets a customer at the counter (1500,125) see into the kitchen: True; the kitchen line (1500,-200) sees the seating beyond the counter: True
+== Service hallway: no straight see-through ==
+  west service door <-> east service door in line of sight: False (must be False)
+  west mouth (250,-1180) -> east leg far end (5420,0): False; -> east run (4500,-1720): False; -> kitchen back-door niche: False
+  east mouth (5420,-1720) -> west leg (250,-1180): False; -> A midpoint (1500,-1180): False; -> V corner (3120,-1700): True
+  longest uninterrupted sightline inside the hallway legs A/V/B/E at eye height: 3220 cm (from (3250,-1180) heading 180 deg); leg lengths A 3300, B 2300, E 2040; the dog-leg stops sight between A and B
+== Service area: hiding places and breaking sight (watcher = a guard walking the hallway, eye z=165; player standing, torso z+90 and head z+170) ==
+  watcher eye positions: 40 (along the hallway legs + 4 just inside the kitchen, pantry door, laundry and linen store doors)
+  Kitchen                      walkable 60 cm cells 402: never seen from the hallway   2 (0%); without the cover pieces   1; cover adds +1
+  Pantry                       walkable 60 cm cells 186: never seen from the hallway 118 (63%); without the cover pieces  35; cover adds +83
+  Laundry                      walkable 60 cm cells 321: never seen from the hallway  60 (18%); without the cover pieces  35; cover adds +25
+  Linen store                  walkable 60 cm cells 131: never seen from the hallway  91 (69%); without the cover pieces   0; cover adds +91
+  Service hallway (A,V,B,E)    walkable 60 cm cells 698: never seen from the hallway   0 (0%); without the cover pieces   0; cover adds +0
+  cover pieces: 13 tall solid pieces (linen/laundry carts 190, shelving 200, lockers 200, walk-in cooler 200)
+    Cover_Cart_H1            best single watcher position: +3 hiding cells within 150 cm
+    Cover_Cart_H2            best single watcher position: +3 hiding cells within 150 cm
+    Cover_Cart_L1            best single watcher position: +19 hiding cells within 150 cm
+    Cover_Cart_L2            best single watcher position: +8 hiding cells within 150 cm
+    Cover_Cart_L3            best single watcher position: +0 hiding cells within 150 cm
+    Cover_Kitchen_Cooler     best single watcher position: +1 hiding cells within 150 cm
+    Cover_Locker_B           best single watcher position: +2 hiding cells within 150 cm
+    Cover_Shelf_L1           best single watcher position: +27 hiding cells within 150 cm
+    Cover_Shelf_L2           best single watcher position: +58 hiding cells within 150 cm
+    Cover_Shelf_L3           best single watcher position: +61 hiding cells within 150 cm
+    Cover_Shelf_P1a          best single watcher position: +7 hiding cells within 150 cm
+    Cover_Shelf_P1b          best single watcher position: +9 hiding cells within 150 cm
+    Cover_Shelf_P2           best single watcher position: +63 hiding cells within 150 cm
+  12 of 13 cover pieces create hiding cells from at least one hallway position
+  standing in the kitchen back-door niche  is seen from 4 of 15 positions along hallway A (a guard has to be roughly in front of the niche)
+  standing in the laundry door niche       is seen from 4 of 15 positions along hallway A (a guard has to be roughly in front of the niche)
+== Turning clearance along the service loop and rooms (free radius at floor+10..+170) ==
+  R08_Laundry                tightest free radius 70 cm at (1190,-1936)
+  R09_Linen_Store            tightest free radius 80 cm at (2661,-1480)
+  R05_Service_Loop           tightest free radius 85 cm at (1757,-1180)
+  R06_Service_Loop_Reverse   tightest free radius 85 cm at (4017,-1720)
+  R07_Kitchen_and_Pantry     tightest free radius 90 cm at (2800,-345)
+  R10_Cover_Dash_East_Run    tightest free radius 95 cm at (3832,-1650)
+    hallway corner W/A             free radius 165 cm
+    hallway corner A/V             free radius 165 cm
+    hallway corner V/B             free radius 165 cm
+    hallway corner B/E             free radius 165 cm
+    kitchen niche (inside)         free radius 105 cm
+    laundry niche (inside)         free radius 105 cm
+    pantry aisle                   free radius 170 cm
+    linen store serpentine gap     free radius 90 cm
+    laundry lane to the door       free radius 119 cm
+== Sector Floor 2 route and the stairs ==
+  secured door: blocks the route (blocked by SECURED_Door_Floor2 at (5562,1750) z=0); the player can approach it (reachable at (5400,1750): True); sign visible from the hall west viewpoint: True
+  the only blocked route to another floor is that door; both prisoner stairs stay open (routes R20, R21, R23 pass: south stair up, walkway ring, north stair down)
+== Guard suite: one connected U (verified from above) ==
+  south arm (office)   x 2900..6100  y    0.. 500  (3200 x 500)
+  east span (lookout)  x 5600..6100  y  500..2300  (500 x 1800)
+  north arm            x 2900..6100  y 2300..2800  (3200 x 500)
+  U geometry: arms the same length and depth, flush east ends, the span joins the south arm's north edge (y=500) to the north arm's south edge (y=2300): YES
+  top-down plan of the upper tier, x 2800..6100 (100 cm per character), north at the top.  S = guard suite deck, w = prisoner walkway, X = crossover, c = cells, . = open to the hall below
+          x=2800                                        x=6000
+  y=2750  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y=2650  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y=2550  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y=2450  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y=2350  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y=2250  wwwwwwwwwwwwwww             SSSSS
+  y=2150  wwwwwwwwwwwwwww             SSSSS
+  y=2050  wwwwwwwwwwwwwww             SSSSS
+  y=1950  ..XXX.......................SSSSS
+  y=1850  ..XXX.......................SSSSS
+  y=1750  ..XXX.......................SSSSS
+  y=1650  ..XXX.......................SSSSS
+  y=1550  ..XXX.......................SSSSS
+  y=1450  ..XXX.......................SSSSS
+  y=1350  ..XXX.......................SSSSS
+  y=1250  ..XXX.......................SSSSS
+  y=1150  ..XXX.......................SSSSS
+  y=1050  ..XXX.......................SSSSS
+  y= 950  ..XXX.......................SSSSS
+  y= 850  ..XXX.......................SSSSS
+  y= 750  wwwwwwwwwwwwwww             SSSSS
+  y= 650  wwwwwwwwwwwwwww             SSSSS
+  y= 550  wwwwwwwwwwwwwww             SSSSS
+  y= 450  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y= 350  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y= 250  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y= 150  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  y=  50  cSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+  suite deck cells: 410 (410 m2); suite cells in the open side between the arms (x 2900..5600, y 550..2250): 0 (must be 0, the open side faces the hall)
+  north arm directly above the intake: intake footprint x 5000..6100, y 2300..2800 lies inside the north arm footprint: True
+  one walk (R25) covers the whole suite: samples in the south arm 770, the lookout span 458, the north arm 717 (west end of the south arm -> lookout -> west end of the north arm and back)
+  internal links: open 400 cm passage south arm <-> lookout (y=500, x=5850); open 400 cm passage lookout <-> north arm (y=2300, x=5850); no doors between the sections
+  openings from the prisoner walkways into the suite (z>=390, x 2900..6100): Door_Office -> the restricted boundary is the office doorway at x=4000 only; the north arm has windows but no walkway door
+  R26_Stair_Past_Office_to_Cells         in front of the south walkway / south arm : 182 samples at y 650.0..650.0 -> continuous, never enters the suite
+  R17_North_Stair_Past_Arm_to_Cells      in front of the north walkway / north arm : 181 samples at y 2150.0..2150.0 -> continuous, never enters the suite
+  free radius on the south walkway in front of the office doorway (4000,650): 138 cm; on the north walkway in front of the north arm (4000,2150): 135 cm
+  windows: the office (south) and the north arm each have a 600 cm window onto their walkway; guard at the north arm window (3300,2500) sees the north walkway (3300,2150): True
+  guards: from the lookout (5850,1400) the north arm passage looks north (5850,2400): True; the south arm passage looks south (5850,400): True
+== New Arrival intake: relocated to the foot of the NORTH stair (old east-wall opening closed) ==
+  intake x 5000..6100, y 2300..2800 (1100 x 500), north of the north stair foot lobby (x 4950..5600, y 2000..2300): sealed arrival door in the east wall (y 2550), small processing counter (300 x 70 x 105), waiting bench, 400 cm exit opening onto the lobby (y=2300, x 5150..5550)
+  player start (5350,2620) yaw -90 (south): the exit opening is straight ahead; floor z=0
+  exit: free radius at the opening 200 cm; along the exit lane (y 2200..2600) 200 cm; free radius at the player start 165 cm
+  camera arm behind the start (north wall): 160 cm of the 200 cm arm free
+  the north stair foot (4950,2150) is 427 cm from the intake exit centre (5350,2300) and 870 cm along the path from the start; the stair is immediately west of the lobby you step into
+  stair landing (5050,2150): free radius 100 cm; the landing opens to the hall along y=2000 over 600 cm (x 4960..5585); the intake exit lands on the landing's east half, the stair foot is on its west end
+  a prisoner leaving the north stair foot (R15) never enters the intake (0 samples inside it) and stays 202 cm from the intake-exit walk at the closest point
+  old east-wall intake closed: wall at (5560,1200): W_Hall_E_650; (5850,1200) reachable: False (must be False); B15 blocks the old exit line
+  from the intake start (looking south out of the exit):
+    intake start -> lobby floor beyond the exit (5350,2100)              VISIBLE
+    intake start -> hall beyond the lobby (5350,1700)                    VISIBLE
+    intake start -> north stair foot step (4960,2150)                    hidden
+    intake start -> north stair side rail (4700,2262)                    hidden
+    intake start -> Sector Floor 2 secured-door sign (5585,1750)         VISIBLE
+    intake start -> crossover west rail face                             hidden
+  from the exit opening (5350,2290), one step out:
+    exit opening -> north stair foot step (4960,2150)              VISIBLE
+    exit opening -> north stair side rail (4700,2262)              VISIBLE
+    exit opening -> north stair rail, hall side (4600,2015)        hidden
+    exit opening -> hall beyond (5350,1700)                        VISIBLE
+    exit opening -> guard lookout window (5585,1400)               VISIBLE
+  from the hall (5300,1700) the intake exit sign is visible: True; the north stair foot step: True; the guard lookout window: True
+  walk out of the intake, along the stair foot and climb the north stair to the upper walkway (R16): PASS, ends on z=390 at (2700,2150)
+== Camera clearance along the test routes (approximation, arm 200 cm, heights floor+160 / +230) ==
+Route samples: 2406; arm shortened directly behind the player at 42 (2%); an orbit extreme (+/-45/90 deg) would be < 120 cm at 136
+    tightest around (6000..6200, 2400..2600, z~0): 60 cm of arm free
+    tightest around (2800..3000, -800..-600, z~0): 80 cm of arm free
+    tightest around (2600..2800, -1600..-1400, z~0): 80 cm of arm free
+    tightest around (2400..2600, -1800..-1600, z~0): 90 cm of arm free
+    tightest around (4000..4200, 400..600, z~300): 90 cm of arm free
+    tightest around (2400..2600, -2000..-1800, z~0): 100 cm of arm free
+    tightest around (2200..2400, -800..-600, z~0): 110 cm of arm free
+    tightest around (2800..3000, -1600..-1400, z~0): 110 cm of arm free
+    tightest around (5800..6000, 2400..2600, z~0): 110 cm of arm free
+    tightest around (2800..3000, -1800..-1600, z~0): 120 cm of arm free
+Errors: 0  Warnings: 0
+== Engine-side collision spot checks (line traces, Visibility channel) ==
+  lower hall floor at the hall west viewpoint                            hit z=-0.0 expected 0.0 -> ok
+  intake floor at the player start (north of the north stair foot)       hit z=-0.0 expected 0.0 -> ok
+  lower hall floor under the crossover                                   hit z=-0.0 expected 0.0 -> ok
+  crossover deck                                                         hit z=390.0 expected 390.0 -> ok
+  south walkway deck in front of the office                              hit z=390.0 expected 390.0 -> ok
+  north walkway deck in front of the north arm                           hit z=390.0 expected 390.0 -> ok
+  west walkway deck                                                      hit z=390.0 expected 390.0 -> ok
+  south arm floor (office, west end)                                     hit z=390.0 expected 390.0 -> ok
+  guard lookout floor (east span)                                        hit z=390.0 expected 390.0 -> ok
+  north arm floor, west end                                              hit z=390.0 expected 390.0 -> ok
+  north arm floor directly above the intake                              hit z=390.0 expected 390.0 -> ok
+  south stair step at x=4600 (13th step)                                 hit z=230.5 expected 230.5 -> ok
+  north stair step at x=4600 (13th step)                                 hit z=230.5 expected 230.5 -> ok
+  service hallway floor behind the kitchen                               hit z=-0.0 expected 0.0 -> ok
+  laundry floor                                                          hit z=-0.0 expected 0.0 -> ok
+  Sector Floor 2 secured door panel (blocks at x~5592)                   hit x=5592.0 expected 5592.0 -> ok
+  old east-wall intake position is a solid wall again (blocks at x~5585) hit x=5585.0 expected 5585.0 -> ok
+  intake exit is OPEN: a diagonal ray from inside leaves through it and hits the hall east wall (x~5585) hit x=5585.0 expected 5585.0 -> ok
+  sealed arrival door stops a ray across the intake (x~6092)             hit x=6092.0 expected 6092.0 -> ok
+  intake processing counter blocks (x~5550)                              hit x=5550.0 expected 5550.0 -> ok
+  intake west wall separates the intake from the closed mass (x~5015)    hit x=5015.0 expected 5015.0 -> ok
+  north arm west wall (blocks at x~2915)                                 hit x=2915.0 expected 2915.0 -> ok
+  open passages: a ray north from the office through the lookout and the north arm hits the outer wall (y~2785) hit y=2785.0 expected 2785.0 -> ok
+  lookout window is OPEN (ray z=520 reaches the exterior wall at x~6085) hit x=6085.0 expected 6085.0 -> ok
+  south walkway balustrade blocks (top bar at y~788)                     hit y=788.0 expected 788.0 -> ok
+  kitchen hatch is OPEN: seating -> kitchen -> back door -> hallway south wall (y~-1345) hit y=-1345.0 expected -1345.0 -> ok
+  service hallway: ray along A stops at the dog-leg wall (x~3285)        hit x=3285.0 expected 3285.0 -> ok
+Level saved: True (/Game/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V5)
+== Actor counts (generated) ==
+  PlayerStart            1
+  PointLight             111
+  StaticMeshActor        605
+  TargetPoint            13
+  TextRenderActor        67
+  TOTAL                  797
+GameMode: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
+New assets created: level + /Game/CyberWarden/Materials/MI_RS5_Lit_CellBlock, /Game/CyberWarden/Materials/MI_RS5_Lit_UpperCells, /Game/CyberWarden/Materials/MI_RS5_Lit_Hall, /Game/CyberWarden/Materials/MI_RS5_Lit_Seating, /Game/CyberWarden/Materials/MI_RS5_Lit_Stairs, /Game/CyberWarden/Materials/MI_RS5_Lit_Intake, /Game/CyberWarden/Materials/MI_RS5_Lit_Kitchen, /Game/CyberWarden/Materials/MI_RS5_Lit_Pantry, /Game/CyberWarden/Materials/MI_RS5_Lit_Service, /Game/CyberWarden/Materials/MI_RS5_Lit_Laundry, /Game/CyberWarden/Materials/MI_RS5_Lit_Linen, /Game/CyberWarden/Materials/MI_RS5_Lit_Restricted, /Game/CyberWarden/Materials/MI_RS5_Lit_Walkway, /Game/CyberWarden/Materials/MI_RS5_Lit_Crossing, /Game/CyberWarden/Materials/MI_RS5_Lit_Secured, /Game/CyberWarden/Materials/MI_RS5_Lit_Cover, /Game/CyberWarden/Materials/MI_RS5_Lit_Lookout, /Game/CyberWarden/Materials/MI_RS5_Unlit_CellBlock, /Game/CyberWarden/Materials/MI_RS5_Unlit_UpperCells, /Game/CyberWarden/Materials/MI_RS5_Unlit_Restricted, /Game/CyberWarden/Materials/MI_RS5_Unlit_Warning, /Game/CyberWarden/Materials/MI_RS5_Unlit_Secured, /Game/CyberWarden/Materials/MI_RS5_Unlit_Intake, /Game/CyberWarden/Materials/MI_RS5_Unlit_Stairs, /Game/CyberWarden/Materials/MI_RS5_Unlit_Hall, /Game/CyberWarden/Materials/MI_RS5_Unlit_Seating, /Game/CyberWarden/Materials/MI_RS5_Unlit_Crossing, /Game/CyberWarden/Materials/MI_RS5_Unlit_Service, /Game/CyberWarden/Materials/MI_RS5_Unlit_Lookout, /Game/CyberWarden/Materials/MI_RS5_Unlit_Kitchen, /Game/CyberWarden/Materials/MI_RS5_Unlit_Pantry, /Game/CyberWarden/Materials/MI_RS5_Unlit_Laundry, /Game/CyberWarden/Materials/MI_RS5_Unlit_Linen
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_Greybox.umap       UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V2.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V3.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V4.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Docs/Layout/S01_LW_F1.json                                       UNCHANGED
+Preservation: CyberWarden_C2Build/Content/Python/cw_layout.py                                      UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy.json                                UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy_V2.json                             UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy.py                                           UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy_V4.json                             UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy_v2.py                                        UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy_V4.json                             UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy_v3.py                                        UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy_v4.py                                        UNCHANGED
+Errors: 0  Warnings: 0

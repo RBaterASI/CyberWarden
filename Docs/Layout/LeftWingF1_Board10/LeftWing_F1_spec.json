@@ -1,0 +1,4248 @@
+{
+ "name": "Cyber Warden S01 Left Wing Floor 1 \u2014 board 10 (patched: Ricky's rulings, see CHANGES.md)",
+ "units": "metres",
+ "axes": "X east 0-61, Y south 0-51, Z up. UE: X=x*100, Y=y*100, Z=z*100 (cm). Origin = interior NW corner.",
+ "wall_thickness": 0.3,
+ "footprint": [
+  61,
+  51
+ ],
+ "levels": {
+  "lower": {
+   "floor_z": 0.0,
+   "room_ceiling": 3.6,
+   "corridor_ceiling": 2.7
+  },
+  "upper": {
+   "floor_z": 3.9,
+   "ceiling": 7.5
+  },
+  "slab": 0.3,
+  "roof_z": 7.5
+ },
+ "door_rules": "Every door is an opening cut through EVERY wall segment lying on its line (wall 'x' = wall at constant X, span is a Y range; wall 'y' = wall at constant Y, span is an X range). Openings are floor level, full width, 'height' tall. 'sealed' doors get a solid maroon block filling the opening. In greybox ALL other doors are left open so the whole level can be walked.",
+ "rooms": [
+  {
+   "id": "L01",
+   "name": "N chase",
+   "tier": "lower",
+   "x": 0,
+   "y": 0,
+   "w": 43,
+   "h": 1.8,
+   "kind": "chase",
+   "walls": false,
+   "ceiling": 2.7,
+   "access": "staff"
+  },
+  {
+   "id": "L02",
+   "name": "W chase",
+   "tier": "lower",
+   "x": 0,
+   "y": 1.8,
+   "w": 1.8,
+   "h": 47.4,
+   "kind": "chase",
+   "walls": false,
+   "ceiling": 2.7,
+   "access": "staff"
+  },
+  {
+   "id": "L03",
+   "name": "S chase",
+   "tier": "lower",
+   "x": 0,
+   "y": 49.2,
+   "w": 54,
+   "h": 1.8,
+   "kind": "chase",
+   "walls": false,
+   "ceiling": 2.7,
+   "access": "staff"
+  },
+  {
+   "id": "L04",
+   "name": "Utility",
+   "tier": "lower",
+   "x": 1.8,
+   "y": 1.8,
+   "w": 6.2,
+   "h": 6.2,
+   "kind": "dark",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "C01",
+   "name": "C01",
+   "tier": "lower",
+   "x": 8.0,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "C02",
+   "name": "C02",
+   "tier": "lower",
+   "x": 11.8889,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "C03",
+   "name": "C03",
+   "tier": "lower",
+   "x": 15.7778,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "C04",
+   "name": "C04",
+   "tier": "lower",
+   "x": 19.6667,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "C05",
+   "name": "C05",
+   "tier": "lower",
+   "x": 23.5556,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "C06",
+   "name": "C06",
+   "tier": "lower",
+   "x": 27.4444,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "C07",
+   "name": "C07",
+   "tier": "lower",
+   "x": 31.3333,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "C08",
+   "name": "C08",
+   "tier": "lower",
+   "x": 35.2222,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "C09",
+   "name": "C09",
+   "tier": "lower",
+   "x": 39.1111,
+   "y": 1.8,
+   "w": 3.8889,
+   "h": 6.2,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "L06",
+   "name": "Staff store",
+   "tier": "lower",
+   "x": 43,
+   "y": 0,
+   "w": 11,
+   "h": 4.6,
+   "kind": "staff",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "L07",
+   "name": "NE landing",
+   "tier": "lower",
+   "x": 43,
+   "y": 4.6,
+   "w": 11,
+   "h": 3.4,
+   "kind": "hall",
+   "walls": false,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "L08",
+   "name": "Hall",
+   "tier": "lower",
+   "x": 8,
+   "y": 8,
+   "w": 46,
+   "h": 12,
+   "kind": "hall",
+   "walls": false,
+   "ceiling": null,
+   "access": "prisoner"
+  },
+  {
+   "id": "L09",
+   "name": "Showers",
+   "tier": "lower",
+   "x": 1.8,
+   "y": 8,
+   "w": 6.2,
+   "h": 12,
+   "kind": "dest",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "L10",
+   "name": "Intake",
+   "tier": "lower",
+   "x": 54,
+   "y": 0,
+   "w": 7,
+   "h": 12.5,
+   "kind": "intake",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "L11",
+   "name": "Vestibule",
+   "tier": "lower",
+   "x": 54,
+   "y": 12.5,
+   "w": 7,
+   "h": 7.5,
+   "kind": "dark",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "L12",
+   "name": "Guard post",
+   "tier": "lower",
+   "x": 54,
+   "y": 20,
+   "w": 7,
+   "h": 8,
+   "kind": "suite",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "L13",
+   "name": "Staff room",
+   "tier": "lower",
+   "x": 54,
+   "y": 28,
+   "w": 7,
+   "h": 16,
+   "kind": "staff",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "L14",
+   "name": "SE stair",
+   "tier": "lower",
+   "x": 54,
+   "y": 44,
+   "w": 7,
+   "h": 7,
+   "kind": "staff",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "L15",
+   "name": "Water heater",
+   "tier": "lower",
+   "x": 1.8,
+   "y": 20,
+   "w": 2.8,
+   "h": 8,
+   "kind": "staff",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "L16",
+   "name": "Lockers",
+   "tier": "lower",
+   "x": 4.6,
+   "y": 20,
+   "w": 4,
+   "h": 8,
+   "kind": "dest",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "L17",
+   "name": "Alley",
+   "tier": "lower",
+   "x": 8.6,
+   "y": 20,
+   "w": 1.8,
+   "h": 8,
+   "kind": "work",
+   "walls": false,
+   "ceiling": 2.7,
+   "access": "shift"
+  },
+  {
+   "id": "L18",
+   "name": "Commissary",
+   "tier": "lower",
+   "x": 10.4,
+   "y": 20,
+   "w": 5.6,
+   "h": 8,
+   "kind": "job",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "L19",
+   "name": "Seating",
+   "tier": "lower",
+   "x": 16,
+   "y": 20,
+   "w": 38,
+   "h": 8,
+   "kind": "seat",
+   "walls": false,
+   "ceiling": 3.6,
+   "access": "prisoner"
+  },
+  {
+   "id": "L20",
+   "name": "W leg",
+   "tier": "lower",
+   "x": 8.6,
+   "y": 28,
+   "w": 1.8,
+   "h": 9.8,
+   "kind": "work",
+   "walls": false,
+   "ceiling": 2.7,
+   "access": "shift"
+  },
+  {
+   "id": "L21",
+   "name": "E leg",
+   "tier": "lower",
+   "x": 51.6,
+   "y": 28,
+   "w": 1.8,
+   "h": 9.8,
+   "kind": "work",
+   "walls": false,
+   "ceiling": 2.7,
+   "access": "shift"
+  },
+  {
+   "id": "L22",
+   "name": "Work corridor",
+   "tier": "lower",
+   "x": 8.6,
+   "y": 36,
+   "w": 44.8,
+   "h": 1.8,
+   "kind": "work",
+   "walls": false,
+   "ceiling": 2.7,
+   "access": "shift"
+  },
+  {
+   "id": "L23",
+   "name": "Walk-in",
+   "tier": "lower",
+   "x": 10.4,
+   "y": 28,
+   "w": 5.6,
+   "h": 8,
+   "kind": "cold",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  },
+  {
+   "id": "L24",
+   "name": "Kitchen",
+   "tier": "lower",
+   "x": 16,
+   "y": 28,
+   "w": 20,
+   "h": 8,
+   "kind": "kitchen",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  },
+  {
+   "id": "L25",
+   "name": "Dish pit",
+   "tier": "lower",
+   "x": 36,
+   "y": 28,
+   "w": 8,
+   "h": 8,
+   "kind": "service",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  },
+  {
+   "id": "L26",
+   "name": "Waste",
+   "tier": "lower",
+   "x": 44,
+   "y": 28,
+   "w": 7.6,
+   "h": 8,
+   "kind": "dark",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  },
+  {
+   "id": "L27",
+   "name": "Dry store",
+   "tier": "lower",
+   "x": 8.6,
+   "y": 37.8,
+   "w": 9.4,
+   "h": 11.4,
+   "kind": "service",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  },
+  {
+   "id": "L28",
+   "name": "Laundry",
+   "tier": "lower",
+   "x": 18,
+   "y": 37.8,
+   "w": 16,
+   "h": 11.4,
+   "kind": "job",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  },
+  {
+   "id": "L29",
+   "name": "Linen",
+   "tier": "lower",
+   "x": 34,
+   "y": 37.8,
+   "w": 8,
+   "h": 11.4,
+   "kind": "service",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  },
+  {
+   "id": "L30",
+   "name": "Maintenance",
+   "tier": "lower",
+   "x": 42,
+   "y": 37.8,
+   "w": 6,
+   "h": 11.4,
+   "kind": "job2",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  },
+  {
+   "id": "L31",
+   "name": "Loading bay",
+   "tier": "lower",
+   "x": 48,
+   "y": 37.8,
+   "w": 6,
+   "h": 11.4,
+   "kind": "staff",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "L32",
+   "name": "Plant",
+   "tier": "lower",
+   "x": 1.8,
+   "y": 28,
+   "w": 6.8,
+   "h": 21.2,
+   "kind": "dark",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff"
+  },
+  {
+   "id": "U01",
+   "name": "N chase U",
+   "tier": "upper",
+   "x": 0,
+   "y": 0,
+   "w": 40,
+   "h": 1.8,
+   "kind": "chase",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "U02",
+   "name": "W chase U",
+   "tier": "upper",
+   "x": 0,
+   "y": 1.8,
+   "w": 1.8,
+   "h": 47.4,
+   "kind": "chase",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "U03",
+   "name": "S chase U",
+   "tier": "upper",
+   "x": 0,
+   "y": 49.2,
+   "w": 44,
+   "h": 1.8,
+   "kind": "chase",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "N1",
+   "name": "N1",
+   "tier": "upper",
+   "x": 1.8,
+   "y": 1.8,
+   "w": 5.457,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "N2",
+   "name": "N2",
+   "tier": "upper",
+   "x": 7.257,
+   "y": 1.8,
+   "w": 5.457,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "N3",
+   "name": "N3",
+   "tier": "upper",
+   "x": 12.714,
+   "y": 1.8,
+   "w": 5.457,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "N4",
+   "name": "N4",
+   "tier": "upper",
+   "x": 18.171,
+   "y": 1.8,
+   "w": 5.457,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "N5",
+   "name": "N5",
+   "tier": "upper",
+   "x": 23.628,
+   "y": 1.8,
+   "w": 5.457,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "N6",
+   "name": "N6",
+   "tier": "upper",
+   "x": 29.085,
+   "y": 1.8,
+   "w": 5.457,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "N7",
+   "name": "N7",
+   "tier": "upper",
+   "x": 34.542,
+   "y": 1.8,
+   "w": 5.457,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U05",
+   "name": "N walkway",
+   "tier": "upper",
+   "x": 1.8,
+   "y": 6.6,
+   "w": 43.2,
+   "h": 2.2,
+   "kind": "walk",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U06",
+   "name": "W walkway",
+   "tier": "upper",
+   "x": 6.6,
+   "y": 8.8,
+   "w": 2.2,
+   "h": 10.4,
+   "kind": "walk",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U07",
+   "name": "S walkway",
+   "tier": "upper",
+   "x": 1.8,
+   "y": 19.2,
+   "w": 42.2,
+   "h": 2.2,
+   "kind": "walk",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U08",
+   "name": "Library",
+   "tier": "upper",
+   "x": 1.8,
+   "y": 8.8,
+   "w": 4.8,
+   "h": 10.4,
+   "kind": "dest",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U10",
+   "name": "Crossover",
+   "tier": "upper",
+   "x": 30,
+   "y": 8.8,
+   "w": 2,
+   "h": 10.4,
+   "kind": "cross",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U11a",
+   "name": "North arm",
+   "tier": "upper",
+   "x": 40,
+   "y": 0,
+   "w": 21,
+   "h": 6.6,
+   "kind": "suite",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "U11b",
+   "name": "North arm 2",
+   "tier": "upper",
+   "x": 52,
+   "y": 6.6,
+   "w": 9,
+   "h": 2.2,
+   "kind": "suite",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "U12",
+   "name": "Lookout",
+   "tier": "upper",
+   "x": 54,
+   "y": 8.8,
+   "w": 7,
+   "h": 10.4,
+   "kind": "suite",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "U13",
+   "name": "Office",
+   "tier": "upper",
+   "x": 44,
+   "y": 19.2,
+   "w": 17,
+   "h": 11.8,
+   "kind": "suite",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "S1",
+   "name": "S1",
+   "tier": "upper",
+   "x": 1.8,
+   "y": 21.4,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "S2",
+   "name": "S2",
+   "tier": "upper",
+   "x": 7.44,
+   "y": 21.4,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "S3",
+   "name": "S3",
+   "tier": "upper",
+   "x": 13.08,
+   "y": 21.4,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "S4",
+   "name": "S4",
+   "tier": "upper",
+   "x": 18.72,
+   "y": 21.4,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "S5",
+   "name": "S5",
+   "tier": "upper",
+   "x": 24.36,
+   "y": 21.4,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "S6",
+   "name": "S6",
+   "tier": "upper",
+   "x": 32,
+   "y": 21.4,
+   "w": 6,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "S7",
+   "name": "S7",
+   "tier": "upper",
+   "x": 38,
+   "y": 21.4,
+   "w": 6,
+   "h": 4.8,
+   "kind": "cell",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "W1",
+   "name": "W1",
+   "tier": "upper",
+   "x": 1.8,
+   "y": 26.2,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cellw",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "W2",
+   "name": "W2",
+   "tier": "upper",
+   "x": 7.44,
+   "y": 26.2,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cellw",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "W3",
+   "name": "W3",
+   "tier": "upper",
+   "x": 13.08,
+   "y": 26.2,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cellw",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "W4",
+   "name": "W4",
+   "tier": "upper",
+   "x": 18.72,
+   "y": 26.2,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cellw",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "W5",
+   "name": "W5",
+   "tier": "upper",
+   "x": 24.36,
+   "y": 26.2,
+   "w": 5.64,
+   "h": 4.8,
+   "kind": "cellw",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "W6",
+   "name": "W6",
+   "tier": "upper",
+   "x": 32,
+   "y": 26.2,
+   "w": 6,
+   "h": 4.8,
+   "kind": "cellw",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "W7",
+   "name": "W7",
+   "tier": "upper",
+   "x": 38,
+   "y": 26.2,
+   "w": 6,
+   "h": 4.8,
+   "kind": "cellw",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U16",
+   "name": "Sally port",
+   "tier": "upper",
+   "x": 30,
+   "y": 21.4,
+   "w": 2,
+   "h": 9.6,
+   "kind": "pcor",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U17",
+   "name": "Rec corridor",
+   "tier": "upper",
+   "x": 1.8,
+   "y": 31,
+   "w": 42.2,
+   "h": 2.6,
+   "kind": "pcor",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U18",
+   "name": "Rec room",
+   "tier": "upper",
+   "x": 1.8,
+   "y": 33.6,
+   "w": 13.8,
+   "h": 15.6,
+   "kind": "dest",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U19",
+   "name": "Fitness",
+   "tier": "upper",
+   "x": 15.6,
+   "y": 33.6,
+   "w": 14.4,
+   "h": 15.6,
+   "kind": "dest2",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "prisoner"
+  },
+  {
+   "id": "U20",
+   "name": "Workshop",
+   "tier": "upper",
+   "x": 30,
+   "y": 33.6,
+   "w": 14,
+   "h": 15.6,
+   "kind": "job",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "shift"
+  },
+  {
+   "id": "U21",
+   "name": "Staff spine",
+   "tier": "upper",
+   "x": 44,
+   "y": 31,
+   "w": 2.2,
+   "h": 20,
+   "kind": "staff",
+   "walls": false,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "U22",
+   "name": "Control",
+   "tier": "upper",
+   "x": 46.2,
+   "y": 31,
+   "w": 14.8,
+   "h": 7,
+   "kind": "suite",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "U23",
+   "name": "Kit",
+   "tier": "upper",
+   "x": 46.2,
+   "y": 38,
+   "w": 14.8,
+   "h": 5.4,
+   "kind": "suite",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "U24",
+   "name": "Break",
+   "tier": "upper",
+   "x": 46.2,
+   "y": 43.4,
+   "w": 14.8,
+   "h": 7.6,
+   "kind": "suite",
+   "walls": true,
+   "ceiling": 7.5,
+   "access": "staff"
+  },
+  {
+   "id": "L33",
+   "name": "Goods lift",
+   "tier": "lower",
+   "x": 50,
+   "y": 45,
+   "w": 3.4,
+   "h": 3.6,
+   "kind": "lift",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "staff",
+   "reach": false
+  },
+  {
+   "id": "L34",
+   "name": "Cart bay",
+   "tier": "lower",
+   "x": 22.8,
+   "y": 34.5,
+   "w": 2.4,
+   "h": 1.5,
+   "kind": "work",
+   "walls": true,
+   "ceiling": 3.6,
+   "access": "shift"
+  }
+ ],
+ "doors": [
+  {
+   "id": "D01-C01",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    9.444,
+    10.444
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C01",
+    "L08"
+   ]
+  },
+  {
+   "id": "D01-C02",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    13.333,
+    14.333
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C02",
+    "L08"
+   ]
+  },
+  {
+   "id": "D01-C03",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    17.222,
+    18.222
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C03",
+    "L08"
+   ]
+  },
+  {
+   "id": "D01-C04",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    21.111,
+    22.111
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C04",
+    "L08"
+   ]
+  },
+  {
+   "id": "D01-C05",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    25.0,
+    26.0
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C05",
+    "L08"
+   ]
+  },
+  {
+   "id": "D01-C06",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    28.889,
+    29.889
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C06",
+    "L08"
+   ]
+  },
+  {
+   "id": "D01-C07",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    32.778,
+    33.778
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C07",
+    "L08"
+   ]
+  },
+  {
+   "id": "D01-C08",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    36.667,
+    37.667
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C08",
+    "L08"
+   ]
+  },
+  {
+   "id": "D01-C09",
+   "tier": "lower",
+   "wall": "y",
+   "at": 8,
+   "span": [
+    40.556,
+    41.556
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "C09",
+    "L08"
+   ]
+  },
+  {
+   "id": "D02",
+   "tier": "lower",
+   "wall": "x",
+   "at": 54,
+   "span": [
+    7,
+    11.5
+   ],
+   "height": 3.0,
+   "type": "open",
+   "connects": [
+    "L10",
+    "L07/L08"
+   ]
+  },
+  {
+   "id": "D03",
+   "tier": "lower",
+   "wall": "x",
+   "at": 61,
+   "span": [
+    4.5,
+    7.5
+   ],
+   "height": 3.0,
+   "type": "sealed",
+   "connects": [
+    "L10",
+    "exterior"
+   ]
+  },
+  {
+   "id": "D04",
+   "tier": "lower",
+   "wall": "x",
+   "at": 43,
+   "span": [
+    0.3,
+    1.5
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L01",
+    "L06"
+   ]
+  },
+  {
+   "id": "D05",
+   "tier": "lower",
+   "wall": "x",
+   "at": 54,
+   "span": [
+    1,
+    2.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L06",
+    "L10"
+   ]
+  },
+  {
+   "id": "D06",
+   "tier": "lower",
+   "wall": "x",
+   "at": 54,
+   "span": [
+    13.5,
+    16.5
+   ],
+   "height": 3.0,
+   "type": "sealed",
+   "connects": [
+    "L08",
+    "L11"
+   ]
+  },
+  {
+   "id": "D07",
+   "tier": "lower",
+   "wall": "y",
+   "at": 12.5,
+   "span": [
+    59,
+    60.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L10",
+    "L11"
+   ]
+  },
+  {
+   "id": "D08",
+   "tier": "lower",
+   "wall": "y",
+   "at": 20,
+   "span": [
+    59,
+    60.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L11",
+    "L12"
+   ]
+  },
+  {
+   "id": "D09",
+   "tier": "lower",
+   "wall": "y",
+   "at": 28,
+   "span": [
+    59,
+    60.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L12",
+    "L13"
+   ]
+  },
+  {
+   "id": "D10",
+   "tier": "lower",
+   "wall": "y",
+   "at": 44,
+   "span": [
+    59,
+    60.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L13",
+    "L14"
+   ]
+  },
+  {
+   "id": "D11",
+   "tier": "lower",
+   "wall": "x",
+   "at": 54,
+   "span": [
+    49.5,
+    50.7
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L03",
+    "L14"
+   ]
+  },
+  {
+   "id": "D12a",
+   "tier": "lower",
+   "wall": "x",
+   "at": 1.8,
+   "span": [
+    5,
+    6.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L02",
+    "L04"
+   ]
+  },
+  {
+   "id": "D12b",
+   "tier": "lower",
+   "wall": "x",
+   "at": 1.8,
+   "span": [
+    13,
+    14.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L02",
+    "L09"
+   ]
+  },
+  {
+   "id": "D12c",
+   "tier": "lower",
+   "wall": "x",
+   "at": 1.8,
+   "span": [
+    21.4,
+    22.6
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L02",
+    "L15"
+   ]
+  },
+  {
+   "id": "D12d",
+   "tier": "lower",
+   "wall": "x",
+   "at": 1.8,
+   "span": [
+    38,
+    39.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L02",
+    "L32"
+   ]
+  },
+  {
+   "id": "D13",
+   "tier": "lower",
+   "wall": "x",
+   "at": 8,
+   "span": [
+    12,
+    15
+   ],
+   "height": 2.4,
+   "type": "open",
+   "connects": [
+    "L08",
+    "L09"
+   ]
+  },
+  {
+   "id": "D14",
+   "tier": "lower",
+   "wall": "y",
+   "at": 20,
+   "span": [
+    5.6,
+    7.6
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "L16",
+    "L09"
+   ]
+  },
+  {
+   "id": "D15",
+   "tier": "lower",
+   "wall": "y",
+   "at": 20,
+   "span": [
+    8.6,
+    10.4
+   ],
+   "height": 2.7,
+   "type": "open",
+   "connects": [
+    "L08",
+    "L17"
+   ]
+  },
+  {
+   "id": "D16",
+   "tier": "lower",
+   "wall": "y",
+   "at": 28,
+   "span": [
+    8.6,
+    10.4
+   ],
+   "height": 2.7,
+   "type": "clockin",
+   "connects": [
+    "L17",
+    "L20"
+   ]
+  },
+  {
+   "id": "D17",
+   "tier": "lower",
+   "wall": "y",
+   "at": 28,
+   "span": [
+    51.6,
+    53.4
+   ],
+   "height": 2.7,
+   "type": "clockin",
+   "connects": [
+    "L19",
+    "L21"
+   ]
+  },
+  {
+   "id": "D18a",
+   "tier": "lower",
+   "wall": "y",
+   "at": 36,
+   "span": [
+    12.6,
+    13.8
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L23",
+    "L22"
+   ]
+  },
+  {
+   "id": "D18b",
+   "tier": "lower",
+   "wall": "y",
+   "at": 36,
+   "span": [
+    19,
+    20.6
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L24",
+    "L22"
+   ]
+  },
+  {
+   "id": "D18c",
+   "tier": "lower",
+   "wall": "y",
+   "at": 36,
+   "span": [
+    31,
+    32.6
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L24",
+    "L22"
+   ]
+  },
+  {
+   "id": "D18d",
+   "tier": "lower",
+   "wall": "y",
+   "at": 36,
+   "span": [
+    39.4,
+    40.6
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L25",
+    "L22"
+   ]
+  },
+  {
+   "id": "D18e",
+   "tier": "lower",
+   "wall": "y",
+   "at": 36,
+   "span": [
+    47.2,
+    48.4
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L26",
+    "L22"
+   ]
+  },
+  {
+   "id": "D19a",
+   "tier": "lower",
+   "wall": "y",
+   "at": 37.8,
+   "span": [
+    12.6,
+    14
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L27",
+    "L22"
+   ]
+  },
+  {
+   "id": "D19b",
+   "tier": "lower",
+   "wall": "y",
+   "at": 37.8,
+   "span": [
+    23,
+    25
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L28",
+    "L22"
+   ]
+  },
+  {
+   "id": "D19c",
+   "tier": "lower",
+   "wall": "y",
+   "at": 37.8,
+   "span": [
+    37.2,
+    38.8
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L29",
+    "L22"
+   ]
+  },
+  {
+   "id": "D19d",
+   "tier": "lower",
+   "wall": "y",
+   "at": 37.8,
+   "span": [
+    44.4,
+    45.6
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L30",
+    "L22"
+   ]
+  },
+  {
+   "id": "D20",
+   "tier": "lower",
+   "wall": "x",
+   "at": 34,
+   "span": [
+    40,
+    41.6
+   ],
+   "height": 2.1,
+   "type": "service",
+   "connects": [
+    "L28",
+    "L29"
+   ]
+  },
+  {
+   "id": "D21",
+   "tier": "lower",
+   "wall": "y",
+   "at": 37.8,
+   "span": [
+    49.6,
+    51.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L22",
+    "L31"
+   ]
+  },
+  {
+   "id": "D22a",
+   "tier": "lower",
+   "wall": "x",
+   "at": 54,
+   "span": [
+    39.6,
+    41
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L31",
+    "L13"
+   ]
+  },
+  {
+   "id": "D22b",
+   "tier": "lower",
+   "wall": "y",
+   "at": 49.2,
+   "span": [
+    48.4,
+    49.8
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L31",
+    "L03"
+   ]
+  },
+  {
+   "id": "D38",
+   "tier": "lower",
+   "wall": "x",
+   "at": 10.4,
+   "span": [
+    26,
+    27.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "L17",
+    "L18"
+   ]
+  },
+  {
+   "id": "D23-N01",
+   "tier": "upper",
+   "wall": "y",
+   "at": 6.6,
+   "span": [
+    4.029,
+    5.029
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "N1",
+    "U05"
+   ]
+  },
+  {
+   "id": "D23-N02",
+   "tier": "upper",
+   "wall": "y",
+   "at": 6.6,
+   "span": [
+    9.486,
+    10.486
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "N2",
+    "U05"
+   ]
+  },
+  {
+   "id": "D23-N03",
+   "tier": "upper",
+   "wall": "y",
+   "at": 6.6,
+   "span": [
+    14.943,
+    15.943
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "N3",
+    "U05"
+   ]
+  },
+  {
+   "id": "D23-N04",
+   "tier": "upper",
+   "wall": "y",
+   "at": 6.6,
+   "span": [
+    20.399,
+    21.399
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "N4",
+    "U05"
+   ]
+  },
+  {
+   "id": "D23-N05",
+   "tier": "upper",
+   "wall": "y",
+   "at": 6.6,
+   "span": [
+    25.857,
+    26.857
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "N5",
+    "U05"
+   ]
+  },
+  {
+   "id": "D23-N06",
+   "tier": "upper",
+   "wall": "y",
+   "at": 6.6,
+   "span": [
+    31.314,
+    32.314
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "N6",
+    "U05"
+   ]
+  },
+  {
+   "id": "D23-N07",
+   "tier": "upper",
+   "wall": "y",
+   "at": 6.6,
+   "span": [
+    36.77,
+    37.77
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "N7",
+    "U05"
+   ]
+  },
+  {
+   "id": "D24",
+   "tier": "upper",
+   "wall": "x",
+   "at": 6.6,
+   "span": [
+    11.6,
+    16.4
+   ],
+   "height": 2.4,
+   "type": "open",
+   "connects": [
+    "U08",
+    "U06"
+   ]
+  },
+  {
+   "id": "D25-S01",
+   "tier": "upper",
+   "wall": "y",
+   "at": 21.4,
+   "span": [
+    4.12,
+    5.12
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "S1",
+    "U07"
+   ]
+  },
+  {
+   "id": "D26-W01",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    4.12,
+    5.12
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "W1",
+    "U17"
+   ]
+  },
+  {
+   "id": "D25-S02",
+   "tier": "upper",
+   "wall": "y",
+   "at": 21.4,
+   "span": [
+    9.76,
+    10.76
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "S2",
+    "U07"
+   ]
+  },
+  {
+   "id": "D26-W02",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    9.76,
+    10.76
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "W2",
+    "U17"
+   ]
+  },
+  {
+   "id": "D25-S03",
+   "tier": "upper",
+   "wall": "y",
+   "at": 21.4,
+   "span": [
+    15.4,
+    16.4
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "S3",
+    "U07"
+   ]
+  },
+  {
+   "id": "D26-W03",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    15.4,
+    16.4
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "W3",
+    "U17"
+   ]
+  },
+  {
+   "id": "D25-S04",
+   "tier": "upper",
+   "wall": "y",
+   "at": 21.4,
+   "span": [
+    21.04,
+    22.04
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "S4",
+    "U07"
+   ]
+  },
+  {
+   "id": "D26-W04",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    21.04,
+    22.04
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "W4",
+    "U17"
+   ]
+  },
+  {
+   "id": "D25-S05",
+   "tier": "upper",
+   "wall": "y",
+   "at": 21.4,
+   "span": [
+    26.68,
+    27.68
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "S5",
+    "U07"
+   ]
+  },
+  {
+   "id": "D26-W05",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    26.68,
+    27.68
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "W5",
+    "U17"
+   ]
+  },
+  {
+   "id": "D25-S06",
+   "tier": "upper",
+   "wall": "y",
+   "at": 21.4,
+   "span": [
+    34.5,
+    35.5
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "S6",
+    "U07"
+   ]
+  },
+  {
+   "id": "D26-W06",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    34.5,
+    35.5
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "W6",
+    "U17"
+   ]
+  },
+  {
+   "id": "D25-S07",
+   "tier": "upper",
+   "wall": "y",
+   "at": 21.4,
+   "span": [
+    40.5,
+    41.5
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "S7",
+    "U07"
+   ]
+  },
+  {
+   "id": "D26-W07",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    40.5,
+    41.5
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "W7",
+    "U17"
+   ]
+  },
+  {
+   "id": "D27",
+   "tier": "upper",
+   "wall": "x",
+   "at": 44,
+   "span": [
+    19.6,
+    21
+   ],
+   "height": 2.1,
+   "type": "restricted",
+   "connects": [
+    "U07",
+    "U13"
+   ],
+   "closed": true,
+   "note": "restricted office door: closed red slab (actor D27_Door_Closed), toggle off with toggle_door.py"
+  },
+  {
+   "id": "D28a",
+   "tier": "upper",
+   "wall": "y",
+   "at": 21.4,
+   "span": [
+    30,
+    32
+   ],
+   "height": 2.4,
+   "type": "gate",
+   "connects": [
+    "U07",
+    "U16"
+   ]
+  },
+  {
+   "id": "D28b",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    30,
+    32
+   ],
+   "height": 2.4,
+   "type": "gate",
+   "connects": [
+    "U16",
+    "U17"
+   ]
+  },
+  {
+   "id": "D29a",
+   "tier": "upper",
+   "wall": "y",
+   "at": 33.6,
+   "span": [
+    7.7,
+    9.7
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "U17",
+    "U18"
+   ]
+  },
+  {
+   "id": "D29b",
+   "tier": "upper",
+   "wall": "y",
+   "at": 33.6,
+   "span": [
+    21.8,
+    23.8
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "U17",
+    "U19"
+   ]
+  },
+  {
+   "id": "D29c",
+   "tier": "upper",
+   "wall": "y",
+   "at": 33.6,
+   "span": [
+    36,
+    38
+   ],
+   "height": 2.1,
+   "type": "prisoner",
+   "connects": [
+    "U17",
+    "U20"
+   ]
+  },
+  {
+   "id": "D30a",
+   "tier": "upper",
+   "wall": "x",
+   "at": 43.7,
+   "span": [
+    6.6,
+    8.8
+   ],
+   "height": 2.4,
+   "type": "gate",
+   "connects": [
+    "U05",
+    "U05"
+   ]
+  },
+  {
+   "id": "D30b",
+   "tier": "upper",
+   "wall": "y",
+   "at": 10.2,
+   "span": [
+    6.6,
+    8.8
+   ],
+   "height": 2.4,
+   "type": "gate",
+   "connects": [
+    "U06",
+    "U06"
+   ]
+  },
+  {
+   "id": "D31",
+   "tier": "upper",
+   "wall": "x",
+   "at": 40,
+   "span": [
+    0.3,
+    1.5
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U01",
+    "U11a"
+   ]
+  },
+  {
+   "id": "D32",
+   "tier": "upper",
+   "wall": "x",
+   "at": 44,
+   "span": [
+    49.5,
+    50.7
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U03",
+    "U21"
+   ]
+  },
+  {
+   "id": "D33",
+   "tier": "upper",
+   "wall": "y",
+   "at": 31,
+   "span": [
+    44.5,
+    45.9
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U13",
+    "U21"
+   ]
+  },
+  {
+   "id": "D34a",
+   "tier": "upper",
+   "wall": "x",
+   "at": 44,
+   "span": [
+    31.7,
+    32.9
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U21",
+    "U17"
+   ]
+  },
+  {
+   "id": "D34b",
+   "tier": "upper",
+   "wall": "x",
+   "at": 44,
+   "span": [
+    38.6,
+    40.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U21",
+    "U20"
+   ]
+  },
+  {
+   "id": "D35a",
+   "tier": "upper",
+   "wall": "x",
+   "at": 46.2,
+   "span": [
+    34,
+    35.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U21",
+    "U22"
+   ]
+  },
+  {
+   "id": "D35b",
+   "tier": "upper",
+   "wall": "x",
+   "at": 46.2,
+   "span": [
+    40,
+    41.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U21",
+    "U23"
+   ]
+  },
+  {
+   "id": "D35c",
+   "tier": "upper",
+   "wall": "x",
+   "at": 46.2,
+   "span": [
+    46,
+    47.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U21",
+    "U24"
+   ]
+  },
+  {
+   "id": "D36",
+   "tier": "upper",
+   "wall": "x",
+   "at": 1.8,
+   "span": [
+    13,
+    14.2
+   ],
+   "height": 2.1,
+   "type": "staff",
+   "connects": [
+    "U02",
+    "U08"
+   ]
+  },
+  {
+   "id": "D37a",
+   "tier": "upper",
+   "wall": "y",
+   "at": 19.2,
+   "span": [
+    55,
+    57.5
+   ],
+   "height": 2.4,
+   "type": "open",
+   "connects": [
+    "U13",
+    "U12"
+   ]
+  },
+  {
+   "id": "D37b",
+   "tier": "upper",
+   "wall": "y",
+   "at": 8.8,
+   "span": [
+    56.5,
+    59.5
+   ],
+   "height": 2.4,
+   "type": "open",
+   "connects": [
+    "U12",
+    "U11b"
+   ]
+  },
+  {
+   "id": "D39",
+   "tier": "lower",
+   "wall": "y",
+   "at": 45,
+   "span": [
+    50.8,
+    52.6
+   ],
+   "height": 2.1,
+   "type": "sealed",
+   "connects": [
+    "L31",
+    "L33"
+   ],
+   "note": "sealed placeholder door of the goods lift to Floor 2"
+  },
+  {
+   "id": "D40",
+   "tier": "lower",
+   "wall": "y",
+   "at": 36,
+   "span": [
+    22.8,
+    25.2
+   ],
+   "height": 2.4,
+   "type": "open",
+   "connects": [
+    "L34",
+    "L22"
+   ],
+   "note": "cart bay opening in the kitchen's south wall, opposite the laundry door D19b"
+  }
+ ],
+ "windows": [
+  {
+   "id": "W01",
+   "tier": "lower",
+   "wall": "x",
+   "at": 54,
+   "span": [
+    21,
+    27
+   ],
+   "sill": 1.0,
+   "head": 2.4,
+   "note": "guard post -> seating"
+  },
+  {
+   "id": "W02",
+   "tier": "lower",
+   "wall": "x",
+   "at": 54,
+   "span": [
+    36,
+    37.8
+   ],
+   "sill": 1.0,
+   "head": 2.1,
+   "note": "staff room -> work corridor"
+  },
+  {
+   "id": "W03",
+   "tier": "lower",
+   "wall": "x",
+   "at": 16,
+   "span": [
+    21.6,
+    26
+   ],
+   "sill": 0.9,
+   "head": 1.8,
+   "note": "commissary counter"
+  },
+  {
+   "id": "W04",
+   "tier": "lower",
+   "wall": "y",
+   "at": 28,
+   "span": [
+    24,
+    34
+   ],
+   "sill": 0.9,
+   "head": 2.1,
+   "note": "kitchen serving hatch"
+  },
+  {
+   "id": "W05",
+   "tier": "upper",
+   "wall": "y",
+   "at": 6.6,
+   "span": [
+    40,
+    45
+   ],
+   "sill": 1.0,
+   "head": 2.4,
+   "note": "north arm -> walkway"
+  },
+  {
+   "id": "W06",
+   "tier": "upper",
+   "wall": "y",
+   "at": 19.2,
+   "span": [
+    44,
+    53.8
+   ],
+   "sill": 1.0,
+   "head": 2.4,
+   "note": "office -> hall void"
+  },
+  {
+   "id": "W07",
+   "tier": "upper",
+   "wall": "x",
+   "at": 54,
+   "span": [
+    8.8,
+    19.2
+   ],
+   "sill": 1.0,
+   "head": 3.0,
+   "note": "lookout band, lit strip at head"
+  }
+ ],
+ "stairs": [
+  {
+   "id": "S1",
+   "x_foot": 52,
+   "x_top": 45,
+   "y0": 6.6,
+   "y1": 8.8,
+   "risers": 26,
+   "rise": 3.9,
+   "form": "straight, rises west, 2.2 m wide (fills the walkway lane)"
+  },
+  {
+   "id": "S2",
+   "x_foot": 15.8,
+   "x_top": 8.8,
+   "y0": 15.6,
+   "y1": 17.4,
+   "risers": 26,
+   "rise": 3.9,
+   "form": "straight, rises west, moved north (Y 15.6-17.4) so the D15 strip is 2.6 m"
+  },
+  {
+   "id": "S3",
+   "footprint": [
+    58.2,
+    14.0,
+    2.6,
+    4.4
+   ],
+   "form": "switchback along Y, two 1.2 m flights, 1.2 m landing; foot (lane A, west) and top (lane B, east) both at the north end",
+   "connects": [
+    "L11",
+    "U12"
+   ],
+   "foot": "north"
+  },
+  {
+   "id": "S4",
+   "footprint": [
+    57.2,
+    45.6,
+    3.6,
+    5.0
+   ],
+   "form": "switchback along Y, two 1.7 m flights, 1.6 m landing; foot (lane A, west) and top (lane B, east) both at the north end",
+   "connects": [
+    "L14",
+    "U24"
+   ],
+   "foot": "north"
+  }
+ ],
+ "mesh_edges_upper": [
+  [
+   8.8,
+   8.8,
+   30,
+   8.8
+  ],
+  [
+   32,
+   8.8,
+   45,
+   8.8
+  ],
+  [
+   45,
+   8.8,
+   52,
+   8.8
+  ],
+  [
+   8.8,
+   19.2,
+   30,
+   19.2
+  ],
+  [
+   32,
+   19.2,
+   44,
+   19.2
+  ],
+  [
+   8.8,
+   8.8,
+   8.8,
+   15.6
+  ],
+  [
+   8.8,
+   17.4,
+   8.8,
+   19.2
+  ],
+  [
+   30,
+   8.8,
+   30,
+   19.2
+  ],
+  [
+   32,
+   8.8,
+   32,
+   19.2
+  ],
+  [
+   8.8,
+   15.6,
+   15.8,
+   15.6
+  ],
+  [
+   8.8,
+   17.4,
+   15.8,
+   17.4
+  ],
+  [
+   45,
+   6.6,
+   52,
+   6.6
+  ]
+ ],
+ "safety_net": {
+  "x": 8.8,
+  "y": 8.8,
+  "w": 45.2,
+  "h": 10.4,
+  "z": 3.6,
+  "translucent": true,
+  "collision": false,
+  "holes": [
+   [
+    8.8,
+    15.6,
+    7.0,
+    1.8
+   ],
+   [
+    30,
+    8.8,
+    2,
+    10.4
+   ]
+  ]
+ },
+ "spawn": {
+  "x": 59.4,
+  "y": 10.3,
+  "z": 0,
+  "facing": "west",
+  "ue_yaw": 180
+ },
+ "guide_line": [
+  [
+   60.4,
+   6.0
+  ],
+  [
+   57.2,
+   6.0
+  ],
+  [
+   57.2,
+   9.6
+  ],
+  [
+   53.2,
+   9.6
+  ],
+  [
+   52.4,
+   7.9
+  ]
+ ],
+ "triggers": [
+  {
+   "id": "T01",
+   "box": [
+    42.4,
+    19.2,
+    1.6,
+    2.2
+   ],
+   "tier": "upper",
+   "does": "office warning strip"
+  },
+  {
+   "id": "T02",
+   "box": [
+    8.6,
+    28,
+    1.8,
+    1
+   ],
+   "tier": "lower",
+   "does": "west clock-in"
+  },
+  {
+   "id": "T03",
+   "box": [
+    51.6,
+    28,
+    1.8,
+    1
+   ],
+   "tier": "lower",
+   "does": "east clock-in"
+  },
+  {
+   "id": "T07",
+   "path": [
+    "L09 ceiling",
+    "L15",
+    "L32"
+   ],
+   "does": "vent crawl, 0.8 m high, hidden"
+  }
+ ],
+ "colours": {
+  "cell": [
+   0.11,
+   0.19,
+   0.46
+  ],
+  "cellw": [
+   0.09,
+   0.15,
+   0.38
+  ],
+  "walk": [
+   0.17,
+   0.36,
+   0.47
+  ],
+  "pcor": [
+   0.24,
+   0.45,
+   0.56
+  ],
+  "work": [
+   0.21,
+   0.29,
+   0.31
+  ],
+  "stair": [
+   0.6,
+   0.24,
+   0.06
+  ],
+  "cross": [
+   0.3,
+   0.17,
+   0.46
+  ],
+  "suite": [
+   0.48,
+   0.06,
+   0.06
+  ],
+  "staff": [
+   0.26,
+   0.08,
+   0.08
+  ],
+  "chase": [
+   0.33,
+   0.11,
+   0.11
+  ],
+  "hall": [
+   0.21,
+   0.22,
+   0.25
+  ],
+  "seat": [
+   0.3,
+   0.31,
+   0.34
+  ],
+  "intake": [
+   0.46,
+   0.12,
+   0.28
+  ],
+  "kitchen": [
+   0.45,
+   0.29,
+   0.09
+  ],
+  "service": [
+   0.16,
+   0.21,
+   0.22
+  ],
+  "dest": [
+   0.07,
+   0.38,
+   0.21
+  ],
+  "dest2": [
+   0.06,
+   0.3,
+   0.18
+  ],
+  "job": [
+   0.5,
+   0.35,
+   0.06
+  ],
+  "job2": [
+   0.58,
+   0.42,
+   0.12
+  ],
+  "dark": [
+   0.12,
+   0.13,
+   0.15
+  ],
+  "cold": [
+   0.15,
+   0.25,
+   0.3
+  ],
+  "wall": [
+   0.62,
+   0.63,
+   0.65
+  ],
+  "outer": [
+   0.42,
+   0.43,
+   0.45
+  ],
+  "lift": [
+   0.35,
+   0.04,
+   0.12
+  ],
+  "net": [
+   0.8,
+   0.8,
+   0.85
+  ],
+  "bed": [
+   0.2,
+   0.3,
+   0.55
+  ],
+  "toilet": [
+   0.72,
+   0.72,
+   0.74
+  ],
+  "table": [
+   0.36,
+   0.26,
+   0.13
+  ],
+  "counter": [
+   0.52,
+   0.36,
+   0.16
+  ],
+  "washer": [
+   0.55,
+   0.6,
+   0.66
+  ],
+  "desk": [
+   0.32,
+   0.21,
+   0.1
+  ],
+  "warn": [
+   1.0,
+   0.85,
+   0.0
+  ],
+  "frame_red": [
+   0.95,
+   0.05,
+   0.05
+  ],
+  "frame_yellow": [
+   1.0,
+   0.85,
+   0.0
+  ],
+  "door_red": [
+   0.55,
+   0.03,
+   0.03
+  ],
+  "glow_green": [
+   0.1,
+   1.0,
+   0.35
+  ],
+  "glow_yellow": [
+   1.0,
+   0.9,
+   0.25
+  ],
+  "sign_dark": [
+   0.05,
+   0.05,
+   0.06
+  ],
+  "lamp_1": [
+   1.0,
+   0.2,
+   0.2
+  ],
+  "lamp_2": [
+   1.0,
+   0.55,
+   0.1
+  ],
+  "lamp_3": [
+   1.0,
+   0.95,
+   0.2
+  ],
+  "lamp_4": [
+   0.4,
+   1.0,
+   0.2
+  ],
+  "lamp_5": [
+   0.1,
+   0.9,
+   0.55
+  ],
+  "lamp_6": [
+   0.1,
+   0.9,
+   1.0
+  ],
+  "lamp_7": [
+   0.2,
+   0.45,
+   1.0
+  ],
+  "lamp_8": [
+   0.55,
+   0.3,
+   1.0
+  ],
+  "lamp_9": [
+   0.95,
+   0.3,
+   0.9
+  ],
+  "lamp_10": [
+   1.0,
+   0.45,
+   0.65
+  ],
+  "lamp_11": [
+   0.95,
+   0.95,
+   0.95
+  ]
+ },
+ "furniture": [
+  {
+   "id": "Bed_C01",
+   "tier": "lower",
+   "x0": 8.25,
+   "y0": 2.05,
+   "x1": 10.25,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_C01",
+   "tier": "lower",
+   "x0": 11.039,
+   "y0": 2.05,
+   "x1": 11.639,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_C02",
+   "tier": "lower",
+   "x0": 12.139,
+   "y0": 2.05,
+   "x1": 14.139,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_C02",
+   "tier": "lower",
+   "x0": 14.928,
+   "y0": 2.05,
+   "x1": 15.528,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_C03",
+   "tier": "lower",
+   "x0": 16.028,
+   "y0": 2.05,
+   "x1": 18.028,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_C03",
+   "tier": "lower",
+   "x0": 18.817,
+   "y0": 2.05,
+   "x1": 19.417,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_C04",
+   "tier": "lower",
+   "x0": 19.917,
+   "y0": 2.05,
+   "x1": 21.917,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_C04",
+   "tier": "lower",
+   "x0": 22.706,
+   "y0": 2.05,
+   "x1": 23.306,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_C05",
+   "tier": "lower",
+   "x0": 23.806,
+   "y0": 2.05,
+   "x1": 25.806,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_C05",
+   "tier": "lower",
+   "x0": 26.595,
+   "y0": 2.05,
+   "x1": 27.194,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_C06",
+   "tier": "lower",
+   "x0": 27.694,
+   "y0": 2.05,
+   "x1": 29.694,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_C06",
+   "tier": "lower",
+   "x0": 30.483,
+   "y0": 2.05,
+   "x1": 31.083,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_C07",
+   "tier": "lower",
+   "x0": 31.583,
+   "y0": 2.05,
+   "x1": 33.583,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_C07",
+   "tier": "lower",
+   "x0": 34.372,
+   "y0": 2.05,
+   "x1": 34.972,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_C08",
+   "tier": "lower",
+   "x0": 35.472,
+   "y0": 2.05,
+   "x1": 37.472,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_C08",
+   "tier": "lower",
+   "x0": 38.261,
+   "y0": 2.05,
+   "x1": 38.861,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_C09",
+   "tier": "lower",
+   "x0": 39.361,
+   "y0": 2.05,
+   "x1": 40.261,
+   "y1": 4.05,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5, turned along the west wall"
+  },
+  {
+   "id": "Toilet_C09",
+   "tier": "lower",
+   "x0": 40.461,
+   "y0": 2.05,
+   "x1": 41.061,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_N1",
+   "tier": "upper",
+   "x0": 2.05,
+   "y0": 2.05,
+   "x1": 4.05,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_N1",
+   "tier": "upper",
+   "x0": 6.407,
+   "y0": 2.05,
+   "x1": 7.007,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_N2",
+   "tier": "upper",
+   "x0": 7.507,
+   "y0": 2.05,
+   "x1": 9.507,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_N2",
+   "tier": "upper",
+   "x0": 11.864,
+   "y0": 2.05,
+   "x1": 12.464,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_N3",
+   "tier": "upper",
+   "x0": 12.964,
+   "y0": 2.05,
+   "x1": 14.964,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_N3",
+   "tier": "upper",
+   "x0": 17.321,
+   "y0": 2.05,
+   "x1": 17.921,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_N4",
+   "tier": "upper",
+   "x0": 18.421,
+   "y0": 2.05,
+   "x1": 20.421,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_N4",
+   "tier": "upper",
+   "x0": 22.778,
+   "y0": 2.05,
+   "x1": 23.378,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_N5",
+   "tier": "upper",
+   "x0": 23.878,
+   "y0": 2.05,
+   "x1": 25.878,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_N5",
+   "tier": "upper",
+   "x0": 28.235,
+   "y0": 2.05,
+   "x1": 28.835,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_N6",
+   "tier": "upper",
+   "x0": 29.335,
+   "y0": 2.05,
+   "x1": 31.335,
+   "y1": 2.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_N6",
+   "tier": "upper",
+   "x0": 33.692,
+   "y0": 2.05,
+   "x1": 34.292,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_N7",
+   "tier": "upper",
+   "x0": 34.792,
+   "y0": 2.05,
+   "x1": 35.692,
+   "y1": 4.05,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5, turned along the west wall"
+  },
+  {
+   "id": "Toilet_N7",
+   "tier": "upper",
+   "x0": 35.892,
+   "y0": 2.05,
+   "x1": 36.492,
+   "y1": 2.65,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_S1",
+   "tier": "upper",
+   "x0": 2.05,
+   "y0": 25.05,
+   "x1": 4.05,
+   "y1": 25.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_S1",
+   "tier": "upper",
+   "x0": 6.59,
+   "y0": 25.35,
+   "x1": 7.19,
+   "y1": 25.95,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_S2",
+   "tier": "upper",
+   "x0": 7.69,
+   "y0": 25.05,
+   "x1": 9.69,
+   "y1": 25.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_S2",
+   "tier": "upper",
+   "x0": 12.23,
+   "y0": 25.35,
+   "x1": 12.83,
+   "y1": 25.95,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_S3",
+   "tier": "upper",
+   "x0": 13.33,
+   "y0": 25.05,
+   "x1": 15.33,
+   "y1": 25.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_S3",
+   "tier": "upper",
+   "x0": 17.87,
+   "y0": 25.35,
+   "x1": 18.47,
+   "y1": 25.95,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_S4",
+   "tier": "upper",
+   "x0": 18.97,
+   "y0": 25.05,
+   "x1": 20.97,
+   "y1": 25.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_S4",
+   "tier": "upper",
+   "x0": 23.51,
+   "y0": 25.35,
+   "x1": 24.11,
+   "y1": 25.95,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_S5",
+   "tier": "upper",
+   "x0": 24.61,
+   "y0": 25.05,
+   "x1": 26.61,
+   "y1": 25.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_S5",
+   "tier": "upper",
+   "x0": 29.15,
+   "y0": 25.35,
+   "x1": 29.75,
+   "y1": 25.95,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_S6",
+   "tier": "upper",
+   "x0": 32.25,
+   "y0": 25.05,
+   "x1": 34.25,
+   "y1": 25.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_S6",
+   "tier": "upper",
+   "x0": 37.15,
+   "y0": 25.35,
+   "x1": 37.75,
+   "y1": 25.95,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_S7",
+   "tier": "upper",
+   "x0": 38.25,
+   "y0": 25.05,
+   "x1": 40.25,
+   "y1": 25.95,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_S7",
+   "tier": "upper",
+   "x0": 43.15,
+   "y0": 25.35,
+   "x1": 43.75,
+   "y1": 25.95,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_W1",
+   "tier": "upper",
+   "x0": 2.05,
+   "y0": 26.45,
+   "x1": 4.05,
+   "y1": 27.35,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_W1",
+   "tier": "upper",
+   "x0": 6.59,
+   "y0": 26.45,
+   "x1": 7.19,
+   "y1": 27.05,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_W2",
+   "tier": "upper",
+   "x0": 7.69,
+   "y0": 26.45,
+   "x1": 9.69,
+   "y1": 27.35,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_W2",
+   "tier": "upper",
+   "x0": 12.23,
+   "y0": 26.45,
+   "x1": 12.83,
+   "y1": 27.05,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_W3",
+   "tier": "upper",
+   "x0": 13.33,
+   "y0": 26.45,
+   "x1": 15.33,
+   "y1": 27.35,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_W3",
+   "tier": "upper",
+   "x0": 17.87,
+   "y0": 26.45,
+   "x1": 18.47,
+   "y1": 27.05,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_W4",
+   "tier": "upper",
+   "x0": 18.97,
+   "y0": 26.45,
+   "x1": 20.97,
+   "y1": 27.35,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_W4",
+   "tier": "upper",
+   "x0": 23.51,
+   "y0": 26.45,
+   "x1": 24.11,
+   "y1": 27.05,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_W5",
+   "tier": "upper",
+   "x0": 24.61,
+   "y0": 26.45,
+   "x1": 26.61,
+   "y1": 27.35,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_W5",
+   "tier": "upper",
+   "x0": 29.15,
+   "y0": 26.45,
+   "x1": 29.75,
+   "y1": 27.05,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_W6",
+   "tier": "upper",
+   "x0": 32.25,
+   "y0": 26.45,
+   "x1": 34.25,
+   "y1": 27.35,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_W6",
+   "tier": "upper",
+   "x0": 37.15,
+   "y0": 26.45,
+   "x1": 37.75,
+   "y1": 27.05,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Bed_W7",
+   "tier": "upper",
+   "x0": 38.25,
+   "y0": 26.45,
+   "x1": 40.25,
+   "y1": 27.35,
+   "h": 0.5,
+   "kind": "bed",
+   "note": "2.0 x 0.9 x 0.5"
+  },
+  {
+   "id": "Toilet_W7",
+   "tier": "upper",
+   "x0": 43.15,
+   "y0": 26.45,
+   "x1": 43.75,
+   "y1": 27.05,
+   "h": 0.8,
+   "kind": "toilet",
+   "note": "0.6 x 0.6 x 0.8"
+  },
+  {
+   "id": "Table_1",
+   "tier": "lower",
+   "x0": 18,
+   "y0": 22.6,
+   "x1": 25,
+   "y1": 23.8,
+   "h": 0.75,
+   "kind": "table",
+   "note": "7 x 1.2 x 0.75; X is the west end of the table"
+  },
+  {
+   "id": "Table_2",
+   "tier": "lower",
+   "x0": 27,
+   "y0": 22.6,
+   "x1": 34,
+   "y1": 23.8,
+   "h": 0.75,
+   "kind": "table",
+   "note": "7 x 1.2 x 0.75; X is the west end of the table"
+  },
+  {
+   "id": "Table_3",
+   "tier": "lower",
+   "x0": 36,
+   "y0": 22.6,
+   "x1": 43,
+   "y1": 23.8,
+   "h": 0.75,
+   "kind": "table",
+   "note": "7 x 1.2 x 0.75; X is the west end of the table"
+  },
+  {
+   "id": "Table_4",
+   "tier": "lower",
+   "x0": 45,
+   "y0": 22.6,
+   "x1": 52,
+   "y1": 23.8,
+   "h": 0.75,
+   "kind": "table",
+   "note": "7 x 1.2 x 0.75; X is the west end of the table"
+  },
+  {
+   "id": "Table_5",
+   "tier": "lower",
+   "x0": 18,
+   "y0": 25.0,
+   "x1": 25,
+   "y1": 26.2,
+   "h": 0.75,
+   "kind": "table",
+   "note": "7 x 1.2 x 0.75; X is the west end of the table"
+  },
+  {
+   "id": "Table_6",
+   "tier": "lower",
+   "x0": 27,
+   "y0": 25.0,
+   "x1": 34,
+   "y1": 26.2,
+   "h": 0.75,
+   "kind": "table",
+   "note": "7 x 1.2 x 0.75; X is the west end of the table"
+  },
+  {
+   "id": "Table_7",
+   "tier": "lower",
+   "x0": 36,
+   "y0": 25.0,
+   "x1": 43,
+   "y1": 26.2,
+   "h": 0.75,
+   "kind": "table",
+   "note": "7 x 1.2 x 0.75; X is the west end of the table"
+  },
+  {
+   "id": "Table_8",
+   "tier": "lower",
+   "x0": 45,
+   "y0": 25.0,
+   "x1": 52,
+   "y1": 26.2,
+   "h": 0.75,
+   "kind": "table",
+   "note": "7 x 1.2 x 0.75; X is the west end of the table"
+  },
+  {
+   "id": "Kitchen_CookLine",
+   "tier": "lower",
+   "x0": 16.6,
+   "y0": 28.5,
+   "x1": 35.4,
+   "y1": 29.3,
+   "h": 0.9,
+   "kind": "counter",
+   "note": "kitchen cook line, 0.9 m high"
+  },
+  {
+   "id": "Serving_Counter",
+   "tier": "lower",
+   "x0": 24,
+   "y0": 27.45,
+   "x1": 34,
+   "y1": 27.85,
+   "h": 0.9,
+   "kind": "counter",
+   "note": "serving counter under the W04 hatch (seating side), 0.9 m high"
+  },
+  {
+   "id": "Commissary_Counter",
+   "tier": "lower",
+   "x0": 15.15,
+   "y0": 21.6,
+   "x1": 15.7,
+   "y1": 26.0,
+   "h": 0.9,
+   "kind": "counter",
+   "note": "commissary counter at the W03 window, 0.9 m high"
+  },
+  {
+   "id": "Washer_1",
+   "tier": "lower",
+   "x0": 19.0,
+   "y0": 48.25,
+   "x1": 19.8,
+   "y1": 49.05,
+   "h": 0.8,
+   "kind": "washer",
+   "note": "0.8 m cube"
+  },
+  {
+   "id": "Washer_2",
+   "tier": "lower",
+   "x0": 20.0,
+   "y0": 48.25,
+   "x1": 20.8,
+   "y1": 49.05,
+   "h": 0.8,
+   "kind": "washer",
+   "note": "0.8 m cube"
+  },
+  {
+   "id": "Washer_3",
+   "tier": "lower",
+   "x0": 21.0,
+   "y0": 48.25,
+   "x1": 21.8,
+   "y1": 49.05,
+   "h": 0.8,
+   "kind": "washer",
+   "note": "0.8 m cube"
+  },
+  {
+   "id": "Washer_4",
+   "tier": "lower",
+   "x0": 22.0,
+   "y0": 48.25,
+   "x1": 22.8,
+   "y1": 49.05,
+   "h": 0.8,
+   "kind": "washer",
+   "note": "0.8 m cube"
+  },
+  {
+   "id": "Washer_5",
+   "tier": "lower",
+   "x0": 23.0,
+   "y0": 48.25,
+   "x1": 23.8,
+   "y1": 49.05,
+   "h": 0.8,
+   "kind": "washer",
+   "note": "0.8 m cube"
+  },
+  {
+   "id": "Washer_6",
+   "tier": "lower",
+   "x0": 24.0,
+   "y0": 48.25,
+   "x1": 24.8,
+   "y1": 49.05,
+   "h": 0.8,
+   "kind": "washer",
+   "note": "0.8 m cube"
+  },
+  {
+   "id": "Washer_7",
+   "tier": "lower",
+   "x0": 25.0,
+   "y0": 48.25,
+   "x1": 25.8,
+   "y1": 49.05,
+   "h": 0.8,
+   "kind": "washer",
+   "note": "0.8 m cube"
+  },
+  {
+   "id": "Washer_8",
+   "tier": "lower",
+   "x0": 26.0,
+   "y0": 48.25,
+   "x1": 26.8,
+   "y1": 49.05,
+   "h": 0.8,
+   "kind": "washer",
+   "note": "0.8 m cube"
+  },
+  {
+   "id": "Review_Desk",
+   "tier": "lower",
+   "x0": 56,
+   "y0": 2.2,
+   "x1": 59.6,
+   "y1": 3.8,
+   "h": 1.0,
+   "kind": "desk",
+   "note": "review / processing desk in the intake (the sheet's counter, X 56-59.6, Y 2.2-3.8, 1.0 m high)"
+  },
+  {
+   "id": "Control_Desk",
+   "tier": "upper",
+   "x0": 49.0,
+   "y0": 31.4,
+   "x1": 55.0,
+   "y1": 32.2,
+   "h": 0.75,
+   "kind": "desk",
+   "note": "control room desk, 0.75 m high"
+  },
+  {
+   "id": "Office_Desk_1",
+   "tier": "upper",
+   "x0": 48.0,
+   "y0": 29.0,
+   "x1": 49.8,
+   "y1": 29.8,
+   "h": 0.75,
+   "kind": "desk",
+   "note": "office desk, 0.75 m high"
+  },
+  {
+   "id": "Office_Desk_2",
+   "tier": "upper",
+   "x0": 52.0,
+   "y0": 24.6,
+   "x1": 53.8,
+   "y1": 25.4,
+   "h": 0.75,
+   "kind": "desk",
+   "note": "office desk, 0.75 m high"
+  }
+ ],
+ "emissive": {
+  "warn": 3.0,
+  "frame_red": 2.5,
+  "frame_yellow": 3.0,
+  "glow_green": 12.0,
+  "glow_yellow": 16.0,
+  "lamp_1": 8.0,
+  "lamp_2": 8.0,
+  "lamp_3": 8.0,
+  "lamp_4": 8.0,
+  "lamp_5": 8.0,
+  "lamp_6": 8.0,
+  "lamp_7": 8.0,
+  "lamp_8": 8.0,
+  "lamp_9": 8.0,
+  "lamp_10": 8.0,
+  "lamp_11": 8.0
+ },
+ "marker_tiles": [
+  {
+   "id": "Tile_T01",
+   "tier": "upper",
+   "x0": 42.4,
+   "y0": 19.2,
+   "x1": 44.0,
+   "y1": 21.4,
+   "kind": "warn"
+  },
+  {
+   "id": "Tile_T02",
+   "tier": "lower",
+   "x0": 8.6,
+   "y0": 28,
+   "x1": 10.4,
+   "y1": 29,
+   "kind": "warn"
+  },
+  {
+   "id": "Tile_T03",
+   "tier": "lower",
+   "x0": 51.6,
+   "y0": 28,
+   "x1": 53.4,
+   "y1": 29,
+   "kind": "warn"
+  },
+  {
+   "id": "Tile_Gate_D28a",
+   "tier": "upper",
+   "x0": 30,
+   "y0": 21.25,
+   "x1": 32,
+   "y1": 21.549999999999997,
+   "kind": "warn"
+  },
+  {
+   "id": "Tile_Gate_D28b",
+   "tier": "upper",
+   "x0": 30,
+   "y0": 30.85,
+   "x1": 32,
+   "y1": 31.15,
+   "kind": "warn"
+  }
+ ],
+ "door_frames": {
+  "proud": 0.1,
+  "width": 0.1,
+  "types": {
+   "staff": "frame_red",
+   "restricted": "frame_red",
+   "gate": "frame_yellow"
+  }
+ },
+ "landmarks": [
+  {
+   "id": "Strip_01_Green",
+   "x0": 8.15,
+   "y0": 8.2,
+   "x1": 8.19,
+   "y1": 19.8,
+   "z0": 2.85,
+   "z1": 3.05,
+   "kind": "glow_green"
+  },
+  {
+   "id": "Strip_W07_Hall",
+   "x0": 53.81,
+   "y0": 8.9,
+   "x1": 53.85,
+   "y1": 19.1,
+   "z0": 6.85,
+   "z1": 7.15,
+   "kind": "glow_yellow"
+  },
+  {
+   "id": "Strip_W07_Lookout",
+   "x0": 54.15,
+   "y0": 8.9,
+   "x1": 54.19,
+   "y1": 19.1,
+   "z0": 6.85,
+   "z1": 7.15,
+   "kind": "glow_yellow"
+  }
+ ],
+ "texts": [
+  {
+   "id": "Text_01",
+   "text": "01",
+   "x": 8.22,
+   "y": 17.4,
+   "z": 2.0,
+   "yaw": 0,
+   "size": 190,
+   "color": [
+    90,
+    255,
+    140
+   ]
+  }
+ ],
+ "corridor_details": [
+  {
+   "door": "D18a",
+   "room": "Walk-in",
+   "x": 13.2,
+   "wall_y": 36,
+   "yaw": 90,
+   "sign_y": 36.2,
+   "lamp": "lamp_1",
+   "rgb": [
+    255,
+    51,
+    51
+   ]
+  },
+  {
+   "door": "D18b",
+   "room": "Kitchen",
+   "x": 19.8,
+   "wall_y": 36,
+   "yaw": 90,
+   "sign_y": 36.2,
+   "lamp": "lamp_2",
+   "rgb": [
+    255,
+    140,
+    25
+   ]
+  },
+  {
+   "door": "D18c",
+   "room": "Kitchen",
+   "x": 31.8,
+   "wall_y": 36,
+   "yaw": 90,
+   "sign_y": 36.2,
+   "lamp": "lamp_3",
+   "rgb": [
+    255,
+    242,
+    51
+   ]
+  },
+  {
+   "door": "D18d",
+   "room": "Dish pit",
+   "x": 40.0,
+   "wall_y": 36,
+   "yaw": 90,
+   "sign_y": 36.2,
+   "lamp": "lamp_4",
+   "rgb": [
+    102,
+    255,
+    51
+   ]
+  },
+  {
+   "door": "D18e",
+   "room": "Waste",
+   "x": 47.8,
+   "wall_y": 36,
+   "yaw": 90,
+   "sign_y": 36.2,
+   "lamp": "lamp_5",
+   "rgb": [
+    25,
+    229,
+    140
+   ]
+  },
+  {
+   "door": "D19a",
+   "room": "Dry store",
+   "x": 13.3,
+   "wall_y": 37.8,
+   "yaw": -90,
+   "sign_y": 37.6,
+   "lamp": "lamp_6",
+   "rgb": [
+    25,
+    229,
+    255
+   ]
+  },
+  {
+   "door": "D19b",
+   "room": "Laundry",
+   "x": 24.0,
+   "wall_y": 37.8,
+   "yaw": -90,
+   "sign_y": 37.6,
+   "lamp": "lamp_7",
+   "rgb": [
+    51,
+    114,
+    255
+   ]
+  },
+  {
+   "door": "D19c",
+   "room": "Linen",
+   "x": 38.0,
+   "wall_y": 37.8,
+   "yaw": -90,
+   "sign_y": 37.6,
+   "lamp": "lamp_8",
+   "rgb": [
+    140,
+    76,
+    255
+   ]
+  },
+  {
+   "door": "D19d",
+   "room": "Maintenance",
+   "x": 45.0,
+   "wall_y": 37.8,
+   "yaw": -90,
+   "sign_y": 37.6,
+   "lamp": "lamp_9",
+   "rgb": [
+    242,
+    76,
+    229
+   ]
+  },
+  {
+   "door": "D21",
+   "room": "Loading bay",
+   "x": 50.4,
+   "wall_y": 37.8,
+   "yaw": -90,
+   "sign_y": 37.6,
+   "lamp": "lamp_10",
+   "rgb": [
+    255,
+    114,
+    165
+   ]
+  },
+  {
+   "door": "D40",
+   "room": "Cart bay",
+   "x": 24.0,
+   "wall_y": 36,
+   "yaw": 90,
+   "sign_y": 36.2,
+   "lamp": "lamp_11",
+   "rgb": [
+    242,
+    242,
+    242
+   ]
+  }
+ ],
+ "review_camera": {
+  "spring_arm_socket_offset": [
+   0,
+   60,
+   0
+  ],
+  "motion_blur": 0.0
+ }
+}

@@ -1,0 +1,100 @@
+== Geometry summary ==
+Boxes: 503 total (marking=23, prop=97, rail=159, sign=52, slab=16, stair=44, wall=112); collision boxes 428; text signs 52; lights 81; markers 6
+Footprint: x 0..6100, y 0..2800 = 61.0 m x 28.0 m, one continuous rectangle with exterior walls on all four sides
+== Dimensions ==
+Doors/openings: 33, smallest width 160 cm (capsule diameter 68); narrow: none; low: none
+Stair Stair_South  22 steps, riser 17.73 cm, run 28 cm, width 240 cm; foot at x=4950, head at x=4334
+Stair Stair_North  22 steps, riser 17.73 cm, run 28 cm, width 240 cm; foot at x=4950, head at x=4334
+Lower hall: one open space 4800 x 1200 cm (x 800..5600, y 800..2000), no partition, crossover underside z=360; walkways 300 cm wide (south/north/west), crossover 300 cm wide (276 clear), cells 400 x 500 (west cells 450 x 500), lookout 500 x 1800, office 2400 x 500
+== Walk simulation (capsule r=34 hh=90, max step 45) ==
+  route R1_Hall_End_to_End             PASS (end floor z=0)
+  route R2_Under_Crossover_NS          PASS (end floor z=0)
+  route R3_Lower_North_Cells           PASS (end floor z=0)
+  route R4_Seating_Lanes_and_Room      PASS (end floor z=0)
+  route R5a_South_Stair_Up             PASS (end floor z=390)
+  route R5b_Upper_Walkway_Ring         PASS (end floor z=390)
+  route R5c_Crossover_S_to_N           PASS (end floor z=390)
+  route R5d_North_Stair_Down           PASS (end floor z=0)
+  route R6_Upper_Cells_W_S_N           PASS (end floor z=390)
+  route R7_Office_and_Lookout          PASS (end floor z=390)
+  blocked B1_Hall_east_wall            PASS (blocked) (blocked by W_Hall_E_650 at (5554,1400) z=0)
+  blocked B2_South_walkway_edge        PASS (blocked) (blocked by Bal_South_Bar_0 at (2000,755) z=415)
+  blocked B3_North_walkway_edge        PASS (blocked) (blocked by Bal_North_Bar_0 at (2000,2037) z=415)
+  blocked B4_Crossover_edge            PASS (blocked) (blocked by Bal_Cross_E_Bar_0 at (3305,1200) z=415)
+  blocked B5_West_walkway_edge         PASS (blocked) (blocked by Bal_West_Bar_0 at (755,1400) z=415)
+  blocked B6_Walkway_into_cell_wall    PASS (blocked) (blocked by W_S_Front_1980 at (2100,544) z=390)
+  blocked B7_Lookout_window            PASS (blocked) (blocked by Lookout_Console at (5728,1400) z=390)
+  blocked B8_Lower_hall_west_wall      PASS (blocked) (blocked by W_Hall_W_1255 at (545,1400) z=0)
+Player start (1100,1400) floor z=0 blocked=None -> VALID
+== Reachability and edges ==
+Reachable walking cells (20 cm grid): 38110 (~1524 m2)
+  Lower hall west                            ( 1100, 1400,z  0) reachable=True  expected=True  ok
+  Lower hall under crossover                 ( 3200, 1400,z  0) reachable=True  expected=True  ok
+  Lower hall east end                        ( 5400, 1400,z  0) reachable=True  expected=True  ok
+  Seating under south walkway                ( 1225,  230,z  0) reachable=True  expected=True  ok
+  Seating row in the open hall (lane)        ( 1225, 1030,z  0) reachable=True  expected=True  ok
+  Enclosed room interior                     ( 3600,  300,z  0) reachable=True  expected=True  ok
+  Lower cell L1                              (  700, 2600,z  0) reachable=True  expected=True  ok
+  Lower cell L9                              ( 3900, 2600,z  0) reachable=True  expected=True  ok
+  West aisle (lower)                         (  650, 1400,z  0) reachable=True  expected=True  ok
+  North aisle (lower)                        ( 2000, 2150,z  0) reachable=True  expected=True  ok
+  South stair foot lobby                     ( 5300,  650,z  0) reachable=True  expected=True  ok
+  North stair foot lobby                     ( 5300, 2150,z  0) reachable=True  expected=True  ok
+  South walkway                              ( 2000,  650,z390) reachable=True  expected=True  ok
+  North walkway                              ( 2000, 2150,z390) reachable=True  expected=True  ok
+  West walkway                               (  650, 1400,z390) reachable=True  expected=True  ok
+  Crossover                                  ( 3200, 1400,z390) reachable=True  expected=True  ok
+  Upper cell W1                              (  250,  725,z390) reachable=True  expected=True  ok
+  Upper cell S1                              (  700,  250,z390) reachable=True  expected=True  ok
+  Upper cell U1                              (  700, 2550,z390) reachable=True  expected=True  ok
+  Upper cell U9                              ( 3900, 2550,z390) reachable=True  expected=True  ok
+  Guard office interior                      ( 4500,  300,z390) reachable=True  expected=True  ok
+  Guard lookout                              ( 5850, 1400,z390) reachable=True  expected=True  ok
+  Lower west band (closed)                   (  250, 1400,z  0) reachable=False expected=False ok
+  Lower SE block under the office (closed)   ( 5000,  250,z  0) reachable=False expected=False ok
+  Void under the lookout                     ( 5850, 1400,z  0) reachable=False expected=False ok
+  NE corner mass                             ( 5400, 2600,z  0) reachable=False expected=False ok
+  NW corner mass                             (  250, 2600,z  0) reachable=False expected=False ok
+  Stair body is not deck level               ( 4700,  650,z390) reachable=False expected=False ok
+Unprotected walkable edges with drop > 60 cm: 0 cells
+== Sightlines ==
+From the lower hall start (1100,1400), facing east (camera ~200 cm behind):
+  start -> crossover west rail face           VISIBLE
+  start -> crossover deck underside           VISIBLE
+  start -> lookout sign (east wall, below the deck line) VISIBLE
+  start -> lookout window opening             VISIBLE
+  start -> south stair, void-side rail face   VISIBLE
+  start -> north stair, void-side rail face   VISIBLE
+  start -> office doorway (z=520)             VISIBLE
+  start -> enclosed room opening              VISIBLE
+  upper north tier band 9/9, upper south tier band 8/8, lower north door faces 9/9, upper west doors 0/4 (behind the viewer)
+From the guard lookout (5 eye positions behind the console, x=5740, z=555):
+  lower hall floor visible at head height: 85%
+  seating area (standing, head height): under the south walkway 37% (829/2194), open row in the hall 98% (926/938), both 56%
+  seating area seen at seated height (floor+100): 66%
+  enclosed room interior 18% (door sightline only)
+  cell doors LN (lower north) visible: 9/9
+  cell doors UN (upper north) visible: 9/9
+  cell doors US (upper south) visible: 8/8
+  cell doors UW (upper west) visible: 4/4
+From the crossover looking down (3 eye positions, z=555):
+  lower hall floor visible at head height: 70%
+  seating area (standing, head height): under the south walkway 76% (1687/2194), open row in the hall 78% (734/938), both 77%
+  seating area seen at seated height (floor+100): 76%
+  enclosed room interior 25% (door sightline only)
+  cell doors LN (lower north) visible: 7/9
+  cell doors UN (upper north) visible: 9/9
+  cell doors US (upper south) visible: 8/8
+  cell doors UW (upper west) visible: 4/4
+  crossover sees the lookout window face: True
+== Stair feet ==
+  south stair foot lobby   free radius 135 cm at (5300,650); open mouth to the hall 580 cm wide (x 4960..5585 at the hall edge)
+  north stair foot lobby   free radius 135 cm at (5300,2150); open mouth to the hall 600 cm wide (x 4960..5585 at the hall edge)
+== Camera clearance along the test routes (approximation, arm 200 cm, heights floor+160 / +230) ==
+Route samples: 933; arm shortened directly behind the player at 7 (1%); an orbit extreme (+/-45/90 deg) would be < 120 cm at 17
+    tightest around (3200..3400, 800..1000, z~0): 30 cm of arm free
+    tightest around (4000..4200, 400..600, z~300): 90 cm of arm free
+    tightest around (3200..3400, 600..800, z~300): 130 cm of arm free
+    tightest around (5400..5600, 2000..2200, z~0): 170 cm of arm free
+Errors: 0  Warnings: 0
+Analytic validation only (no engine collision, no PIE). Elapsed 2.2 s.

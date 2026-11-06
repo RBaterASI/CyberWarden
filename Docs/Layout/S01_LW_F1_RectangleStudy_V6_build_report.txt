@@ -1,0 +1,248 @@
+V6 level exists - loading and clearing previously generated V6 actors only
+Spawned 827 axis-aligned boxes
+Spawned 76 text signs
+Spawned 14 metadata markers (hidden in game): ArrivalDoor=1, Crossover=1, FutureAccess=1, Gate=1, IntakeExit=1, Lookout=1, PlayerSpawn=1, Processing=1, RestrictedDoor=1, SightlineTest=1, SoftRestricted=2, StairFoot=2
+Spawned 176 point lights
+World Settings override: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
+== Geometry summary ==
+Boxes: 827 total (marking=66, prop=97, rail=209, secured=2, sign=75, slab=25, stair=104, wall=249); collision boxes 686; text signs 76; lights 176; markers 14; floor-guide strips 4
+Footprint: x 0..6100, y 0..5100 = 61.0 m x 51.0 m (61 x 51 m), exterior walls on all four sides, roof slab 750..780
+Cells: 33 (lower 9 + upper 24); sheet total 33
+== Dimensions ==
+Doors/openings: 74, smallest width 100 cm (capsule diameter 68); narrow: none; low: none
+Stair Stair_S1   26 steps, riser 15.00 cm, tread 26.9 cm, width 340 cm, run 700 cm, z 0 -> 390
+Stair Stair_S2   26 steps, riser 15.00 cm, tread 26.9 cm, width 340 cm, run 700 cm, z 0 -> 390
+Stair Stair_S3a  13 steps, riser 15.00 cm, tread 19.0 cm, width 120 cm, run 247 cm, z 0 -> 195
+Stair Stair_S3b  13 steps, riser 15.00 cm, tread 19.0 cm, width 120 cm, run 247 cm, z 195 -> 390
+Stair Stair_S4a  13 steps, riser 15.00 cm, tread 32.3 cm, width 170 cm, run 420 cm, z 0 -> 195
+Stair Stair_S4b  13 steps, riser 15.00 cm, tread 32.3 cm, width 170 cm, run 420 cm, z 195 -> 390
+== Walk simulation (capsule r=34 hh=90, max step 45) ==
+  route R01_Start_West_Through_D02_Down_The_Hall PASS (end floor z=0, expected 0)
+  route R02_Guide_Line_To_S1_And_Up_To_North_Walkway PASS (end floor z=390, expected 390)
+  route R03_S1_Foot_To_Hall_Without_Climbing   PASS (end floor z=0, expected 0)
+  route R04_Under_Crossover_North_South        PASS (end floor z=0, expected 0)
+  route R05_S2_Up_To_West_Walkway              PASS (end floor z=390, expected 390)
+  route R06_Lower_Cells_C01_C02_C09            PASS (end floor z=0, expected 0)
+  route R07_Showers                            PASS (end floor z=0, expected 0)
+  route R08_Seating_Lanes_Between_Tables       PASS (end floor z=0, expected 0)
+  route R09_Serving_Counter_Lane               PASS (end floor z=0, expected 0)
+  route R10_Service_West_Entrance_To_South_Leg PASS (end floor z=0, expected 0)
+  route R11_Pantry_And_Kitchen                 PASS (end floor z=0, expected 0)
+  route R12_Laundry                            PASS (end floor z=0, expected 0)
+  route R13_Linen_Store                        PASS (end floor z=0, expected 0)
+  route R14_Service_East_Leg_To_Seating_And_Hall PASS (end floor z=0, expected 0)
+  route R15_Intake_To_Staff_Store_Chase_Utility PASS (end floor z=0, expected 0)
+  route R16_East_Staff_Corridor_North_To_South PASS (end floor z=0, expected 0)
+  route R17_Corridor_To_Vestibule_D09          PASS (end floor z=0, expected 0)
+  route R18_Corridor_To_Guard_Post_D10         PASS (end floor z=0, expected 0)
+  route R19_Corridor_To_Staff_Room_D11_And_Service_Link_D17 PASS (end floor z=0, expected 0)
+  route R20_S3_Vestibule_Staff_Stair_Up        PASS (end floor z=390, expected 390)
+  route R21_S4_Staff_Stair_Up                  PASS (end floor z=390, expected 390)
+  route R22_Hall_To_D02_Intake_And_Back        PASS (end floor z=0, expected 0)
+  route R30_North_Walkway_West_Walkway_South_Walkway_Ring PASS (end floor z=390, expected 390)
+  route R31_Crossover_Walkway_To_Walkway       PASS (end floor z=390, expected 390)
+  route R32_North_Cells_N02_N08_And_N01_Via_Library PASS (end floor z=390, expected 390)
+  route R33_Library_And_South_Cell_S01_From_Walkways PASS (end floor z=390, expected 390)
+  route R34_South_Cells_S02_S05_S08            PASS (end floor z=390, expected 390)
+  route R35_Rec_Gate_Rec_Corridor_West_Link_South_Corridor PASS (end floor z=390, expected 390)
+  route R36_Rec_Room_Fitness_Workshop          PASS (end floor z=390, expected 390)
+  route R37_W_Cells_Via_South_Corridor         PASS (end floor z=390, expected 390)
+  route R38_Office_Door_D23_Into_Office_And_Back PASS (end floor z=390, expected 390)
+  route R39_Office_To_Staff_Spine_D27_And_Chase_D32 PASS (end floor z=390, expected 390)
+  route R40_Spine_To_Control_Kit_Break         PASS (end floor z=390, expected 390)
+  route R41_Spine_To_Workshop_D29_And_Corridors_D28_D30 PASS (end floor z=390, expected 390)
+  route R42_Office_To_Lookout_To_North_Arm     PASS (end floor z=390, expected 390)
+  route R43_North_Arm_West_End_And_Back        PASS (end floor z=390, expected 390)
+  route R44_Lookout_Console_Row                PASS (end floor z=390, expected 390)
+  route R45_Down_S1_To_Intake                  PASS (end floor z=0, expected 0)
+  blocked B01_D07_Secured_Door                 PASS (blocked) (blocked by SECURED_D07 at (5362,1500) z=0)
+  blocked B02_D03_Arrival_Door_Sealed          PASS (blocked) (blocked by SECURED_D03 at (6061,600) z=0)
+  blocked B03_Hall_North_Edge_Walkway_Rail     PASS (blocked) (blocked by Bal_North_Bar_0 at (2000,757) z=415)
+  blocked B04_Hall_South_Edge_Walkway_Rail     PASS (blocked) (blocked by Bal_South_Bar_0 at (2000,2040) z=415)
+  blocked B05_Crossover_Edge_Rail              PASS (blocked) (blocked by Bal_Cross_E_Bar_0 at (3228,1200) z=415)
+  blocked B06_West_Walkway_Edge_Rail           PASS (blocked) (blocked by Bal_West_Bar_0 at (758,1400) z=415)
+  blocked B07_S1_Void_Side_Rail                PASS (blocked) (blocked by Stair_S1_Step14 at (4800,700) z=0)
+  blocked B08_S2_Void_Side_Rail                PASS (blocked) (blocked by Stair_S2_Step10 at (1200,1800) z=0)
+  blocked B09_Kitchen_Hatch_Counter            PASS (blocked) (blocked by Serving_Counter at (3100,2708) z=0)
+  blocked B10_Kitchen_Not_From_Seating         PASS (blocked) (blocked by L_Seat_S_2000 at (2500,2760) z=0)
+  blocked B11_Guard_Post_Window_W01            PASS (blocked) (blocked by L_E54_S_2100 at (5358,2400) z=0)
+  blocked B12_Plant_Has_No_Door                PASS (blocked) (blocked by L_Seat_S_0 at (300,2844) z=0)
+  blocked B13_Kitchen_West_Wall_Is_Solid       PASS (blocked) (blocked by L_Kit_W_2800 at (1444,3400) z=0)
+  blocked B14_Lookout_Window_W05               PASS (blocked) (blocked by Lookout_Console at (5500,1400) z=390)
+  blocked B15_North_Arm_Window_To_Walkway_W02  PASS (blocked) (blocked by U_Arm_S_4000 at (4200,508) z=390)
+  blocked B16_Cell_Back_Wall                   PASS (blocked) (blocked by Bunk_C2 at (1050,380) z=0)
+  blocked B17_D16_Opens_On_A_45_cm_Gap_Beside_S4 PASS (blocked) (blocked by S4_Fill_W at (5427,4750) z=0)
+  blocked B21_N01_Door_Not_Into_Library        PASS (blocked) (blocked by U_Lib_N_0 at (300,800) z=390)
+  blocked B22_S01_Door_Not_Into_Library        PASS (blocked) (blocked by U_Lib_S_0 at (300,2000) z=390)
+  blocked B18_Upper_Cell_Back_Wall             PASS (blocked) (blocked by Bunk_N3 at (1250,140) z=390)
+  blocked B19_Rec_Room_Rear_Wall               PASS (blocked) (blocked by U_Rec_S_340 at (990,3932) z=390)
+  blocked B20_S4_Opening_Rail                  PASS (blocked) (blocked by S4_Divider at (5604,4600) z=360)
+Player start (5940,1030) yaw 180 floor z=0 blocked=None -> VALID
+== Reachability and edges ==
+Reachable walking cells (20 cm grid): 91154 (~3646 m2)
+  Intake (player start)                            ( 5940, 1030,z  0) reachable=True  expected=True  ok
+  D02 opening                                      ( 5400, 1030,z  0) reachable=True  expected=True  ok
+  S1 foot landing                                  ( 5290,  700,z  0) reachable=True  expected=True  ok
+  Hall under the crossover                         ( 3100, 1400,z  0) reachable=True  expected=True  ok
+  Hall west end                                    ( 1100, 1400,z  0) reachable=True  expected=True  ok
+  Showers interior                                 (  400, 1400,z  0) reachable=True  expected=True  ok
+  Lower cell C01                                   (  616,  500,z  0) reachable=True  expected=True  ok
+  Lower cell C09                                   ( 4150,  500,z  0) reachable=True  expected=True  ok
+  Seating lane between table rows                  ( 2300, 2440,z  0) reachable=True  expected=True  ok
+  Serving counter lane                             ( 3100, 2692,z  0) reachable=True  expected=True  ok
+  Service west leg                                 (  950, 3500,z  0) reachable=True  expected=True  ok
+  Service south leg                                ( 3500, 4750,z  0) reachable=True  expected=True  ok
+  Service east leg                                 ( 5250, 3500,z  0) reachable=True  expected=True  ok
+  Pantry                                           ( 2000, 4400,z  0) reachable=True  expected=True  ok
+  Kitchen                                          ( 1860, 3300,z  0) reachable=True  expected=True  ok
+  Laundry                                          ( 3200, 4100,z  0) reachable=True  expected=True  ok
+  Linen store                                      ( 4300, 4000,z  0) reachable=True  expected=True  ok
+  North staff chase, west end                      (  200,  200,z  0) reachable=True  expected=True  ok
+  Utility                                          (  200,  500,z  0) reachable=True  expected=True  ok
+  Staff store door approach                        ( 5500,  220,z  0) reachable=True  expected=True  ok
+  Staff store                                      ( 4800,  250,z  0) reachable=True  expected=True  ok
+  East staff corridor                              ( 5980, 3000,z  0) reachable=True  expected=True  ok
+  Vestibule                                        ( 5560, 1460,z  0) reachable=True  expected=True  ok
+  Guard post                                       ( 5500, 2400,z  0) reachable=True  expected=True  ok
+  Staff room                                       ( 5500, 3600,z  0) reachable=True  expected=True  ok
+  SE stair block                                   ( 5980, 4600,z  0) reachable=True  expected=True  ok
+  North walkway                                    ( 3100,  620,z390) reachable=True  expected=True  ok
+  West walkway                                     (  630, 1400,z390) reachable=True  expected=True  ok
+  South walkway                                    ( 3100, 2170,z390) reachable=True  expected=True  ok
+  Crossover                                        ( 3100, 1400,z390) reachable=True  expected=True  ok
+  Library                                          (  300, 1400,z390) reachable=True  expected=True  ok
+  North walkway stub at the N01 door               (  250,  620,z390) reachable=True  expected=True  ok
+  South walkway stub at the S01 door               (  250, 2170,z390) reachable=True  expected=True  ok
+  Upper cell N03                                   ( 1250,  300,z390) reachable=True  expected=True  ok
+  Upper cell N01                                   (  250,  300,z390) reachable=True  expected=True  ok
+  Upper cell S01                                   (  250, 2600,z390) reachable=True  expected=True  ok
+  Upper cell S08                                   ( 4150, 2600,z390) reachable=True  expected=True  ok
+  Rec gate passage                                 ( 2200, 2650,z390) reachable=True  expected=True  ok
+  Rec corridor                                     ( 2200, 2970,z390) reachable=True  expected=True  ok
+  West link                                        (  170, 3500,z390) reachable=True  expected=True  ok
+  Rec room                                         (  990, 3600,z390) reachable=True  expected=True  ok
+  Fitness                                          ( 2320, 3600,z390) reachable=True  expected=True  ok
+  Workshop                                         ( 3700, 3300,z390) reachable=True  expected=True  ok
+  South corridor                                   ( 2000, 4150,z390) reachable=True  expected=True  ok
+  Upper cell W01                                   (  600, 4500,z390) reachable=True  expected=True  ok
+  Upper cell W08                                   ( 4150, 4500,z390) reachable=True  expected=True  ok
+  Staff spine                                      ( 4570, 3000,z390) reachable=True  expected=True  ok
+  South staff chase                                ( 2000, 4980,z390) reachable=True  expected=True  ok
+  Control room                                     ( 5200, 3250,z390) reachable=True  expected=True  ok
+  Kit and armoury                                  ( 5200, 4050,z390) reachable=True  expected=True  ok
+  Break room                                       ( 5200, 4750,z390) reachable=True  expected=True  ok
+  Office                                           ( 4800, 2300,z390) reachable=True  expected=True  ok
+  Lookout                                          ( 5850, 1400,z390) reachable=True  expected=True  ok
+  North arm (east end, over the intake)            ( 5850,  300,z390) reachable=True  expected=True  ok
+  North arm (west end)                             ( 4200,  250,z390) reachable=True  expected=True  ok
+  North arm lobe above the intake                  ( 5850,  650,z390) reachable=True  expected=True  ok
+  Plant (closed, no door)                          (  400, 4000,z  0) reachable=False expected=False ok
+  Solid fill west of the kitchen                   ( 1200, 3500,z  0) reachable=False expected=False ok
+  Solid fill east of the kitchen                   ( 4950, 3500,z  0) reachable=False expected=False ok
+  Solid south margin                               ( 3000, 4980,z  0) reachable=False expected=False ok
+  Slit between the pantry wall and the service-leg wall ( 2500, 4580,z  0) reachable=False expected=False ok
+  Hall void (no deck)                              ( 2000, 1400,z390) reachable=False expected=False ok
+  S1 stair body (void above)                       ( 4800,  650,z390) reachable=False expected=False ok
+  S3 opening (void)                                ( 5600, 1850,z390) reachable=False expected=False ok
+  S4 opening (void)                                ( 5600, 4700,z390) reachable=False expected=False ok
+  Closed mass under the north walkway end          ( 4570,  700,z  0) reachable=False expected=False ok
+Unprotected walkable edges with drop > 60 cm: 0 cells
+== Room reach (every sheet block should be walkable from the intake; the plant is closed) ==
+  rooms with walkable cells: 71 of 76; no reach: none
+== First ten seconds (player start, camera ~200 cm behind) ==
+  start -> D02 intake opening (centre)            VISIBLE
+  start -> hall long axis, far west end (x=900)   VISIBLE
+  start -> NE stair first step                    VISIBLE
+  start -> NE stair, void-side rail               hidden
+  start -> crossover underside                    VISIBLE
+  start -> lookout window head strip              hidden
+  floor guide: 4 strips from the arrival door (6040,600) to (5200,630), the first step of S1 (x 5173..5200, y 460..800)
+  guard-side view: secured door D07 (x=5400, y 1350..1650) from the crossover centre (3100, 1400, 555): VISIBLE
+  secured door D07 from the player start looking back (camera east of it is behind the wall): not visible by design (spawn is inside the intake)
+== Lookout sightlines (T05 blind band X 8..21, Y 8..20, lower tier) ==
+  floor visible from the lookout (4 eye positions, knee height): blind band 100% (3038/3038), rest of the hall 79% (7570/9528)
+  NOTE: with the crossover as specified (30 cm slab at z 3.6-3.9, open rails) the T05 band is NOT blind from the lookout: a sightline from an eye at z 5.5 m to a person standing at x 8-21 m passes 0.3-0.8 m below the crossover underside. The board's hatched band only appears if the crossover gets a deeper fascia (not in the sheet); the study leaves the crossover as written.
+  seating (under the upper tier) seen through the hall: 69% of 5422 cells at head height
+  guard post window W01 sees 100% of the seating (6296/6296 cells)
+  lookout window W05 and the lit strip: visible from the crossover: yes
+== Hiding opportunities (service side) ==
+  service south leg: 1983 walkable cells; the west leg end (950,2900) sees 5% of the south leg
+  recessed door at x=2000: reachable True; visible from the hall-side west leg corner (950,4700): False
+  recessed door at x=3200: reachable True; visible from the hall-side west leg corner (950,4700): False
+  recessed door at x=4300: reachable True; visible from the hall-side west leg corner (950,4700): False
+  cover pieces present (carts, lockers, shelving, machines)
+== Staff network (flood restricted to guard/staff/intake rooms) ==
+  staff-only flood from the intake reaches 18 of 18 staff/guard blocks; not reached: none
+  upper staff blocks reached without touching a prisoner room: yes
+== Stair feet ==
+  S1 NE foot (landing L05, mid)  free radius 90 cm at (5290,640)
+  S2 SW foot (hall)              free radius 100 cm at (1600,1830)
+  S1 landing L05 is 185 cm wide between the first step and the hall-east wall face (x 5200..5385) and opens south into the hall
+  camera arm directly behind the spawn (east, toward the arrival wall): 140 of 200 cm free; the wall face is 145 cm behind the start
+== Camera clearance along the test routes (approximation, arm 200 cm) ==
+Route samples: 2620; arm shortened directly behind the player at 258 (10%); an orbit extreme would be < 120 cm at 653
+    tightest around (5200..5400, 1000..1200, z~0): 0 cm of arm free
+    tightest around (5200..5400, 800..1000, z~0): 0 cm of arm free
+    tightest around (600..800, 600..800, z~0): 0 cm of arm free
+    tightest around (1000..1200, 600..800, z~0): 0 cm of arm free
+    tightest around (1800..2000, 3400..3600, z~0): 0 cm of arm free
+    tightest around (4200..4400, 4400..4600, z~0): 0 cm of arm free
+    tightest around (5200..5400, 200..400, z~0): 0 cm of arm free
+    tightest around (4200..4400, 0..200, z~0): 0 cm of arm free
+Errors: 0  Warnings: 0
+== Engine-side collision spot checks (line traces, Visibility channel) ==
+  intake floor at the player start                                       hit z=-0.0 expected 0.0 -> ok
+  hall floor, west end                                                   hit z=-0.0 expected 0.0 -> ok
+  hall floor under the crossover                                         hit z=-0.0 expected 0.0 -> ok
+  crossover deck                                                         hit z=390.0 expected 390.0 -> ok
+  north walkway deck                                                     hit z=390.0 expected 390.0 -> ok
+  south walkway deck                                                     hit z=390.0 expected 390.0 -> ok
+  west walkway deck                                                      hit z=390.0 expected 390.0 -> ok
+  guard lookout floor                                                    hit z=390.0 expected 390.0 -> ok
+  guard office floor                                                     hit z=390.0 expected 390.0 -> ok
+  north arm floor directly above the intake                              hit z=390.0 expected 390.0 -> ok
+  staff spine floor                                                      hit z=390.0 expected 390.0 -> ok
+  S1 NE stair step at x=4600 (23rd step)                                 hit z=345.0 expected 345.0 -> ok
+  S2 SW stair step at x=1000 (19th step)                                 hit z=285.0 expected 285.0 -> ok
+  S3 staff stair, lane A step at x=5640 (7th step)                       hit z=105.0 expected 105.0 -> ok
+  S3 staff stair, lane B step at x=5600 (5th upper step)                 hit z=270.0 expected 270.0 -> ok
+  S4 staff stair, lane E step at y=4700 (7th step)                       hit z=105.0 expected 105.0 -> ok
+  secured door D07 panel (blocks at x~5392)                              hit x=5392.0 expected 5392.0 -> ok
+  sealed arrival door D03 panel (blocks at x~6092)                       hit x=6092.0 expected 6092.0 -> ok
+  D02 is OPEN: a ray from the intake down the hall axis stops at the showers wall (x~715) hit x=715.0 expected 715.0 -> ok
+  kitchen hatch is OPEN: seating -> kitchen -> kitchen south wall (y~3600) hit y=3600.0 expected 3600.0 -> ok
+  kitchen wall is SOLID away from the hatch (y~2785)                     hit y=2785.0 expected 2785.0 -> ok
+  lookout window W05 is OPEN: hall -> lookout -> exterior wall (x~6085)  hit x=6085.0 expected 6085.0 -> ok
+  guard post window W01 is OPEN: seating -> guard post -> east staff corridor wall (x~5845) hit x=5845.0 expected 5845.0 -> ok
+  service west entrance D14 is OPEN: seating -> west leg -> south-leg wall (y~4865) hit y=4865.0 expected 4865.0 -> ok
+  recessed pantry door chain is OPEN: south leg -> alcove -> pantry -> kitchen wall (y~3630) hit y=3630.0 expected 3630.0 -> ok
+  north walkway balustrade blocks (top bar at y~788)                     hit y=788.0 expected 788.0 -> ok
+Level saved: True (/Game/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V6)
+== Actor counts (generated) ==
+  PlayerStart            1
+  PointLight             176
+  StaticMeshActor        831
+  TargetPoint            14
+  TextRenderActor        76
+  TOTAL                  1098
+GameMode: GameMode=BP_ThirdPersonGameMode_C DefaultPawn=BP_CyberWardenCharacter_C
+New assets created: level + none new beyond the level
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_Greybox.umap       UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V2.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V3.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V4.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Content/CyberWarden/Maps/Sector01/L_S01_LW_F1_RectangleStudy_V5.umap UNCHANGED
+Preservation: CyberWarden_C2Build/Docs/Layout/S01_LW_F1.json                                       UNCHANGED
+Preservation: CyberWarden_C2Build/Content/Python/cw_layout.py                                      UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy.json                                UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy_V2.json                             UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy.py                                           UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy_V4.json                             UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy_v2.py                                        UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy_V4.json                             UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy_v3.py                                        UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy_v4.py                                        UNCHANGED
+Preservation: CyberWarden/Docs/Layout/S01_LW_F1_RectangleStudy_V5.json                             UNCHANGED
+Preservation: CyberWarden/Content/Python/cw_rectstudy_v5.py                                        UNCHANGED
+Errors: 0  Warnings: 0
